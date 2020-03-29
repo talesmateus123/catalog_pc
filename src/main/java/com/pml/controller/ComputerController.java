@@ -28,7 +28,7 @@ import com.pml.model.Computer;
 import com.pml.repository.ComputerRepository;
 
 @RestController
-@RequestMapping("/api/computer")
+@RequestMapping(value = "/api/computers")
 public class ComputerController {
 	@Autowired
 	private ComputerRepository repository;

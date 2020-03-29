@@ -28,7 +28,7 @@ import com.pml.model.Monitor;
 import com.pml.repository.MonitorRepository;
 
 @RestController
-@RequestMapping("/api/monitor")
+@RequestMapping(value = "/api/monitors")
 public class MonitorController {
 	@Autowired
 	private MonitorRepository repository;

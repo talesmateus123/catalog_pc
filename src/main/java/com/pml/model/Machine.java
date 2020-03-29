@@ -5,13 +5,16 @@
  */
 package com.pml.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-public abstract class Machine {
+public abstract class Machine implements Serializable{
+	private static final long serialVersionUID = 1L;
 	@Id
 	@Size(max = 10)
 	private String patrimonyId;

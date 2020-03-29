@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Monitor extends Machine{
+	private static final long serialVersionUID = 1L;
 	@OneToOne(mappedBy = "monitor", cascade = CascadeType.ALL,
     fetch = FetchType.LAZY, optional = false)
 	private Computer computer;

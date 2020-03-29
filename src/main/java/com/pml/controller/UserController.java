@@ -28,7 +28,7 @@ import com.pml.model.User;
 import com.pml.repository.UserRepository;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping(value = "/api/users")
 public class UserController {
 	@Autowired
 	private UserRepository repository;

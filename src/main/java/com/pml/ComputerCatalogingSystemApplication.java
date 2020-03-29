@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PcCatalogApplication {
+public class ComputerCatalogingSystemApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PcCatalogApplication.class, args);
+		SpringApplication.run(ComputerCatalogingSystemApplication.class, args);
 	}
 
 }

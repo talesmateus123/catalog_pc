@@ -19,6 +19,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 public class Computer extends Machine{
+	private static final long serialVersionUID = 1L;
 	private String motherBoardName;
 	@NotEmpty
 	private String memoryType;
