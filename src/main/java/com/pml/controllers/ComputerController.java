@@ -3,7 +3,7 @@
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */
-package com.pml.controller;
+package com.pml.controllers;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.pml.model.Computer;
-import com.pml.repository.ComputerRepository;
+import com.pml.models.Computer;
+import com.pml.repositories.ComputerRepository;
 
 @RestController
 @RequestMapping(value = "/api/computers")
@@ -41,7 +41,7 @@ public class ComputerController {
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{id}")
 	public ResponseEntity<Computer> search(@PathVariable String id) {
-		Optional<Computer> object = this.repository.findByPatrimonyId(id);
+		Optional<Computer> object = this.repository.findById(id);
 		if(object.isEmpty())
 			return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(object.get());
@@ -61,7 +61,7 @@ public class ComputerController {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public ResponseEntity<Boolean> delete(@PathVariable String id) {
-		Optional<Computer> existingObject = this.repository.findByPatrimonyId(id);
+		Optional<Computer> existingObject = this.repository.findById(id);
 		if(existingObject.isEmpty())
 			return ResponseEntity.notFound().build();
 		
@@ -72,7 +72,7 @@ public class ComputerController {
 	@PutMapping
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public ResponseEntity<Computer> update(@Valid @RequestBody Computer object) {
-		Optional<Computer> existingObject = this.repository.findByPatrimonyId(object.getPatrimonyId());
+		Optional<Computer> existingObject = this.repository.findById(object.getPatrimonyId());
 		if(existingObject.isEmpty())
 			return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(this.repository.saveAndFlush(object));

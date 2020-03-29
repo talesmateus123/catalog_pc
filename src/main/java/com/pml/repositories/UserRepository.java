@@ -3,12 +3,12 @@
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */
-package com.pml.repository;
+package com.pml.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.pml.model.User;
+import com.pml.models.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 	

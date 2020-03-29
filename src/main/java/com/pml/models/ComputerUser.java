@@ -3,7 +3,7 @@
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */
-package com.pml.model;
+package com.pml.models;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class ComputerUser implements Serializable {
@@ -28,6 +28,7 @@ public class ComputerUser implements Serializable {
 	@NotEmpty
 	private String lastName;
 	// A user can use many computer, because the company uses the Active Directory server.
+	@JsonManagedReference
 	@ManyToMany(mappedBy = "computerUsers")
 	private List<Computer> computers;
 	
@@ -49,7 +50,6 @@ public class ComputerUser implements Serializable {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	@JsonBackReference
 	public List<Computer> getComputers() {
 		return computers;
 	}

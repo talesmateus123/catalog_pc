@@ -1,9 +1,9 @@
 /** 
- * This is the class "UserController". Which will be to represent a REST controller of User model.
+ * This is the class "ComputerUserController". Which will be to represent a REST controller of ComputerUser model.
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */
-package com.pml.controller;
+package com.pml.controllers;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,24 +24,24 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.pml.model.User;
-import com.pml.repository.UserRepository;
+import com.pml.models.ComputerUser;
+import com.pml.repositories.ComputerUserRepository;
 
 @RestController
-@RequestMapping(value = "/api/users")
-public class UserController {
+@RequestMapping(value = "/api/computer_users")
+public class ComputerUserController {
 	@Autowired
-	private UserRepository repository;
+	private ComputerUserRepository repository;
 	
 	@GetMapping
-	public List<User> list() {
+	public List<ComputerUser> list() {
 		return this.repository.findAll();
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{id}")
-	public ResponseEntity<User> search(@PathVariable Long id) {
-		Optional<User> object = this.repository.findById(id);
+	public ResponseEntity<ComputerUser> search(@PathVariable Long id) {
+		Optional<ComputerUser> object = this.repository.findById(id);
 		if(object.isEmpty())
 			return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(object.get());
@@ -49,8 +49,8 @@ public class UserController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public User add(@Valid @RequestBody User object) {
-		User savedObject = this.repository.save(object); 
+	public ComputerUser add(@Valid @RequestBody ComputerUser object) {
+		ComputerUser savedObject = this.repository.save(object); 
 		if(object.equals(savedObject))
 			return savedObject;
 		else 
@@ -61,7 +61,7 @@ public class UserController {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public ResponseEntity<Boolean> delete(@PathVariable Long id) {
-		Optional<User> existingObject = this.repository.findById(id);
+		Optional<ComputerUser> existingObject = this.repository.findById(id);
 		if(existingObject.isEmpty())
 			return ResponseEntity.notFound().build();
 		
@@ -71,8 +71,8 @@ public class UserController {
 
 	@PutMapping
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public ResponseEntity<User> update(@Valid @RequestBody User object) {
-		Optional<User> existingObject = this.repository.findById(object.getId());
+	public ResponseEntity<ComputerUser> update(@Valid @RequestBody ComputerUser object) {
+		Optional<ComputerUser> existingObject = this.repository.findById(object.getId());
 		if(existingObject.isEmpty())
 			return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(this.repository.saveAndFlush(object));

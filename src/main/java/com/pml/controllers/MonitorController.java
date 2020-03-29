@@ -3,7 +3,7 @@
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */
-package com.pml.controller;
+package com.pml.controllers;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.pml.model.Monitor;
-import com.pml.repository.MonitorRepository;
+import com.pml.models.Monitor;
+import com.pml.repositories.MonitorRepository;
 
 @RestController
 @RequestMapping(value = "/api/monitors")
@@ -41,7 +41,7 @@ public class MonitorController {
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{id}")
 	public ResponseEntity<Monitor> search(@PathVariable String id) {
-		Optional<Monitor> object = this.repository.findByPatrimonyId(id);
+		Optional<Monitor> object = this.repository.findById(id);
 		if(object.isEmpty())
 			return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(object.get());
@@ -61,7 +61,7 @@ public class MonitorController {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public ResponseEntity<Boolean> delete(@PathVariable String id) {
-		Optional<Monitor> existingObject = this.repository.findByPatrimonyId(id);
+		Optional<Monitor> existingObject = this.repository.findById(id);
 		if(existingObject.isEmpty())
 			return ResponseEntity.notFound().build();
 		
@@ -72,7 +72,7 @@ public class MonitorController {
 	@PutMapping
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public ResponseEntity<Monitor> update(@Valid @RequestBody Monitor object) {
-		Optional<Monitor> existingObject = this.repository.findByPatrimonyId(object.getPatrimonyId());
+		Optional<Monitor> existingObject = this.repository.findById(object.getPatrimonyId());
 		if(existingObject.isEmpty())
 			return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(this.repository.saveAndFlush(object));

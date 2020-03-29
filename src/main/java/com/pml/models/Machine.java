@@ -3,7 +3,7 @@
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */
-package com.pml.model;
+package com.pml.models;
 
 import java.io.Serializable;
 

@@ -3,7 +3,7 @@
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */
-package com.pml.model;
+package com.pml.models;
 
 import java.util.List;
 
@@ -17,6 +17,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Computer extends Machine{
 	private static final long serialVersionUID = 1L;
@@ -43,10 +44,11 @@ public class Computer extends Machine{
     @JoinColumn(name = "monitor_id")
 	// A monitor can be used with a unique computer.
 	private Monitor monitor;
+	@JsonBackReference
 	@ManyToMany
 	@JoinTable(
 	  name = "computer_computer_user", 
-	  joinColumns = @JoinColumn(name = "computer_id"), 
+	  joinColumns = @JoinColumn(name = "computer_patrimonyid"), 
 	  inverseJoinColumns = @JoinColumn(name = "computer_user_id"))
 	// A computer can be used by several users, because the company uses the Active Directory server.
 	private List<ComputerUser> computerUsers;
@@ -144,7 +146,6 @@ public class Computer extends Machine{
 		this.operatingSystemArchitecture = operatingSystemArchitecture;
 	}
 	
-	@JsonBackReference
 	public Monitor getMonitor() {
 		return monitor;
 	}
