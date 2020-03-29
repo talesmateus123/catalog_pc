@@ -9,8 +9,9 @@
 The project consists of creating a tool to assist in the management of computers and their respect$ 
 
 ### Goal 
-The objective of the work is to be able to generate usage reports and have information such as: "T$ 
-For that, it will be necessary to register information about computers, monitors and computer user$ 
+The objective of the work is to be able to generate usage reports and have information such as: "This machine is used by such a person and another, in a certain sector".
+
+For that, it will be necessary to register information about computers, monitors and computer users.
 ------------------------------------------------------------- 
 
 ## Technology information used 
