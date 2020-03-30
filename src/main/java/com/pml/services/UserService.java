@@ -3,12 +3,12 @@ package com.pml.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pml.models.User;
 import com.pml.repositories.UserRepository;
+import com.pml.services.exceptions.ObjectNotFoundException;
 
 
 @Service
@@ -20,9 +20,9 @@ public class UserService {
 		return this.repository.findAll();
 	}
 	
-	public User search(Long id) throws ObjectNotFoundException {
+	public User search(Long id) {
 		Optional<User> object = this.repository.findById(id);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Object not found: "+id, "User"));
+		return object.orElseThrow(()-> new ObjectNotFoundException("Object not found: "+id));
 	}
 	
 	public User add(User object) {

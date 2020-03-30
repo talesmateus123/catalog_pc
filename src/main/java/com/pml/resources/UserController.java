@@ -3,7 +3,7 @@
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */
-package com.pml.controllers;
+package com.pml.resources;
 
 import java.util.List;
 import javax.validation.Valid;
