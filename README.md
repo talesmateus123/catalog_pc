@@ -1,4 +1,4 @@
-# COMPUTER CATOLOGATION SYSTEM (BACK END) 
+# COMPUTER CATOLOGING SYSTEM (BACK END) 
 
 ## Maintainer information 
 
@@ -14,7 +14,7 @@ For that, it will be necessary to register information about computers, monitors
 
 ------------------------------------------------------------- 
 ## Technology information used 
-This project was developed with [Sprint Boot 2.0] (https://spring.io/projects/spring-boot) and JDK$ 
+This project was developed with [Sprint Boot 2.0](https://spring.io/projects/spring-boot) and [JDK 14](https://jdk.java.net/14/) 
 
 ## Instructions for execution 
 Still under construction. 
