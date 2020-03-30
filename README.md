@@ -6,10 +6,10 @@
 ### E-mail: talesmateus1999@hotmail.com 
 
 ## Project information 
-The project consists of creating a tool to assist in the management of computers and their respect$ 
+The project consists of creating a tool to assist in the management of computers and their respect 
 
 ### Goal 
-The objective of the work is to be able to generate usage reports and have information such as: "This machine is used by such a person and another, in a certain sector".
+The project consists of creating a tool to assist in the management of computers and their respective users. Thus, the respective company may have better control over the use of its users and computers, mainly. This system is used to manage possible exchanges of computer and computer components.
 
 For that, it will be necessary to register information about computers, monitors and computer users.
 ------------------------------------------------------------- 
