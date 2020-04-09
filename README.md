@@ -1,4 +1,4 @@
-# LATEX ABNT TCC GENERATIOR (FRONT-END)
+# LATEX ABNT TCC GENERATIOR (BACK-END)
 
 ## Project information 
 ### Goal 
