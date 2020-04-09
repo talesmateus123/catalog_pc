@@ -1,10 +1,5 @@
 # COMPUTER CATOLOGATION SYSTEM (BACK END) 
 
-## Maintainer information 
-
-### Name: Tales Mateus de Oliveira Ferreira 
-### E-mail: talesmateus1999@hotmail.com 
-
 ## Project information 
 ### Goal 
 
