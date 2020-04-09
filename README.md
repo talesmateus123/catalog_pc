@@ -1,11 +1,9 @@
-# COMPUTER CATOLOGATION SYSTEM (BACK END) 
+# LATEX ABNT TCC GENERATIOR (FRONT-END)
 
 ## Project information 
 ### Goal 
 
-The project consists of creating a tool to assist in the management of computers and their respective users. Thus, the respective company may have better control over the use of its users and computers, mainly. This system is used to manage possible exchanges of computer and computer components.
-
-For that, it will be necessary to register information about computers, monitors and computer users.
+Develop tool for automatic generation of latex template according to ABNT standards (Brazilian standardization) and customized for the IFMS Corumbá campus (Mato Grosso do Sul, Brazil), based on the premise of filling out forms and updating fields such as "student name" , 'name of the course', 'title', and the other chapters of the work.
 
 ------------------------------------------------------------- 
 ## Technology information used 
