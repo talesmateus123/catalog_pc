@@ -9,7 +9,11 @@ For that, it will be necessary to register information about computers, monitors
 
 ------------------------------------------------------------- 
 ## Technology information used 
+<<<<<<< HEAD
 This project was developed with [Sprint Boot 2.0](https://spring.io/projects/spring-boot) and [JDK 14](https://jdk.java.net/14/) 
+=======
+This project was developed with [Sprint Boot 2.2.6](https://spring.io/projects/spring-boot) and [JDK 14](https://jdk.java.net/14/) 
+>>>>>>> Code review
 
 ## Instructions for execution 
 Still under construction. 

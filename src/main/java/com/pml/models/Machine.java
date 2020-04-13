@@ -29,12 +29,27 @@ public abstract class Machine implements Serializable{
 	private String description;
 	private String location = "N/A";
 	
+	public Machine() {
+	}
+	
+	public Machine(@Size(max = 10) String patrimonyId, @NotEmpty @Size(max = 20) String machineType,
+			@Size(max = 100) String manufacturer, @NotEmpty @Size(max = 100) String model, String description,
+			String location) {
+		super();
+		this.patrimonyId = patrimonyId;
+		this.machineType = machineType;
+		this.manufacturer = manufacturer;
+		this.model = model;
+		this.description = description;
+		this.location = location;
+	}
+	
 	public String getPatrimonyId() {
 		return patrimonyId;
 	}
 	public void setPatrimonyId(String patrimonyId) {
 		this.patrimonyId = patrimonyId;
-	}	
+	}
 	public String getMachineType() {
 		return machineType;
 	}
@@ -59,13 +74,16 @@ public abstract class Machine implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
 	public String getLocation() {
 		return location;
 	}
 	public void setLocation(String location) {
 		this.location = location;
 	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -6,16 +6,17 @@
 package com.pml.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class ComputerUser implements Serializable {
@@ -28,9 +29,23 @@ public class ComputerUser implements Serializable {
 	@NotEmpty
 	private String lastName;
 	// A user can use many computer, because the company uses the Active Directory server.
-	@JsonManagedReference
-	@ManyToMany(mappedBy = "computerUsers")
-	private List<Computer> computers;
+	@ManyToMany
+	@JoinTable(name = "computer_user_computer",
+		joinColumns = @JoinColumn(name = "computer_user_id"),
+		inverseJoinColumns =  @JoinColumn(name = "computer_id")
+			)
+	private List<Computer> computers = new ArrayList<>();
+	
+	public ComputerUser() {		
+	}
+	
+	public ComputerUser(Long id, @NotEmpty String name, @NotEmpty String lastName, List<Computer> computers) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.lastName = lastName;
+		this.setComputers(computers);
+	}
 	
 	public Long getId() {
 		return id;
@@ -50,12 +65,16 @@ public class ComputerUser implements Serializable {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 	public List<Computer> getComputers() {
 		return computers;
 	}
+
 	public void setComputers(List<Computer> computers) {
 		this.computers = computers;
 	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -79,8 +98,6 @@ public class ComputerUser implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
 	
 	
 }

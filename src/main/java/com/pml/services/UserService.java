@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+=======
+/** 
+ * This is the class "UserService". Which will be able to intermediate the repository class and the service class.
+ * 
+ * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
+ */
+>>>>>>> Code review
 package com.pml.services;
 
 import java.util.List;

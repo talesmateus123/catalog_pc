@@ -5,18 +5,13 @@
  */
 package com.pml.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Computer extends Machine{
@@ -40,21 +35,32 @@ public class Computer extends Machine{
 	private String operatingSystem;
 	@Size(max = 10)
 	private String operatingSystemArchitecture;
-	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "monitor_id")
-	// A monitor can be used with a unique computer.
-	private Monitor monitor;
-	@JsonBackReference
-	@ManyToMany
-	@JoinTable(
-	  name = "computer_computer_user", 
-	  joinColumns = @JoinColumn(name = "computer_patrimonyid"), 
-	  inverseJoinColumns = @JoinColumn(name = "computer_user_id"))
-	// A computer can be used by several users, because the company uses the Active Directory server.
-	private List<ComputerUser> computerUsers;
-
+	@ManyToMany(mappedBy = "computers")
+	private List<ComputerUser> computerUsers = new ArrayList<>();
+	
+	
 	public Computer() {
 		super();
+		this.setMachineType("computer");
+	}
+	
+	public Computer(String motherBoardName, @NotEmpty String memoryType, Float memorySize, @NotEmpty String hdType,
+			Float hdSize, @NotEmpty String processorModel, @NotEmpty @Size(max = 10) String processorArchitecture,
+			Boolean hasCdBurner, @NotEmpty String cabinetModel, @NotEmpty String operatingSystem,
+			@Size(max = 10) String operatingSystemArchitecture, List<ComputerUser> computerUsers) {
+		super();
+		this.motherBoardName = motherBoardName;
+		this.memoryType = memoryType;
+		this.memorySize = memorySize;
+		this.hdType = hdType;
+		this.hdSize = hdSize;
+		this.processorModel = processorModel;
+		this.processorArchitecture = processorArchitecture;
+		this.hasCdBurner = hasCdBurner;
+		this.cabinetModel = cabinetModel;
+		this.operatingSystem = operatingSystem;
+		this.operatingSystemArchitecture = operatingSystemArchitecture;
+		this.computerUsers = computerUsers;
 		this.setMachineType("computer");
 	}
 
@@ -145,15 +151,7 @@ public class Computer extends Machine{
 	public void setOperatingSystemArchitecture(String operatingSystemArchitecture) {
 		this.operatingSystemArchitecture = operatingSystemArchitecture;
 	}
-	
-	public Monitor getMonitor() {
-		return monitor;
-	}
 
-	public void setMonitor(Monitor monitor) {
-		this.monitor = monitor;
-	}
-	
 	public List<ComputerUser> getComputerUsers() {
 		return computerUsers;
 	}

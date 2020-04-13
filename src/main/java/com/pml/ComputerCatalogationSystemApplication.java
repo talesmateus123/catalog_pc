@@ -9,5 +9,5 @@ public class ComputerCatalogationSystemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ComputerCatalogationSystemApplication.class, args);
 	}
-
+	
 }

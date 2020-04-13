@@ -1,3 +1,8 @@
+/** 
+ * This is the class "ComputerService". Which will be able to intermediate the repository class and the service class.
+ * 
+ * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
+ */
 package com.pml.services;
 
 import java.util.List;
@@ -7,27 +12,27 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pml.models.Monitor;
-import com.pml.repositories.MonitorRepository;
+import com.pml.models.Computer;
+import com.pml.repositories.ComputerRepository;
 
 @Service
 public class ComputerService {
 	@Autowired
-	private MonitorRepository repository;
+	private ComputerRepository repository;
 	
-	public List<Monitor> list() {
+	public List<Computer> list() {
 		return this.repository.findAll();
 	}
 	
-	public Monitor search(String id) {
-		Optional<Monitor> object = this.repository.findById(id);
+	public Computer search(String id) {
+		Optional<Computer> object = this.repository.findById(id);
 		if(object.isEmpty())
 			return null;
 		return object.get();
 	}
 	
-	public Monitor add(Monitor object) {
-		Monitor savedObject = this.repository.save(object); 
+	public Computer add(Computer object) {
+		Computer savedObject = this.repository.save(object); 
 		if(object.equals(savedObject))
 			return savedObject;
 		else 
@@ -35,15 +40,15 @@ public class ComputerService {
 	}
 
 	public boolean delete(String id) {
-		Optional<Monitor> existingObject = this.repository.findById(id);
+		Optional<Computer> existingObject = this.repository.findById(id);
 		if(existingObject.isEmpty())
 			return false;
 		this.repository.deleteById(id);
 		return true;
 	}
 
-	public Monitor update(Monitor object) {
-		Optional<Monitor> existingObject = this.repository.findById(object.getPatrimonyId());
+	public Computer update(Computer object) {
+		Optional<Computer> existingObject = this.repository.findById(object.getPatrimonyId());
 		if(existingObject.isEmpty())
 			return null;
 		return this.repository.saveAndFlush(object);
