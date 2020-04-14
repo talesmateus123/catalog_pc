@@ -13,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
 
@@ -32,11 +30,7 @@ public class ComputerUser implements Serializable {
 	private String lastName;
 	// A user can use many computer, because the company uses the Active Directory server.
 	@JsonBackReference
-	@ManyToMany
-	@JoinTable(name = "computer_user_computer",
-		joinColumns = @JoinColumn(name = "computer_user_id"),
-		inverseJoinColumns =  @JoinColumn(name = "computer_id")
-			)
+	@ManyToMany(mappedBy = "computerUsers")
 	private List<Computer> relatedToComputers = new ArrayList<>();
 	
 	public ComputerUser() {		

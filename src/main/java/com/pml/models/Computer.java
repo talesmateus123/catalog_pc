@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Computer extends Machine{
@@ -36,9 +37,12 @@ public class Computer extends Machine{
 	@NotEmpty
 	private String operatingSystem;
 	@Size(max = 10)
-	private String operatingSystemArchitecture;
-	
-	@ManyToMany(mappedBy = "computers")
+	private String operatingSystemArchitecture;	
+	@ManyToMany
+	@JoinTable(name = "computer_computer_user",
+		joinColumns = @JoinColumn(name = "computer_id"),
+		inverseJoinColumns =  @JoinColumn(name = "computer_user_id")
+			)
 	private List<ComputerUser> computerUsers = new ArrayList<>();
 	
 	
