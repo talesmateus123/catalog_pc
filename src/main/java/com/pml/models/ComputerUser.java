@@ -18,6 +18,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class ComputerUser implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -29,12 +31,13 @@ public class ComputerUser implements Serializable {
 	@NotEmpty
 	private String lastName;
 	// A user can use many computer, because the company uses the Active Directory server.
+	@JsonBackReference
 	@ManyToMany
 	@JoinTable(name = "computer_user_computer",
 		joinColumns = @JoinColumn(name = "computer_user_id"),
 		inverseJoinColumns =  @JoinColumn(name = "computer_id")
 			)
-	private List<Computer> computers = new ArrayList<>();
+	private List<Computer> relatedToComputers = new ArrayList<>();
 	
 	public ComputerUser() {		
 	}
@@ -44,7 +47,7 @@ public class ComputerUser implements Serializable {
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
-		this.setComputers(computers);
+		this.setRelatedToComputers(computers);
 	}
 	
 	public Long getId() {
@@ -66,12 +69,12 @@ public class ComputerUser implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public List<Computer> getComputers() {
-		return computers;
+	public List<Computer> getRelatedToComputers() {
+		return relatedToComputers;
 	}
 
-	public void setComputers(List<Computer> computers) {
-		this.computers = computers;
+	public void setRelatedToComputers(List<Computer> relatedToComputers) {
+		this.relatedToComputers = relatedToComputers;
 	}
 	
 	

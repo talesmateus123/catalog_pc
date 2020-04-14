@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.pml.models.ComputerUser;
 import com.pml.repositories.ComputerUserRepository;
+import com.pml.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ComputerUserService {
@@ -24,11 +25,9 @@ public class ComputerUserService {
 		return this.repository.findAll();
 	}
 	
-	public ComputerUser search(Long id) {
+	public ComputerUser search(Long id) {		
 		Optional<ComputerUser> object = this.repository.findById(id);
-		if(object.isEmpty())
-			return null;
-		return object.get();
+		return object.orElseThrow(()-> new ObjectNotFoundException("Object not found: "+id));
 	}
 	
 	public ComputerUser add(ComputerUser object) {
