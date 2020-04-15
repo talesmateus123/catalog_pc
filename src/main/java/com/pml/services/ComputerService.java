@@ -12,7 +12,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pml.models.Computer;
+import com.pml.domain.Computer;
 import com.pml.repositories.ComputerRepository;
 import com.pml.services.exceptions.ObjectNotFoundException;
 
@@ -38,7 +38,7 @@ public class ComputerService {
 			return null;
 	}
 
-	public boolean delete(String id) {
+	public boolean delete(String id) {		
 		Optional<Computer> existingObject = this.repository.findById(id);
 		if(existingObject.isEmpty())
 			return false;

@@ -3,7 +3,7 @@
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */
-package com.pml.models;
+package com.pml.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -36,12 +36,11 @@ public class ComputerUser implements Serializable {
 	public ComputerUser() {		
 	}
 	
-	public ComputerUser(Long id, @NotEmpty String name, @NotEmpty String lastName, List<Computer> computers) {
+	public ComputerUser(Long id, @NotEmpty String name, @NotEmpty String lastName) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
-		this.setRelatedToComputers(computers);
 	}
 	
 	public Long getId() {

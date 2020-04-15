@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.pml.models.Computer;
+import com.pml.domain.Computer;
 import com.pml.services.ComputerService;
 
 @RestController

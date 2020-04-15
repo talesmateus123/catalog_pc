@@ -1,4 +1,4 @@
-package com.pml.models;
+package com.pml.domain;
 
 import java.io.Serializable;
 

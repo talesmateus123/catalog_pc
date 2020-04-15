@@ -9,7 +9,7 @@ package com.pml.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.pml.models.Computer;
+import com.pml.domain.Computer;
 @Repository
 public interface ComputerRepository extends JpaRepository<Computer, String>{
 }

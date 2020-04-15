@@ -3,7 +3,7 @@
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */
-package com.pml.models;
+package com.pml.domain;
 
 import java.io.Serializable;
 
@@ -12,32 +12,35 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import com.pml.domain.enums.MachineType;
+import com.pml.domain.enums.Location;
+
 @Entity
 public abstract class Machine implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Size(max = 10)
 	private String patrimonyId;
-	@NotEmpty
-	@Size(max = 20)
-	private String machineType;
+	@javax.validation.constraints.NotNull
+	private Integer machineType;
 	@Size(max = 100)
 	private String manufacturer;
 	@NotEmpty
 	@Size(max = 100)
 	private String model;
 	private String description;
-	private String location = "N/A";
+	@javax.validation.constraints.NotNull
+	private Integer location;
 	
 	public Machine() {
 	}
 	
-	public Machine(@Size(max = 10) String patrimonyId, @NotEmpty @Size(max = 20) String machineType,
+	public Machine(@Size(max = 10) String patrimonyId, @NotEmpty MachineType machineType,
 			@Size(max = 100) String manufacturer, @NotEmpty @Size(max = 100) String model, String description,
-			String location) {
+			Integer location) {
 		super();
 		this.patrimonyId = patrimonyId;
-		this.machineType = machineType;
+		this.machineType = machineType.getCod();
 		this.manufacturer = manufacturer;
 		this.model = model;
 		this.description = description;
@@ -50,11 +53,11 @@ public abstract class Machine implements Serializable{
 	public void setPatrimonyId(String patrimonyId) {
 		this.patrimonyId = patrimonyId;
 	}
-	public String getMachineType() {
-		return machineType;
+	public MachineType getMachineType() {
+		return MachineType.toEnum(machineType);
 	}
-	public void setMachineType(String machineType) {
-		this.machineType = machineType;
+	public void setMachineType(MachineType machineType) {
+		this.machineType = machineType.getCod();
 	}
 	public String getManufacturer() {
 		return manufacturer;
@@ -74,11 +77,11 @@ public abstract class Machine implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getLocation() {
-		return location;
+	public Location getLocation() {
+		return Location.toEnum(location);
 	}
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLocation(Location location) {
+		this.location = location.getCod();
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
