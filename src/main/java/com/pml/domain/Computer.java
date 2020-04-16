@@ -6,21 +6,27 @@
 package com.pml.domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.pml.domain.enums.*;
-
+import com.pml.domain.enums.ArchitectureType;
+import com.pml.domain.enums.HardDiskType;
+import com.pml.domain.enums.MachineType;
+import com.pml.domain.enums.OperatingSystemType;
+import com.pml.domain.enums.RamMemoryType;
 
 @Entity
 public class Computer extends Machine{
 	private static final long serialVersionUID = 1L;
+	private String ipAddress;
 	private String motherBoardName;
 	@javax.validation.constraints.NotNull
 	private Integer memoryType;
@@ -45,6 +51,8 @@ public class Computer extends Machine{
 			)
 	private List<ComputerUser> computerUsers = new ArrayList<>();
 	
+	@OneToOne
+	@JoinColumn(name = "computer_id")
 	private Monitor monitor;
 	
 	
@@ -53,13 +61,13 @@ public class Computer extends Machine{
 		this.setMachineType(MachineType.COMPUTER);
 	}
 
-	public Computer(@Size(max = 10) String patrimonyId, @NotEmpty @Size(max = 20)
+	public Computer(@Size(max = 10) String patrimonyId, Date createdDate, Date modifiedDate, @NotEmpty @Size(max = 20)
 			@Size(max = 100) String manufacturer, @NotEmpty @Size(max = 100) String model, String description,
 			Integer location, String motherBoardName, @NotEmpty Integer memoryType, Double memorySize, @NotEmpty Integer hdType,
 			Double hdSize, @NotEmpty String processorModel, @NotEmpty @Size(max = 10) Integer processorArchitecture,
 			Boolean hasCdBurner, @NotEmpty String cabinetModel, @NotEmpty Integer operatingSystem,
 			@Size(max = 10) Integer operatingSystemArchitecture, Monitor monitor) {
-		super(patrimonyId, MachineType.COMPUTER, manufacturer, model, description, location);
+		super(patrimonyId, createdDate, modifiedDate,  MachineType.COMPUTER, manufacturer, model, description, location);
 		this.motherBoardName = motherBoardName;
 		this.memoryType = memoryType;
 		this.memorySize = memorySize;
@@ -72,6 +80,14 @@ public class Computer extends Machine{
 		this.operatingSystem = operatingSystem;
 		this.operatingSystemArchitecture = operatingSystemArchitecture;
 		this.monitor = monitor;
+	}
+
+	public String getIpAddress() {
+		return ipAddress;
+	}
+
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
 	}
 
 	public String getMotherBoardName() {

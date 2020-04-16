@@ -52,7 +52,7 @@ public class ComputerResource {
 			return savedObject;
 		else 
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-					"Já existe uma oportunidade para este prospecto com a mesma descrição");
+					"Request error");
 	}
 
 	@DeleteMapping("/{id}")

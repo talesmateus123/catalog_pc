@@ -17,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.pml.domain.enums.Sector;
 
 @Entity
 public class ComputerUser implements Serializable {
@@ -28,6 +29,8 @@ public class ComputerUser implements Serializable {
 	private String name;
 	@NotEmpty
 	private String lastName;
+	@NotEmpty
+	private Integer sector;
 	// A user can use many computer, because the company uses the Active Directory server.
 	@JsonBackReference
 	@ManyToMany(mappedBy = "computerUsers")
@@ -60,6 +63,13 @@ public class ComputerUser implements Serializable {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+	public Sector getSector() {
+		return Sector.toEnum(sector);
+	}
+	public void setSector(Sector location) {
+		this.sector = location.getCod();
 	}
 
 	public List<Computer> getRelatedToComputers() {

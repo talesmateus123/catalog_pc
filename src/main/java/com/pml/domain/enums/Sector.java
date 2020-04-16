@@ -1,13 +1,13 @@
 package com.pml.domain.enums;
 
-public enum Location {
+public enum Sector {
 	ADMIN(0, "Administração"),
 	RH(1, "Recursos Humanos");
 	
 	private Integer cod;
 	private String description;
 	
-	private Location(int cod, String description) {
+	private Sector(int cod, String description) {
 		this.cod = cod;
 		this.description = description;
 	}
@@ -20,11 +20,11 @@ public enum Location {
 		return description;
 	}
 	
-	public static Location toEnum(Integer cod) {
+	public static Sector toEnum(Integer cod) {
 		if (cod == null )
 			return null;
 		
-		for (Location type : Location.values()) {
+		for (Sector type : Sector.values()) {
 			if (cod == type.getCod()) {
 				return type;
 			}

@@ -23,7 +23,6 @@ public enum MachineType {
 	public static MachineType toEnum(Integer cod) {
 		if (cod == null )
 			return null;
-		System.out.println("To aqui");
 		
 		for (MachineType type : MachineType.values()) {
 			if (cod == type.getCod()) {
