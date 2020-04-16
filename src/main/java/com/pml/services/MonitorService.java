@@ -31,13 +31,9 @@ public class MonitorService {
 		return object.orElseThrow(()-> new ObjectNotFoundException("Object not found: " + id + ", type: " + object.getClass().getName()));
 	}
 	
-	public Monitor add(Monitor object) {
+	public Monitor insert(Monitor object) {
 		object.setCreatedDate(new Date());
-		Monitor savedObject = this.repository.save(object); 
-		if(object.equals(savedObject))
-			return savedObject;
-		else 
-			return null;
+		return this.repository.save(object);
 	}
 
 	public boolean delete(String id) {		

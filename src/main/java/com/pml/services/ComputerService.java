@@ -30,13 +30,9 @@ public class ComputerService {
 		return object.orElseThrow(()-> new ObjectNotFoundException("Object not found: " + id + ", type: " + object.getClass().getName()));
 	}
 	
-	public Computer add(Computer object) {
+	public Computer insert(Computer object) {
 		object.setCreatedDate(new Date());
-		Computer savedObject = this.repository.save(object);
-		if(object.equals(savedObject))
-			return savedObject;
-		else 
-			return null;
+		return this.repository.save(object);
 	}
 
 	public boolean delete(String id) {		

@@ -5,12 +5,14 @@
  */
 package com.pml.resources;
 
+import java.net.URI;
 import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pml.domain.Computer;
 import com.pml.services.ComputerService;
@@ -45,14 +47,11 @@ public class ComputerResource {
 	}
 	
 	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public Computer add(@Valid @RequestBody Computer object) {
-		Computer savedObject = this.service.add(object); 
-		if(object.equals(savedObject))
-			return savedObject;
-		else 
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-					"Request error");
+	public ResponseEntity<Void> insert(@RequestBody Computer object) {
+		object = this.service.insert(object);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(object.getPatrimonyId()).toUri();
+		return ResponseEntity.created(uri).build();
 	}
 
 	@DeleteMapping("/{id}")
