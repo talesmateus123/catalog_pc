@@ -35,15 +35,15 @@ public class MonitorResource {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Monitor> search(@PathVariable String id) {
-		Monitor object = this.service.search(id);
+	public ResponseEntity<Monitor> find(@PathVariable String id) {
+		Monitor object = this.service.find(id);
 		if(object == null)
 			return ResponseEntity.notFound().build();
 		return ResponseEntity.ok(object);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> add(@Valid @RequestBody Monitor object) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody Monitor object) {
 		object = this.service.insert(object);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(object.getPatrimonyId()).toUri();

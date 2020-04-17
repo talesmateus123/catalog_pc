@@ -26,7 +26,7 @@ public class MonitorService {
 		return this.repository.findAll();
 	}
 	
-	public Monitor search(String id) {
+	public Monitor find(String id) {
 		Optional<Monitor> object = this.repository.findById(id);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Object not found: " + id + ", type: " + object.getClass().getName()));
 	}
