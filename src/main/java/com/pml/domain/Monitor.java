@@ -10,8 +10,6 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pml.domain.enums.MachineType;
@@ -28,8 +26,8 @@ public class Monitor extends Machine{
 		this.setMachineType(MachineType.MONITOR);
 	}
 
-	public Monitor(@NotEmpty @Size(max = 10) String patrimonyId, Date createdDate, Date modifiedDate, @Size(max = 100) String manufacturer, 
-			@NotEmpty @Size(max = 100) String model, String description, Integer location, boolean isItWorking, Computer computer) {
+	public Monitor(String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
+			String model, String description, Integer location, boolean isItWorking, Computer computer) {
 		super(patrimonyId, createdDate, modifiedDate, MachineType.MONITOR, manufacturer, model, description, location, isItWorking);
 		this.computer = computer;
 	}

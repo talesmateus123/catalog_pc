@@ -14,8 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pml.domain.enums.MachineType;
@@ -28,30 +26,23 @@ public abstract class Machine implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Size(max = 10)
 	private String patrimonyId = "";
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date modifiedDate;
-	@javax.validation.constraints.NotNull
 	private Integer machineType;
-	@Size(max = 100)
 	private String manufacturer;
-	@NotEmpty
-	@Size(max = 100)
 	private String model;
 	private String description;
-	@javax.validation.constraints.NotNull
 	private Integer sector;
 	private boolean isItWorking = true;
 	
 	public Machine() {
 	}
 	
-	public Machine(@NotEmpty @Size(max = 10) String patrimonyId, Date createdDate, Date modifiedDate, @NotEmpty MachineType machineType,
-			@Size(max = 100) String manufacturer, @NotEmpty @Size(max = 100) String model, String description,
-			Integer sector, boolean isItWorking) {
+	public Machine(String patrimonyId, Date createdDate, Date modifiedDate, MachineType machineType, 
+			String manufacturer, String model, String description, Integer sector, boolean isItWorking) {
 		this.patrimonyId = patrimonyId;
 		this.createdDate = createdDate;
 		this.modifiedDate = modifiedDate;

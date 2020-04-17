@@ -16,6 +16,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.pml.domain.Computer;
+import com.pml.domain.Monitor;
+import com.pml.dto.ComputerDTO;
 import com.pml.repositories.ComputerRepository;
 import com.pml.services.exceptions.ConflictOfObjectsException;
 import com.pml.services.exceptions.DataIntegrityException;
@@ -71,9 +73,18 @@ public class ComputerService {
 		if(objectX.isEmpty()) {
 			return ; 
 		}
-		else {
-			throw new ConflictOfObjectsException("This computer already exists: " + object.getPatrimonyId() + ".");
-		}
+		throw new ConflictOfObjectsException("This computer already exists: " + object.getPatrimonyId() + ".");
+	}
+	
+	public Computer fromDTO(ComputerDTO computerDTO) {
+		return new Computer(
+				computerDTO.getPatrimonyId(), computerDTO.getCreatedDate(), computerDTO.getModifiedDate(),
+				computerDTO.getManufacturer(), computerDTO.getModel(), computerDTO.getDescription(), 
+				computerDTO.getSector().getCod(), computerDTO.isItWorking(), computerDTO.getMotherBoardName(), 
+				computerDTO.getMemoryType().getCod(), computerDTO.getMemorySize(),  computerDTO.getHdType().getCod(),	
+				computerDTO.getHdSize(),  computerDTO.getProcessorModel(), computerDTO.getProcessorArchitecture().getCod(), 
+				computerDTO.hasCdBurner(), computerDTO.getCabinetModel(), computerDTO.getOperatingSystem().getCod(),
+				computerDTO.getOperatingSystemArchitecture().getCod(), computerDTO.isOnTheDomain(), null);
 	}
 	
 }

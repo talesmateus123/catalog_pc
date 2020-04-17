@@ -61,7 +61,8 @@ public class ComputerResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody Computer object) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody ComputerDTO objectDTO) {
+		Computer object = this.service.fromDTO(objectDTO);
 		object = this.service.insert(object);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(object.getPatrimonyId()).toUri();
@@ -75,7 +76,8 @@ public class ComputerResource {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody Computer object, @PathVariable String id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody ComputerDTO objectDTO, @PathVariable String id) {
+		Computer object = this.service.fromDTO(objectDTO);
 		object.setPatrimonyId(id);
 		this.service.update(object);
 		return ResponseEntity.noContent().build();		

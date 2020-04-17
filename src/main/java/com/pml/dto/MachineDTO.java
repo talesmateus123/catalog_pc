@@ -2,12 +2,18 @@ package com.pml.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pml.domain.enums.MachineType;
 import com.pml.domain.enums.Sector;
 
 public abstract class MachineDTO {
-	private static final long serialVersionUID = 1L;	
+	private static final long serialVersionUID = 1L;
+	private Long id;
+	@NotEmpty(message = "Mandatory")
+	@Size(min = 4, max = 10, message = "The text must contain between 4 and 10 characters")
 	private String patrimonyId;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date createdDate;
@@ -18,12 +24,14 @@ public abstract class MachineDTO {
 	private String model;
 	private String description;
 	private Integer sector;
+	private boolean isItWorking;
 	
 	public MachineDTO() {		
 	}
 		
-	public MachineDTO(String patrimonyId, Date createdDate, Date modifiedDate, Integer machineType,
-			String manufacturer, String model, String description, Integer sector) {
+	public MachineDTO(Long id, String patrimonyId, Date createdDate, Date modifiedDate, Integer machineType,
+			String manufacturer, String model, String description, Integer sector, boolean isItWorking) {
+		this.id = id;
 		this.patrimonyId = patrimonyId;
 		this.createdDate = createdDate;
 		this.modifiedDate = modifiedDate;
@@ -32,8 +40,17 @@ public abstract class MachineDTO {
 		this.model = model;
 		this.description = description;
 		this.sector = sector;
+		this.setItWorking(isItWorking);
 	}
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getPatrimonyId() {
 		return patrimonyId;
 	}
@@ -98,6 +115,14 @@ public abstract class MachineDTO {
 		this.sector = location.getCod();
 	}
 	
+	public boolean isItWorking() {
+		return isItWorking;
+	}
+
+	public void setItWorking(boolean isItWorking) {
+		this.isItWorking = isItWorking;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

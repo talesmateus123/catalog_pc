@@ -14,8 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.HardDiskType;
@@ -28,20 +26,14 @@ public class Computer extends Machine{
 	private static final long serialVersionUID = 1L;
 	private String ipAddress;
 	private String motherBoardName;
-	@javax.validation.constraints.NotNull
 	private Integer memoryType;
 	private Double memorySize;
-	@javax.validation.constraints.NotNull
 	private Integer hdType;
 	private Double hdSize;
-	@NotEmpty
 	private String processorModel;
-	@javax.validation.constraints.NotNull
 	private Integer processorArchitecture;
 	private Boolean hasCdBurner;
-	@NotEmpty
 	private String cabinetModel;
-	@javax.validation.constraints.NotNull
 	private Integer operatingSystem;
 	private Integer operatingSystemArchitecture;
 	private boolean isOnTheDomain = false;
@@ -63,13 +55,12 @@ public class Computer extends Machine{
 		this.setMachineType(MachineType.COMPUTER);
 	}
 
-	public Computer(@NotEmpty @Size(max = 10) String patrimonyId, Date createdDate, Date modifiedDate, @NotEmpty @Size(max = 20)
-			@Size(max = 100) String manufacturer, @NotEmpty @Size(max = 100) String model, String description,
-			Integer location, boolean isItWorking, String motherBoardName, @NotEmpty Integer memoryType, Double memorySize, @NotEmpty Integer hdType,
-			Double hdSize, @NotEmpty String processorModel, @NotEmpty @Size(max = 10) Integer processorArchitecture,
-			Boolean hasCdBurner, @NotEmpty String cabinetModel, @NotEmpty Integer operatingSystem,
-			@Size(max = 10) Integer operatingSystemArchitecture, boolean isOnTheDomain, Monitor monitor) {
-		super(patrimonyId, createdDate, modifiedDate,  MachineType.COMPUTER, manufacturer, model, description, location, isItWorking);
+	public Computer(String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
+			String model, String description, Integer sector, boolean isItWorking, String motherBoardName,  
+			Integer memoryType, Double memorySize,  Integer hdType,	Double hdSize,  String processorModel, 
+			Integer processorArchitecture, Boolean hasCdBurner, String cabinetModel, Integer operatingSystem,
+			Integer operatingSystemArchitecture, boolean isOnTheDomain, Monitor monitor) {
+		super(patrimonyId, createdDate, modifiedDate,  MachineType.COMPUTER, manufacturer, model, description, sector, isItWorking);
 		this.motherBoardName = motherBoardName;
 		this.memoryType = memoryType;
 		this.memorySize = memorySize;
