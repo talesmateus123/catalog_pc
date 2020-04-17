@@ -11,6 +11,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.pml.domain.Computer;
@@ -25,6 +27,11 @@ public class ComputerService {
 	
 	public List<Computer> findAll() {
 		return this.repository.findAll();
+	}
+	
+	public Page<Computer> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage);
+		return this.repository.findAll(pageRequest);
 	}
 	
 	public Computer find(String id) {

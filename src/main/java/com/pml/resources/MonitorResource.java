@@ -30,8 +30,8 @@ public class MonitorResource {
 	private MonitorService service;
 	
 	@GetMapping
-	public List<Monitor> list() {
-		return this.service.list();
+	public List<Monitor> findAll() {
+		return this.service.findAll();
 	}
 	
 	@GetMapping("/{id}")
