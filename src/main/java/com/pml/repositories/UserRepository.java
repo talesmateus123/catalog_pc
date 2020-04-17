@@ -11,5 +11,4 @@ import org.springframework.stereotype.Repository;
 import com.pml.domain.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
-	
 }

@@ -28,9 +28,9 @@ public class Monitor extends Machine{
 		this.setMachineType(MachineType.MONITOR);
 	}
 
-	public Monitor(@Size(max = 10) String patrimonyId, Date createdDate, Date modifiedDate, @Size(max = 100) String manufacturer, 
-			@NotEmpty @Size(max = 100) String model, String description, Integer location, Computer computer) {
-		super(patrimonyId, createdDate, modifiedDate, MachineType.MONITOR, manufacturer, model, description, location);
+	public Monitor(@NotEmpty @Size(max = 10) String patrimonyId, Date createdDate, Date modifiedDate, @Size(max = 100) String manufacturer, 
+			@NotEmpty @Size(max = 100) String model, String description, Integer location, boolean isItWorking, Computer computer) {
+		super(patrimonyId, createdDate, modifiedDate, MachineType.MONITOR, manufacturer, model, description, location, isItWorking);
 		this.computer = computer;
 	}
 
@@ -42,7 +42,5 @@ public class Monitor extends Machine{
 		this.computer = computer;
 	}
 	
-	
-
 	
 }

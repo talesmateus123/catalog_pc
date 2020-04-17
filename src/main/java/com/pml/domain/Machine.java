@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -24,8 +26,10 @@ import com.pml.domain.enums.Sector;
 public abstract class Machine implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	@Size(max = 10)
-	private String patrimonyId;
+	private String patrimonyId = "";
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
@@ -40,14 +44,14 @@ public abstract class Machine implements Serializable{
 	private String description;
 	@javax.validation.constraints.NotNull
 	private Integer sector;
+	private boolean isItWorking = true;
 	
 	public Machine() {
 	}
 	
-	public Machine(@Size(max = 10) String patrimonyId, Date createdDate, Date modifiedDate, @NotEmpty MachineType machineType,
+	public Machine(@NotEmpty @Size(max = 10) String patrimonyId, Date createdDate, Date modifiedDate, @NotEmpty MachineType machineType,
 			@Size(max = 100) String manufacturer, @NotEmpty @Size(max = 100) String model, String description,
-			Integer sector) {
-		super();
+			Integer sector, boolean isItWorking) {
 		this.patrimonyId = patrimonyId;
 		this.createdDate = createdDate;
 		this.modifiedDate = modifiedDate;
@@ -56,8 +60,17 @@ public abstract class Machine implements Serializable{
 		this.model = model;
 		this.description = description;
 		this.sector = sector;
+		this.isItWorking = isItWorking;
 	}
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getPatrimonyId() {
 		return patrimonyId;
 	}
@@ -118,6 +131,14 @@ public abstract class Machine implements Serializable{
 		return Sector.toEnum(sector);
 	}
 	
+	public boolean isItWorking() {
+		return isItWorking;
+	}
+
+	public void setIsItWorking(boolean isItWorking) {
+		this.isItWorking = isItWorking;
+	}
+
 	public void setSector(Sector location) {
 		this.sector = location.getCod();
 	}

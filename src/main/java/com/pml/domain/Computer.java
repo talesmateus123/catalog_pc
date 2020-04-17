@@ -43,7 +43,9 @@ public class Computer extends Machine{
 	private String cabinetModel;
 	@javax.validation.constraints.NotNull
 	private Integer operatingSystem;
-	private Integer operatingSystemArchitecture;	
+	private Integer operatingSystemArchitecture;
+	private boolean isOnTheDomain = false;
+	
 	@ManyToMany
 	@JoinTable(name = "computer_computer_user",
 		joinColumns = @JoinColumn(name = "computer_id"),
@@ -61,13 +63,13 @@ public class Computer extends Machine{
 		this.setMachineType(MachineType.COMPUTER);
 	}
 
-	public Computer(@Size(max = 10) String patrimonyId, Date createdDate, Date modifiedDate, @NotEmpty @Size(max = 20)
+	public Computer(@NotEmpty @Size(max = 10) String patrimonyId, Date createdDate, Date modifiedDate, @NotEmpty @Size(max = 20)
 			@Size(max = 100) String manufacturer, @NotEmpty @Size(max = 100) String model, String description,
-			Integer location, String motherBoardName, @NotEmpty Integer memoryType, Double memorySize, @NotEmpty Integer hdType,
+			Integer location, boolean isItWorking, String motherBoardName, @NotEmpty Integer memoryType, Double memorySize, @NotEmpty Integer hdType,
 			Double hdSize, @NotEmpty String processorModel, @NotEmpty @Size(max = 10) Integer processorArchitecture,
 			Boolean hasCdBurner, @NotEmpty String cabinetModel, @NotEmpty Integer operatingSystem,
-			@Size(max = 10) Integer operatingSystemArchitecture, Monitor monitor) {
-		super(patrimonyId, createdDate, modifiedDate,  MachineType.COMPUTER, manufacturer, model, description, location);
+			@Size(max = 10) Integer operatingSystemArchitecture, boolean isOnTheDomain, Monitor monitor) {
+		super(patrimonyId, createdDate, modifiedDate,  MachineType.COMPUTER, manufacturer, model, description, location, isItWorking);
 		this.motherBoardName = motherBoardName;
 		this.memoryType = memoryType;
 		this.memorySize = memorySize;
@@ -176,6 +178,14 @@ public class Computer extends Machine{
 
 	public void setOperatingSystemArchitecture(ArchitectureType operatingSystemArchitecture) {
 		this.operatingSystemArchitecture = operatingSystemArchitecture.getCod();
+	}
+
+	public boolean isOnTheDomain() {
+		return isOnTheDomain;
+	}
+
+	public void setIsOnTheDomain(boolean isOnTheDomain) {
+		this.isOnTheDomain = isOnTheDomain;
 	}
 
 	public List<ComputerUser> getComputerUsers() {

@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 
 import com.pml.domain.Monitor;
 @Repository
-public interface MonitorRepository extends JpaRepository<Monitor, String>{
+public interface MonitorRepository extends JpaRepository<Monitor, Long>{
 }
