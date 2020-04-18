@@ -10,23 +10,24 @@ import com.pml.domain.enums.HardDiskType;
 import com.pml.domain.enums.OperatingSystemType;
 import com.pml.domain.enums.RamMemoryType;
 
-public class ComputerDTO extends MachineDTO{	
+public class ComputerDTO extends MachineDTO{
+	private static final long serialVersionUID = 1L;
 	private String ipAddress;
 	private String motherBoardName;
-	@NotNull(message = "Mandatory")
+	@NotNull(message = "This field is mandatory")
 	private Integer memoryType;
 	private Double memorySize;
 	private Integer hdType;
 	private Double hdSize;
 	private String processorModel;
-	@NotNull(message = "Mandatory")
+	@NotNull(message = "This field is mandatory")
 	private Integer processorArchitecture;
-	@NotNull(message = "Mandatory")
+	@NotNull(message = "This field is mandatory")
 	private Boolean hasCdBurner;
 	private String cabinetModel;
 	private Integer operatingSystem;
 	private Integer operatingSystemArchitecture;
-	@NotNull(message = "Mandatory")
+	@NotNull(message = "This field is mandatory")
 	private boolean onTheDomain;
 	
 	public ComputerDTO() {	

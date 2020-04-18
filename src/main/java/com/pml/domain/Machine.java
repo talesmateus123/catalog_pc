@@ -78,9 +78,6 @@ public abstract class Machine extends Equipment {
 	public void setSector(Sector location) {
 		this.sector = location.getCod();
 	}
-	
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+
 	
 }

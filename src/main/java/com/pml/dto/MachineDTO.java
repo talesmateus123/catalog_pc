@@ -1,5 +1,6 @@
 package com.pml.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
@@ -9,19 +10,20 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.Sector;
 
-public abstract class MachineDTO {
+public abstract class MachineDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	@Size(min = 4, max = 10, message = "The text must contain between 4 and 10 characters")
+	@NotEmpty(message = "This field is mandatory")
+	@Size(min = 4, max = 10, message = "The text of this field must contain between 4 and 10 characters")
 	private String patrimonyId;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date lastModifiedDate;
 	private Integer equipmentType;
-	@NotEmpty(message = "Mandatory")
+	@NotEmpty(message = "This field is mandatory")
 	private String manufacturer;
-	@NotEmpty(message = "Mandatory")
+	@NotEmpty(message = "This field is mandatory")
 	private String model;
 	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
 	private String description;
@@ -134,10 +136,6 @@ public abstract class MachineDTO {
 
 	public void setItComposed(boolean itComposed) {
 		this.itComposed = itComposed;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 	
 	

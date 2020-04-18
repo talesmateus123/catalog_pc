@@ -197,8 +197,4 @@ public class Computer extends Machine{
 		this.monitor = monitor;
 	}
 	
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
 }
