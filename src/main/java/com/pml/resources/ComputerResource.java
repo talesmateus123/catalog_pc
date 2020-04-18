@@ -55,9 +55,9 @@ public class ComputerResource {
 		return ResponseEntity.ok().body(objectsDTO);
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<Computer> find(@PathVariable String id) {
-		Computer object = this.service.find(id);
+	@GetMapping("/{patrimonyId}")
+	public ResponseEntity<Computer> find(@PathVariable String patrimonyId) {
+		Computer object = this.service.findByPatrimonyId(patrimonyId);
 		return ResponseEntity.ok().body(object);
 	}
 	
@@ -66,20 +66,20 @@ public class ComputerResource {
 		Computer object = this.service.fromDTO(objectDTO);
 		object = this.service.insert(object);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(object.getPatrimonyId()).toUri();
+				.path("/{patrimonyId}").buildAndExpand(object.getPatrimonyId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable String id) {
-		this.service.delete(id);
+	@DeleteMapping("/{patrimonyId}")
+	public ResponseEntity<Void> delete(@PathVariable String patrimonyId) {
+		this.service.delete(patrimonyId);
 		return ResponseEntity.noContent().build();
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody ComputerDTO objectDTO, @PathVariable String id) {
+	@PutMapping("/{patrimonyId}")
+	public ResponseEntity<Void> update(@Valid @RequestBody ComputerDTO objectDTO, @PathVariable String patrimonyId) {
 		Computer object = this.service.fromDTO(objectDTO);
-		object.setPatrimonyId(id);
+		object.setPatrimonyId(patrimonyId);
 		this.service.update(object);
 		return ResponseEntity.noContent().build();		
 	}

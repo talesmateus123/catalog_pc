@@ -36,20 +36,27 @@ public class ComputerService {
 		return this.repository.findAll(pageRequest);
 	}
 	
-	public Computer find(String patrimonyId) {
+	public Computer findByPatrimonyId(String patrimonyId) {
 		Optional<Computer> object = this.repository.findByPatrimonyId(patrimonyId);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Computer not found: " + patrimonyId + ". Type: " + object.getClass().getName()));
+		return object.orElseThrow(()-> new ObjectNotFoundException("Computer not found: patrimonyId: '" + patrimonyId + "'. Type: " + object.getClass().getName()));
+	}
+	
+	public Computer findById(Long id) {
+		Optional<Computer> object = this.repository.findById(id);
+		return object.orElseThrow(()-> new ObjectNotFoundException("Computer not found: id: \"" + id + "\". Type: " + object.getClass().getName()));
 	}
 	
 	public Computer insert(Computer object) {
-		alreadyExists(object);
+		if(alreadyExists(object)){
+			throw new ConflictOfObjectsException("This computer already exists: " + object.getPatrimonyId() + ".");
+		}
 		object.setId(null);
 		object.setCreatedDate(new Date());
 		return this.repository.save(object);
 	}
 
 	public void delete(String patrimonyId) {
-		Computer objetc = this.find(patrimonyId);
+		Computer objetc = this.findByPatrimonyId(patrimonyId);
 		try {
 			this.repository.deleteById(objetc.getId());
 		}
@@ -59,7 +66,7 @@ public class ComputerService {
 	}
 
 	public Computer update(Computer object) {
-		Computer objetcX = this.find(object.getPatrimonyId());
+		Computer objetcX = this.findByPatrimonyId(object.getPatrimonyId());
 		object.setId(objetcX.getId());
 		object.setCreatedDate(objetcX.getCreatedDate());
 		object.setModifiedDate(new Date());
@@ -67,12 +74,12 @@ public class ComputerService {
 		
 	}
 	
-	public void alreadyExists(Computer object) {
+	public boolean alreadyExists(Computer object) {
 		Optional<Computer> objectX = this.repository.findByPatrimonyId(object.getPatrimonyId());
 		if(objectX.isEmpty()) {
-			return ; 
+			return false; 
 		}
-		throw new ConflictOfObjectsException("This computer already exists: " + object.getPatrimonyId() + ".");
+		return true;
 	}
 	
 	public Computer fromDTO(ComputerDTO computerDTO) {
