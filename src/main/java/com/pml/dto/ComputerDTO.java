@@ -2,7 +2,7 @@ package com.pml.dto;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.pml.domain.Computer;
 import com.pml.domain.enums.ArchitectureType;
@@ -14,20 +14,20 @@ public class ComputerDTO extends MachineDTO{
 	
 	private String ipAddress;
 	private String motherBoardName;
-	@NotEmpty(message = "Mandatory")
+	@NotNull(message = "Mandatory")
 	private Integer memoryType;
 	private Double memorySize;
 	private Integer hdType;
 	private Double hdSize;
 	private String processorModel;
-	@NotEmpty(message = "Mandatory")
+	@NotNull(message = "Mandatory")
 	private Integer processorArchitecture;
-	@NotEmpty(message = "Mandatory")
+	@NotNull(message = "Mandatory")
 	private Boolean hasCdBurner;
 	private String cabinetModel;
 	private Integer operatingSystem;
 	private Integer operatingSystemArchitecture;
-	@NotEmpty(message = "Mandatory")
+	@NotNull(message = "Mandatory")
 	private boolean isOnTheDomain;
 	
 	public ComputerDTO() {	

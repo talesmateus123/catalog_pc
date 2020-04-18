@@ -49,9 +49,9 @@ public class ComputerService {
 	}
 
 	public void delete(String patrimonyId) {
-		this.find(patrimonyId);
+		Computer objetc = this.find(patrimonyId);
 		try {
-			this.repository.deleteByPatrimonyId(patrimonyId);
+			this.repository.deleteById(objetc.getId());
 		}
 		catch(DataIntegrityViolationException e){
 			throw new DataIntegrityException("Could not delete the computer: " + patrimonyId + ". This computer has still dependents.");
