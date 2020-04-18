@@ -10,8 +10,7 @@ import com.pml.domain.enums.HardDiskType;
 import com.pml.domain.enums.OperatingSystemType;
 import com.pml.domain.enums.RamMemoryType;
 
-public class ComputerDTO extends MachineDTO{
-	
+public class ComputerDTO extends MachineDTO{	
 	private String ipAddress;
 	private String motherBoardName;
 	@NotNull(message = "Mandatory")
@@ -28,14 +27,15 @@ public class ComputerDTO extends MachineDTO{
 	private Integer operatingSystem;
 	private Integer operatingSystemArchitecture;
 	@NotNull(message = "Mandatory")
-	private boolean isOnTheDomain;
+	private boolean onTheDomain;
 	
 	public ComputerDTO() {	
+		this.setItComposed(true);
 	}
 	
 	public ComputerDTO(Computer computer) {
 		super(computer.getId() , computer.getPatrimonyId(), computer.getCreatedDate(), computer.getModifiedDate(), computer.getEquipmentType().getCod(), 
-				computer.getManufacturer(), computer.getModel(), computer.getDescription(), computer.getSector().getCod(), computer.isItWorking());
+				computer.getManufacturer(), computer.getModel(), computer.getDescription(), computer.getSector().getCod(), computer.isItWorks(), true);
 		this.ipAddress = computer.getIpAddress();
 		this.motherBoardName = computer.getMotherBoardName();
 		this.memoryType = computer.getMemoryType().getCod();
@@ -48,14 +48,15 @@ public class ComputerDTO extends MachineDTO{
 		this.cabinetModel = computer.getCabinetModel();
 		this.operatingSystem = computer.getOperatingSystem().getCod();
 		this.operatingSystemArchitecture = computer.getOperatingSystemArchitecture().getCod();
+		this.onTheDomain = computer.isOnTheDomain();
 	}
 	
 	public ComputerDTO(Long id, String patrimonyId, Date createdDate, Date modifiedDate, Integer machineType,
 			String manufacturer, String model, String description, Integer sector, boolean isItWorking, String ipAddress,
 			String motherBoardName, Integer memoryType, Double memorySize, Integer hdType, Double hdSize,
 			String processorModel, Integer processorArchitecture, Boolean hasCdBurner, String cabinetModel,
-			Integer operatingSystem, Integer operatingSystemArchitecture) {
-		super(id, patrimonyId, createdDate, modifiedDate, machineType, manufacturer, model, description, sector, isItWorking);
+			Integer operatingSystem, Integer operatingSystemArchitecture, boolean onTheDomain) {
+		super(id, patrimonyId, createdDate, modifiedDate, machineType, manufacturer, model, description, sector, isItWorking, true);
 		this.ipAddress = ipAddress;
 		this.motherBoardName = motherBoardName;
 		this.memoryType = memoryType;
@@ -68,6 +69,7 @@ public class ComputerDTO extends MachineDTO{
 		this.cabinetModel = cabinetModel;
 		this.operatingSystem = operatingSystem;
 		this.operatingSystemArchitecture = operatingSystemArchitecture;
+		this.onTheDomain = onTheDomain;
 	}
 
 	public String getIpAddress() {
@@ -134,7 +136,7 @@ public class ComputerDTO extends MachineDTO{
 		this.processorArchitecture = processorArchitecture.getCod();
 	}
 
-	public Boolean hasCdBurner() {
+	public Boolean getHasCdBurner() {
 		return hasCdBurner;
 	}
 
@@ -167,11 +169,11 @@ public class ComputerDTO extends MachineDTO{
 	}
 
 	public boolean isOnTheDomain() {
-		return isOnTheDomain;
+		return onTheDomain;
 	}
 
-	public void setOnTheDomain(boolean isOnTheDomain) {
-		this.isOnTheDomain = isOnTheDomain;
+	public void setOnTheDomain(boolean onTheDomain) {
+		this.onTheDomain = onTheDomain;
 	}
 
 }

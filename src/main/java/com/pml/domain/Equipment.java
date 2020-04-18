@@ -33,24 +33,24 @@ public abstract class Equipment implements Serializable{
 	private String manufacturer;
 	private String model;
 	private String description;
-	private boolean isItWorking = true;
+	private boolean itWorks = true;
 	// Equipment composed is not a computer part 
-	private boolean isItComposed;
+	private boolean itComposed;
 
 	
 	public Equipment() {
 	}
 	
 	public Equipment(Date createdDate, Date modifiedDate, EquipmentType equipmentType, 
-			String manufacturer, String model, String description, boolean isItWorking, boolean isItComposed) {
+			String manufacturer, String model, String description, boolean itWorks, boolean itComposed) {
 		this.createdDate = createdDate;
 		this.modifiedDate = modifiedDate;
 		this.equipmentType = equipmentType.getCod();
 		this.manufacturer = manufacturer;
 		this.model = model;
 		this.description = description;
-		this.isItWorking = isItWorking;
-		this.isItComposed = isItComposed;
+		this.itWorks = itWorks;
+		this.itComposed = itComposed;
 	}
 	
 	public Long getId() {
@@ -109,20 +109,20 @@ public abstract class Equipment implements Serializable{
 		this.description = description;
 	}
 	
-	public boolean isItWorking() {
-		return isItWorking;
+	public boolean isItWorks() {
+		return itWorks;
 	}
 
-	public void setIsItWorking(boolean isItWorking) {
-		this.isItWorking = isItWorking;
+	public void setItWorks(boolean itWorks) {
+		this.itWorks = itWorks;
 	}
 
 	public boolean isItComposed() {
-		return isItComposed;
+		return itComposed;
 	}
 
 	public void setItComposed(boolean isItComposed) {
-		this.isItComposed = isItComposed;
+		this.itComposed = isItComposed;
 	}
 	
 	

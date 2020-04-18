@@ -36,7 +36,7 @@ public class Computer extends Machine{
 	private String cabinetModel;
 	private Integer operatingSystem;
 	private Integer operatingSystemArchitecture;
-	private boolean isOnTheDomain = false;
+	private boolean onTheDomain = false;
 	
 	@ManyToMany
 	@JoinTable(name = "computer_computer_user",
@@ -56,11 +56,12 @@ public class Computer extends Machine{
 	}
 
 	public Computer(String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
-			String model, String description, Integer sector, boolean isItWorking, String motherBoardName,  
+			String model, String description, Integer sector, boolean itWorks, String ipAddress, String motherBoardName,  
 			Integer memoryType, Double memorySize,  Integer hdType,	Double hdSize,  String processorModel, 
 			Integer processorArchitecture, Boolean hasCdBurner, String cabinetModel, Integer operatingSystem,
-			Integer operatingSystemArchitecture, boolean isOnTheDomain, Monitor monitor) {
-		super(patrimonyId, createdDate, modifiedDate, EquipmentType.COMPUTER, manufacturer, model, description, sector, isItWorking);
+			Integer operatingSystemArchitecture, boolean onTheDomain, Monitor monitor) {
+		super(patrimonyId, createdDate, modifiedDate, EquipmentType.COMPUTER, manufacturer, model, description, sector, itWorks);
+		this.ipAddress = ipAddress;
 		this.motherBoardName = motherBoardName;
 		this.memoryType = memoryType;
 		this.memorySize = memorySize;
@@ -72,6 +73,7 @@ public class Computer extends Machine{
 		this.cabinetModel = cabinetModel;
 		this.operatingSystem = operatingSystem;
 		this.operatingSystemArchitecture = operatingSystemArchitecture;
+		this.onTheDomain = onTheDomain;
 		this.monitor = monitor;
 	}
 
@@ -172,11 +174,11 @@ public class Computer extends Machine{
 	}
 
 	public boolean isOnTheDomain() {
-		return isOnTheDomain;
+		return onTheDomain;
 	}
 
-	public void setIsOnTheDomain(boolean isOnTheDomain) {
-		this.isOnTheDomain = isOnTheDomain;
+	public void setIsOnTheDomain(boolean onTheDomain) {
+		this.onTheDomain = onTheDomain;
 	}
 
 	public List<ComputerUser> getComputerUsers() {

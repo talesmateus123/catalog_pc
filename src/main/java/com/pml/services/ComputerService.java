@@ -77,13 +77,14 @@ public class ComputerService {
 	
 	public Computer fromDTO(ComputerDTO computerDTO) {
 		return new Computer(
-				computerDTO.getPatrimonyId(), computerDTO.getCreatedDate(), computerDTO.getModifiedDate(),
+				computerDTO.getPatrimonyId(), computerDTO.getCreatedDate(), computerDTO.getLastModifiedDate(),
 				computerDTO.getManufacturer(), computerDTO.getModel(), computerDTO.getDescription(), 
-				computerDTO.getSector().getCod(), computerDTO.isItWorking(), computerDTO.getMotherBoardName(), 
+				computerDTO.getSector().getCod(), computerDTO.isItWorks(), computerDTO.getIpAddress(), computerDTO.getMotherBoardName(), 
 				computerDTO.getMemoryType().getCod(), computerDTO.getMemorySize(),  computerDTO.getHdType().getCod(),	
 				computerDTO.getHdSize(),  computerDTO.getProcessorModel(), computerDTO.getProcessorArchitecture().getCod(), 
-				computerDTO.hasCdBurner(), computerDTO.getCabinetModel(), computerDTO.getOperatingSystem().getCod(),
+				computerDTO.getHasCdBurner(), computerDTO.getCabinetModel(), computerDTO.getOperatingSystem().getCod(),
 				computerDTO.getOperatingSystemArchitecture().getCod(), computerDTO.isOnTheDomain(), null);
 	}
+	
 	
 }

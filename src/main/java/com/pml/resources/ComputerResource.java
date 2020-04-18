@@ -38,7 +38,8 @@ public class ComputerResource {
 	@GetMapping
 	public ResponseEntity<List<ComputerDTO>> findAll() {
 		List<Computer> objects = this.service.findAll();
-		List<ComputerDTO> objectsDTO = objects.stream().map(obj -> new ComputerDTO(obj)).collect(Collectors.toList());
+		List<ComputerDTO> objectsDTO = objects.stream().map(
+				obj -> new ComputerDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(objectsDTO);
 	}
 	

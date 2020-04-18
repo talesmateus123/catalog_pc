@@ -23,21 +23,20 @@ public abstract class Machine extends Equipment {
 	private String model;
 	private String description;
 	private Integer sector;
-	private boolean isItWorking = true;
 	
 	public Machine() {
 		super();
+		this.setItComposed(true);
 	}
 
 	public Machine(String patrimonyId, Date createdDate, Date modifiedDate, EquipmentType equipmentType, 
-			String manufacturer, String model, String description, Integer sector, boolean isItWorking) {
-		super(createdDate, modifiedDate, equipmentType, manufacturer, model, description, isItWorking, true);
+			String manufacturer, String model, String description, Integer sector, boolean itWorks) {
+		super(createdDate, modifiedDate, equipmentType, manufacturer, model, description, itWorks, true);
 		this.patrimonyId = patrimonyId;
 		this.manufacturer = manufacturer;
 		this.model = model;
 		this.description = description;
 		this.sector = sector;
-		this.isItWorking = isItWorking;
 	}
 
 	public String getPatrimonyId() {
@@ -76,14 +75,6 @@ public abstract class Machine extends Equipment {
 		return Sector.toEnum(sector);
 	}
 	
-	public boolean isItWorking() {
-		return isItWorking;
-	}
-
-	public void setIsItWorking(boolean isItWorking) {
-		this.isItWorking = isItWorking;
-	}
-
 	public void setSector(Sector location) {
 		this.sector = location.getCod();
 	}

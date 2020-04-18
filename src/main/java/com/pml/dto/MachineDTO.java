@@ -17,8 +17,8 @@ public abstract class MachineDTO {
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Date modifiedDate;
-	private Integer machineType;
+	private Date lastModifiedDate;
+	private Integer equipmentType;
 	@NotEmpty(message = "Mandatory")
 	private String manufacturer;
 	@NotEmpty(message = "Mandatory")
@@ -26,23 +26,26 @@ public abstract class MachineDTO {
 	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
 	private String description;
 	private Integer sector;
-	private boolean isItWorking;
+	private boolean itWorks;
+	private boolean itComposed;
 	
-	public MachineDTO() {		
+	public MachineDTO() {	
+		this.setItComposed(true);
 	}
 		
-	public MachineDTO(Long id, String patrimonyId, Date createdDate, Date modifiedDate, Integer machineType,
-			String manufacturer, String model, String description, Integer sector, boolean isItWorking) {
+	public MachineDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, Integer equipmentType,
+			String manufacturer, String model, String description, Integer sector, boolean itWorks, boolean itComposed) {
 		this.id = id;
 		this.patrimonyId = patrimonyId;
 		this.createdDate = createdDate;
-		this.modifiedDate = modifiedDate;
-		this.machineType = machineType;
+		this.lastModifiedDate = lastModifiedDate;
+		this.equipmentType = equipmentType;
 		this.manufacturer = manufacturer;
 		this.model = model;
 		this.description = description;
 		this.sector = sector;
-		this.setItWorking(isItWorking);
+		this.itWorks = itWorks;
+		this.itComposed = itComposed;
 	}
 	
 	public Long getId() {
@@ -69,20 +72,20 @@ public abstract class MachineDTO {
 		this.createdDate = createdDate;
 	}
 
-	public Date getModifiedDate() {
-		return modifiedDate;
+	public Date getLastModifiedDate() {
+		return lastModifiedDate;
 	}
 
-	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public EquipmentType getMachineType() {
-		return EquipmentType.toEnum(machineType);
+	public EquipmentType getEquipmentType() {
+		return EquipmentType.toEnum(equipmentType);
 	}
 	
-	public void setMachineType(EquipmentType machineType) {
-		this.machineType = machineType.getCod();
+	public void setEquipmentType(EquipmentType equipmentType) {
+		this.equipmentType = equipmentType.getCod();
 	}
 	
 	public String getManufacturer() {
@@ -117,12 +120,20 @@ public abstract class MachineDTO {
 		this.sector = location.getCod();
 	}
 	
-	public boolean isItWorking() {
-		return isItWorking;
+	public boolean isItWorks() {
+		return itWorks;
 	}
 
-	public void setItWorking(boolean isItWorking) {
-		this.isItWorking = isItWorking;
+	public void setItWorks(boolean isItWorks) {
+		this.itWorks = isItWorks;
+	}
+
+	public boolean isItComposed() {
+		return itComposed;
+	}
+
+	public void setItComposed(boolean itComposed) {
+		this.itComposed = itComposed;
 	}
 
 	public static long getSerialversionuid() {
