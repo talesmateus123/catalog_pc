@@ -2,32 +2,39 @@ package com.pml.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.pml.domain.Computer;
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.HardDiskType;
 import com.pml.domain.enums.OperatingSystemType;
 import com.pml.domain.enums.RamMemoryType;
 
-public class ComputerDTO extends MachineDTO{	
+public class ComputerDTO extends MachineDTO{
+	
 	private String ipAddress;
 	private String motherBoardName;
+	@NotEmpty(message = "Mandatory")
 	private Integer memoryType;
 	private Double memorySize;
 	private Integer hdType;
 	private Double hdSize;
 	private String processorModel;
+	@NotEmpty(message = "Mandatory")
 	private Integer processorArchitecture;
+	@NotEmpty(message = "Mandatory")
 	private Boolean hasCdBurner;
 	private String cabinetModel;
 	private Integer operatingSystem;
 	private Integer operatingSystemArchitecture;
+	@NotEmpty(message = "Mandatory")
 	private boolean isOnTheDomain;
 	
 	public ComputerDTO() {	
 	}
 	
 	public ComputerDTO(Computer computer) {
-		super(computer.getId() , computer.getPatrimonyId(), computer.getCreatedDate(), computer.getModifiedDate(), computer.getMachineType().getCod(), 
+		super(computer.getId() , computer.getPatrimonyId(), computer.getCreatedDate(), computer.getModifiedDate(), computer.getEquipmentType().getCod(), 
 				computer.getManufacturer(), computer.getModel(), computer.getDescription(), computer.getSector().getCod(), computer.isItWorking());
 		this.ipAddress = computer.getIpAddress();
 		this.motherBoardName = computer.getMotherBoardName();

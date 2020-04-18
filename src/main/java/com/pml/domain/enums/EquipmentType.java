@@ -1,13 +1,13 @@
 package com.pml.domain.enums;
 
-public enum MachineType {
+public enum EquipmentType {
 	COMPUTER(0, "Computador"),
 	MONITOR(1, "Monitor");
 	
 	private Integer cod;
 	private String description;
 	
-	private MachineType(int cod, String description) {
+	private EquipmentType(int cod, String description) {
 		this.cod = cod;
 		this.description = description;
 	}
@@ -20,11 +20,11 @@ public enum MachineType {
 		return description;
 	}
 	
-	public static MachineType toEnum(Integer cod) {
+	public static EquipmentType toEnum(Integer cod) {
 		if (cod == null )
 			return null;
 		
-		for (MachineType type : MachineType.values()) {
+		for (EquipmentType type : EquipmentType.values()) {
 			if (cod == type.getCod()) {
 				return type;
 			}

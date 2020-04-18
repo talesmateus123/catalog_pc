@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.pml.domain.enums.MachineType;
+import com.pml.domain.enums.EquipmentType;
 
 @Entity
 public class Monitor extends Machine{
@@ -23,12 +23,12 @@ public class Monitor extends Machine{
 
 	public Monitor() {
 		super();
-		this.setMachineType(MachineType.MONITOR);
+		this.setEquipmentType(EquipmentType.MONITOR);
 	}
 
 	public Monitor(String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
 			String model, String description, Integer location, boolean isItWorking, Computer computer) {
-		super(patrimonyId, createdDate, modifiedDate, MachineType.MONITOR, manufacturer, model, description, location, isItWorking);
+		super(patrimonyId, createdDate, modifiedDate, EquipmentType.MONITOR, manufacturer, model, description, location, isItWorking);
 		this.computer = computer;
 	}
 
@@ -40,5 +40,8 @@ public class Monitor extends Machine{
 		this.computer = computer;
 	}
 	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 }

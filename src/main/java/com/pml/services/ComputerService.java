@@ -16,7 +16,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.pml.domain.Computer;
-import com.pml.domain.Monitor;
 import com.pml.dto.ComputerDTO;
 import com.pml.repositories.ComputerRepository;
 import com.pml.services.exceptions.ConflictOfObjectsException;

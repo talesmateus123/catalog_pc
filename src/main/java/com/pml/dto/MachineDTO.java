@@ -6,13 +6,12 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.pml.domain.enums.MachineType;
+import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.Sector;
 
 public abstract class MachineDTO {
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	@NotEmpty(message = "Mandatory")
 	@Size(min = 4, max = 10, message = "The text must contain between 4 and 10 characters")
 	private String patrimonyId;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
@@ -20,8 +19,11 @@ public abstract class MachineDTO {
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date modifiedDate;
 	private Integer machineType;
+	@NotEmpty(message = "Mandatory")
 	private String manufacturer;
+	@NotEmpty(message = "Mandatory")
 	private String model;
+	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
 	private String description;
 	private Integer sector;
 	private boolean isItWorking;
@@ -75,11 +77,11 @@ public abstract class MachineDTO {
 		this.modifiedDate = modifiedDate;
 	}
 
-	public MachineType getMachineType() {
-		return MachineType.toEnum(machineType);
+	public EquipmentType getMachineType() {
+		return EquipmentType.toEnum(machineType);
 	}
 	
-	public void setMachineType(MachineType machineType) {
+	public void setMachineType(EquipmentType machineType) {
 		this.machineType = machineType.getCod();
 	}
 	

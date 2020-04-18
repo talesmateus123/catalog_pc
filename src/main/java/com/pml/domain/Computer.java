@@ -17,7 +17,7 @@ import javax.persistence.OneToOne;
 
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.HardDiskType;
-import com.pml.domain.enums.MachineType;
+import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.OperatingSystemType;
 import com.pml.domain.enums.RamMemoryType;
 
@@ -52,7 +52,7 @@ public class Computer extends Machine{
 	
 	public Computer() {
 		super();
-		this.setMachineType(MachineType.COMPUTER);
+		this.setEquipmentType(EquipmentType.COMPUTER);
 	}
 
 	public Computer(String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
@@ -60,7 +60,7 @@ public class Computer extends Machine{
 			Integer memoryType, Double memorySize,  Integer hdType,	Double hdSize,  String processorModel, 
 			Integer processorArchitecture, Boolean hasCdBurner, String cabinetModel, Integer operatingSystem,
 			Integer operatingSystemArchitecture, boolean isOnTheDomain, Monitor monitor) {
-		super(patrimonyId, createdDate, modifiedDate,  MachineType.COMPUTER, manufacturer, model, description, sector, isItWorking);
+		super(patrimonyId, createdDate, modifiedDate, EquipmentType.COMPUTER, manufacturer, model, description, sector, isItWorking);
 		this.motherBoardName = motherBoardName;
 		this.memoryType = memoryType;
 		this.memorySize = memorySize;
@@ -195,6 +195,8 @@ public class Computer extends Machine{
 		this.monitor = monitor;
 	}
 	
-	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 }

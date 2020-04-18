@@ -80,6 +80,9 @@ public class ComputerUser implements Serializable {
 		this.relatedToComputers = relatedToComputers;
 	}
 	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 	@Override
 	public int hashCode() {
