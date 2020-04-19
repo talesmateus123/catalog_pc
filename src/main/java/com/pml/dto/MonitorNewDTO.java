@@ -8,11 +8,10 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.pml.domain.Monitor;
 import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.Sector;
 
-public class MonitorDTO implements Serializable {
+public class MonitorNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	@NotEmpty(message = "This field is mandatory")
@@ -33,43 +32,9 @@ public class MonitorDTO implements Serializable {
 	private Integer sector;
 	private boolean itWorks;
 	private boolean itComposed;
+	private Long computerId;
 	
-	public MonitorDTO() {
-	}
-	
-	public MonitorDTO(Monitor monitor) {
-		this.id = monitor.getId();
-		this.patrimonyId = monitor.getPatrimonyId();
-		this.createdDate = monitor.getCreatedDate();
-		this.lastModifiedDate = monitor.getLastModifiedDate();
-		this.equipmentType = monitor.getEquipmentType().getCod();
-		this.manufacturer = monitor.getManufacturer();
-		this.model = monitor.getModel();
-		this.description = monitor.getDescription();
-		this.sector = monitor.getSector().getCod();
-		this.itWorks = monitor.isItWorks();
-		this.itComposed = monitor.isItComposed();
-		this.equipmentType = monitor.getEquipmentType().getCod();
-		this.itComposed = monitor.isItComposed();
-	}
-	
-	public MonitorDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
-			String model, String description, Integer sector, boolean itWorks, String ipAddress,
-			String motherBoardName, Integer memoryType, Double memorySize, Integer hdType, Double hdSize,
-			String processorModel, Integer processorArchitecture, Boolean hasCdBurner, String cabinetModel,
-			Integer operatingSystem, Integer operatingSystemArchitecture, boolean onTheDomain, 
-			EquipmentType equipmentType, boolean itComposed) {
-		this.id = id;
-		this.patrimonyId = patrimonyId;
-		this.createdDate = createdDate;
-		this.lastModifiedDate = lastModifiedDate;
-		this.manufacturer = manufacturer;
-		this.model = model;
-		this.description = description;
-		this.sector = sector;
-		this.itWorks = itWorks;
-		this.equipmentType = equipmentType.getCod();
-		this.itComposed = itComposed;
+	public MonitorNewDTO() {
 	}
 
 	public Long getId() {
@@ -158,6 +123,14 @@ public class MonitorDTO implements Serializable {
 
 	public void setItComposed(boolean itComposed) {
 		this.itComposed = itComposed;
+	}
+
+	public Long getComputerId() {
+		return computerId;
+	}
+
+	public void setComputerId(Long computerId) {
+		this.computerId = computerId;
 	}
 	
 

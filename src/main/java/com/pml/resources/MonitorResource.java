@@ -27,6 +27,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pml.domain.Monitor;
 import com.pml.dto.MonitorDTO;
+import com.pml.dto.MonitorNewDTO;
 import com.pml.services.MonitorService;
 
 @RestController
@@ -69,7 +70,7 @@ public class MonitorResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody MonitorDTO objectDTO) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody MonitorNewDTO objectDTO) {
 		Monitor object = this.service.fromDTO(objectDTO);
 		object = this.service.insert(object);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import com.pml.domain.ComputerUser;
 import com.pml.dto.ComputerUserDTO;
+import com.pml.dto.ComputerUserNewDTO;
+import com.pml.repositories.ComputerRepository;
 import com.pml.repositories.ComputerUserRepository;
 import com.pml.services.exceptions.DataIntegrityException;
 import com.pml.services.exceptions.ObjectNotFoundException;
@@ -26,6 +28,8 @@ import com.pml.services.exceptions.ObjectNotFoundException;
 public class ComputerUserService {
 	@Autowired
 	private ComputerUserRepository repository;
+	@Autowired
+	private ComputerRepository computerRepository;
 	
 	public List<ComputerUser> findAll() {
 		return this.repository.findAll();
@@ -65,6 +69,16 @@ public class ComputerUserService {
 		ComputerUser computerUser = new ComputerUser(
 				computerUserDTO.getId(), computerUserDTO.getName(), computerUserDTO.getLastName(),
 				computerUserDTO.getSector().getCod(), computerUserDTO.getEmail());
+		return computerUser;
+	}
+	
+	public ComputerUser fromDTO(ComputerUserNewDTO computerUserNewDTO) {
+		ComputerUser computerUser = new ComputerUser(
+				null, computerUserNewDTO.getName(), computerUserNewDTO.getLastName(),
+				computerUserNewDTO.getSector().getCod(), computerUserNewDTO.getEmail());
+		for(Long computerId : computerUserNewDTO.getUseTheComputersId()) {
+			computerUser.addUseTheComputer(this.computerRepository.getOne(computerId));
+		}
 		return computerUser;
 	}
 	

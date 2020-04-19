@@ -27,6 +27,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pml.domain.Computer;
 import com.pml.dto.ComputerDTO;
+import com.pml.dto.ComputerNewDTO;
 import com.pml.services.ComputerService;
 
 @RestController
@@ -69,7 +70,7 @@ public class ComputerResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody ComputerDTO objectDTO) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody ComputerNewDTO objectDTO) {
 		Computer object = this.service.fromDTO(objectDTO);
 		object = this.service.insert(object);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -84,7 +85,7 @@ public class ComputerResource {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody ComputerDTO objectDTO, @PathVariable Long id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody ComputerNewDTO objectDTO, @PathVariable Long id) {
 		Computer object = this.service.fromDTO(objectDTO);
 		object.setId(id);
 		

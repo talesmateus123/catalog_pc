@@ -55,12 +55,12 @@ public class Computer extends Machine{
 		this.setEquipmentType(EquipmentType.COMPUTER);
 	}
 
-	public Computer(String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
+	public Computer(Long id, String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
 			String model, String description, Integer sector, boolean itWorks, String ipAddress, String motherBoardName,  
 			Integer memoryType, Double memorySize,  Integer hdType,	Double hdSize,  String processorModel, 
 			Integer processorArchitecture, Boolean hasCdBurner, String cabinetModel, Integer operatingSystem,
 			Integer operatingSystemArchitecture, boolean onTheDomain, Monitor monitor) {
-		super(patrimonyId, createdDate, modifiedDate, EquipmentType.COMPUTER, manufacturer, model, description, sector, itWorks);
+		super(id, patrimonyId, createdDate, modifiedDate, EquipmentType.COMPUTER, manufacturer, model, description, sector, itWorks);
 		this.ipAddress = ipAddress;
 		this.motherBoardName = motherBoardName;
 		this.memoryType = memoryType;
@@ -187,6 +187,10 @@ public class Computer extends Machine{
 
 	public void setComputerUsers(List<ComputerUser> computerUsers) {
 		this.computerUsers = computerUsers;
+	}
+	
+	public void addComputerUser(ComputerUser computerUser) {
+		this.computerUsers.add(computerUser);
 	}
 
 	public Monitor getMonitor() {

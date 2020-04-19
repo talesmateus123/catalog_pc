@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import com.pml.domain.Monitor;
 import com.pml.dto.MonitorDTO;
+import com.pml.dto.MonitorNewDTO;
+import com.pml.repositories.ComputerRepository;
 import com.pml.repositories.MonitorRepository;
 import com.pml.services.exceptions.ConflictOfObjectsException;
 import com.pml.services.exceptions.DataIntegrityException;
@@ -27,7 +29,9 @@ import com.pml.services.exceptions.ObjectNotFoundException;
 @Service
 public class MonitorService {
 	@Autowired
-	private MonitorRepository repository;
+	private MonitorRepository repository;	
+	@Autowired
+	private ComputerRepository computerRepository;
 	
 	public List<Monitor> findAll() {
 		return this.repository.findAll();
@@ -92,9 +96,19 @@ public class MonitorService {
 	
 	public Monitor fromDTO(MonitorDTO monitorDTO) {
 		Monitor monitor = new Monitor(
-				monitorDTO.getPatrimonyId(), monitorDTO.getCreatedDate(), monitorDTO.getLastModifiedDate(),
+				monitorDTO.getId(), monitorDTO.getPatrimonyId(), monitorDTO.getCreatedDate(), monitorDTO.getLastModifiedDate(),
 				monitorDTO.getManufacturer(), monitorDTO.getModel(), monitorDTO.getDescription(), 
 				monitorDTO.getSector().getCod(), monitorDTO.isItWorks(), null);
+		return monitor;
+	}
+	
+
+	public Monitor fromDTO(MonitorNewDTO monitorNewDTO) {
+		Monitor monitor = new Monitor(
+				null, monitorNewDTO.getPatrimonyId(), monitorNewDTO.getCreatedDate(), monitorNewDTO.getLastModifiedDate(),
+				monitorNewDTO.getManufacturer(), monitorNewDTO.getModel(), monitorNewDTO.getDescription(), 
+				monitorNewDTO.getSector().getCod(), monitorNewDTO.isItWorks(), null);
+		monitor.setComputer(this.computerRepository.getOne(monitorNewDTO.getComputerId()));
 		return monitor;
 	}
 	

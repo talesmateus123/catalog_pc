@@ -26,9 +26,9 @@ public class Monitor extends Machine{
 		this.setEquipmentType(EquipmentType.MONITOR);
 	}
 
-	public Monitor(String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
+	public Monitor(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
 			String model, String description, Integer location, boolean isItWorking, Computer computer) {
-		super(patrimonyId, createdDate, modifiedDate, EquipmentType.MONITOR, manufacturer, model, description, location, isItWorking);
+		super(id, patrimonyId, createdDate, lastModifiedDate, EquipmentType.MONITOR, manufacturer, model, description, location, isItWorking);
 		this.computer = computer;
 	}
 

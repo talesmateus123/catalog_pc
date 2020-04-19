@@ -27,6 +27,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pml.domain.ComputerUser;
 import com.pml.dto.ComputerUserDTO;
+import com.pml.dto.ComputerUserNewDTO;
 import com.pml.services.ComputerUserService;
 
 @RestController
@@ -63,7 +64,7 @@ public class ComputerUserResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody ComputerUserDTO objectDTO) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody ComputerUserNewDTO objectDTO) {
 		ComputerUser object = this.service.fromDTO(objectDTO);
 		object = this.service.insert(object);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

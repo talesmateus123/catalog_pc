@@ -19,7 +19,9 @@ import org.springframework.stereotype.Service;
 
 import com.pml.domain.Computer;
 import com.pml.dto.ComputerDTO;
+import com.pml.dto.ComputerNewDTO;
 import com.pml.repositories.ComputerRepository;
+import com.pml.repositories.ComputerUserRepository;
 import com.pml.services.exceptions.ConflictOfObjectsException;
 import com.pml.services.exceptions.DataIntegrityException;
 import com.pml.services.exceptions.ObjectNotFoundException;
@@ -28,6 +30,13 @@ import com.pml.services.exceptions.ObjectNotFoundException;
 public class ComputerService {
 	@Autowired
 	private ComputerRepository repository;
+	@Autowired
+	private ComputerUserRepository computerUserRepository;
+	// To a future implementation
+	/*
+	@Autowired
+	private ProcessorRepository processorRepository;
+	*/
 	
 	public List<Computer> findAll() {
 		return this.repository.findAll();
@@ -50,11 +59,19 @@ public class ComputerService {
 	
 	@Transactional
 	public Computer insert(Computer object) {
-		if(alreadyExists(object)){
+		if(alreadyExists(object.getPatrimonyId())){
 			throw new ConflictOfObjectsException("This computer already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
 		object.setId(null);
 		object.setCreatedDate(new Date());
+		
+		// To a future implementation
+		/*
+		if(processorAlreadyExists(object)){
+			return this.repository.save(object);
+		}
+		this.processorRepository.save(object.getProcessor());
+		*/
 		return this.repository.save(object);
 	}
 
@@ -69,9 +86,11 @@ public class ComputerService {
 	}
 
 	public Computer update(Computer object) {
-		if(alreadyExists(object)){
-			throw new ConflictOfObjectsException("This computer already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+		if(patrimonyIdIsChanged(object)){
+			if(alreadyExists(object.getPatrimonyId()))
+				throw new ConflictOfObjectsException("This computer already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
+		
 		recoverData(object);		
 		return this.repository.saveAndFlush(object);		
 	}
@@ -82,23 +101,57 @@ public class ComputerService {
 		object.setLastModifiedDate(new Date());
 	}
 	
-	private boolean alreadyExists(Computer object) {
-		Optional<Computer> objectX = this.repository.findByPatrimonyId(object.getPatrimonyId());
-		if(objectX.isEmpty()) {
+	/**
+	 * Verify if already exists the patrimony id requested
+	 * @param Long patrimonyId
+	 * @return boolean
+	 */
+	private boolean alreadyExists(String patrimonyId) {	
+		Optional<Computer> objectByPatrimonyId = this.repository.findByPatrimonyId(patrimonyId);
+		
+		if(objectByPatrimonyId.isEmpty())
 			return false; 
-		}
+		return true;
+	}
+	
+	/**
+	 * Verify if the object in a question has its patrimony id changed
+	 * @param object
+	 * @return boolean
+	 */
+	private boolean patrimonyIdIsChanged(Computer object) {	
+		Optional<Computer> objectByPatrimonyId = this.repository.findByPatrimonyId(object.getPatrimonyId());		
+		Optional<Computer> objectById = this.repository.findById(object.getId());
+		
+		if(objectById.get().getPatrimonyId().equals(objectByPatrimonyId.get().getPatrimonyId()))
+			return false;		
 		return true;
 	}
 	
 	public Computer fromDTO(ComputerDTO computerDTO) {
 		Computer computer = new Computer(
-				computerDTO.getPatrimonyId(), computerDTO.getCreatedDate(), computerDTO.getLastModifiedDate(),
+				computerDTO.getId(), computerDTO.getPatrimonyId(), computerDTO.getCreatedDate(), computerDTO.getLastModifiedDate(),
 				computerDTO.getManufacturer(), computerDTO.getModel(), computerDTO.getDescription(), 
 				computerDTO.getSector().getCod(), computerDTO.isItWorks(), computerDTO.getIpAddress(), computerDTO.getMotherBoardName(), 
 				computerDTO.getMemoryType().getCod(), computerDTO.getMemorySize(),  computerDTO.getHdType().getCod(),	
 				computerDTO.getHdSize(),  computerDTO.getProcessorModel(), computerDTO.getProcessorArchitecture().getCod(), 
 				computerDTO.getHasCdBurner(), computerDTO.getCabinetModel(), computerDTO.getOperatingSystem().getCod(),
 				computerDTO.getOperatingSystemArchitecture().getCod(), computerDTO.isOnTheDomain(), null);
+		return computer;
+	}
+	
+	public Computer fromDTO(ComputerNewDTO computerNewDTO) {
+		Computer computer = new Computer(
+				null, computerNewDTO.getPatrimonyId(), computerNewDTO.getCreatedDate(), computerNewDTO.getLastModifiedDate(),
+				computerNewDTO.getManufacturer(), computerNewDTO.getModel(), computerNewDTO.getDescription(), 
+				computerNewDTO.getSector().getCod(), computerNewDTO.isItWorks(), computerNewDTO.getIpAddress(), computerNewDTO.getMotherBoardName(), 
+				computerNewDTO.getMemoryType().getCod(), computerNewDTO.getMemorySize(),  computerNewDTO.getHdType().getCod(),	
+				computerNewDTO.getHdSize(),  computerNewDTO.getProcessorModel(), computerNewDTO.getProcessorArchitecture().getCod(), 
+				computerNewDTO.getHasCdBurner(), computerNewDTO.getCabinetModel(), computerNewDTO.getOperatingSystem().getCod(),
+				computerNewDTO.getOperatingSystemArchitecture().getCod(), computerNewDTO.isOnTheDomain(), null);
+		for(Long computerUserId : computerNewDTO.getComputerUsersId()) {
+			computer.addComputerUser(this.computerUserRepository.getOne(computerUserId));
+		}
 		return computer;
 	}
 	

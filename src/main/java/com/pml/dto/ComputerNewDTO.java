@@ -1,7 +1,9 @@
 package com.pml.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
@@ -9,7 +11,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.pml.domain.Computer;
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.HardDiskType;
@@ -17,7 +18,7 @@ import com.pml.domain.enums.OperatingSystemType;
 import com.pml.domain.enums.RamMemoryType;
 import com.pml.domain.enums.Sector;
 
-public class ComputerDTO implements Serializable {
+public class ComputerNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	@NotEmpty(message = "This field is mandatory")
@@ -55,71 +56,12 @@ public class ComputerDTO implements Serializable {
 	private Integer operatingSystemArchitecture;
 	@NotNull(message = "This field is mandatory")
 	private boolean onTheDomain;
+	private List<Long> computerUsersId = new ArrayList<>();
+	private Long monitorId;
 	
-	public ComputerDTO() {
+	public ComputerNewDTO() {
 		this.setEquipmentType(EquipmentType.COMPUTER);
 		this.setItComposed(true);
-	}
-	
-	public ComputerDTO(Computer computer) {
-		this.id = computer.getId();
-		this.patrimonyId = computer.getPatrimonyId();
-		this.createdDate = computer.getCreatedDate();
-		this.lastModifiedDate = computer.getLastModifiedDate();
-		this.equipmentType = computer.getEquipmentType().getCod();
-		this.manufacturer = computer.getManufacturer();
-		this.model = computer.getModel();
-		this.description = computer.getDescription();
-		this.sector = computer.getSector().getCod();
-		this.itWorks = computer.isItWorks();
-		this.itComposed = computer.isItComposed();
-		this.ipAddress = computer.getIpAddress();
-		this.motherBoardName = computer.getMotherBoardName();
-		this.memoryType = computer.getMemoryType().getCod();
-		this.memorySize = computer.getMemorySize();
-		this.hdType = computer.getHdType().getCod();
-		this.hdSize = computer.getHdSize();
-		this.processorModel = computer.getProcessorModel();
-		this.processorArchitecture = computer.getProcessorArchitecture().getCod();
-		this.hasCdBurner = computer.getHasCdBurner();
-		this.cabinetModel = computer.getCabinetModel();
-		this.operatingSystem = computer.getOperatingSystem().getCod();
-		this.operatingSystemArchitecture = computer.getOperatingSystemArchitecture().getCod();
-		this.onTheDomain = computer.isOnTheDomain();
-		this.equipmentType = computer.getEquipmentType().getCod();
-		this.itComposed = computer.isItComposed();
-	}
-	
-	public ComputerDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
-			String model, String description, Integer sector, boolean itWorks, String ipAddress,
-			String motherBoardName, Integer memoryType, Double memorySize, Integer hdType, Double hdSize,
-			String processorModel, Integer processorArchitecture, Boolean hasCdBurner, String cabinetModel,
-			Integer operatingSystem, Integer operatingSystemArchitecture, boolean onTheDomain, EquipmentType equipmentType,
-			boolean itComposed) {
-		this.id = id;
-		this.patrimonyId = patrimonyId;
-		this.createdDate = createdDate;
-		this.lastModifiedDate = lastModifiedDate;
-		this.manufacturer = manufacturer;
-		this.model = model;
-		this.description = description;
-		this.sector = sector;
-		this.itWorks = itWorks;
-		this.ipAddress = ipAddress;
-		this.motherBoardName = motherBoardName;
-		this.memoryType = memoryType;
-		this.memorySize = memorySize;
-		this.hdType = hdType;
-		this.hdSize = hdSize;
-		this.processorModel = processorModel;
-		this.processorArchitecture = processorArchitecture;
-		this.hasCdBurner = hasCdBurner;
-		this.cabinetModel = cabinetModel;
-		this.operatingSystem = operatingSystem;
-		this.operatingSystemArchitecture = operatingSystemArchitecture;
-		this.onTheDomain = onTheDomain;
-		this.equipmentType = equipmentType.getCod();
-		this.itComposed = itComposed;
 	}
 
 	public Long getId() {
@@ -312,6 +254,26 @@ public class ComputerDTO implements Serializable {
 
 	public void setOnTheDomain(boolean onTheDomain) {
 		this.onTheDomain = onTheDomain;
+	}
+
+	public List<Long> getComputerUsersId() {
+		return computerUsersId;
+	}
+
+	public void setComputerUsersId(List<Long> computerUsersId) {
+		this.computerUsersId = computerUsersId;
+	}
+	
+	public void addComputerUserId(Long computerUserId) {
+		this.computerUsersId.add(computerUserId);
+	}
+
+	public Long getMonitorId() {
+		return monitorId;
+	}
+
+	public void setMonitorId(Long monitorId) {
+		this.monitorId = monitorId;
 	}
 
 }

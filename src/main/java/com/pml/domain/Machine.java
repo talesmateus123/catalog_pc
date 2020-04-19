@@ -29,9 +29,9 @@ public abstract class Machine extends Equipment {
 		this.setItComposed(true);
 	}
 
-	public Machine(String patrimonyId, Date createdDate, Date modifiedDate, EquipmentType equipmentType, 
+	public Machine(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, EquipmentType equipmentType, 
 			String manufacturer, String model, String description, Integer sector, boolean itWorks) {
-		super(createdDate, modifiedDate, equipmentType, manufacturer, model, description, itWorks, true);
+		super(id, createdDate, lastModifiedDate, equipmentType, manufacturer, model, description, itWorks, true);
 		this.patrimonyId = patrimonyId;
 		this.manufacturer = manufacturer;
 		this.model = model;
