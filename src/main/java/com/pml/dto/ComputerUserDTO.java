@@ -3,40 +3,42 @@
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */
-package com.pml.domain;
+package com.pml.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pml.domain.enums.Sector;
 
 @Entity
-public class ComputerUser implements Serializable {
+public class ComputerUserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotEmpty(message = "This field is mandatory")
+	@Size(min = 4, max = 20, message = "The text of this field must contain between 4 and 20 characters")
 	private String name;
+	@NotEmpty(message = "This field is mandatory")
+	@Size(min = 4, max = 20, message = "The text of this field must contain between 4 and 20 characters")
 	private String lastName;
+	@NotNull
 	private Integer sector;
+	@Email(message = "Invalid e-mail")
 	private String email;
-	// A user can use many computer, because the company uses the Active Directory server.
-	@JsonBackReference
-	@ManyToMany(mappedBy = "computerUsers")
-	private List<Computer> useTheComputers = new ArrayList<>();
 	
-	public ComputerUser() {		
+	public ComputerUserDTO() {		
 	}
 	
-	public ComputerUser(Long id, String name, String lastName, Integer sector, String email) {
+	public ComputerUserDTO(Long id, String name, String lastName, Integer sector, String email) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -76,22 +78,6 @@ public class ComputerUser implements Serializable {
 	public void setSector(Sector location) {
 		this.sector = location.getCod();
 	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public List<Computer> getUseTheComputers() {
-		return useTheComputers;
-	}
-
-	public void setUseTheComputers(List<Computer> useTheComputers) {
-		this.useTheComputers = useTheComputers;
-	}
 	
 	@Override
 	public int hashCode() {
@@ -108,7 +94,7 @@ public class ComputerUser implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ComputerUser other = (ComputerUser) obj;
+		ComputerUserDTO other = (ComputerUserDTO) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

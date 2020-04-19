@@ -43,38 +43,43 @@ public class ComputerService {
 	
 	public Computer findById(Long id) {
 		Optional<Computer> object = this.repository.findById(id);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Computer not found: id: \"" + id + "\". Type: " + object.getClass().getName()));
+		return object.orElseThrow(()-> new ObjectNotFoundException("Computer not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
 	
 	public Computer insert(Computer object) {
 		if(alreadyExists(object)){
-			throw new ConflictOfObjectsException("This computer already exists: " + object.getPatrimonyId() + ".");
+			throw new ConflictOfObjectsException("This computer already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
 		object.setId(null);
 		object.setCreatedDate(new Date());
 		return this.repository.save(object);
 	}
 
-	public void delete(String patrimonyId) {
-		Computer objetc = this.findByPatrimonyId(patrimonyId);
+	public void delete(Long id) {
+		Computer objetc = this.findById(id);
 		try {
 			this.repository.deleteById(objetc.getId());
 		}
 		catch(DataIntegrityViolationException e){
-			throw new DataIntegrityException("Could not delete the computer: " + patrimonyId + ". This computer has still dependents.");
+			throw new DataIntegrityException("Could not delete the computer: id: '" + id + "'. This computer has still dependents.");
 		}
 	}
 
 	public Computer update(Computer object) {
-		Computer objetcX = this.findByPatrimonyId(object.getPatrimonyId());
-		object.setId(objetcX.getId());
-		object.setCreatedDate(objetcX.getCreatedDate());
-		object.setModifiedDate(new Date());
-		return this.repository.saveAndFlush(object);
-		
+		if(alreadyExists(object)){
+			throw new ConflictOfObjectsException("This computer already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+		}
+		recoverData(object);		
+		return this.repository.saveAndFlush(object);		
 	}
 	
-	public boolean alreadyExists(Computer object) {
+	private void recoverData(Computer object) {
+		Computer oldComputer = this.findById(object.getId());
+		object.setCreatedDate(oldComputer.getCreatedDate());
+		object.setLastModifiedDate(new Date());
+	}
+	
+	private boolean alreadyExists(Computer object) {
 		Optional<Computer> objectX = this.repository.findByPatrimonyId(object.getPatrimonyId());
 		if(objectX.isEmpty()) {
 			return false; 

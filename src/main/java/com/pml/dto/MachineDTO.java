@@ -3,6 +3,7 @@ package com.pml.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -15,6 +16,7 @@ public abstract class MachineDTO implements Serializable{
 	private Long id;
 	@NotEmpty(message = "This field is mandatory")
 	@Size(min = 4, max = 10, message = "The text of this field must contain between 4 and 10 characters")
+	@Column(unique = true)
 	private String patrimonyId;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date createdDate;

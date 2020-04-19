@@ -28,7 +28,7 @@ public abstract class Equipment implements Serializable{
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Date modifiedDate;
+	private Date lastModifiedDate;
 	private Integer equipmentType;
 	private String manufacturer;
 	private String model;
@@ -41,10 +41,10 @@ public abstract class Equipment implements Serializable{
 	public Equipment() {
 	}
 	
-	public Equipment(Date createdDate, Date modifiedDate, EquipmentType equipmentType, 
+	public Equipment(Date createdDate, Date lastModifiedDate, EquipmentType equipmentType, 
 			String manufacturer, String model, String description, boolean itWorks, boolean itComposed) {
 		this.createdDate = createdDate;
-		this.modifiedDate = modifiedDate;
+		this.lastModifiedDate = lastModifiedDate;
 		this.equipmentType = equipmentType.getCod();
 		this.manufacturer = manufacturer;
 		this.model = model;
@@ -69,12 +69,12 @@ public abstract class Equipment implements Serializable{
 		this.createdDate = createdDate;
 	}
 
-	public Date getModifiedDate() {
-		return modifiedDate;
+	public Date getLastModifiedDate() {
+		return lastModifiedDate;
 	}
 
-	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	public EquipmentType getEquipmentType() {

@@ -1,5 +1,5 @@
 /** 
- * This is the class "ComputerResource". Which will be to represent a REST controller of Computer model.
+ * This is the class "MonitorResource". Which will be to represent a REST controller of Monitor model.
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */
@@ -25,52 +25,52 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.pml.domain.Computer;
-import com.pml.dto.ComputerDTO;
-import com.pml.services.ComputerService;
+import com.pml.domain.Monitor;
+import com.pml.dto.MonitorDTO;
+import com.pml.services.MonitorService;
 
 @RestController
-@RequestMapping(value = "/api/computers")
-public class ComputerResource {
+@RequestMapping(value = "/api/monitors")
+public class MonitorResource {
 	@Autowired
 	
-	private ComputerService service;
+	private MonitorService service;
 	
 	@GetMapping
-	public ResponseEntity<List<ComputerDTO>> findAll() {
-		List<Computer> objects = this.service.findAll();
-		List<ComputerDTO> objectsDTO = objects.stream().map(
-				obj -> new ComputerDTO(obj)).collect(Collectors.toList());
+	public ResponseEntity<List<MonitorDTO>> findAll() {
+		List<Monitor> objects = this.service.findAll();
+		List<MonitorDTO> objectsDTO = objects.stream().map(
+				obj -> new MonitorDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(objectsDTO);
 	}
 	
 	@GetMapping("/page")
-	public ResponseEntity<Page<ComputerDTO>> findPage(
+	public ResponseEntity<Page<MonitorDTO>> findPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page, 
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
 			@RequestParam(value = "orderBy", defaultValue = "motherBoardName") String orderBy) {
 		
-		Page<Computer> objects = this.service.findPage(page, linesPerPage, direction, orderBy);
-		Page<ComputerDTO> objectsDTO = objects.map(obj -> new ComputerDTO(obj));
+		Page<Monitor> objects = this.service.findPage(page, linesPerPage, direction, orderBy);
+		Page<MonitorDTO> objectsDTO = objects.map(obj -> new MonitorDTO(obj));
 		return ResponseEntity.ok().body(objectsDTO);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Computer> findById(@PathVariable Long id) {
-		Computer object = this.service.findById(id);
+	public ResponseEntity<Monitor> findById(@PathVariable Long id) {
+		Monitor object = this.service.findById(id);
 		return ResponseEntity.ok().body(object);
 	}
 	
 	@GetMapping("/patrimonyId/{patrimonyId}")
-	public ResponseEntity<Computer> findByPatrimonyId(@PathVariable String patrimonyId) {
-		Computer object = this.service.findByPatrimonyId(patrimonyId);
+	public ResponseEntity<Monitor> findByPatrimonyId(@PathVariable String patrimonyId) {
+		Monitor object = this.service.findByPatrimonyId(patrimonyId);
 		return ResponseEntity.ok().body(object);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody ComputerDTO objectDTO) {
-		Computer object = this.service.fromDTO(objectDTO);
+	public ResponseEntity<Void> insert(@Valid @RequestBody MonitorDTO objectDTO) {
+		Monitor object = this.service.fromDTO(objectDTO);
 		object = this.service.insert(object);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{patrimonyId}").buildAndExpand(object.getId()).toUri();
@@ -84,8 +84,8 @@ public class ComputerResource {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody ComputerDTO objectDTO, @PathVariable Long id) {
-		Computer object = this.service.fromDTO(objectDTO);
+	public ResponseEntity<Void> update(@Valid @RequestBody MonitorDTO objectDTO, @PathVariable Long id) {
+		Monitor object = this.service.fromDTO(objectDTO);
 		object.setId(id);
 		
 		this.service.update(object);

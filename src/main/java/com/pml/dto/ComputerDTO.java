@@ -35,7 +35,7 @@ public class ComputerDTO extends MachineDTO{
 	}
 	
 	public ComputerDTO(Computer computer) {
-		super(computer.getId() , computer.getPatrimonyId(), computer.getCreatedDate(), computer.getModifiedDate(), computer.getEquipmentType().getCod(), 
+		super(computer.getId() , computer.getPatrimonyId(), computer.getCreatedDate(), computer.getLastModifiedDate(), computer.getEquipmentType().getCod(), 
 				computer.getManufacturer(), computer.getModel(), computer.getDescription(), computer.getSector().getCod(), computer.isItWorks(), true);
 		this.ipAddress = computer.getIpAddress();
 		this.motherBoardName = computer.getMotherBoardName();
@@ -52,12 +52,12 @@ public class ComputerDTO extends MachineDTO{
 		this.onTheDomain = computer.isOnTheDomain();
 	}
 	
-	public ComputerDTO(Long id, String patrimonyId, Date createdDate, Date modifiedDate, Integer machineType,
+	public ComputerDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, Integer machineType,
 			String manufacturer, String model, String description, Integer sector, boolean isItWorking, String ipAddress,
 			String motherBoardName, Integer memoryType, Double memorySize, Integer hdType, Double hdSize,
 			String processorModel, Integer processorArchitecture, Boolean hasCdBurner, String cabinetModel,
 			Integer operatingSystem, Integer operatingSystemArchitecture, boolean onTheDomain) {
-		super(id, patrimonyId, createdDate, modifiedDate, machineType, manufacturer, model, description, sector, isItWorking, true);
+		super(id, patrimonyId, createdDate, lastModifiedDate, machineType, manufacturer, model, description, sector, isItWorking, true);
 		this.ipAddress = ipAddress;
 		this.motherBoardName = motherBoardName;
 		this.memoryType = memoryType;
