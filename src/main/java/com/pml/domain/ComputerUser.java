@@ -41,7 +41,7 @@ public class ComputerUser implements Serializable {
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
-		this.sector = sector;
+		this.sector = (sector == null) ? null : sector;
 		this.email = email;
 	}
 	

@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -46,6 +48,7 @@ public class ComputerService {
 		return object.orElseThrow(()-> new ObjectNotFoundException("Computer not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
 	
+	@Transactional
 	public Computer insert(Computer object) {
 		if(alreadyExists(object)){
 			throw new ConflictOfObjectsException("This computer already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
@@ -88,7 +91,7 @@ public class ComputerService {
 	}
 	
 	public Computer fromDTO(ComputerDTO computerDTO) {
-		return new Computer(
+		Computer computer = new Computer(
 				computerDTO.getPatrimonyId(), computerDTO.getCreatedDate(), computerDTO.getLastModifiedDate(),
 				computerDTO.getManufacturer(), computerDTO.getModel(), computerDTO.getDescription(), 
 				computerDTO.getSector().getCod(), computerDTO.isItWorks(), computerDTO.getIpAddress(), computerDTO.getMotherBoardName(), 
@@ -96,6 +99,7 @@ public class ComputerService {
 				computerDTO.getHdSize(),  computerDTO.getProcessorModel(), computerDTO.getProcessorArchitecture().getCod(), 
 				computerDTO.getHasCdBurner(), computerDTO.getCabinetModel(), computerDTO.getOperatingSystem().getCod(),
 				computerDTO.getOperatingSystemArchitecture().getCod(), computerDTO.isOnTheDomain(), null);
+		return computer;
 	}
 	
 	

@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -46,6 +48,7 @@ public class MonitorService {
 		return object.orElseThrow(()-> new ObjectNotFoundException("Monitor not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
 	
+	@Transactional
 	public Monitor insert(Monitor object) {
 		if(alreadyExists(object)){
 			throw new ConflictOfObjectsException("This monitor already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
@@ -88,10 +91,11 @@ public class MonitorService {
 	}
 	
 	public Monitor fromDTO(MonitorDTO monitorDTO) {
-		return new Monitor(
+		Monitor monitor = new Monitor(
 				monitorDTO.getPatrimonyId(), monitorDTO.getCreatedDate(), monitorDTO.getLastModifiedDate(),
 				monitorDTO.getManufacturer(), monitorDTO.getModel(), monitorDTO.getDescription(), 
 				monitorDTO.getSector().getCod(), monitorDTO.isItWorks(), null);
+		return monitor;
 	}
 	
 	

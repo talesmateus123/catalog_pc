@@ -45,7 +45,7 @@ public abstract class Equipment implements Serializable{
 			String manufacturer, String model, String description, boolean itWorks, boolean itComposed) {
 		this.createdDate = createdDate;
 		this.lastModifiedDate = lastModifiedDate;
-		this.equipmentType = equipmentType.getCod();
+		this.equipmentType = (equipmentType == null) ? null : equipmentType.getCod();
 		this.manufacturer = manufacturer;
 		this.model = model;
 		this.description = description;

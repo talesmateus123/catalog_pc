@@ -36,7 +36,7 @@ public abstract class Machine extends Equipment {
 		this.manufacturer = manufacturer;
 		this.model = model;
 		this.description = description;
-		this.sector = sector;
+		this.sector = (sector == null) ? null : sector;
 	}
 
 	public String getPatrimonyId() {

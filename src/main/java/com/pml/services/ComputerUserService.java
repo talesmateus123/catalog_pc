@@ -8,6 +8,8 @@ package com.pml.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -39,6 +41,7 @@ public class ComputerUserService {
 		return object.orElseThrow(()-> new ObjectNotFoundException("Computer user not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
 	
+	@Transactional
 	public ComputerUser insert(ComputerUser object) {
 		object.setId(null);
 		return this.repository.save(object);
@@ -59,9 +62,10 @@ public class ComputerUserService {
 	}
 	
 	public ComputerUser fromDTO(ComputerUserDTO computerUserDTO) {
-		return new ComputerUser(
+		ComputerUser computerUser = new ComputerUser(
 				computerUserDTO.getId(), computerUserDTO.getName(), computerUserDTO.getLastName(),
 				computerUserDTO.getSector().getCod(), computerUserDTO.getEmail());
+		return computerUser;
 	}
 	
 	
