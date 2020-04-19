@@ -1,5 +1,5 @@
 /** 
- * This is the class "ComputerUser". That class will be to represent a computer user.
+ * This is the class "ComputerUserDTO". That class will be to represent a computer user dto.
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */
@@ -7,22 +7,16 @@ package com.pml.dto;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.pml.domain.ComputerUser;
 import com.pml.domain.enums.Sector;
 
-@Entity
 public class ComputerUserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotEmpty(message = "This field is mandatory")
 	@Size(min = 4, max = 20, message = "The text of this field must contain between 4 and 20 characters")
@@ -38,8 +32,15 @@ public class ComputerUserDTO implements Serializable {
 	public ComputerUserDTO() {		
 	}
 	
+	public ComputerUserDTO(ComputerUser computerUser) {
+		this.id = computerUser.getId();
+		this.name = computerUser.getName();
+		this.lastName = computerUser.getLastName();
+		this.sector = computerUser.getSector().getCod();
+		this.email = computerUser.getEmail();
+	}
+	
 	public ComputerUserDTO(Long id, String name, String lastName, Integer sector, String email) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
@@ -77,6 +78,14 @@ public class ComputerUserDTO implements Serializable {
 	
 	public void setSector(Sector location) {
 		this.sector = location.getCod();
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	@Override
