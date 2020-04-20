@@ -54,7 +54,7 @@ public class MonitorService {
 	
 	@Transactional
 	public Monitor insert(Monitor object) {
-		if(alreadyExists(object)){
+		if(alreadyExists(object.getPatrimonyId())){
 			throw new ConflictOfObjectsException("This monitor already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
 		object.setId(null);
@@ -73,27 +73,59 @@ public class MonitorService {
 	}
 
 	public Monitor update(Monitor object) {
-		if(alreadyExists(object)){
-			throw new ConflictOfObjectsException("This monitor already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+		if(patrimonyIdIsChanged(object)){
+			if(alreadyExists(object.getPatrimonyId()))
+				throw new ConflictOfObjectsException("This monitor already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
+		
 		recoverData(object);		
 		return this.repository.saveAndFlush(object);		
 	}
 	
+	/**
+	 * Recover data of created date and updates the last modified date.
+	 * @param object
+	 * @return void
+	 */
 	private void recoverData(Monitor object) {
 		Monitor oldMonitor = this.findById(object.getId());
 		object.setCreatedDate(oldMonitor.getCreatedDate());
 		object.setLastModifiedDate(new Date());
 	}
 	
-	private boolean alreadyExists(Monitor object) {
-		Optional<Monitor> objectX = this.repository.findByPatrimonyId(object.getPatrimonyId());
-		if(objectX.isEmpty()) {
+	/**
+	 * Verify if already exists the patrimony id requested.
+	 * @param Long patrimonyId
+	 * @return boolean
+	 */
+	private boolean alreadyExists(String patrimonyId) {	
+		Optional<Monitor> objectByPatrimonyId = this.repository.findByPatrimonyId(patrimonyId);
+		
+		if(objectByPatrimonyId.isEmpty())
 			return false; 
-		}
 		return true;
 	}
 	
+	
+	/**
+	 * Verify if the object in a question has its patrimony id changed.
+	 * @param object
+	 * @return boolean
+	 */
+	private boolean patrimonyIdIsChanged(Monitor object) {	
+		Optional<Monitor> objectByPatrimonyId = this.repository.findByPatrimonyId(object.getPatrimonyId());		
+		Optional<Monitor> objectById = this.repository.findById(object.getId());
+		
+		if(objectById.get().getPatrimonyId().equals(objectByPatrimonyId.get().getPatrimonyId()))
+			return false;		
+		return true;
+	}	
+	
+	/**
+	 * Convert the MonitorDTO object to a Monitor object. 
+	 * @param monitorDTO MonitorDTO
+	 * @return Monitor
+	 */
 	public Monitor fromDTO(MonitorDTO monitorDTO) {
 		Monitor monitor = new Monitor(
 				monitorDTO.getId(), monitorDTO.getPatrimonyId(), monitorDTO.getCreatedDate(), monitorDTO.getLastModifiedDate(),
@@ -102,7 +134,11 @@ public class MonitorService {
 		return monitor;
 	}
 	
-
+	/**
+	 * Convert the MonitorNewDTO object to a Monitor object. 
+	 * @param monitorNewDTO MonitorNewDTO
+	 * @return Monitor
+	 */
 	public Monitor fromDTO(MonitorNewDTO monitorNewDTO) {
 		Monitor monitor = new Monitor(
 				null, monitorNewDTO.getPatrimonyId(), monitorNewDTO.getCreatedDate(), monitorNewDTO.getLastModifiedDate(),

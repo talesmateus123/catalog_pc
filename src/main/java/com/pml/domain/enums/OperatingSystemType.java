@@ -23,6 +23,11 @@ public enum OperatingSystemType {
 		return description;
 	}
 	
+	/**
+	 * Convert the cod of operating system to an OperatingSystemType object.
+	 * @param cod Integer 
+	 * @return OperatingSystemType
+	 */
 	public static OperatingSystemType toEnum(Integer cod) {
 		if (cod == null )
 			return null;

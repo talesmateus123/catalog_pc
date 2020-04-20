@@ -93,6 +93,11 @@ public class ComputerUser implements Serializable {
 		this.useTheComputers = useTheComputers;
 	}
 	
+	/**
+	 * Add a new computer object to this list of computers usage.
+	 * @param useTheComputer Computer
+	 * @return void
+	 */
 	public void addUseTheComputer(Computer useTheComputer) {
 		this.useTheComputers.add(useTheComputer);
 	}

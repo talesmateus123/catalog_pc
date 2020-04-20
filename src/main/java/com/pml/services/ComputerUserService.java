@@ -65,6 +65,11 @@ public class ComputerUserService {
 		return this.repository.saveAndFlush(object);		
 	}
 	
+	/**
+	 * Convert the ComputerUserDTO object to a ComputerUser object. 
+	 * @param computerUserDTO ComputerUserDTO
+	 * @return ComputerUser
+	 */
 	public ComputerUser fromDTO(ComputerUserDTO computerUserDTO) {
 		ComputerUser computerUser = new ComputerUser(
 				computerUserDTO.getId(), computerUserDTO.getName(), computerUserDTO.getLastName(),
@@ -72,6 +77,11 @@ public class ComputerUserService {
 		return computerUser;
 	}
 	
+	/**
+	 * Convert the ComputerUserNewDTO object to a ComputerUser object. 
+	 * @param computerUserNewDTO ComputerUserNewDTO
+	 * @return ComputerUser
+	 */
 	public ComputerUser fromDTO(ComputerUserNewDTO computerUserNewDTO) {
 		ComputerUser computerUser = new ComputerUser(
 				null, computerUserNewDTO.getName(), computerUserNewDTO.getLastName(),

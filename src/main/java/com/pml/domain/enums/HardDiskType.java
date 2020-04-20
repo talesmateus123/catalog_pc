@@ -20,6 +20,11 @@ public enum HardDiskType {
 		return description;
 	}
 	
+	/**
+	 * Convert the cod of hard disk to a HardDiskType object.
+	 * @param cod Integer 
+	 * @return HardDiskType
+	 */
 	public static HardDiskType toEnum(Integer cod) {
 		if (cod == null )
 			return null;

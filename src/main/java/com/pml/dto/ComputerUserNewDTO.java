@@ -82,6 +82,11 @@ public class ComputerUserNewDTO implements Serializable {
 		this.useTheComputersId = useTheComputersId;
 	}
 	
+	/**
+	 * Add a new computer id Long to this list of computers usage.
+	 * @param useTheComputerId Long
+	 * @return void
+	 */
 	public void addUseTheComputer(Long useTheComputerId) {
 		this.useTheComputersId.add(useTheComputerId);
 	}

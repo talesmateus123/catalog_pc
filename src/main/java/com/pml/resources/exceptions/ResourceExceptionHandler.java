@@ -1,3 +1,8 @@
+/** 
+ * This is the "ResourceExceptionHandler" class. Which will be able to provide all system exception handling.
+ * 
+ * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
+ */
 package com.pml.resources.exceptions;
 
 import javax.servlet.http.HttpServletRequest;

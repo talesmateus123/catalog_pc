@@ -95,6 +95,11 @@ public class ComputerService {
 		return this.repository.saveAndFlush(object);		
 	}
 	
+	/**
+	 * Recover data of created date and updates the last modified date.
+	 * @param object
+	 * @return void
+	 */
 	private void recoverData(Computer object) {
 		Computer oldComputer = this.findById(object.getId());
 		object.setCreatedDate(oldComputer.getCreatedDate());
@@ -102,7 +107,7 @@ public class ComputerService {
 	}
 	
 	/**
-	 * Verify if already exists the patrimony id requested
+	 * Verify if already exists the patrimony id requested.
 	 * @param Long patrimonyId
 	 * @return boolean
 	 */
@@ -115,7 +120,7 @@ public class ComputerService {
 	}
 	
 	/**
-	 * Verify if the object in a question has its patrimony id changed
+	 * Verify if the object in a question has its patrimony id changed.
 	 * @param object
 	 * @return boolean
 	 */
@@ -128,6 +133,11 @@ public class ComputerService {
 		return true;
 	}
 	
+	/**
+	 * Convert the ComputerDTO object to a Computer object. 
+	 * @param computerDTO ComputerDTO
+	 * @return Computer
+	 */
 	public Computer fromDTO(ComputerDTO computerDTO) {
 		Computer computer = new Computer(
 				computerDTO.getId(), computerDTO.getPatrimonyId(), computerDTO.getCreatedDate(), computerDTO.getLastModifiedDate(),
@@ -140,6 +150,11 @@ public class ComputerService {
 		return computer;
 	}
 	
+	/**
+	 * Convert the ComputerNewDTO object to a Computer object. 
+	 * @param computerDTO ComputerDTO
+	 * @return Computer
+	 */
 	public Computer fromDTO(ComputerNewDTO computerNewDTO) {
 		Computer computer = new Computer(
 				null, computerNewDTO.getPatrimonyId(), computerNewDTO.getCreatedDate(), computerNewDTO.getLastModifiedDate(),

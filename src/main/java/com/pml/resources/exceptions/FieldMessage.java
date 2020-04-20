@@ -1,3 +1,8 @@
+/** 
+ * This is the "FieldMessage" class. Which will be able to represent a field message for the class ValidationError.
+ * 
+ * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
+ */
 package com.pml.resources.exceptions;
 
 import java.io.Serializable;

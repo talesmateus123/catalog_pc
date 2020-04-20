@@ -21,6 +21,11 @@ public enum RamMemoryType {
 		return description;
 	}
 	
+	/**
+	 * Convert the cod of ram memory to a RamMemoryType object.
+	 * @param cod Integer 
+	 * @return RamMemoryType
+	 */
 	public static RamMemoryType toEnum(Integer cod) {
 		if (cod == null )
 			return null;

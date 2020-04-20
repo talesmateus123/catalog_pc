@@ -20,6 +20,11 @@ public enum ArchitectureType {
 		return description;
 	}
 	
+	/**
+	 * Convert the cod of architecture to an ArchitectureType object.
+	 * @param cod Integer 
+	 * @return ArchitectureType
+	 */
 	public static ArchitectureType toEnum(Integer cod) {
 		if (cod == null )
 			return null;

@@ -20,6 +20,11 @@ public enum Sector {
 		return description;
 	}
 	
+	/**
+	 * Convert the cod of sector to a Sector object
+	 * @param cod Integer 
+	 * @return Sector
+	 */
 	public static Sector toEnum(Integer cod) {
 		if (cod == null )
 			return null;

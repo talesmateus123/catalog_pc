@@ -20,6 +20,11 @@ public enum EquipmentType {
 		return description;
 	}
 	
+	/**
+	 * Convert the cod of equipment to an EquipmentType object.
+	 * @param cod Integer 
+	 * @return EquipmentType
+	 */
 	public static EquipmentType toEnum(Integer cod) {
 		if (cod == null )
 			return null;

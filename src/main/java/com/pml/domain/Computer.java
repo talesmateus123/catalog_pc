@@ -189,6 +189,11 @@ public class Computer extends Machine{
 		this.computerUsers = computerUsers;
 	}
 	
+	/**
+	 * Add a new computer user object to this list of computer users.
+	 * @param computerUser ComputerUser
+	 * @return void
+	 */
 	public void addComputerUser(ComputerUser computerUser) {
 		this.computerUsers.add(computerUser);
 	}
