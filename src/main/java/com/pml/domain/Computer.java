@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.HardDiskType;
@@ -26,17 +27,26 @@ public class Computer extends Machine{
 	private static final long serialVersionUID = 1L;
 	private String ipAddress;
 	private String motherBoardName;
+	@NotNull
 	private Integer memoryType;
+	@NotNull
 	private Double memorySize;
+	@NotNull
 	private Integer hdType;
+	@NotNull
 	private Double hdSize;
 	private String processorModel;
+	@NotNull
 	private Integer processorArchitecture;
+	@NotNull
 	private Boolean hasCdBurner;
 	private String cabinetModel;
+	@NotNull
 	private Integer operatingSystem;
+	@NotNull
 	private Integer operatingSystemArchitecture;
-	private boolean onTheDomain = false;
+	@NotNull
+	private boolean onTheDomain;
 	
 	@ManyToMany
 	@JoinTable(name = "computer_computer_user",

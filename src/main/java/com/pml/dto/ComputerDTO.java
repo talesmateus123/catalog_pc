@@ -35,15 +35,20 @@ public class ComputerDTO implements Serializable {
 	private String model;
 	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
 	private String description;
+	@NotNull(message = "This field is mandatory")
 	private Integer sector;
 	private boolean itWorks;
 	private boolean itComposed;
+	@NotNull(message = "This field is mandatory")
 	private String ipAddress;
 	private String motherBoardName;
 	@NotNull(message = "This field is mandatory")
 	private Integer memoryType;
+	@NotNull(message = "This field is mandatory")
 	private Double memorySize;
+	@NotNull(message = "This field is mandatory")
 	private Integer hdType;
+	@NotNull(message = "This field is mandatory")
 	private Double hdSize;
 	private String processorModel;
 	@NotNull(message = "This field is mandatory")
@@ -51,7 +56,9 @@ public class ComputerDTO implements Serializable {
 	@NotNull(message = "This field is mandatory")
 	private Boolean hasCdBurner;
 	private String cabinetModel;
+	@NotNull(message = "This field is mandatory")
 	private Integer operatingSystem;
+	@NotNull(message = "This field is mandatory")
 	private Integer operatingSystemArchitecture;
 	@NotNull(message = "This field is mandatory")
 	private boolean onTheDomain;
@@ -198,8 +205,8 @@ public class ComputerDTO implements Serializable {
 		return itWorks;
 	}
 
-	public void setItWorks(boolean isItWorks) {
-		this.itWorks = isItWorks;
+	public void setItWorks(boolean itWorks) {
+		this.itWorks = itWorks;
 	}
 
 	public boolean isItComposed() {

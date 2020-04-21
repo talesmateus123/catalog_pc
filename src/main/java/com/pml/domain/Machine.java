@@ -7,9 +7,13 @@ package com.pml.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.Sector;
@@ -18,10 +22,16 @@ import com.pml.domain.enums.Sector;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Machine extends Equipment {
 	private static final long serialVersionUID = 1L;
+	@NotEmpty
+	@Size(min = 4, max = 10)
+	@Column(unique = true)
 	private String patrimonyId = "";
+	@NotEmpty
 	private String manufacturer;
+	@NotEmpty
 	private String model;
 	private String description;
+	@NotNull
 	private Integer sector;
 	
 	public Machine() {

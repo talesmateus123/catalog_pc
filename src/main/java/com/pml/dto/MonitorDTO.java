@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -30,11 +31,14 @@ public class MonitorDTO implements Serializable {
 	private String model;
 	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
 	private String description;
+	@NotNull(message = "This field is mandatory")
 	private Integer sector;
 	private boolean itWorks;
 	private boolean itComposed;
 	
 	public MonitorDTO() {
+		this.setEquipmentType(EquipmentType.MONITOR);
+		this.setItComposed(true);
 	}
 	
 	public MonitorDTO(Monitor monitor) {
@@ -54,11 +58,8 @@ public class MonitorDTO implements Serializable {
 	}
 	
 	public MonitorDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
-			String model, String description, Integer sector, boolean itWorks, String ipAddress,
-			String motherBoardName, Integer memoryType, Double memorySize, Integer hdType, Double hdSize,
-			String processorModel, Integer processorArchitecture, Boolean hasCdBurner, String cabinetModel,
-			Integer operatingSystem, Integer operatingSystemArchitecture, boolean onTheDomain, 
-			EquipmentType equipmentType, boolean itComposed) {
+			String model, String description, Integer sector, boolean itWorks, EquipmentType equipmentType,
+			boolean itComposed) {
 		this.id = id;
 		this.patrimonyId = patrimonyId;
 		this.createdDate = createdDate;

@@ -21,7 +21,6 @@ import com.pml.domain.Computer;
 import com.pml.dto.ComputerDTO;
 import com.pml.dto.ComputerNewDTO;
 import com.pml.repositories.ComputerRepository;
-import com.pml.repositories.ComputerUserRepository;
 import com.pml.services.exceptions.ConflictOfObjectsException;
 import com.pml.services.exceptions.DataIntegrityException;
 import com.pml.services.exceptions.ObjectNotFoundException;
@@ -31,7 +30,9 @@ public class ComputerService {
 	@Autowired
 	private ComputerRepository repository;
 	@Autowired
-	private ComputerUserRepository computerUserRepository;
+	private ComputerUserService computerUserService;
+	@Autowired
+	private MonitorService monitorService;
 	// To a future implementation
 	/*
 	@Autowired
@@ -125,10 +126,14 @@ public class ComputerService {
 	 * @return boolean
 	 */
 	private boolean patrimonyIdIsChanged(Computer object) {	
-		Optional<Computer> objectByPatrimonyId = this.repository.findByPatrimonyId(object.getPatrimonyId());		
-		Optional<Computer> objectById = this.repository.findById(object.getId());
+		Optional<Computer> objectByPatrimonyId = this.repository.findByPatrimonyId(object.getPatrimonyId());	
+		// Generates an exception if object doesn't exists 
+		Computer objectById = this.findById(object.getId());
 		
-		if(objectById.get().getPatrimonyId().equals(objectByPatrimonyId.get().getPatrimonyId()))
+		if(objectByPatrimonyId.isEmpty())
+			return true;
+		
+		if(objectById.getPatrimonyId().equals(objectByPatrimonyId.get().getPatrimonyId()))
 			return false;		
 		return true;
 	}
@@ -164,9 +169,11 @@ public class ComputerService {
 				computerNewDTO.getHdSize(),  computerNewDTO.getProcessorModel(), computerNewDTO.getProcessorArchitecture().getCod(), 
 				computerNewDTO.getHasCdBurner(), computerNewDTO.getCabinetModel(), computerNewDTO.getOperatingSystem().getCod(),
 				computerNewDTO.getOperatingSystemArchitecture().getCod(), computerNewDTO.isOnTheDomain(), null);
+		computer.setMonitor(this.monitorService.findById(computerNewDTO.getMonitorId()));
 		for(Long computerUserId : computerNewDTO.getComputerUsersId()) {
-			computer.addComputerUser(this.computerUserRepository.getOne(computerUserId));
+			computer.addComputerUser(this.computerUserService.findById(computerUserId));
 		}
+		// Set the computer processor (future implementation)
 		return computer;
 	}
 	

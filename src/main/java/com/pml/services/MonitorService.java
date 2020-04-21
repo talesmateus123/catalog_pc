@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import com.pml.domain.Monitor;
 import com.pml.dto.MonitorDTO;
 import com.pml.dto.MonitorNewDTO;
-import com.pml.repositories.ComputerRepository;
 import com.pml.repositories.MonitorRepository;
 import com.pml.services.exceptions.ConflictOfObjectsException;
 import com.pml.services.exceptions.DataIntegrityException;
@@ -29,9 +28,7 @@ import com.pml.services.exceptions.ObjectNotFoundException;
 @Service
 public class MonitorService {
 	@Autowired
-	private MonitorRepository repository;	
-	@Autowired
-	private ComputerRepository computerRepository;
+	private MonitorRepository repository;
 	
 	public List<Monitor> findAll() {
 		return this.repository.findAll();
@@ -114,9 +111,13 @@ public class MonitorService {
 	 */
 	private boolean patrimonyIdIsChanged(Monitor object) {	
 		Optional<Monitor> objectByPatrimonyId = this.repository.findByPatrimonyId(object.getPatrimonyId());		
-		Optional<Monitor> objectById = this.repository.findById(object.getId());
+		// Generates an exception if object doesn't exists 
+		Monitor objectById = this.findById(object.getId());
 		
-		if(objectById.get().getPatrimonyId().equals(objectByPatrimonyId.get().getPatrimonyId()))
+		if(objectByPatrimonyId.isEmpty())
+			return true;
+		
+		if(objectById.getPatrimonyId().equals(objectByPatrimonyId.get().getPatrimonyId()))
 			return false;		
 		return true;
 	}	
@@ -144,7 +145,6 @@ public class MonitorService {
 				null, monitorNewDTO.getPatrimonyId(), monitorNewDTO.getCreatedDate(), monitorNewDTO.getLastModifiedDate(),
 				monitorNewDTO.getManufacturer(), monitorNewDTO.getModel(), monitorNewDTO.getDescription(), 
 				monitorNewDTO.getSector().getCod(), monitorNewDTO.isItWorks(), null);
-		monitor.setComputer(this.computerRepository.getOne(monitorNewDTO.getComputerId()));
 		return monitor;
 	}
 	

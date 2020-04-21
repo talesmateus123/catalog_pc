@@ -14,6 +14,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pml.domain.enums.Sector;
@@ -24,10 +28,17 @@ public class ComputerUser implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotEmpty
+	@Size(min = 4, max = 20)
 	private String name;
+	@NotEmpty
+	@Size(min = 4, max = 20)
 	private String lastName;
+	@NotNull
 	private Integer sector;
+	@Email
 	private String email;
+	
 	// A user can use many computer, because the company uses the Active Directory server.
 	@JsonBackReference
 	@ManyToMany(mappedBy = "computerUsers")
