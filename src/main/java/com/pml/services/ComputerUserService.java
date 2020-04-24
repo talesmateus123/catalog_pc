@@ -16,10 +16,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.pml.domain.Computer;
 import com.pml.domain.ComputerUser;
 import com.pml.dto.ComputerUserDTO;
 import com.pml.dto.ComputerUserNewDTO;
-import com.pml.repositories.ComputerRepository;
 import com.pml.repositories.ComputerUserRepository;
 import com.pml.services.exceptions.DataIntegrityException;
 import com.pml.services.exceptions.ObjectNotFoundException;
@@ -29,7 +29,7 @@ public class ComputerUserService {
 	@Autowired
 	private ComputerUserRepository repository;
 	@Autowired
-	private ComputerRepository computerRepository;
+	private ComputerService computerService;
 	
 	public List<ComputerUser> findAll() {
 		return this.repository.findAll();
@@ -61,6 +61,7 @@ public class ComputerUserService {
 		}
 	}
 
+	@Transactional
 	public ComputerUser update(ComputerUser object) {
 		return this.repository.saveAndFlush(object);		
 	}
@@ -87,7 +88,9 @@ public class ComputerUserService {
 				null, computerUserNewDTO.getName(), computerUserNewDTO.getLastName(),
 				computerUserNewDTO.getSector(), computerUserNewDTO.getEmail());
 		for(Long computerId : computerUserNewDTO.getUseTheComputersId()) {
-			computerUser.addUseTheComputer(this.computerRepository.getOne(computerId));
+			Computer computer = this.computerService.findById(computerId);
+			computer.addComputerUser(computerUser);
+			computerUser.addUseTheComputer(computer);
 		}
 		return computerUser;
 	}

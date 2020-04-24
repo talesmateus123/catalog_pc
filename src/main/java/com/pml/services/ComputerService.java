@@ -18,6 +18,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.pml.domain.Computer;
+import com.pml.domain.ComputerUser;
+import com.pml.domain.RamMemory;
+import com.pml.domain.StorageDevice;
 import com.pml.dto.ComputerDTO;
 import com.pml.dto.ComputerNewDTO;
 import com.pml.repositories.ComputerRepository;
@@ -66,9 +69,7 @@ public class ComputerService {
 		}
 		object.setId(null);
 		object.setCreatedDate(new Date());
-		
-		// return object;
-		
+			
 		return this.repository.save(object);
 	}
 
@@ -88,7 +89,7 @@ public class ComputerService {
 			if(alreadyExists(object.getPatrimonyId()))
 				throw new ConflictOfObjectsException("This computer already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
-		
+		//updateRefereces(object);
 		recoverData(object);
 		return this.repository.saveAndFlush(object);		
 	}
@@ -172,13 +173,19 @@ public class ComputerService {
 			computer.setProcessor(this.processorService.findById(computerNewDTO.getProcessorId()));
 		
 		for(Long ramMemoryId : computerNewDTO.getRamMemoriesId()) {
-			computer.addRamMemory(this.ramMemoryService.findById(ramMemoryId));
+			RamMemory ramMemory = this.ramMemoryService.findById(ramMemoryId);
+			ramMemory.setComputer(computer);
+			computer.addRamMemory(ramMemory);
 		}
 		for(Long storageDeviceId : computerNewDTO.getStorageDevicesId()) {
-			computer.addStorageDevice(this.storageDeviceService.findById(storageDeviceId));
+			StorageDevice storageDevice = this.storageDeviceService.findById(storageDeviceId);
+			storageDevice.setComputer(computer);
+			computer.addStorageDevice(storageDevice);
 		}
 		for(Long computerUserId : computerNewDTO.getComputerUsersId()) {
-			computer.addComputerUser(this.computerUserService.findById(computerUserId));
+			ComputerUser computerUser = this.computerUserService.findById(computerUserId);
+			computerUser.addUseTheComputer(computer);
+			computer.addComputerUser(computerUser);
 		}
 		
 		return computer;
