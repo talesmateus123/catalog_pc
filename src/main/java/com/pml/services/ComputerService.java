@@ -67,13 +67,8 @@ public class ComputerService {
 		object.setId(null);
 		object.setCreatedDate(new Date());
 		
-		// To a future implementation
-		/*
-		if(processorAlreadyExists(object)){
-			return this.repository.save(object);
-		}
-		this.processorRepository.save(object.getProcessor());
-		*/
+		// return object;
+		
 		return this.repository.save(object);
 	}
 
@@ -170,17 +165,21 @@ public class ComputerService {
 				computerNewDTO.getOperatingSystemArchitecture(), computerNewDTO.isOnTheDomain(), null);
 		
 		// Setting all attributes
-		computer.setMonitor(this.monitorService.findById(computerNewDTO.getMonitorId()));
-		computer.setProcessor(this.processorService.findById(computerNewDTO.getProcessorId()));
+		if(computerNewDTO.getMonitorId() != null)
+			computer.setMonitor(this.monitorService.findById(computerNewDTO.getMonitorId()));
+		if(computerNewDTO.getProcessorId() != null)
+			computer.setProcessor(this.processorService.findById(computerNewDTO.getProcessorId()));
+		
 		for(Long computerUserId : computerNewDTO.getComputerUsersId()) {
 			computer.addComputerUser(this.computerUserService.findById(computerUserId));
 		}
-		for(Long ramMemoryId : computerNewDTO.getComputerUsersId()) {
+		for(Long ramMemoryId : computerNewDTO.getRamMemoriesId()) {
 			computer.addRamMemory(this.ramMemoryService.findById(ramMemoryId));
 		}
-		for(Long storageDeviceId : computerNewDTO.getComputerUsersId()) {
+		for(Long storageDeviceId : computerNewDTO.getStorageDevicesId()) {
 			computer.addStorageDevice(this.storageDeviceService.findById(storageDeviceId));
 		}
+		
 		return computer;
 	}
 	

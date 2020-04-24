@@ -36,8 +36,8 @@ public class ComputerNewDTO implements Serializable {
 	
 	private Long monitorId;
 	private Long processorId;
-	private List<Long> ramMemories;
-	private List<Long> storageDevices;
+	private List<Long> ramMemoriesId;
+	private List<Long> storageDevicesId;
 	private List<Long> computerUsersId = new ArrayList<>();
 	
 	public ComputerNewDTO() {
@@ -179,20 +179,20 @@ public class ComputerNewDTO implements Serializable {
 		this.processorId = processorId;
 	}	
 	
-	public List<Long> getRamMemories() {
-		return ramMemories;
+	public List<Long> getRamMemoriesId() {
+		return ramMemoriesId;
 	}
 
-	public void setRamMemories(List<Long> ramMemories) {
-		this.ramMemories = ramMemories;
+	public void setRamMemoriesId(List<Long> ramMemoriesId) {
+		this.ramMemoriesId = ramMemoriesId;
 	}
 
-	public List<Long> getStorageDevices() {
-		return storageDevices;
+	public List<Long> getStorageDevicesId() {
+		return storageDevicesId;
 	}
 
-	public void setStorageDevices(List<Long> storageDevices) {
-		this.storageDevices = storageDevices;
+	public void setStorageDevicesId(List<Long> storageDevicesId) {
+		this.storageDevicesId = storageDevicesId;
 	}
 
 	public List<Long> getComputerUsersId() {

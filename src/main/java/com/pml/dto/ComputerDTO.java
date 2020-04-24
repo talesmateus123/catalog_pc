@@ -33,7 +33,6 @@ public class ComputerDTO implements Serializable {
 	private Integer operatingSystem;
 	private Integer operatingSystemArchitecture;
 	private boolean onTheDomain;
-	private Long processorId;
 	private Double totalRamMemory;
 	private Double totalStorageMemory;
 	
@@ -54,8 +53,7 @@ public class ComputerDTO implements Serializable {
 		this.sector = computer.getSector().getCod();
 		this.ipAddress = computer.getIpAddress();
 		this.hostName = computer.getHostName();
-		this.motherBoardName = computer.getMotherBoardName();
-		this.processorId = computer.getProcessor().getId();
+		this.motherBoardName = computer.getMotherBoardName(); 
 		this.hasCdBurner = computer.getHasCdBurner();
 		this.operatingSystem = computer.getOperatingSystem().getCod();
 		this.operatingSystemArchitecture = computer.getOperatingSystemArchitecture().getCod();
@@ -68,7 +66,7 @@ public class ComputerDTO implements Serializable {
 	
 	public ComputerDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
 			String model, String description, Integer sector, boolean itWorks, String ipAddress, String hostName,
-			String motherBoardName, Long processorId, Double totalRamMemory, Double totalStorageMemory, 
+			String motherBoardName, Double totalRamMemory, Double totalStorageMemory, 
 			Boolean hasCdBurner, String cabinetModel, Integer operatingSystem, Integer operatingSystemArchitecture, 
 			boolean onTheDomain, EquipmentType equipmentType, boolean itComposed) {
 		this.id = id;
@@ -85,7 +83,6 @@ public class ComputerDTO implements Serializable {
 		this.ipAddress = ipAddress;
 		this.hostName = hostName;
 		this.motherBoardName = motherBoardName;
-		this.processorId = processorId;		
 		this.hasCdBurner = hasCdBurner;
 		this.operatingSystem = operatingSystem;
 		this.operatingSystemArchitecture = operatingSystemArchitecture;
@@ -246,14 +243,6 @@ public class ComputerDTO implements Serializable {
 
 	public void setOnTheDomain(boolean onTheDomain) {
 		this.onTheDomain = onTheDomain;
-	}
-	
-	public Long getProcessorId() {
-		return processorId;
-	}
-
-	public void setProcessorId(Long processorId) {
-		this.processorId = processorId;
 	}
 	
 	public Double getTotalRamMemory() {

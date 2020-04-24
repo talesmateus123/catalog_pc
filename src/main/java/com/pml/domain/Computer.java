@@ -234,12 +234,16 @@ public class Computer extends Machine{
 				totalMemory = totalMemory + storageDevice.getSizeInMB();
 			this.totalStorageMemory = totalMemory;
 		}
+		else
+			this.totalStorageMemory = 0.0;
 		if (this.ramMemories != null) {
 			totalMemory = 0.0;
 			for (RamMemory ramMemory : this.ramMemories)
 				totalMemory = totalMemory + ramMemory.getSizeInMB();
 			this.totalRamMemory = totalMemory;
 		}
+		else
+			this.totalRamMemory = 0.0;
 	}
 	
 }
