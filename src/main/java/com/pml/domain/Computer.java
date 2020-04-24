@@ -13,32 +13,21 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import com.pml.domain.enums.ArchitectureType;
-import com.pml.domain.enums.HardDiskType;
 import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.OperatingSystemType;
-import com.pml.domain.enums.RamMemoryType;
+import com.pml.domain.enums.Sector;
 
 @Entity
 public class Computer extends Machine{
 	private static final long serialVersionUID = 1L;
 	private String ipAddress;
+	private String hostName;
 	private String motherBoardName;
-	@NotNull
-	private Integer memoryType;
-	@NotNull
-	private Double memorySize;
-	@NotNull
-	private Integer hdType;
-	@NotNull
-	private Double hdSize;
-	private String processorModel;
-	@NotNull
-	private Integer processorArchitecture;
-	@NotNull
 	private Boolean hasCdBurner;
 	private String cabinetModel;
 	@NotNull
@@ -46,7 +35,15 @@ public class Computer extends Machine{
 	@NotNull
 	private Integer operatingSystemArchitecture;
 	@NotNull
-	private boolean onTheDomain;
+	private boolean onTheDomain;	
+
+	@OneToMany(mappedBy = "computer")
+	private List<RamMemory> ramMemories;
+	private Double totalRamMemory;
+	@OneToMany(mappedBy = "computer")
+	private List<StorageDevice> storageDevices;
+	private Double totalStorageMemory;
+	
 	
 	@ManyToMany
 	@JoinTable(name = "computer_computer_user",
@@ -56,35 +53,37 @@ public class Computer extends Machine{
 	private List<ComputerUser> computerUsers = new ArrayList<>();
 	
 	@OneToOne
-	@JoinColumn(name = "computer_id")
+	@JoinColumn(name = "monitor_id")
 	private Monitor monitor;
+	
+	@OneToOne
+	@JoinColumn(name = "processor_id")
+	private Processor processor;
 	
 	
 	public Computer() {
 		super();
 		this.setEquipmentType(EquipmentType.COMPUTER);
+		calculateTotalMemories();
 	}
 
 	public Computer(Long id, String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
-			String model, String description, Integer sector, boolean itWorks, String ipAddress, String motherBoardName,  
-			Integer memoryType, Double memorySize,  Integer hdType,	Double hdSize,  String processorModel, 
-			Integer processorArchitecture, Boolean hasCdBurner, String cabinetModel, Integer operatingSystem,
-			Integer operatingSystemArchitecture, boolean onTheDomain, Monitor monitor) {
+			String model, String description, Sector sector, boolean itWorks, String ipAddress, 
+			String hostName, String motherBoardName, Processor processor, Boolean hasCdBurner, String cabinetModel, 
+			OperatingSystemType operatingSystem, ArchitectureType operatingSystemArchitecture, boolean onTheDomain, 
+			Monitor monitor) {
 		super(id, patrimonyId, createdDate, modifiedDate, EquipmentType.COMPUTER, manufacturer, model, description, sector, itWorks);
 		this.ipAddress = ipAddress;
+		this.hostName = hostName;
 		this.motherBoardName = motherBoardName;
-		this.memoryType = memoryType;
-		this.memorySize = memorySize;
-		this.hdType = hdType;
-		this.hdSize = hdSize;
-		this.processorModel = processorModel;
-		this.processorArchitecture = processorArchitecture;
+		this.processor = processor;
 		this.hasCdBurner = hasCdBurner;
 		this.cabinetModel = cabinetModel;
-		this.operatingSystem = operatingSystem;
-		this.operatingSystemArchitecture = operatingSystemArchitecture;
+		this.operatingSystem = operatingSystem.getCod();
+		this.operatingSystemArchitecture = operatingSystemArchitecture.getCod();
 		this.onTheDomain = onTheDomain;
 		this.monitor = monitor;
+		calculateTotalMemories();
 	}
 
 	public String getIpAddress() {
@@ -95,6 +94,15 @@ public class Computer extends Machine{
 		this.ipAddress = ipAddress;
 	}
 
+	public String getHostName() {
+		return hostName;
+	}
+
+	public void setHostName(String hostName) {
+		this.hostName = hostName;
+	}
+
+
 	public String getMotherBoardName() {
 		return motherBoardName;
 	}
@@ -103,53 +111,13 @@ public class Computer extends Machine{
 		this.motherBoardName = motherBoardName;
 	}
 
-	public RamMemoryType getMemoryType() {
-		return RamMemoryType.toEnum(memoryType);
+	public Processor getProcessor() {
+		return processor;
 	}
 
-	public void setMemoryType(RamMemoryType memoryType) {
-		this.memoryType = memoryType.getCod();
-	}
-
-	public Double getMemorySize() {
-		return memorySize;
-	}
-
-	public void setMemorySize(Double memorySize) {
-		this.memorySize = memorySize;
-	}
-
-	public HardDiskType getHdType() {
-		return HardDiskType.toEnum(hdType);
-	}
-
-	public void setHdType(HardDiskType hdType) {
-		this.hdType = hdType.getCod();
-	}
-
-	public Double getHdSize() {
-		return hdSize;
-	}
-
-	public void setHdSize(Double hdSize) {
-		this.hdSize = hdSize;
-	}
-
-	public String getProcessorModel() {
-		return processorModel;
-	}
-
-	public void setProcessorModel(String processorModel) {
-		this.processorModel = processorModel;
-	}
-
-	public ArchitectureType getProcessorArchitecture() {
-		return ArchitectureType.toEnum(processorArchitecture);
-	}
-
-	public void setProcessorArchitecture(ArchitectureType processorArchitecture) {
-		this.processorArchitecture = processorArchitecture.getCod();
-	}
+	public void setProcessor(Processor processor) {
+		this.processor = processor;
+	}	
 
 	public Boolean getHasCdBurner() {
 		return hasCdBurner;
@@ -191,6 +159,40 @@ public class Computer extends Machine{
 		this.onTheDomain = onTheDomain;
 	}
 
+	public List<RamMemory> getRamMemories() {
+		return ramMemories;
+	}
+
+	public void setRamMemories(List<RamMemory> ramMemories) {
+		this.ramMemories = ramMemories;
+	}
+	
+	/**
+	 * Add a new ram memory object to this list of ram memory.
+	 * @param ramMemory RamMemory
+	 * @return void
+	 */	
+	public void addRamMemory(RamMemory ramMemory) {
+		this.ramMemories.add(ramMemory);
+	}
+
+	public List<StorageDevice> getStorageDevices() {
+		return storageDevices;
+	}
+
+	public void setStorageDevices(List<StorageDevice> storageDevices) {
+		this.storageDevices = storageDevices;
+	}
+	
+	/**
+	 * Add a new storage device object to this list of storage device.
+	 * @param storageDevice StorageDevice
+	 * @return void
+	 */
+	public void addStorageDevice(StorageDevice storageDevice) {
+		this.storageDevices.add(storageDevice);
+	}
+
 	public List<ComputerUser> getComputerUsers() {
 		return computerUsers;
 	}
@@ -216,4 +218,29 @@ public class Computer extends Machine{
 		this.monitor = monitor;
 	}
 	
+	public Double getTotalStorageMemory() {
+		return totalStorageMemory;
+	}
+	
+	public Double getTotalRamMemory() {
+		return totalRamMemory;
+	}
+	
+	private void calculateTotalMemories() {
+		Double totalMemory;
+		if (this.storageDevices != null) {
+			totalMemory = 0.0;
+			for (StorageDevice storageDevice : this.storageDevices)
+				totalMemory = totalMemory + storageDevice.getSizeInMB();
+			this.totalStorageMemory = totalMemory;
+		}
+		if (this.ramMemories != null) {
+			totalMemory = 0.0;
+			for (RamMemory ramMemory : this.ramMemories)
+				totalMemory = totalMemory + ramMemory.getSizeInMB();
+			this.totalRamMemory = totalMemory;
+		}
+	}
+	
 }
+

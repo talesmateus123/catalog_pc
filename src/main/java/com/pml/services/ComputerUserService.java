@@ -73,7 +73,7 @@ public class ComputerUserService {
 	public ComputerUser fromDTO(ComputerUserDTO computerUserDTO) {
 		ComputerUser computerUser = new ComputerUser(
 				computerUserDTO.getId(), computerUserDTO.getName(), computerUserDTO.getLastName(),
-				computerUserDTO.getSector().getCod(), computerUserDTO.getEmail());
+				computerUserDTO.getSector(), computerUserDTO.getEmail());
 		return computerUser;
 	}
 	
@@ -85,7 +85,7 @@ public class ComputerUserService {
 	public ComputerUser fromDTO(ComputerUserNewDTO computerUserNewDTO) {
 		ComputerUser computerUser = new ComputerUser(
 				null, computerUserNewDTO.getName(), computerUserNewDTO.getLastName(),
-				computerUserNewDTO.getSector().getCod(), computerUserNewDTO.getEmail());
+				computerUserNewDTO.getSector(), computerUserNewDTO.getEmail());
 		for(Long computerId : computerUserNewDTO.getUseTheComputersId()) {
 			computerUser.addUseTheComputer(this.computerRepository.getOne(computerId));
 		}

@@ -7,26 +7,15 @@ package com.pml.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import com.pml.domain.ComputerUser;
 import com.pml.domain.enums.Sector;
 
 public class ComputerUserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	@NotEmpty(message = "This field is mandatory")
-	@Size(min = 4, max = 20, message = "The text of this field must contain between 4 and 20 characters")
 	private String name;
-	@NotEmpty(message = "This field is mandatory")
-	@Size(min = 4, max = 20, message = "The text of this field must contain between 4 and 20 characters")
 	private String lastName;
-	@NotNull
 	private Integer sector;
-	@Email(message = "Invalid e-mail")
 	private String email;
 	
 	public ComputerUserDTO() {		

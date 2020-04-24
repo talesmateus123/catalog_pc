@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pml.domain.enums.EquipmentType;
+import com.pml.domain.enums.Sector;
 
 @Entity
 public class Monitor extends Machine{
@@ -27,8 +28,8 @@ public class Monitor extends Machine{
 	}
 
 	public Monitor(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
-			String model, String description, Integer location, boolean isItWorking, Computer computer) {
-		super(id, patrimonyId, createdDate, lastModifiedDate, EquipmentType.MONITOR, manufacturer, model, description, location, isItWorking);
+			String model, String description, Sector sector, boolean itWorks, Computer computer) {
+		super(id, patrimonyId, createdDate, lastModifiedDate, EquipmentType.MONITOR, manufacturer, model, description, sector, itWorks);
 		this.computer = computer;
 	}
 

@@ -33,11 +33,12 @@ public class ComputerService {
 	private ComputerUserService computerUserService;
 	@Autowired
 	private MonitorService monitorService;
-	// To a future implementation
-	/*
 	@Autowired
-	private ProcessorRepository processorRepository;
-	*/
+	private ProcessorService processorService;
+	@Autowired
+	private RamMemoryService ramMemoryService;
+	@Autowired
+	private StorageDeviceService storageDeviceService;
 	
 	public List<Computer> findAll() {
 		return this.repository.findAll();
@@ -102,8 +103,8 @@ public class ComputerService {
 	 * @return void
 	 */
 	private void recoverData(Computer object) {
-		Computer oldComputer = this.findById(object.getId());
-		object.setCreatedDate(oldComputer.getCreatedDate());
+		Computer oldObject = this.findById(object.getId());
+		object.setCreatedDate(oldObject.getCreatedDate());
 		object.setLastModifiedDate(new Date());
 	}
 	
@@ -145,13 +146,12 @@ public class ComputerService {
 	 */
 	public Computer fromDTO(ComputerDTO computerDTO) {
 		Computer computer = new Computer(
-				computerDTO.getId(), computerDTO.getPatrimonyId(), computerDTO.getCreatedDate(), computerDTO.getLastModifiedDate(),
-				computerDTO.getManufacturer(), computerDTO.getModel(), computerDTO.getDescription(), 
-				computerDTO.getSector().getCod(), computerDTO.isItWorks(), computerDTO.getIpAddress(), computerDTO.getMotherBoardName(), 
-				computerDTO.getMemoryType().getCod(), computerDTO.getMemorySize(),  computerDTO.getHdType().getCod(),	
-				computerDTO.getHdSize(),  computerDTO.getProcessorModel(), computerDTO.getProcessorArchitecture().getCod(), 
-				computerDTO.getHasCdBurner(), computerDTO.getCabinetModel(), computerDTO.getOperatingSystem().getCod(),
-				computerDTO.getOperatingSystemArchitecture().getCod(), computerDTO.isOnTheDomain(), null);
+				computerDTO.getId(), computerDTO.getPatrimonyId(), computerDTO.getCreatedDate(), 
+				computerDTO.getLastModifiedDate(), computerDTO.getManufacturer(), computerDTO.getModel(), 
+				computerDTO.getDescription(), computerDTO.getSector(), computerDTO.isItWorks(), 
+				computerDTO.getIpAddress(), computerDTO.getHostName(), computerDTO.getMotherBoardName(),  null,  
+				computerDTO.getHasCdBurner(), computerDTO.getCabinetModel(), computerDTO.getOperatingSystem(),
+				computerDTO.getOperatingSystemArchitecture(), computerDTO.isOnTheDomain(), null);
 		return computer;
 	}
 	
@@ -160,20 +160,27 @@ public class ComputerService {
 	 * @param computerDTO ComputerDTO
 	 * @return Computer
 	 */
-	public Computer fromDTO(ComputerNewDTO computerNewDTO) {
+	public Computer fromDTO(ComputerNewDTO computerNewDTO) {		
 		Computer computer = new Computer(
-				null, computerNewDTO.getPatrimonyId(), computerNewDTO.getCreatedDate(), computerNewDTO.getLastModifiedDate(),
+				null, computerNewDTO.getPatrimonyId(), null, null,
 				computerNewDTO.getManufacturer(), computerNewDTO.getModel(), computerNewDTO.getDescription(), 
-				computerNewDTO.getSector().getCod(), computerNewDTO.isItWorks(), computerNewDTO.getIpAddress(), computerNewDTO.getMotherBoardName(), 
-				computerNewDTO.getMemoryType().getCod(), computerNewDTO.getMemorySize(),  computerNewDTO.getHdType().getCod(),	
-				computerNewDTO.getHdSize(),  computerNewDTO.getProcessorModel(), computerNewDTO.getProcessorArchitecture().getCod(), 
-				computerNewDTO.getHasCdBurner(), computerNewDTO.getCabinetModel(), computerNewDTO.getOperatingSystem().getCod(),
-				computerNewDTO.getOperatingSystemArchitecture().getCod(), computerNewDTO.isOnTheDomain(), null);
+				computerNewDTO.getSector(), computerNewDTO.isItWorks(), computerNewDTO.getIpAddress(), 
+				computerNewDTO.getHostName(), computerNewDTO.getMotherBoardName(), null, computerNewDTO.getHasCdBurner(),
+				 computerNewDTO.getCabinetModel(), computerNewDTO.getOperatingSystem(),
+				computerNewDTO.getOperatingSystemArchitecture(), computerNewDTO.isOnTheDomain(), null);
+		
+		// Setting all attributes
 		computer.setMonitor(this.monitorService.findById(computerNewDTO.getMonitorId()));
+		computer.setProcessor(this.processorService.findById(computerNewDTO.getProcessorId()));
 		for(Long computerUserId : computerNewDTO.getComputerUsersId()) {
 			computer.addComputerUser(this.computerUserService.findById(computerUserId));
 		}
-		// Set the computer processor (future implementation)
+		for(Long ramMemoryId : computerNewDTO.getComputerUsersId()) {
+			computer.addRamMemory(this.ramMemoryService.findById(ramMemoryId));
+		}
+		for(Long storageDeviceId : computerNewDTO.getComputerUsersId()) {
+			computer.addStorageDevice(this.storageDeviceService.findById(storageDeviceId));
+		}
 		return computer;
 	}
 	

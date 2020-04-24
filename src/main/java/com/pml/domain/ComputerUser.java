@@ -40,19 +40,19 @@ public class ComputerUser implements Serializable {
 	private String email;
 	
 	// A user can use many computer, because the company uses the Active Directory server.
-	@JsonBackReference
 	@ManyToMany(mappedBy = "computerUsers")
+	@JsonBackReference
 	private List<Computer> useTheComputers = new ArrayList<>();
 	
 	public ComputerUser() {		
 	}
 	
-	public ComputerUser(Long id, String name, String lastName, Integer sector, String email) {
+	public ComputerUser(Long id, String name, String lastName, Sector sector, String email) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
-		this.sector = (sector == null) ? null : sector;
+		this.sector = (sector == null) ? null : sector.getCod();
 		this.email = email;
 	}
 	

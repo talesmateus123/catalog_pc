@@ -1,16 +1,15 @@
 package com.pml.domain.enums;
 
-public enum EquipmentType {
-	COMPUTER(0, "Computador"),
-	MONITOR(1, "Monitor"),
-	RAM_MEMORY(2, "RAM Memory"),
-	PROCESSOR(3, "Processor"),
-	STORAGE_DEVICE(4, "Storage device");
+public enum RamMemoryArchitecture {
+	DDR1(0, "DDR1"),
+	DDR2(1, "DDR2"),
+	DDR3(1, "DDR3"),
+	DDR4(2, "DDR4");
 	
 	private Integer cod;
 	private String description;
 	
-	private EquipmentType(int cod, String description) {
+	private RamMemoryArchitecture(int cod, String description) {
 		this.cod = cod;
 		this.description = description;
 	}
@@ -24,15 +23,15 @@ public enum EquipmentType {
 	}
 	
 	/**
-	 * Convert the cod of equipment to an EquipmentType object.
+	 * Convert the cod of ram memory to a RamMemoryType object.
 	 * @param cod Integer 
-	 * @return EquipmentType
+	 * @return RamMemoryType
 	 */
-	public static EquipmentType toEnum(Integer cod) {
+	public static RamMemoryArchitecture toEnum(Integer cod) {
 		if (cod == null )
 			return null;
 		
-		for (EquipmentType type : EquipmentType.values()) {
+		for (RamMemoryArchitecture type : RamMemoryArchitecture.values()) {
 			if (cod == type.getCod()) {
 				return type;
 			}

@@ -1,17 +1,29 @@
-package com.pml.dto;
+/** 
+ * This is the abstract class "Electronic", which it will be able to represent a any electronic * 
+ * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
+ */
+package com.pml.domain;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.pml.domain.Monitor;
-import com.pml.domain.enums.EquipmentType;
-import com.pml.domain.enums.Sector;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
-public class MonitorDTO implements Serializable {
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.pml.domain.enums.EquipmentType;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Electronic implements Serializable{
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String patrimonyId;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
@@ -20,59 +32,33 @@ public class MonitorDTO implements Serializable {
 	private String manufacturer;
 	private String model;
 	private String description;
-	private Integer sector;
-	private boolean itWorks;
+	private boolean itWorks = true;
+	// Equipment composed is not a computer part 
 	private boolean itComposed;
+
 	
-	public MonitorDTO() {
+	public Electronic() {
 	}
 	
-	public MonitorDTO(Monitor monitor) {
-		this.id = monitor.getId();
-		this.patrimonyId = monitor.getPatrimonyId();
-		this.createdDate = monitor.getCreatedDate();
-		this.lastModifiedDate = monitor.getLastModifiedDate();
-		this.equipmentType = monitor.getEquipmentType().getCod();
-		this.manufacturer = monitor.getManufacturer();
-		this.model = monitor.getModel();
-		this.description = monitor.getDescription();
-		this.sector = monitor.getSector().getCod();
-		this.itWorks = monitor.isItWorks();
-		this.itComposed = monitor.isItComposed();
-		this.equipmentType = monitor.getEquipmentType().getCod();
-		this.itComposed = monitor.isItComposed();
-	}
-	
-	public MonitorDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
-			String model, String description, Integer sector, boolean itWorks, EquipmentType equipmentType,
-			boolean itComposed) {
+	public Electronic(Long id, Date createdDate, Date lastModifiedDate, EquipmentType equipmentType, 
+			String manufacturer, String model, String description, boolean itWorks, boolean itComposed) {
 		this.id = id;
-		this.patrimonyId = patrimonyId;
 		this.createdDate = createdDate;
 		this.lastModifiedDate = lastModifiedDate;
+		this.equipmentType = (equipmentType == null) ? null : equipmentType.getCod();
 		this.manufacturer = manufacturer;
 		this.model = model;
 		this.description = description;
-		this.sector = sector;
 		this.itWorks = itWorks;
-		this.equipmentType = equipmentType.getCod();
 		this.itComposed = itComposed;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getPatrimonyId() {
-		return patrimonyId;
-	}
-	
-	public void setPatrimonyId(String patrimonyId) {
-		this.patrimonyId = patrimonyId;
 	}
 	
 	public Date getCreatedDate() {
@@ -123,29 +109,45 @@ public class MonitorDTO implements Serializable {
 		this.description = description;
 	}
 	
-	public Sector getSector() {
-		return Sector.toEnum(sector);
-	}
-	
-	public void setSector(Sector location) {
-		this.sector = location.getCod();
-	}
-	
 	public boolean isItWorks() {
 		return itWorks;
 	}
 
-	public void setItWorks(boolean isItWorks) {
-		this.itWorks = isItWorks;
+	public void setItWorks(boolean itWorks) {
+		this.itWorks = itWorks;
 	}
 
 	public boolean isItComposed() {
 		return itComposed;
 	}
 
-	public void setItComposed(boolean itComposed) {
-		this.itComposed = itComposed;
+	public void setItComposed(boolean isItComposed) {
+		this.itComposed = isItComposed;
 	}
 	
-
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Electronic other = (Electronic) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
+	
 }

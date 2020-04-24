@@ -29,6 +29,8 @@ import com.pml.services.exceptions.ObjectNotFoundException;
 public class MonitorService {
 	@Autowired
 	private MonitorRepository repository;
+	@Autowired
+	private ComputerService computerService;
 	
 	public List<Monitor> findAll() {
 		return this.repository.findAll();
@@ -127,12 +129,15 @@ public class MonitorService {
 	 * @param monitorDTO MonitorDTO
 	 * @return Monitor
 	 */
-	public Monitor fromDTO(MonitorDTO monitorDTO) {
-		Monitor monitor = new Monitor(
-				monitorDTO.getId(), monitorDTO.getPatrimonyId(), monitorDTO.getCreatedDate(), monitorDTO.getLastModifiedDate(),
-				monitorDTO.getManufacturer(), monitorDTO.getModel(), monitorDTO.getDescription(), 
-				monitorDTO.getSector().getCod(), monitorDTO.isItWorks(), null);
-		return monitor;
+	public Monitor fromDTO(MonitorDTO objectDTO) {
+		
+		//Long, String, Date, Date, String, String, String, Sector, boolean, Computer
+		
+		Monitor object = new Monitor(
+				objectDTO.getId(), objectDTO.getPatrimonyId(), objectDTO.getCreatedDate(), 
+				objectDTO.getLastModifiedDate(), objectDTO.getManufacturer(), objectDTO.getModel(),
+				objectDTO.getDescription(),	objectDTO.getSector(), objectDTO.isItWorks(), null);
+		return object;
 	}
 	
 	/**
@@ -140,12 +145,15 @@ public class MonitorService {
 	 * @param monitorNewDTO MonitorNewDTO
 	 * @return Monitor
 	 */
-	public Monitor fromDTO(MonitorNewDTO monitorNewDTO) {
-		Monitor monitor = new Monitor(
-				null, monitorNewDTO.getPatrimonyId(), monitorNewDTO.getCreatedDate(), monitorNewDTO.getLastModifiedDate(),
-				monitorNewDTO.getManufacturer(), monitorNewDTO.getModel(), monitorNewDTO.getDescription(), 
-				monitorNewDTO.getSector().getCod(), monitorNewDTO.isItWorks(), null);
-		return monitor;
+	public Monitor fromDTO(MonitorNewDTO objectNewDTO) {
+		Monitor object = new Monitor(
+				null, objectNewDTO.getPatrimonyId(), null, null, objectNewDTO.getManufacturer(), 
+				objectNewDTO.getModel(), objectNewDTO.getDescription(), objectNewDTO.getSector(), 
+				objectNewDTO.isItWorks(), null);
+		if (objectNewDTO.getComputerId() != null)
+			object.setComputer(this.computerService.findById(objectNewDTO.getComputerId()));
+		
+		return object;
 	}
 	
 	

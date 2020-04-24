@@ -2,28 +2,28 @@ package com.pml.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.pml.domain.enums.Sector;
+import com.pml.domain.enums.RamMemoryArchitecture;
 
-public class MonitorNewDTO implements Serializable {
+public class RamMemoryNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	@NotEmpty(message = "This field is mandatory")
-	@Size(min = 4, max = 10, message = "The text of this field must contain between 4 and 10 characters")
-	private String patrimonyId;
 	private String manufacturer;
 	private String model;
 	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
 	private String description;
-	private boolean itWorks;
-	private Integer sector;
+	private boolean itWorks = true;
+	@NotNull(message = "This field is mandatory")
+	private Double sizeInMB;
+	@NotNull(message = "This field is mandatory")
+	private Integer architecture;
 	private Long computerId;
 	
-	public MonitorNewDTO() {
-	}
-
+	public RamMemoryNewDTO() {
+	}	
+	
 	public Long getId() {
 		return id;
 	}
@@ -32,14 +32,6 @@ public class MonitorNewDTO implements Serializable {
 		this.id = id;
 	}
 
-	public String getPatrimonyId() {
-		return patrimonyId;
-	}
-	
-	public void setPatrimonyId(String patrimonyId) {
-		this.patrimonyId = patrimonyId;
-	}
-	
 	public String getManufacturer() {
 		return manufacturer;
 	}
@@ -64,14 +56,6 @@ public class MonitorNewDTO implements Serializable {
 		this.description = description;
 	}
 	
-	public Sector getSector() {
-		return Sector.toEnum(sector);
-	}
-	
-	public void setSector(Sector location) {
-		this.sector = location.getCod();
-	}
-	
 	public boolean isItWorks() {
 		return itWorks;
 	}
@@ -79,7 +63,23 @@ public class MonitorNewDTO implements Serializable {
 	public void setItWorks(boolean itWorks) {
 		this.itWorks = itWorks;
 	}
+	
+	public Double getSizeInMB() {
+		return sizeInMB;
+	}
 
+	public void setSizeInMB(Double sizeInMB) {
+		this.sizeInMB = sizeInMB;
+	}
+	
+	public RamMemoryArchitecture getArchitecture() {
+		return RamMemoryArchitecture.toEnum(architecture);
+	}
+
+	public void setArchitecture(RamMemoryArchitecture architecture) {
+		this.architecture = architecture.getCod();
+	}
+	
 	public Long getComputerId() {
 		return computerId;
 	}
@@ -87,6 +87,6 @@ public class MonitorNewDTO implements Serializable {
 	public void setComputerId(Long computerId) {
 		this.computerId = computerId;
 	}
-	
 
+	
 }

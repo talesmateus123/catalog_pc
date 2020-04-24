@@ -19,7 +19,7 @@ public class TestConfig {
 	private DBService dBService;
 	@Bean
 	public boolean instantiateDatabase() {
-		
+		dBService.instantiateTestDatabase();
 		return true;
 	}
 

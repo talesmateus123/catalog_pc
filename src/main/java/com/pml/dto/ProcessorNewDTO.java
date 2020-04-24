@@ -3,27 +3,29 @@ package com.pml.dto;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.pml.domain.enums.Sector;
+import com.pml.domain.enums.ArchitectureType;
 
-public class MonitorNewDTO implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class ProcessorNewDTO implements Serializable {
 	private Long id;
-	@NotEmpty(message = "This field is mandatory")
-	@Size(min = 4, max = 10, message = "The text of this field must contain between 4 and 10 characters")
-	private String patrimonyId;
+	private static final long serialVersionUID = 1L;
 	private String manufacturer;
 	private String model;
 	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
 	private String description;
-	private boolean itWorks;
-	private Integer sector;
+	private boolean itWorks = true;
+	@NotEmpty(message = "This field is mandatory")
+	@Size(min = 4, max = 30, message = "The text of this field must contain between 4 and 10 characters")
+	private String processorName;
+	@NotNull(message = "This field is mandatory")
+	private Integer architecture;
 	private Long computerId;
 	
-	public MonitorNewDTO() {
+	public ProcessorNewDTO() {
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -32,14 +34,6 @@ public class MonitorNewDTO implements Serializable {
 		this.id = id;
 	}
 
-	public String getPatrimonyId() {
-		return patrimonyId;
-	}
-	
-	public void setPatrimonyId(String patrimonyId) {
-		this.patrimonyId = patrimonyId;
-	}
-	
 	public String getManufacturer() {
 		return manufacturer;
 	}
@@ -64,14 +58,6 @@ public class MonitorNewDTO implements Serializable {
 		this.description = description;
 	}
 	
-	public Sector getSector() {
-		return Sector.toEnum(sector);
-	}
-	
-	public void setSector(Sector location) {
-		this.sector = location.getCod();
-	}
-	
 	public boolean isItWorks() {
 		return itWorks;
 	}
@@ -79,7 +65,23 @@ public class MonitorNewDTO implements Serializable {
 	public void setItWorks(boolean itWorks) {
 		this.itWorks = itWorks;
 	}
+	
+	public String getProcessorName() {
+		return processorName;
+	}
 
+	public void setProcessorName(String processorName) {
+		this.processorName = processorName;
+	}
+
+	public ArchitectureType getArchitecture() {
+		return ArchitectureType.toEnum(architecture);
+	}
+	
+	public void setArchitecture(ArchitectureType architecture) {
+		this.architecture = architecture.getCod();
+	}
+	
 	public Long getComputerId() {
 		return computerId;
 	}
@@ -88,5 +90,5 @@ public class MonitorNewDTO implements Serializable {
 		this.computerId = computerId;
 	}
 	
-
+	
 }

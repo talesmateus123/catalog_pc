@@ -4,14 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.pml.domain.Monitor;
+import com.pml.domain.RamMemory;
 import com.pml.domain.enums.EquipmentType;
-import com.pml.domain.enums.Sector;
+import com.pml.domain.enums.RamMemoryArchitecture;
 
-public class MonitorDTO implements Serializable {
+public class RamMemoryDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	private String patrimonyId;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
@@ -20,59 +19,51 @@ public class MonitorDTO implements Serializable {
 	private String manufacturer;
 	private String model;
 	private String description;
-	private Integer sector;
-	private boolean itWorks;
+	private boolean itWorks = true; 
 	private boolean itComposed;
+	private Double sizeInMB;
+	private Integer architecture;
 	
-	public MonitorDTO() {
+	
+	public RamMemoryDTO() {
 	}
 	
-	public MonitorDTO(Monitor monitor) {
-		this.id = monitor.getId();
-		this.patrimonyId = monitor.getPatrimonyId();
-		this.createdDate = monitor.getCreatedDate();
-		this.lastModifiedDate = monitor.getLastModifiedDate();
-		this.equipmentType = monitor.getEquipmentType().getCod();
-		this.manufacturer = monitor.getManufacturer();
-		this.model = monitor.getModel();
-		this.description = monitor.getDescription();
-		this.sector = monitor.getSector().getCod();
-		this.itWorks = monitor.isItWorks();
-		this.itComposed = monitor.isItComposed();
-		this.equipmentType = monitor.getEquipmentType().getCod();
-		this.itComposed = monitor.isItComposed();
+	public RamMemoryDTO(RamMemory ramMemory) {
+		this.id = ramMemory.getId();
+		this.createdDate = ramMemory.getCreatedDate();
+		this.lastModifiedDate = ramMemory.getLastModifiedDate();
+		this.equipmentType = ramMemory.getEquipmentType().getCod();
+		this.manufacturer = ramMemory.getManufacturer();
+		this.model = ramMemory.getModel();
+		this.description = ramMemory.getDescription();
+		this.itWorks = ramMemory.isItWorks();
+		this.itComposed = ramMemory.isItComposed();
+		this.sizeInMB = ramMemory.getSizeInMB();
+		this.architecture = ramMemory.getArchitecture().getCod();		
 	}
 	
-	public MonitorDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
-			String model, String description, Integer sector, boolean itWorks, EquipmentType equipmentType,
-			boolean itComposed) {
+	public RamMemoryDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate,  EquipmentType equipmentType,
+			String manufacturer, String model, String description, Integer sector, boolean itWorks, boolean itComposed, 
+			Double sizeInMB, Integer architecture) {
 		this.id = id;
-		this.patrimonyId = patrimonyId;
 		this.createdDate = createdDate;
 		this.lastModifiedDate = lastModifiedDate;
+		this.equipmentType = equipmentType.getCod();
 		this.manufacturer = manufacturer;
 		this.model = model;
 		this.description = description;
-		this.sector = sector;
 		this.itWorks = itWorks;
-		this.equipmentType = equipmentType.getCod();
 		this.itComposed = itComposed;
+		this.sizeInMB = sizeInMB;
+		this.architecture = architecture;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getPatrimonyId() {
-		return patrimonyId;
-	}
-	
-	public void setPatrimonyId(String patrimonyId) {
-		this.patrimonyId = patrimonyId;
 	}
 	
 	public Date getCreatedDate() {
@@ -123,29 +114,37 @@ public class MonitorDTO implements Serializable {
 		this.description = description;
 	}
 	
-	public Sector getSector() {
-		return Sector.toEnum(sector);
-	}
-	
-	public void setSector(Sector location) {
-		this.sector = location.getCod();
-	}
-	
 	public boolean isItWorks() {
 		return itWorks;
 	}
 
-	public void setItWorks(boolean isItWorks) {
-		this.itWorks = isItWorks;
+	public void setItWorks(boolean itWorks) {
+		this.itWorks = itWorks;
 	}
 
 	public boolean isItComposed() {
 		return itComposed;
 	}
 
-	public void setItComposed(boolean itComposed) {
-		this.itComposed = itComposed;
+	public void setItComposed(boolean isItComposed) {
+		this.itComposed = isItComposed;
+	}
+
+	public Double getSizeInMB() {
+		return sizeInMB;
+	}
+
+	public void setSizeInMB(Double sizeInMB) {
+		this.sizeInMB = sizeInMB;
 	}
 	
+	public RamMemoryArchitecture getArchitecture() {
+		return RamMemoryArchitecture.toEnum(architecture);
+	}
+	
+	public void setArchitecture(RamMemoryArchitecture architecture) {
+		this.architecture = architecture.getCod();
+	}
 
+	
 }

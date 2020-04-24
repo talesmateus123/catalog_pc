@@ -1,13 +1,13 @@
 package com.pml.domain.enums;
 
-public enum HardDiskType {
+public enum StorageDeviceArchitecture {
 	SATA(0, "SATA"),
 	IDE(1, "IDE");
 	
 	private Integer cod;
 	private String description;
 	
-	private HardDiskType(int cod, String description) {
+	private StorageDeviceArchitecture(int cod, String description) {
 		this.cod = cod;
 		this.description = description;
 	}
@@ -25,11 +25,11 @@ public enum HardDiskType {
 	 * @param cod Integer 
 	 * @return HardDiskType
 	 */
-	public static HardDiskType toEnum(Integer cod) {
+	public static StorageDeviceArchitecture toEnum(Integer cod) {
 		if (cod == null )
 			return null;
 		
-		for (HardDiskType type : HardDiskType.values()) {
+		for (StorageDeviceArchitecture type : StorageDeviceArchitecture.values()) {
 			if (cod == type.getCod()) {
 				return type;
 			}

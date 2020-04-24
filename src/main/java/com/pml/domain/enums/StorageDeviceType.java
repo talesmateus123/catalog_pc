@@ -1,14 +1,13 @@
 package com.pml.domain.enums;
 
-public enum RamMemoryType {
-	DDR1(0, "DDR1"),
-	DDR2(1, "DDR2"),
-	DDR3(2, "DDR3");
+public enum StorageDeviceType {
+	HD(0, "Hard Disk"),
+	SSD(1, "Solid State Drive");
 	
 	private Integer cod;
 	private String description;
 	
-	private RamMemoryType(int cod, String description) {
+	private StorageDeviceType(int cod, String description) {
 		this.cod = cod;
 		this.description = description;
 	}
@@ -22,15 +21,15 @@ public enum RamMemoryType {
 	}
 	
 	/**
-	 * Convert the cod of ram memory to a RamMemoryType object.
+	 * Convert the cod of hard disk to a HardDiskType object.
 	 * @param cod Integer 
-	 * @return RamMemoryType
+	 * @return HardDiskType
 	 */
-	public static RamMemoryType toEnum(Integer cod) {
+	public static StorageDeviceType toEnum(Integer cod) {
 		if (cod == null )
 			return null;
 		
-		for (RamMemoryType type : RamMemoryType.values()) {
+		for (StorageDeviceType type : StorageDeviceType.values()) {
 			if (cod == type.getCod()) {
 				return type;
 			}

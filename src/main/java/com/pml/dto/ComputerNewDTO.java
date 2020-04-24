@@ -2,19 +2,14 @@ package com.pml.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pml.domain.enums.ArchitectureType;
-import com.pml.domain.enums.EquipmentType;
-import com.pml.domain.enums.HardDiskType;
 import com.pml.domain.enums.OperatingSystemType;
-import com.pml.domain.enums.RamMemoryType;
 import com.pml.domain.enums.Sector;
 
 public class ComputerNewDTO implements Serializable {
@@ -23,39 +18,27 @@ public class ComputerNewDTO implements Serializable {
 	@NotEmpty(message = "This field is mandatory")
 	@Size(min = 4, max = 10, message = "The text of this field must contain between 4 and 10 characters")
 	private String patrimonyId;
-	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Date createdDate;
-	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Date lastModifiedDate;
-	private Integer equipmentType;
-	@NotEmpty(message = "This field is mandatory")
 	private String manufacturer;
-	@NotEmpty(message = "This field is mandatory")
 	private String model;
 	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
 	private String description;
 	private Integer sector;
 	private boolean itWorks;
-	private boolean itComposed;
 	private String ipAddress;
+	private String hostName;
 	private String motherBoardName;
-	@NotNull(message = "This field is mandatory")
-	private Integer memoryType;
-	private Double memorySize;
-	private Integer hdType;
-	private Double hdSize;
-	private String processorModel;
-	@NotNull(message = "This field is mandatory")
-	private Integer processorArchitecture;
-	@NotNull(message = "This field is mandatory")
 	private Boolean hasCdBurner;
 	private String cabinetModel;
 	private Integer operatingSystem;
 	private Integer operatingSystemArchitecture;
 	@NotNull(message = "This field is mandatory")
 	private boolean onTheDomain;
-	private List<Long> computerUsersId = new ArrayList<>();
+	
 	private Long monitorId;
+	private Long processorId;
+	private List<Long> ramMemories;
+	private List<Long> storageDevices;
+	private List<Long> computerUsersId = new ArrayList<>();
 	
 	public ComputerNewDTO() {
 	}
@@ -74,30 +57,6 @@ public class ComputerNewDTO implements Serializable {
 	
 	public void setPatrimonyId(String patrimonyId) {
 		this.patrimonyId = patrimonyId;
-	}
-	
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public Date getLastModifiedDate() {
-		return lastModifiedDate;
-	}
-
-	public void setLastModifiedDate(Date lastModifiedDate) {
-		this.lastModifiedDate = lastModifiedDate;
-	}
-
-	public EquipmentType getEquipmentType() {
-		return EquipmentType.toEnum(equipmentType);
-	}
-	
-	public void setEquipmentType(EquipmentType equipmentType) {
-		this.equipmentType = equipmentType.getCod();
 	}
 	
 	public String getManufacturer() {
@@ -139,14 +98,6 @@ public class ComputerNewDTO implements Serializable {
 	public void setItWorks(boolean itWorks) {
 		this.itWorks = itWorks;
 	}
-
-	public boolean isItComposed() {
-		return itComposed;
-	}
-
-	public void setItComposed(boolean itComposed) {
-		this.itComposed = itComposed;
-	}
 	
 	public String getIpAddress() {
 		return ipAddress;
@@ -156,60 +107,20 @@ public class ComputerNewDTO implements Serializable {
 		this.ipAddress = ipAddress;
 	}
 
+	public String getHostName() {
+		return hostName;
+	}
+
+	public void setHostName(String hostName) {
+		this.hostName = hostName;
+	}
+
 	public String getMotherBoardName() {
 		return motherBoardName;
 	}
 
 	public void setMotherBoardName(String motherBoardName) {
 		this.motherBoardName = motherBoardName;
-	}
-
-	public RamMemoryType getMemoryType() {
-		return RamMemoryType.toEnum(memoryType);
-	}
-
-	public void setMemoryType(RamMemoryType memoryType) {
-		this.memoryType = memoryType.getCod();
-	}
-
-	public Double getMemorySize() {
-		return memorySize;
-	}
-
-	public void setMemorySize(Double memorySize) {
-		this.memorySize = memorySize;
-	}
-
-	public HardDiskType getHdType() {
-		return HardDiskType.toEnum(hdType);
-	}
-
-	public void setHdType(HardDiskType hdType) {
-		this.hdType = hdType.getCod();
-	}
-
-	public Double getHdSize() {
-		return hdSize;
-	}
-
-	public void setHdSize(Double hdSize) {
-		this.hdSize = hdSize;
-	}
-
-	public String getProcessorModel() {
-		return processorModel;
-	}
-
-	public void setProcessorModel(String processorModel) {
-		this.processorModel = processorModel;
-	}
-
-	public ArchitectureType getProcessorArchitecture() {
-		return ArchitectureType.toEnum(processorArchitecture);
-	}
-
-	public void setProcessorArchitecture(ArchitectureType processorArchitecture) {
-		this.processorArchitecture = processorArchitecture.getCod();
 	}
 
 	public Boolean getHasCdBurner() {
@@ -250,6 +161,38 @@ public class ComputerNewDTO implements Serializable {
 
 	public void setOnTheDomain(boolean onTheDomain) {
 		this.onTheDomain = onTheDomain;
+	}	
+
+	public Long getMonitorId() {
+		return monitorId;
+	}
+
+	public void setMonitorId(Long monitorId) {
+		this.monitorId = monitorId;
+	}
+
+	public Long getProcessorId() {
+		return processorId;
+	}
+
+	public void setProcessorId(Long processorId) {
+		this.processorId = processorId;
+	}	
+	
+	public List<Long> getRamMemories() {
+		return ramMemories;
+	}
+
+	public void setRamMemories(List<Long> ramMemories) {
+		this.ramMemories = ramMemories;
+	}
+
+	public List<Long> getStorageDevices() {
+		return storageDevices;
+	}
+
+	public void setStorageDevices(List<Long> storageDevices) {
+		this.storageDevices = storageDevices;
 	}
 
 	public List<Long> getComputerUsersId() {
@@ -258,23 +201,6 @@ public class ComputerNewDTO implements Serializable {
 
 	public void setComputerUsersId(List<Long> computerUsersId) {
 		this.computerUsersId = computerUsersId;
-	}
-	
-	/**
-	 * Add a new computer user Long to this list of computer users.
-	 * @param computerUserId Long
-	 * @return void 
-	 */
-	public void addComputerUserId(Long computerUserId) {
-		this.computerUsersId.add(computerUserId);
-	}
-
-	public Long getMonitorId() {
-		return monitorId;
-	}
-
-	public void setMonitorId(Long monitorId) {
-		this.monitorId = monitorId;
 	}
 
 	
