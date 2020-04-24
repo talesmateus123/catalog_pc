@@ -38,13 +38,11 @@ public class Computer extends Machine{
 	private boolean onTheDomain;	
 
 	@OneToMany(mappedBy = "computer")
-	private List<RamMemory> ramMemories;
+	private List<RamMemory> ramMemories = new ArrayList<>();
 	private Double totalRamMemory;
 	@OneToMany(mappedBy = "computer")
-	private List<StorageDevice> storageDevices;
-	private Double totalStorageMemory;
-	
-	
+	private List<StorageDevice> storageDevices = new ArrayList<>();
+	private Double totalStorageMemory;	
 	@ManyToMany
 	@JoinTable(name = "computer_computer_user",
 		joinColumns = @JoinColumn(name = "computer_id"),

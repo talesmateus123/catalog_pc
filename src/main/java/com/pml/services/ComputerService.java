@@ -82,13 +82,14 @@ public class ComputerService {
 		}
 	}
 
+	@Transactional
 	public Computer update(Computer object) {
 		if(patrimonyIdIsChanged(object)){
 			if(alreadyExists(object.getPatrimonyId()))
 				throw new ConflictOfObjectsException("This computer already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
 		
-		recoverData(object);		
+		recoverData(object);
 		return this.repository.saveAndFlush(object);		
 	}
 	
@@ -170,14 +171,14 @@ public class ComputerService {
 		if(computerNewDTO.getProcessorId() != null)
 			computer.setProcessor(this.processorService.findById(computerNewDTO.getProcessorId()));
 		
-		for(Long computerUserId : computerNewDTO.getComputerUsersId()) {
-			computer.addComputerUser(this.computerUserService.findById(computerUserId));
-		}
 		for(Long ramMemoryId : computerNewDTO.getRamMemoriesId()) {
 			computer.addRamMemory(this.ramMemoryService.findById(ramMemoryId));
 		}
 		for(Long storageDeviceId : computerNewDTO.getStorageDevicesId()) {
 			computer.addStorageDevice(this.storageDeviceService.findById(storageDeviceId));
+		}
+		for(Long computerUserId : computerNewDTO.getComputerUsersId()) {
+			computer.addComputerUser(this.computerUserService.findById(computerUserId));
 		}
 		
 		return computer;
