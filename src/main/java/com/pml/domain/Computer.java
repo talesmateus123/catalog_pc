@@ -58,11 +58,11 @@ public class Computer extends Machine{
 	@JoinColumn(name = "processor_id")
 	private Processor processor;
 	
-	
 	public Computer() {
 		super();
 		this.setEquipmentType(EquipmentType.COMPUTER);
-		calculateTotalMemories();
+		this.totalRamMemory = 0.0;
+		this.totalStorageMemory = 0.0;
 	}
 
 	public Computer(Long id, String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
@@ -81,7 +81,8 @@ public class Computer extends Machine{
 		this.operatingSystemArchitecture = operatingSystemArchitecture.getCod();
 		this.onTheDomain = onTheDomain;
 		this.monitor = monitor;
-		calculateTotalMemories();
+		this.totalRamMemory = 0.0;
+		this.totalStorageMemory = 0.0;
 	}
 
 	public String getIpAddress() {
@@ -163,6 +164,7 @@ public class Computer extends Machine{
 
 	public void setRamMemories(List<RamMemory> ramMemories) {
 		this.ramMemories = ramMemories;
+		this.calculateTotalRamMemories();
 	}
 	
 	/**
@@ -172,6 +174,7 @@ public class Computer extends Machine{
 	 */	
 	public void addRamMemory(RamMemory ramMemory) {
 		this.ramMemories.add(ramMemory);
+		this.totalRamMemory = this.totalRamMemory + ramMemory.getSizeInMB();
 	}
 
 	public List<StorageDevice> getStorageDevices() {
@@ -180,6 +183,7 @@ public class Computer extends Machine{
 
 	public void setStorageDevices(List<StorageDevice> storageDevices) {
 		this.storageDevices = storageDevices;
+		this.calculateTotalStorageDeviceMemories();		
 	}
 	
 	/**
@@ -189,6 +193,7 @@ public class Computer extends Machine{
 	 */
 	public void addStorageDevice(StorageDevice storageDevice) {
 		this.storageDevices.add(storageDevice);
+		this.totalStorageMemory = this.totalStorageMemory + storageDevice.getSizeInMB();
 	}
 
 	public List<ComputerUser> getComputerUsers() {
@@ -264,26 +269,25 @@ public class Computer extends Machine{
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	private void calculateTotalMemories() {
-		Double totalMemory;
-		if (this.storageDevices.isEmpty()) {
-			totalMemory = 0.0;
-			for (StorageDevice storageDevice : this.storageDevices)
-				totalMemory = totalMemory + storageDevice.getSizeInMB();
-			this.totalStorageMemory = totalMemory;
-		}
-		else
-			this.totalStorageMemory = 0.0;
+
+	private void calculateTotalRamMemories() {
 		if (this.ramMemories.isEmpty()) {
-			totalMemory = 0.0;
+			Double totalMemory = 0.0;
 			for (RamMemory ramMemory : this.ramMemories)
 				totalMemory = totalMemory + ramMemory.getSizeInMB();
 			this.totalRamMemory = totalMemory;
 		}
-		else
-			this.totalRamMemory = 0.0;
 	}
+	
+	private void calculateTotalStorageDeviceMemories() {
+		if (this.storageDevices.isEmpty()) {
+			Double totalMemory = 0.0;
+			for (StorageDevice storageDevice : this.storageDevices)
+				totalMemory = totalMemory + storageDevice.getSizeInMB();
+			this.totalStorageMemory = totalMemory;
+		}
+	}
+	
 	
 }
 
