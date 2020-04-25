@@ -69,14 +69,13 @@ public class ComputerService {
 		}
 		object.setId(null);
 		object.setCreatedDate(new Date());
-			
 		return this.repository.save(object);
 	}
 
 	public void delete(Long id) {
-		Computer objetc = this.findById(id);
+		this.findById(id);
 		try {
-			this.repository.deleteById(objetc.getId());
+			this.repository.deleteById(id);
 		}
 		catch(DataIntegrityViolationException e){
 			throw new DataIntegrityException("Could not delete the computer: id: '" + id + "'. This computer has still dependents.");
@@ -85,12 +84,11 @@ public class ComputerService {
 
 	@Transactional
 	public Computer update(Computer object) {
+		recoverData(object);
 		if(patrimonyIdIsChanged(object)){
 			if(alreadyExists(object.getPatrimonyId()))
 				throw new ConflictOfObjectsException("This computer already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
-		//updateRefereces(object);
-		recoverData(object);
 		return this.repository.saveAndFlush(object);		
 	}
 	
@@ -172,20 +170,28 @@ public class ComputerService {
 		if(computerNewDTO.getProcessorId() != null)
 			computer.setProcessor(this.processorService.findById(computerNewDTO.getProcessorId()));
 		
-		for(Long ramMemoryId : computerNewDTO.getRamMemoriesId()) {
-			RamMemory ramMemory = this.ramMemoryService.findById(ramMemoryId);
-			ramMemory.setComputer(computer);
-			computer.addRamMemory(ramMemory);
+		if(computerNewDTO.getRamMemoriesId() != null) {
+			for(Long ramMemoryId : computerNewDTO.getRamMemoriesId()) {
+				RamMemory ramMemory = this.ramMemoryService.findById(ramMemoryId);
+				ramMemory.setComputer(computer);
+				computer.addRamMemory(ramMemory);
+			}
 		}
-		for(Long storageDeviceId : computerNewDTO.getStorageDevicesId()) {
-			StorageDevice storageDevice = this.storageDeviceService.findById(storageDeviceId);
-			storageDevice.setComputer(computer);
-			computer.addStorageDevice(storageDevice);
+		if(computerNewDTO.getStorageDevicesId() != null) {
+			for(Long storageDeviceId : computerNewDTO.getStorageDevicesId()) {
+				StorageDevice storageDevice = this.storageDeviceService.findById(storageDeviceId);
+				storageDevice.setComputer(computer);
+				computer.addStorageDevice(storageDevice);
+	
+				System.out.println(storageDevice.getSizeInMB());
+			}
 		}
-		for(Long computerUserId : computerNewDTO.getComputerUsersId()) {
-			ComputerUser computerUser = this.computerUserService.findById(computerUserId);
-			computerUser.addUseTheComputer(computer);
-			computer.addComputerUser(computerUser);
+		if(computerNewDTO.getComputerUsersId() != null) {
+			for(Long computerUserId : computerNewDTO.getComputerUsersId()) {
+				ComputerUser computerUser = this.computerUserService.findById(computerUserId);
+				computerUser.addUseTheComputer(computer);
+				computer.addComputerUser(computerUser);
+			}
 		}
 		
 		return computer;

@@ -53,9 +53,9 @@ public class ProcessorService {
 	}
 
 	public void delete(Long id) {
-		Processor objetc = this.findById(id);
+		this.findById(id);
 		try {
-			this.repository.deleteById(objetc.getId());
+			this.repository.deleteById(id);
 		}
 		catch(DataIntegrityViolationException e){
 			throw new DataIntegrityException("Could not delete the processor: id: '" + id + "'. This user has still dependents.");

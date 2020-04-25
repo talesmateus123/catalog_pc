@@ -53,9 +53,9 @@ public class RamMemoryService {
 	}
 
 	public void delete(Long id) {
-		RamMemory objetc = this.findById(id);
+		this.findById(id);
 		try {
-			this.repository.deleteById(objetc.getId());
+			this.repository.deleteById(id);
 		}
 		catch(DataIntegrityViolationException e){
 			throw new DataIntegrityException("Could not delete the ram memory: id: '" + id + "'. This user has still dependents.");

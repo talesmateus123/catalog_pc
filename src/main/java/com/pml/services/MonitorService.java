@@ -62,9 +62,9 @@ public class MonitorService {
 	}
 
 	public void delete(Long id) {
-		Monitor objetc = this.findById(id);
+		this.findById(id);
 		try {
-			this.repository.deleteById(objetc.getId());
+			this.repository.deleteById(id);
 		}
 		catch(DataIntegrityViolationException e){
 			throw new DataIntegrityException("Could not delete the monitor: id: '" + id + "'. This monitor has still dependents.");
@@ -72,12 +72,11 @@ public class MonitorService {
 	}
 
 	public Monitor update(Monitor object) {
+		recoverData(object);	
 		if(patrimonyIdIsChanged(object)){
 			if(alreadyExists(object.getPatrimonyId()))
 				throw new ConflictOfObjectsException("This monitor already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
-		}
-		
-		recoverData(object);		
+		}	
 		return this.repository.saveAndFlush(object);		
 	}
 	

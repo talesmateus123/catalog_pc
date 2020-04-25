@@ -52,9 +52,9 @@ public class ComputerUserService {
 	}
 
 	public void delete(Long id) {
-		ComputerUser objetc = this.findById(id);
+		this.findById(id);
 		try {
-			this.repository.deleteById(objetc.getId());
+			this.repository.deleteById(id);
 		}
 		catch(DataIntegrityViolationException e){
 			throw new DataIntegrityException("Could not delete the computer user: id: '" + id + "'. This user has still dependents.");
@@ -63,6 +63,7 @@ public class ComputerUserService {
 
 	@Transactional
 	public ComputerUser update(ComputerUser object) {
+		this.findById(object.getId());
 		return this.repository.saveAndFlush(object);		
 	}
 	
@@ -87,10 +88,12 @@ public class ComputerUserService {
 		ComputerUser computerUser = new ComputerUser(
 				null, computerUserNewDTO.getName(), computerUserNewDTO.getLastName(),
 				computerUserNewDTO.getSector(), computerUserNewDTO.getEmail());
-		for(Long computerId : computerUserNewDTO.getUseTheComputersId()) {
-			Computer computer = this.computerService.findById(computerId);
-			computer.addComputerUser(computerUser);
-			computerUser.addUseTheComputer(computer);
+		if(computerUserNewDTO.getUseTheComputersId() != null) {
+			for(Long computerId : computerUserNewDTO.getUseTheComputersId()) {
+				Computer computer = this.computerService.findById(computerId);
+				computer.addComputerUser(computerUser);
+				computerUser.addUseTheComputer(computer);
+			}
 		}
 		return computerUser;
 	}

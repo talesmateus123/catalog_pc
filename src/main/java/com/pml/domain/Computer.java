@@ -223,10 +223,51 @@ public class Computer extends Machine{
 	public Double getTotalRamMemory() {
 		return totalRamMemory;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Computer [ipAddress=");
+		builder.append(ipAddress);
+		builder.append(", hostName=");
+		builder.append(hostName);
+		builder.append(", motherBoardName=");
+		builder.append(motherBoardName);
+		builder.append(", hasCdBurner=");
+		builder.append(hasCdBurner);
+		builder.append(", cabinetModel=");
+		builder.append(cabinetModel);
+		builder.append(", operatingSystem=");
+		builder.append(operatingSystem);
+		builder.append(", operatingSystemArchitecture=");
+		builder.append(operatingSystemArchitecture);
+		builder.append(", onTheDomain=");
+		builder.append(onTheDomain);
+		builder.append(", ramMemories=");
+		for(RamMemory object : getRamMemories())
+			builder.append(object.getManufacturer() + " - " + object.getModel());
+		builder.append(", totalRamMemory=");
+		builder.append(totalRamMemory);
+		builder.append(", storageDevices=");
+		for(StorageDevice object : getStorageDevices())
+			builder.append(object.getManufacturer() + " - " + object.getModel());
+		builder.append(", totalStorageMemory=");
+		builder.append(totalStorageMemory);
+		builder.append(", computerUsers=");
+		for(ComputerUser object : getComputerUsers())
+			builder.append(object.getName() + " " + object.getLastName());
+		builder.append(", monitor=");
+		builder.append(monitor.getManufacturer());
+		builder.append(monitor.getModel());
+		builder.append(", processor=");
+		builder.append(processor.getProcessorName());
+		builder.append("]");
+		return builder.toString();
+	}
 	
 	private void calculateTotalMemories() {
 		Double totalMemory;
-		if (this.storageDevices != null) {
+		if (this.storageDevices.isEmpty()) {
 			totalMemory = 0.0;
 			for (StorageDevice storageDevice : this.storageDevices)
 				totalMemory = totalMemory + storageDevice.getSizeInMB();
@@ -234,7 +275,7 @@ public class Computer extends Machine{
 		}
 		else
 			this.totalStorageMemory = 0.0;
-		if (this.ramMemories != null) {
+		if (this.ramMemories.isEmpty()) {
 			totalMemory = 0.0;
 			for (RamMemory ramMemory : this.ramMemories)
 				totalMemory = totalMemory + ramMemory.getSizeInMB();
