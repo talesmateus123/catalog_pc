@@ -13,7 +13,7 @@ import com.pml.domain.enums.UserProfile;
 public class UserSS implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	private String login;
+	private String email;
 	private String password;
 	private Collection<? extends GrantedAuthority> authorities;
 	
@@ -21,10 +21,10 @@ public class UserSS implements UserDetails {
 		
 	}
 	
-	public UserSS(Long id, String login, String password, Set<UserProfile> profiles) {
+	public UserSS(Long id, String email, String password, Set<UserProfile> profiles) {
 		super();
 		this.id = id;
-		this.login = login;
+		this.email = email;
 		this.password = password;
 		this.authorities = profiles.stream().map(x -> new SimpleGrantedAuthority(x.getDescription())).collect(Collectors.toList());
 	}
@@ -45,7 +45,7 @@ public class UserSS implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return login;
+		return email;
 	}
 
 	@Override

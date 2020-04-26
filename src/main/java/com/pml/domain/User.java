@@ -26,7 +26,7 @@ public class User implements Serializable{
 	private Long id;
 	@NotEmpty
 	@Column(unique = true)
-	private String login;
+	private String email;
 	@NotEmpty
 	@JsonIgnore
 	private String password;
@@ -38,9 +38,10 @@ public class User implements Serializable{
 		this.addProfile(UserProfile.USER);
 	}
 	
-	public User(Long id, String login, String password) {
+	public User(Long id, String email, String password) {
+		this.addProfile(UserProfile.USER);
 		this.id = id;
-		this.login = login;
+		this.email = email;
 		this.password = password;
 	}
 	
@@ -52,12 +53,12 @@ public class User implements Serializable{
 		this.id = id;
 	}
 	
-	public String getLogin() {
-		return login;
+	public String getEmail() {
+		return email;
 	}
 	
-	public void setLogin(String login) {
-		this.login = login;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	public String getPassword() {

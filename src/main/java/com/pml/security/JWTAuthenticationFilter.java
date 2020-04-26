@@ -1,3 +1,8 @@
+/**
+ * This class is responsible by intercept an authentication and verify if the credentials are correct.
+ * 
+ * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
+ */
 package com.pml.security;
 
 import java.io.IOException;
@@ -17,10 +22,10 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pml.dto.UserNewDTO;
+import com.pml.dto.CredentialsDTO;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-	
+	// These objects will be injected in this class by the constructor method
 	private AuthenticationManager authenticationManager;
     private JWTUtil jwtUtil;
     
@@ -30,16 +35,19 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	    this.jwtUtil = jwtUtil;
     }
 
+    // Try authenticate method
 	@Override
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
 
 		try {
-			UserNewDTO creds = new ObjectMapper()
-	                .readValue(req.getInputStream(), UserNewDTO.class);
+			// Try to get an request object by request data.
+			CredentialsDTO creds = new ObjectMapper()
+	                .readValue(req.getInputStream(), CredentialsDTO.class);
 	
-	        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(creds.getLogin(), creds.getPassword(), new ArrayList<>());
+	        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getPassword(), new ArrayList<>());
 	        
+	        // Verify if username ans password are valid 
 	        Authentication auth = authenticationManager.authenticate(authToken);
 	        return auth;
 		}
@@ -48,6 +56,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		}
 	}
 	
+	// Generate a token and adding to request header response  
 	@Override
     protected void successfulAuthentication(HttpServletRequest req,
                                             HttpServletResponse res,
@@ -59,6 +68,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         res.addHeader("Authorization", "Bearer " + token);
         res.addHeader("access-control-expose-headers", "Authorization");
 	}
+	
+	// Custom exception of Authentication failure
 	private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
 		 
         @Override

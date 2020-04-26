@@ -19,6 +19,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.pml.security.JWTAuthenticationFilter;
+import com.pml.security.JWTAuthorizationFilter;
 import com.pml.security.JWTUtil;
 
 @Configuration
@@ -59,15 +60,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.anyRequest().authenticated();
 		// Adding an Authentication Filter
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		// Adding an Authorization Filter
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 	}
 	
+	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
 
-	
 	// Unlock requests from multiple sources (cross-origin)
 	@Bean
 	CorsConfigurationSource corsConfigutationSource() {
@@ -80,7 +83,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
 	
 	
 }

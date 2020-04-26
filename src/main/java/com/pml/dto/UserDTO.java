@@ -12,7 +12,7 @@ import com.pml.domain.User;
 public class UserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	private String login;
+	private String email;
 	private String password;
 	
 	public UserDTO() {		
@@ -20,13 +20,13 @@ public class UserDTO implements Serializable {
 	
 	public UserDTO(User user) {
 		this.id = user.getId();
-		this.login = user.getLogin();
+		this.email = user.getEmail();
 		this.password = user.getPassword();
 	}
 	
-	public UserDTO(Long id, String login, String password) {
+	public UserDTO(Long id, String email, String password) {
 		this.id = id;
-		this.login = login;
+		this.email = email;
 		this.password = password;
 	}
 	
@@ -39,12 +39,12 @@ public class UserDTO implements Serializable {
 		this.id = id;
 	}
 	
-	public String getLogin() {
-		return login;
+	public String getEmail() {
+		return email;
 	}
 	
-	public void setLogin(String login) {
-		this.login = login;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	public String getPassword() {

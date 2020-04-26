@@ -14,7 +14,7 @@ import com.pml.domain.User;
 public class UserNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@NotEmpty(message = "This field cannot be empty")
-	private String login;
+	private String email;
 	@NotEmpty(message = "This field cannot be empty")
 	private String password;
 	
@@ -22,21 +22,21 @@ public class UserNewDTO implements Serializable {
 	}
 	
 	public UserNewDTO(User user) {
-		this.login = user.getLogin();
+		this.email = user.getEmail();
 		this.password = user.getPassword();
 	}
 	
-	public UserNewDTO(String login, String password) {
-		this.login = login;
+	public UserNewDTO(String email, String password) {
+		this.email = email;
 		this.password = password;
 	}
 	
-	public String getLogin() {
-		return login;
+	public String getEmail() {
+		return email;
 	}
 	
-	public void setLogin(String login) {
-		this.login = login;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	public String getPassword() {

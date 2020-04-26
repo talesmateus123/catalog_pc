@@ -43,9 +43,9 @@ public class UserService {
 		return object.orElseThrow(()-> new ObjectNotFoundException("User not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
 	
-	public User findByLogin(String login) {
-		Optional<User> object = this.repository.findByLogin(login);
-		return object.orElseThrow(()-> new ObjectNotFoundException("User not found: id: '" + login + "'. Type: " + object.getClass().getName()));
+	public User findByEmail(String email) {
+		Optional<User> object = this.repository.findByEmail(email);
+		return object.orElseThrow(()-> new ObjectNotFoundException("User not found: id: '" + email + "'. Type: " + object.getClass().getName()));
 	}
 	
 	public User insert(User object) {
@@ -76,7 +76,7 @@ public class UserService {
 	 */
 	public User fromDTO(UserDTO UserDTO) {
 		User User = new User(
-				UserDTO.getId(), UserDTO.getLogin(), UserDTO.getPassword());
+				UserDTO.getId(), UserDTO.getEmail(), UserDTO.getPassword());
 		return User;
 	}
 	
@@ -86,7 +86,7 @@ public class UserService {
 	 * @return User
 	 */
 	public User fromDTO(UserNewDTO UserNewDTO) {
-		User User = new User(null, UserNewDTO.getLogin(), this.bCryptPasswordEncoder.encode(UserNewDTO.getPassword()));
+		User User = new User(null, UserNewDTO.getEmail(), this.bCryptPasswordEncoder.encode(UserNewDTO.getPassword()));
 		
 		return User;
 	}
