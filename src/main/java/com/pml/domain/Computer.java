@@ -239,7 +239,7 @@ public class Computer extends Machine{
 		builder.append(", lastModifiedDate=");
 		builder.append(lastModifiedDate);
 		builder.append(", equipmentType=");
-		builder.append(super.getEquipmentType().toString());
+		builder.append(getEquipmentType().toString());
 		builder.append(", manufacturer=");
 		builder.append(manufacturer);
 		builder.append(", model=");
@@ -252,9 +252,9 @@ public class Computer extends Machine{
 		else
 			builder.append("No");
 		builder.append(", patrimonyId=");
-		builder.append(super.getPatrimonyId());
+		builder.append(getPatrimonyId());
 		builder.append(", sector=");
-		builder.append(super.getSector().toString());
+		builder.append(getSector().toString());
 		builder.append(", ipAddress=");
 		builder.append(ipAddress);
 		builder.append(", hostName=");

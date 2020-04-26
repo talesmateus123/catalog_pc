@@ -25,7 +25,7 @@ public class ComputerUserNewDTO implements Serializable {
 	@NotEmpty(message = "This field is mandatory")
 	@Size(min = 4, max = 20, message = "The text of this field must contain between 4 and 20 characters")
 	private String lastName;
-	@NotNull
+	@NotNull(message = "This field is mandatory")
 	private Integer sector;
 	@Email(message = "Invalid e-mail")
 	private String email;

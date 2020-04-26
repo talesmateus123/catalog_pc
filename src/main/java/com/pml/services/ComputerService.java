@@ -59,7 +59,6 @@ public class ComputerService {
 	
 	public Computer findById(Long id) {
 		Optional<Computer> object = this.repository.findById(id);
-		System.out.println(object.toString());
 		return object.orElseThrow(()-> new ObjectNotFoundException("Computer not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
 	

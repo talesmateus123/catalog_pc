@@ -1,32 +1,41 @@
-package com.pml.domain;
+/** 
+ * This is the class "UserDTO". That class will be to represent a computer user dto.
+ * 
+ * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
+ */
+package com.pml.dto;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-@Entity
-public class User implements Serializable{
+import com.pml.domain.User;
+
+public class UserNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NotNull(message = "This field is mandatory")
 	private Long id;
-	@NotEmpty
+	@NotEmpty(message = "This field cannot be empty")
 	private String login;
-	@NotEmpty
+	@NotEmpty(message = "This field cannot be empty")
 	private String password;
 	
-	public User() {
+	public UserNewDTO() {		
 	}
 	
-	public User(Long id, String login, String password) {
+	public UserNewDTO(User user) {
+		this.id = user.getId();
+		this.login = user.getLogin();
+		this.password = user.getPassword();
+	}
+	
+	public UserNewDTO(Long id, String login, String password) {
 		this.id = id;
 		this.login = login;
 		this.password = password;
 	}
+	
 	
 	public Long getId() {
 		return id;
@@ -67,7 +76,7 @@ public class User implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		UserNewDTO other = (UserNewDTO) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
