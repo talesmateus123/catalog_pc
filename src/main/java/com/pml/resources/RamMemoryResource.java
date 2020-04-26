@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,7 +63,8 @@ public class RamMemoryResource {
 		RamMemory object = this.service.findById(id);
 		return ResponseEntity.ok().body(object);
 	}
-	
+
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody RamMemoryNewDTO objectDTO) {
 		RamMemory object = this.service.fromDTO(objectDTO);
@@ -72,12 +74,14 @@ public class RamMemoryResource {
 		return ResponseEntity.created(uri).build();
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		this.service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody RamMemoryNewDTO objectDTO, @PathVariable Long id) {
 		RamMemory object = this.service.fromDTO(objectDTO);
