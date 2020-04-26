@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.pml.domain.enums.ArchitectureType;
-import com.pml.domain.enums.OperatingSystemType;
+import com.pml.domain.enums.OperatingSystem;
 import com.pml.domain.enums.Sector;
 
 public class ComputerNewDTO implements Serializable {
@@ -139,11 +139,11 @@ public class ComputerNewDTO implements Serializable {
 		this.cabinetModel = cabinetModel;
 	}
 
-	public OperatingSystemType getOperatingSystem() {
-		return OperatingSystemType.toEnum(operatingSystem);
+	public OperatingSystem getOperatingSystem() {
+		return OperatingSystem.toEnum(operatingSystem);
 	}
 
-	public void setOperatingSystem(OperatingSystemType operatingSystem) {
+	public void setOperatingSystem(OperatingSystem operatingSystem) {
 		this.operatingSystem = operatingSystem.getCod();
 	}
 

@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.EquipmentType;
-import com.pml.domain.enums.OperatingSystemType;
+import com.pml.domain.enums.OperatingSystem;
 import com.pml.domain.enums.Sector;
 
 @Entity
@@ -68,7 +68,7 @@ public class Computer extends Machine{
 	public Computer(Long id, String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
 			String model, String description, Sector sector, boolean itWorks, String ipAddress, 
 			String hostName, String motherBoardName, Processor processor, Boolean hasCdBurner, String cabinetModel, 
-			OperatingSystemType operatingSystem, ArchitectureType operatingSystemArchitecture, boolean onTheDomain, 
+			OperatingSystem operatingSystem, ArchitectureType operatingSystemArchitecture, boolean onTheDomain, 
 			Monitor monitor) {
 		super(id, patrimonyId, createdDate, modifiedDate, EquipmentType.COMPUTER, manufacturer, model, description, sector, itWorks);
 		this.ipAddress = ipAddress;
@@ -134,11 +134,11 @@ public class Computer extends Machine{
 		this.cabinetModel = cabinetModel;
 	}
 
-	public OperatingSystemType getOperatingSystem() {
-		return OperatingSystemType.toEnum(operatingSystem);
+	public OperatingSystem getOperatingSystem() {
+		return OperatingSystem.toEnum(operatingSystem);
 	}
 
-	public void setOperatingSystem(OperatingSystemType operatingSystem) {
+	public void setOperatingSystem(OperatingSystem operatingSystem) {
 		this.operatingSystem = operatingSystem.getCod();
 	}
 

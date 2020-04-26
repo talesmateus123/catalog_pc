@@ -1,12 +1,21 @@
 package com.pml.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pml.domain.enums.UserProfile;
 
 @Entity
 public class User implements Serializable{
@@ -17,9 +26,14 @@ public class User implements Serializable{
 	@NotEmpty
 	private String login;
 	@NotEmpty
+	@JsonIgnore
 	private String password;
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "PROFILES")
+	private Set<Integer> profiles = new HashSet<>();
 	
 	public User() {
+		this.addProfile(UserProfile.USER);
 	}
 	
 	public User(Long id, String login, String password) {
@@ -50,6 +64,14 @@ public class User implements Serializable{
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public Set<UserProfile> getProfiles() {
+		return profiles.stream().map(userProfile -> UserProfile.toEnum(userProfile)).collect(Collectors.toSet());
+	}
+	
+	public void addProfile(UserProfile userProfile) {
+		this.profiles.add(userProfile.getCod());
 	}
 	
 	@Override

@@ -5,6 +5,7 @@
  */
 package com.pml.services;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pml.repositories.ComputerRepository;
@@ -13,6 +14,7 @@ import com.pml.repositories.MonitorRepository;
 
 @Service
 public class DBService {
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	private ComputerRepository computerRepository;
 	private ComputerUserRepository computerUserRepository;
 	private MonitorRepository monitorRepository;

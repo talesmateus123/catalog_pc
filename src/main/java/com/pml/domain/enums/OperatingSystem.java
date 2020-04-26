@@ -1,6 +1,6 @@
 package com.pml.domain.enums;
 
-public enum OperatingSystemType {
+public enum OperatingSystem {
 	WINDOWS_XP(0, "Windows XP"),
 	WINDOWS_VISTA(1, "Windows Vista"),
 	WINDOWS_7(2, "Windows 7"),
@@ -10,7 +10,7 @@ public enum OperatingSystemType {
 	private Integer cod;
 	private String description;
 	
-	private OperatingSystemType(int cod, String description) {
+	private OperatingSystem(int cod, String description) {
 		this.cod = cod;
 		this.description = description;
 	}
@@ -28,11 +28,11 @@ public enum OperatingSystemType {
 	 * @param cod Integer 
 	 * @return OperatingSystemType
 	 */
-	public static OperatingSystemType toEnum(Integer cod) {
+	public static OperatingSystem toEnum(Integer cod) {
 		if (cod == null )
 			return null;
 		
-		for (OperatingSystemType type : OperatingSystemType.values()) {
+		for (OperatingSystem type : OperatingSystem.values()) {
 			if (cod == type.getCod()) {
 				return type;
 			}

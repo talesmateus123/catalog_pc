@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pml.domain.User;
@@ -23,6 +24,8 @@ import com.pml.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class UserService {
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	@Autowired
 	private UserRepository repository;
 	
@@ -78,7 +81,7 @@ public class UserService {
 	 * @return User
 	 */
 	public User fromDTO(UserNewDTO UserNewDTO) {
-		User User = new User(null, UserNewDTO.getLogin(), UserNewDTO.getPassword());
+		User User = new User(null, UserNewDTO.getLogin(), this.bCryptPasswordEncoder.encode(UserNewDTO.getPassword()));
 		
 		return User;
 	}
