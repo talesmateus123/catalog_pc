@@ -9,7 +9,6 @@ import javax.validation.constraints.Size;
 import com.pml.domain.enums.ArchitectureType;
 
 public class ProcessorNewDTO implements Serializable {
-	private Long id;
 	private static final long serialVersionUID = 1L;
 	private String manufacturer;
 	private String model;
@@ -26,14 +25,6 @@ public class ProcessorNewDTO implements Serializable {
 	public ProcessorNewDTO() {
 	}
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getManufacturer() {
 		return manufacturer;
 	}

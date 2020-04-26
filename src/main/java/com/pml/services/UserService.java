@@ -43,6 +43,11 @@ public class UserService {
 		return object.orElseThrow(()-> new ObjectNotFoundException("User not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
 	
+	public User findByLogin(String login) {
+		Optional<User> object = this.repository.findByLogin(login);
+		return object.orElseThrow(()-> new ObjectNotFoundException("User not found: id: '" + login + "'. Type: " + object.getClass().getName()));
+	}
+	
 	public User insert(User object) {
 		object.setId(null);
 		return this.repository.save(object);

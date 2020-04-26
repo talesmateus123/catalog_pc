@@ -10,7 +10,6 @@ import com.pml.domain.enums.StorageDeviceType;
 
 public class StorageDeviceNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Long id;
 	private String manufacturer;
 	private String model;
 	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
@@ -25,14 +24,6 @@ public class StorageDeviceNewDTO implements Serializable {
 	private Long computerId;
 	
 	public StorageDeviceNewDTO() {
-	}	
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getManufacturer() {

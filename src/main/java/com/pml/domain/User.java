@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,6 +25,7 @@ public class User implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotEmpty
+	@Column(unique = true)
 	private String login;
 	@NotEmpty
 	@JsonIgnore
@@ -67,7 +69,7 @@ public class User implements Serializable{
 	}
 	
 	public Set<UserProfile> getProfiles() {
-		return profiles.stream().map(userProfile -> UserProfile.toEnum(userProfile)).collect(Collectors.toSet());
+		return profiles.stream().map(x -> UserProfile.toEnum(x)).collect(Collectors.toSet());
 	}
 	
 	public void addProfile(UserProfile userProfile) {

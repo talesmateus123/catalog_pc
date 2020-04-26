@@ -11,22 +11,22 @@ import javax.validation.constraints.NotEmpty;
 
 import com.pml.domain.User;
 
-public class UserNewDTO implements Serializable {
+public class CredentialsDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@NotEmpty(message = "This field cannot be empty")
 	private String login;
 	@NotEmpty(message = "This field cannot be empty")
 	private String password;
 	
-	public UserNewDTO() {		
+	public CredentialsDTO() {		
 	}
 	
-	public UserNewDTO(User user) {
+	public CredentialsDTO(User user) {
 		this.login = user.getLogin();
 		this.password = user.getPassword();
 	}
 	
-	public UserNewDTO(String login, String password) {
+	public CredentialsDTO(String login, String password) {
 		this.login = login;
 		this.password = password;
 	}
