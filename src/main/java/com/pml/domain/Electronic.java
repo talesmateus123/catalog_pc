@@ -23,18 +23,18 @@ public abstract class Electronic implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	protected Long id;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Date createdDate;
+	protected Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Date lastModifiedDate;
-	private Integer equipmentType;
-	private String manufacturer;
-	private String model;
-	private String description;
-	private boolean itWorks = true;
+	protected Date lastModifiedDate;
+	protected Integer equipmentType;
+	protected String manufacturer;
+	protected String model;
+	protected String description;
+	protected boolean itWorks = true;
 	// Equipment composed is not a computer part 
-	private boolean itComposed;
+	protected boolean itComposed;
 
 	
 	public Electronic() {
@@ -148,6 +148,32 @@ public abstract class Electronic implements Serializable{
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Electronic [id=");
+		builder.append(id);
+		builder.append(", createdDate=");
+		builder.append(createdDate);
+		builder.append(", lastModifiedDate=");
+		builder.append(lastModifiedDate);
+		builder.append(", equipmentType=");
+		builder.append(equipmentType);
+		builder.append(", manufacturer=");
+		builder.append(manufacturer);
+		builder.append(", model=");
+		builder.append(model);
+		builder.append(", description=");
+		builder.append(description);
+		builder.append(", itWorks=");
+		builder.append(itWorks);
+		builder.append(", itComposed=");
+		builder.append(itComposed);
+		builder.append("]");
+		return builder.toString();
+	}
+	
 	
 	
 }

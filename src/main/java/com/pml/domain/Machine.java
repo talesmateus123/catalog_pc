@@ -22,9 +22,9 @@ public abstract class Machine extends Electronic {
 	@NotEmpty
 	@Size(min = 4, max = 10)
 	@Column(unique = true)
-	private String patrimonyId = "";
+	protected String patrimonyId = "";
 	@NotNull
-	private Integer sector;
+	protected Integer sector;
 	
 	public Machine() {
 		super();
@@ -53,6 +53,7 @@ public abstract class Machine extends Electronic {
 	public void setSector(Sector location) {
 		this.sector = location.getCod();
 	}
+
 
 	
 }

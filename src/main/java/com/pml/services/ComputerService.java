@@ -59,6 +59,7 @@ public class ComputerService {
 	
 	public Computer findById(Long id) {
 		Optional<Computer> object = this.repository.findById(id);
+		System.out.println(object.toString());
 		return object.orElseThrow(()-> new ObjectNotFoundException("Computer not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
 	
@@ -182,8 +183,6 @@ public class ComputerService {
 				StorageDevice storageDevice = this.storageDeviceService.findById(storageDeviceId);
 				storageDevice.setComputer(computer);
 				computer.addStorageDevice(storageDevice);
-	
-				System.out.println(storageDevice.getSizeInMB());
 			}
 		}
 		if(computerNewDTO.getComputerUsersId() != null) {

@@ -232,22 +232,51 @@ public class Computer extends Machine{
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Computer [ipAddress=");
+		builder.append("Computer [");
+		builder.append(id);
+		builder.append(", createdDate=");
+		builder.append(createdDate);
+		builder.append(", lastModifiedDate=");
+		builder.append(lastModifiedDate);
+		builder.append(", equipmentType=");
+		builder.append(super.getEquipmentType().toString());
+		builder.append(", manufacturer=");
+		builder.append(manufacturer);
+		builder.append(", model=");
+		builder.append(model);
+		builder.append(", description=");
+		builder.append(description);
+		builder.append(", itWorks=");
+		if(super.isItWorks())
+			builder.append("Yes");
+		else
+			builder.append("No");
+		builder.append(", patrimonyId=");
+		builder.append(super.getPatrimonyId());
+		builder.append(", sector=");
+		builder.append(super.getSector().toString());
+		builder.append(", ipAddress=");
 		builder.append(ipAddress);
 		builder.append(", hostName=");
 		builder.append(hostName);
 		builder.append(", motherBoardName=");
 		builder.append(motherBoardName);
 		builder.append(", hasCdBurner=");
-		builder.append(hasCdBurner);
+		if(hasCdBurner)
+			builder.append("Yes");
+		else
+			builder.append("No");
 		builder.append(", cabinetModel=");
 		builder.append(cabinetModel);
 		builder.append(", operatingSystem=");
-		builder.append(operatingSystem);
+		builder.append(getOperatingSystem().toString());
 		builder.append(", operatingSystemArchitecture=");
-		builder.append(operatingSystemArchitecture);
+		builder.append(getOperatingSystemArchitecture().toString());
 		builder.append(", onTheDomain=");
-		builder.append(onTheDomain);
+		if(onTheDomain)
+			builder.append("Yes");
+		else
+			builder.append("No");
 		builder.append(", ramMemories=");
 		for(RamMemory object : getRamMemories())
 			builder.append(object.getManufacturer() + " - " + object.getModel());
