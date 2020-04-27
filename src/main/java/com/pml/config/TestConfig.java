@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Profile;
 import com.pml.services.DBService;
 
 @Configuration
-@Profile("dev")
+@Profile("test")
 public class TestConfig {
 	@Autowired
 	private DBService dBService;
@@ -24,11 +24,9 @@ public class TestConfig {
 	
 	@Bean
 	public boolean instantiateDatabase() {
-		if(!"create-drop".equals(strategy) || !"create".equals(strategy))
-			return false;
-		
 		dBService.instantiateTestDatabase();
 		return true;
 	}
+	
 
 }

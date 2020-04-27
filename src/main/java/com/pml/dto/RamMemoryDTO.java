@@ -21,7 +21,7 @@ public class RamMemoryDTO implements Serializable {
 	private String description;
 	private boolean itWorks = true; 
 	private boolean itComposed;
-	private Double sizeInMB;
+	private Integer sizeInMB;
 	private Integer architecture;
 	
 	
@@ -44,7 +44,7 @@ public class RamMemoryDTO implements Serializable {
 	
 	public RamMemoryDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate,  EquipmentType equipmentType,
 			String manufacturer, String model, String description, Integer sector, boolean itWorks, boolean itComposed, 
-			Double sizeInMB, Integer architecture) {
+			Integer sizeInMB, Integer architecture) {
 		this.id = id;
 		this.createdDate = createdDate;
 		this.lastModifiedDate = lastModifiedDate;
@@ -130,11 +130,11 @@ public class RamMemoryDTO implements Serializable {
 		this.itComposed = isItComposed;
 	}
 
-	public Double getSizeInMB() {
+	public Integer getSizeInMB() {
 		return sizeInMB;
 	}
 
-	public void setSizeInMB(Double sizeInMB) {
+	public void setSizeInMB(Integer sizeInMB) {
 		this.sizeInMB = sizeInMB;
 	}
 	

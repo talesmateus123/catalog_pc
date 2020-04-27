@@ -71,12 +71,13 @@ public class Computer extends Machine{
 			OperatingSystem operatingSystem, ArchitectureType operatingSystemArchitecture, boolean onTheDomain, 
 			Monitor monitor) {
 		super(id, patrimonyId, createdDate, modifiedDate, EquipmentType.COMPUTER, manufacturer, model, description, sector, itWorks);
-		this.ipAddress = ipAddress;
+		this.ipAddress = (ipAddress != null) ? ipAddress : "0.0.0.0";
+		this.hostName = (hostName != null) ? hostName : generateHostName();
 		this.hostName = hostName;
-		this.motherBoardName = motherBoardName;
+		this.motherBoardName = (motherBoardName != null) ? motherBoardName : "N/A";
 		this.processor = processor;
 		this.hasCdBurner = hasCdBurner;
-		this.cabinetModel = cabinetModel;
+		this.cabinetModel = (cabinetModel != null) ? cabinetModel : "N/A";
 		this.operatingSystem = operatingSystem.getCod();
 		this.operatingSystemArchitecture = operatingSystemArchitecture.getCod();
 		this.onTheDomain = onTheDomain;
@@ -100,7 +101,6 @@ public class Computer extends Machine{
 	public void setHostName(String hostName) {
 		this.hostName = hostName;
 	}
-
 
 	public String getMotherBoardName() {
 		return motherBoardName;
@@ -227,6 +227,12 @@ public class Computer extends Machine{
 	
 	public Double getTotalRamMemory() {
 		return totalRamMemory;
+	}
+	
+	public String generateHostName(){
+		if(patrimonyId != null)
+			return "PML" + patrimonyId;
+		return "N/A";		
 	}
 
 	@Override

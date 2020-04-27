@@ -34,7 +34,7 @@ public abstract class Machine extends Electronic {
 	public Machine(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, EquipmentType equipmentType, 
 			String manufacturer, String model, String description, Sector sector, boolean itWorks) {
 		super(id, createdDate, lastModifiedDate, equipmentType, manufacturer, model, description, itWorks, true);
-		this.patrimonyId = patrimonyId;
+		this.patrimonyId = (patrimonyId != null) ? patrimonyId : "N/A";
 		this.sector = (sector == null) ? null : sector.getCod();
 	}
 

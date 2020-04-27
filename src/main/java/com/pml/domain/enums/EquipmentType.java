@@ -2,10 +2,11 @@ package com.pml.domain.enums;
 
 public enum EquipmentType {
 	COMPUTER(0, "Computador"),
-	MONITOR(1, "Monitor"),
-	RAM_MEMORY(2, "RAM Memory"),
-	PROCESSOR(3, "Processor"),
-	STORAGE_DEVICE(4, "Storage device");
+	PRINTER(1, "Printer"),
+	MONITOR(2, "Monitor"),
+	RAM_MEMORY(3, "RAM Memory"),
+	PROCESSOR(4, "Processor"),
+	STORAGE_DEVICE(5, "Storage device");
 	
 	private Integer cod;
 	private String description;
