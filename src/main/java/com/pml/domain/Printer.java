@@ -23,8 +23,8 @@ public class Printer extends Machine{
 		this.setEquipmentType(EquipmentType.PRINTER);
 	}
 
-	public Printer(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, EquipmentType equipmentType,
-			String manufacturer, String model, String description, Sector sector, boolean itWorks, String ipAddress, 
+	public Printer(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
+			String model, String description, Sector sector, boolean itWorks, String ipAddress, 
 			String hostName) {
 		super(id, patrimonyId, createdDate, lastModifiedDate, EquipmentType.PRINTER, manufacturer, model, description, sector, itWorks);
 		this.ipAddress = (ipAddress != null) ? ipAddress : "0.0.0.0";

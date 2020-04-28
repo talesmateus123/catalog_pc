@@ -39,10 +39,10 @@ public class Computer extends Machine{
 
 	@OneToMany(mappedBy = "computer")
 	private List<RamMemory> ramMemories = new ArrayList<>();
-	private Double totalRamMemory;
+	private Integer totalRamMemory;
 	@OneToMany(mappedBy = "computer")
 	private List<StorageDevice> storageDevices = new ArrayList<>();
-	private Double totalStorageMemory;	
+	private Integer totalStorageMemory;	
 	@ManyToMany
 	@JoinTable(name = "computer_computer_user",
 		joinColumns = @JoinColumn(name = "computer_id"),
@@ -61,8 +61,8 @@ public class Computer extends Machine{
 	public Computer() {
 		super();
 		this.setEquipmentType(EquipmentType.COMPUTER);
-		this.totalRamMemory = 0.0;
-		this.totalStorageMemory = 0.0;
+		this.totalRamMemory = 0;
+		this.totalStorageMemory = 0;
 	}
 
 	public Computer(Long id, String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
@@ -82,8 +82,8 @@ public class Computer extends Machine{
 		this.operatingSystemArchitecture = operatingSystemArchitecture.getCod();
 		this.onTheDomain = onTheDomain;
 		this.monitor = monitor;
-		this.totalRamMemory = 0.0;
-		this.totalStorageMemory = 0.0;
+		this.totalRamMemory = 0;
+		this.totalStorageMemory = 0;
 	}
 
 	public String getIpAddress() {
@@ -221,11 +221,11 @@ public class Computer extends Machine{
 		this.monitor = monitor;
 	}
 	
-	public Double getTotalStorageMemory() {
+	public Integer getTotalStorageMemory() {
 		return totalStorageMemory;
 	}
 	
-	public Double getTotalRamMemory() {
+	public Integer getTotalRamMemory() {
 		return totalRamMemory;
 	}
 	
@@ -307,7 +307,7 @@ public class Computer extends Machine{
 
 	private void calculateTotalRamMemories() {
 		if (this.ramMemories.isEmpty()) {
-			Double totalMemory = 0.0;
+			Integer totalMemory = 0;
 			for (RamMemory ramMemory : this.ramMemories)
 				totalMemory = totalMemory + ramMemory.getSizeInMB();
 			this.totalRamMemory = totalMemory;
@@ -316,11 +316,12 @@ public class Computer extends Machine{
 	
 	private void calculateTotalStorageDeviceMemories() {
 		if (this.storageDevices.isEmpty()) {
-			Double totalMemory = 0.0;
+			Integer totalMemory = 0;
 			for (StorageDevice storageDevice : this.storageDevices)
 				totalMemory = totalMemory + storageDevice.getSizeInMB();
 			this.totalStorageMemory = totalMemory;
 		}
+		
 	}
 	
 	

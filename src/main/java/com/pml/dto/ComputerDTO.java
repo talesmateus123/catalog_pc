@@ -33,8 +33,8 @@ public class ComputerDTO implements Serializable {
 	private Integer operatingSystem;
 	private Integer operatingSystemArchitecture;
 	private boolean onTheDomain;
-	private Double totalRamMemory;
-	private Double totalStorageMemory;
+	private Integer totalRamMemory;
+	private Integer totalStorageMemory;
 	
 	public ComputerDTO() {
 	}
@@ -66,8 +66,8 @@ public class ComputerDTO implements Serializable {
 	
 	public ComputerDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
 			String model, String description, Integer sector, boolean itWorks, String ipAddress, String hostName,
-			String motherBoardName, Double totalRamMemory, Double totalStorageMemory, 
-			Boolean hasCdBurner, String cabinetModel, Integer operatingSystem, Integer operatingSystemArchitecture, 
+			String motherBoardName, Integer totalRamMemory, Integer totalStorageMemory, Boolean hasCdBurner, 
+			String cabinetModel, Integer operatingSystem, Integer operatingSystemArchitecture, 
 			boolean onTheDomain, EquipmentType equipmentType, boolean itComposed) {
 		this.id = id;
 		this.createdDate = createdDate;
@@ -245,19 +245,19 @@ public class ComputerDTO implements Serializable {
 		this.onTheDomain = onTheDomain;
 	}
 	
-	public Double getTotalRamMemory() {
+	public Integer getTotalRamMemory() {
 		return totalRamMemory;
 	}
 
-	public void setTotalRamMemory(Double totalRamMemory) {
+	public void setTotalRamMemory(Integer totalRamMemory) {
 		this.totalRamMemory = totalRamMemory;
 	}
 	
-	public Double getTotalStorageMemory() {
+	public Integer getTotalStorageMemory() {
 		return totalStorageMemory;
 	}
 
-	public void setTotalStorageMemory(Double totalStorageMemory) {
+	public void setTotalStorageMemory(Integer totalStorageMemory) {
 		this.totalStorageMemory = totalStorageMemory;
 	}
 	
