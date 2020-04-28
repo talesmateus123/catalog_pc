@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pml.domain.Client;
 @Repository
-public interface UserRepository extends JpaRepository<Client, Long>{
+public interface ClientRepository extends JpaRepository<Client, Long>{
 	Optional<Client> findByEmail(String email);
 	
 }

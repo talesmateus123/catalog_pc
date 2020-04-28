@@ -9,22 +9,23 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.pml.domain.Client;
-import com.pml.repositories.UserRepository;
+import com.pml.repositories.ClientRepository;
 import com.pml.security.UserSS;
 
 @Service
 public class UserDetailsServiceImplementation implements UserDetailsService {
 
 	@Autowired 
-	private UserRepository userRepository;
+	private ClientRepository userRepository;
 	
+	// Returns the implementation (UserSS)
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {	
-		Optional<Client> optionalUser = userRepository.findByEmail(email);
-		if(optionalUser.isEmpty()) 
+		Optional<Client> optionalClient = userRepository.findByEmail(email);
+		if(optionalClient.isEmpty()) 
 			throw new UsernameNotFoundException(email);
-		Client user = optionalUser.get();
-		return new UserSS(user.getId(), user.getEmail(), user.getPassword(), user.getProfiles());
+		Client client = optionalClient.get();
+		return new UserSS(client.getId(), client.getEmail(), client.getPassword(), client.getProfiles());
 	}
 	
 

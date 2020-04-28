@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import com.pml.domain.Client;
 import com.pml.dto.ClientDTO;
 import com.pml.dto.ClientNewDTO;
-import com.pml.repositories.UserRepository;
+import com.pml.repositories.ClientRepository;
 import com.pml.services.exceptions.DataIntegrityException;
 import com.pml.services.exceptions.ObjectNotFoundException;
 
@@ -27,7 +27,7 @@ public class ClientService {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	@Autowired
-	private UserRepository repository;
+	private ClientRepository repository;
 	
 	public List<Client> findAll() {
 		return this.repository.findAll();

@@ -46,8 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/api/processors/**",
 			"/api/ram_memories/**",
 			"/api/storage_devices/**",
-			"/api/printers/**",
-			"/api/clients/**"
+			"/api/printers/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_POST = {
@@ -76,6 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 	}
 	
+	// Defines who the UserDetails is and what the encryption algorithm is
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());

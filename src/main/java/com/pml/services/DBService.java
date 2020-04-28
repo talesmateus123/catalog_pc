@@ -34,14 +34,14 @@ import com.pml.repositories.PrinterRepository;
 import com.pml.repositories.ProcessorRepository;
 import com.pml.repositories.RamMemoryRepository;
 import com.pml.repositories.StorageDeviceRepository;
-import com.pml.repositories.UserRepository;
+import com.pml.repositories.ClientRepository;
 
 @Service
 public class DBService {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	@Autowired
-	private UserRepository userRepository;
+	private ClientRepository userRepository;
 	@Autowired
 	private ComputerRepository computerRepository;
 	@Autowired
@@ -109,8 +109,8 @@ public class DBService {
 		
 		computer2.addRamMemory(ramMemory3);
 		computer2.addRamMemory(ramMemory4);
-		computer1.addStorageDevice(storageDevice3);
-		computer1.addStorageDevice(storageDevice4);
+		computer2.addStorageDevice(storageDevice3);
+		computer2.addStorageDevice(storageDevice4);
 		
 		// Printers creation
 		Printer printer1 = new Printer(null, "PML0000", new Date(), new Date(), "manufacturer", "model", 
