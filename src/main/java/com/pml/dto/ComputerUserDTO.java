@@ -22,7 +22,7 @@ public class ComputerUserDTO implements Serializable {
 	}
 	
 	public ComputerUserDTO(ComputerUser computerUser) {
-		this.id = computerUser.getId();
+		this.id = computerUser.getId(); 
 		this.name = computerUser.getName();
 		this.lastName = computerUser.getLastName();
 		this.sector = computerUser.getSector().getCod();
@@ -40,7 +40,7 @@ public class ComputerUserDTO implements Serializable {
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -75,30 +75,6 @@ public class ComputerUserDTO implements Serializable {
 	
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ComputerUserDTO other = (ComputerUserDTO) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
 	}
 	
 	

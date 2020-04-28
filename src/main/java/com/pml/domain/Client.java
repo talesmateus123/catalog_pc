@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,6 +27,7 @@ public class Client implements Serializable{
 	private Long id;
 	@NotEmpty
 	@Column(unique = true)
+	@Email
 	private String email;
 	@NotEmpty
 	@JsonIgnore

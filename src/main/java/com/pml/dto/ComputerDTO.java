@@ -40,7 +40,7 @@ public class ComputerDTO implements Serializable {
 	}
 	
 	public ComputerDTO(Computer computer) {
-		this.id = computer.getId();
+		this.id = computer.getId(); 
 		this.createdDate = computer.getCreatedDate();
 		this.lastModifiedDate = computer.getLastModifiedDate();
 		this.equipmentType = computer.getEquipmentType().getCod();
@@ -92,7 +92,7 @@ public class ComputerDTO implements Serializable {
 		this.totalStorageMemory = totalStorageMemory;
 		this.itComposed = itComposed;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}

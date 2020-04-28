@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.pml.services.DBService;
+import com.pml.services.EmailService;
+import com.pml.services.MockEmailService;
 
 @Configuration
 @Profile("test")
@@ -26,6 +28,11 @@ public class TestConfig {
 	public boolean instantiateDatabase() {
 		dBService.instantiateTestDatabase();
 		return true;
+	}
+	
+	@Bean
+	public EmailService emailService() {
+		return new MockEmailService();
 	}
 	
 

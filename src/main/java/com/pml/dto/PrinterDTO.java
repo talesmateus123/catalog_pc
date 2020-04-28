@@ -64,7 +64,7 @@ public class PrinterDTO implements Serializable {
 		this.hostName = hostName;
 		this.itComposed = itComposed;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}

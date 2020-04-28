@@ -58,7 +58,7 @@ public class MonitorDTO implements Serializable {
 		this.equipmentType = equipmentType.getCod();
 		this.itComposed = itComposed;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}

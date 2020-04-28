@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.pml.services.DBService;
+import com.pml.services.EmailService;
+import com.pml.services.SmtpEmailService;
 
 @Configuration
 @Profile("dev")
@@ -33,4 +35,10 @@ public class DevConfig {
 		return true;
 	}
 
+	@Bean
+	public EmailService emailService() {
+		return new SmtpEmailService();
+	}
+	
+	
 }
