@@ -45,7 +45,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/api/monitors/**",
 			"/api/processors/**",
 			"/api/ram_memories/**",
-			"/api/storage_devices/**"
+			"/api/storage_devices/**",
+			"/api/printers/**",
+			"/api/clients/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_POST = {

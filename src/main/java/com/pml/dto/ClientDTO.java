@@ -7,24 +7,26 @@ package com.pml.dto;
 
 import java.io.Serializable;
 
-import com.pml.domain.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pml.domain.Client;
 
-public class UserDTO implements Serializable {
+public class ClientDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String email;
+	@JsonIgnore
 	private String password;
 	
-	public UserDTO() {		
+	public ClientDTO() {		
 	}
 	
-	public UserDTO(User user) {
+	public ClientDTO(Client user) {
 		this.id = user.getId();
 		this.email = user.getEmail();
 		this.password = user.getPassword();
 	}
 	
-	public UserDTO(Long id, String email, String password) {
+	public ClientDTO(Long id, String email, String password) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
@@ -70,7 +72,7 @@ public class UserDTO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserDTO other = (UserDTO) obj;
+		ClientDTO other = (ClientDTO) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

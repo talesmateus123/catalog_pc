@@ -164,7 +164,7 @@ public class Computer extends Machine{
 
 	public void setRamMemories(List<RamMemory> ramMemories) {
 		this.ramMemories = ramMemories;
-		this.calculateTotalRamMemories();
+		//this.calculateTotalRamMemories();
 	}
 	
 	/**
@@ -183,7 +183,7 @@ public class Computer extends Machine{
 
 	public void setStorageDevices(List<StorageDevice> storageDevices) {
 		this.storageDevices = storageDevices;
-		this.calculateTotalStorageDeviceMemories();		
+		// this.calculateTotalStorageDeviceMemories();		
 	}
 	
 	/**

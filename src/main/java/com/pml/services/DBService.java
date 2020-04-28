@@ -19,7 +19,7 @@ import com.pml.domain.Printer;
 import com.pml.domain.Processor;
 import com.pml.domain.RamMemory;
 import com.pml.domain.StorageDevice;
-import com.pml.domain.User;
+import com.pml.domain.Client;
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.OperatingSystem;
 import com.pml.domain.enums.RamMemoryArchitecture;
@@ -59,9 +59,9 @@ public class DBService {
 	
 	public void instantiateTestDatabase() {
 		// Users creation
-		User user1 = new User(null, "tales123",  bCryptPasswordEncoder.encode("1234"));
+		Client user1 = new Client(null, "tales123",  bCryptPasswordEncoder.encode("1234"));
 		user1.addProfile(UserProfile.ADMIN);
-		User user2 = new User(null, "renato123",  bCryptPasswordEncoder.encode("1234"));
+		Client user2 = new Client(null, "renato123",  bCryptPasswordEncoder.encode("1234"));
 		
 		// Monitors creation
 		Monitor monitor1 = new Monitor(null, "00012", new Date(), new Date(), null, null, null, Sector.ADMIN, true, null);

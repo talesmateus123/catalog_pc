@@ -9,24 +9,24 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
 
-import com.pml.domain.User;
+import com.pml.domain.Client;
 
-public class UserNewDTO implements Serializable {
+public class ClientNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@NotEmpty(message = "This field cannot be empty")
 	private String email;
 	@NotEmpty(message = "This field cannot be empty")
 	private String password;
 	
-	public UserNewDTO() {		
+	public ClientNewDTO() {		
 	}
 	
-	public UserNewDTO(User user) {
+	public ClientNewDTO(Client user) {
 		this.email = user.getEmail();
 		this.password = user.getPassword();
 	}
 	
-	public UserNewDTO(String email, String password) {
+	public ClientNewDTO(String email, String password) {
 		this.email = email;
 		this.password = password;
 	}

@@ -31,23 +31,21 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
     	setAuthenticationFailureHandler(new JWTAuthenticationFailureHandler());
-	    this.authenticationManager = authenticationManager;
-	    this.jwtUtil = jwtUtil;
+        this.authenticationManager = authenticationManager;
+        this.jwtUtil = jwtUtil;
     }
 
     // Try authenticate method
-	@Override
+    @Override
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
 
 		try {
-			// Try to get an request object by request data.
 			CredentialsDTO creds = new ObjectMapper()
 	                .readValue(req.getInputStream(), CredentialsDTO.class);
 	
 	        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getPassword(), new ArrayList<>());
 	        
-	        // Verify if username ans password are valid 
 	        Authentication auth = authenticationManager.authenticate(authToken);
 	        return auth;
 		}
@@ -57,7 +55,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	}
 	
 	// Generate a token and adding to request header response  
-	@Override
+    @Override
     protected void successfulAuthentication(HttpServletRequest req,
                                             HttpServletResponse res,
                                             FilterChain chain,
@@ -70,7 +68,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	}
 	
 	// Custom exception of Authentication failure
-	private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
+    private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
 		 
         @Override
         public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
@@ -84,8 +82,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             long date = new Date().getTime();
             return "{\"timestamp\": " + date + ", "
                 + "\"status\": 401, "
-                + "\"error\": \"Access Denied\", "
-                + "\"message\": \"Login or password is invalid\", "
+                + "\"error\": \"Não autorizado\", "
+                + "\"message\": \"Email ou senha inválidos\", "
                 + "\"path\": \"/login\"}";
         }
     }

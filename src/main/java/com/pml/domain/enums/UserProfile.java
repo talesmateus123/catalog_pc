@@ -2,7 +2,7 @@ package com.pml.domain.enums;
 
 public enum UserProfile {
 	ADMIN(0, "ROLE_ADMIN"),
-	USER(1, "ROLE_USER");
+	CLIENT(1, "ROLE_USER");
 	
 	private Integer cod;
 	private String description;

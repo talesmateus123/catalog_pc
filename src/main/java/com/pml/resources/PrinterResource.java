@@ -1,5 +1,5 @@
 /** 
- * This is the class "UserResource". Which will be to represent a REST controller of User model.
+ * This is the class "PrinterResource". Which will be to represent a REST controller of Printer model.
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */
@@ -26,48 +26,54 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.pml.domain.User;
-import com.pml.dto.UserDTO;
-import com.pml.dto.UserNewDTO;
-import com.pml.services.UserService;
+import com.pml.domain.Printer;
+import com.pml.dto.PrinterDTO;
+import com.pml.dto.PrinterNewDTO;
+import com.pml.services.PrinterService;
 
 @RestController
-@RequestMapping(value = "/api/users")
-public class UserResource {
+@RequestMapping(value = "/api/printers")
+public class PrinterResource {
 	@Autowired
 	
-	private UserService service;
+	private PrinterService service;
 	
 	@GetMapping
-	public ResponseEntity<List<UserDTO>> findAll() {
-		List<User> objects = this.service.findAll();
-		List<UserDTO> objectsDTO = objects.stream().map(
-				obj -> new UserDTO(obj)).collect(Collectors.toList());
+	public ResponseEntity<List<PrinterDTO>> findAll() {
+		List<Printer> objects = this.service.findAll();
+		List<PrinterDTO> objectsDTO = objects.stream().map(
+				obj -> new PrinterDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(objectsDTO);
 	}
-
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	
 	@GetMapping("/page")
-	public ResponseEntity<Page<UserDTO>> findPage(
+	public ResponseEntity<Page<PrinterDTO>> findPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page, 
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
 			@RequestParam(value = "orderBy", defaultValue = "motherBoardName") String orderBy) {
 		
-		Page<User> objects = this.service.findPage(page, linesPerPage, direction, orderBy);
-		Page<UserDTO> objectsDTO = objects.map(obj -> new UserDTO(obj));
+		Page<Printer> objects = this.service.findPage(page, linesPerPage, direction, orderBy);
+		Page<PrinterDTO> objectsDTO = objects.map(obj -> new PrinterDTO(obj));
 		return ResponseEntity.ok().body(objectsDTO);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<User> findById(@PathVariable Long id) {
-		User object = this.service.findById(id);
+	public ResponseEntity<Printer> findById(@PathVariable Long id) {
+		Printer object = this.service.findById(id);
 		return ResponseEntity.ok().body(object);
 	}
 	
+	@GetMapping("/patrimonyId/{patrimonyId}")
+	public ResponseEntity<Printer> findByPatrimonyId(@PathVariable String patrimonyId) {
+		Printer object = this.service.findByPatrimonyId(patrimonyId);
+		return ResponseEntity.ok().body(object);
+	}
+
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody UserNewDTO objectDTO) {
-		User object = this.service.fromDTO(objectDTO);
+	public ResponseEntity<Void> insert(@Valid @RequestBody PrinterNewDTO objectDTO) {
+		Printer object = this.service.fromDTO(objectDTO);
 		object = this.service.insert(object);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{patrimonyId}").buildAndExpand(object.getId()).toUri();
@@ -81,9 +87,10 @@ public class UserResource {
 		return ResponseEntity.noContent().build();
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody UserDTO objectDTO, @PathVariable Long id) {
-		User object = this.service.fromDTO(objectDTO);
+	public ResponseEntity<Void> update(@Valid @RequestBody PrinterDTO objectDTO, @PathVariable Long id) {
+		Printer object = this.service.fromDTO(objectDTO);
 		object.setId(id);
 		
 		this.service.update(object);

@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pml.domain.enums.UserProfile;
 
 @Entity
-public class User implements Serializable{
+public class Client implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,12 +34,12 @@ public class User implements Serializable{
 	@CollectionTable(name = "PROFILES")
 	private Set<Integer> profiles = new HashSet<>();
 	
-	public User() {
-		this.addProfile(UserProfile.USER);
+	public Client() {
+		this.addProfile(UserProfile.CLIENT);
 	}
 	
-	public User(Long id, String email, String password) {
-		this.addProfile(UserProfile.USER);
+	public Client(Long id, String email, String password) {
+		this.addProfile(UserProfile.CLIENT);
 		this.id = id;
 		this.email = email;
 		this.password = password;
@@ -92,7 +92,7 @@ public class User implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Client other = (Client) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

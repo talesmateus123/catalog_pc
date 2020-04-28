@@ -11,14 +11,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.pml.domain.enums.UserProfile;
 
 public class UserSS implements UserDetails {
-	private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
+	
 	private Long id;
 	private String email;
 	private String password;
 	private Collection<? extends GrantedAuthority> authorities;
 	
 	public UserSS() {
-		
 	}
 	
 	public UserSS(Long id, String email, String password, Set<UserProfile> profiles) {
@@ -67,5 +67,10 @@ public class UserSS implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+	
+	public boolean hasRole(UserProfile profile) {
+		return getAuthorities().contains(new SimpleGrantedAuthority(profile.getDescription()));
+	}
+	
 
 }
