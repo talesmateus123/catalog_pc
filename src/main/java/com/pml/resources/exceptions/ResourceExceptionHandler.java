@@ -14,6 +14,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.pml.services.exceptions.AuthorizationException;
 import com.pml.services.exceptions.ConflictOfObjectsException;
 import com.pml.services.exceptions.DataIntegrityException;
 import com.pml.services.exceptions.ObjectNotFoundException;
@@ -52,10 +53,20 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> ValidationException(MethodArgumentNotValidException e, HttpServletRequest request){
 		// The Http status
 		HttpStatus status = HttpStatus.CONFLICT;
-		// The standard error
+		// The validation error
 		ValidationError err = new ValidationError(status.value(), "Validation error has occurred", System.currentTimeMillis());		
 		for(FieldError fieldError : e.getBindingResult().getFieldErrors())
 			err.addError(fieldError.getField(), fieldError.getDefaultMessage());
+		
+		return ResponseEntity.status(status).body(err);
+	}
+	
+	@ExceptionHandler(AuthorizationException.class)
+	public ResponseEntity<StandardError> authorizationException(AuthorizationException e, HttpServletRequest request){
+		// The Http status
+		HttpStatus status = HttpStatus.FORBIDDEN;
+		// The standard error
+		StandardError err = new StandardError(status.value(), e.getMessage(), System.currentTimeMillis());
 		
 		return ResponseEntity.status(status).body(err);
 	}

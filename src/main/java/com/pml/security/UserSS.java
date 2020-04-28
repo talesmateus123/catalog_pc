@@ -71,6 +71,10 @@ private static final long serialVersionUID = 1L;
 	public boolean hasRole(UserProfile profile) {
 		return getAuthorities().contains(new SimpleGrantedAuthority(profile.getDescription()));
 	}
+
+	public boolean hasHole(UserProfile userProfile) {
+		return getAuthorities().contains(new SimpleGrantedAuthority(userProfile.getDescription()));
+	}
 	
 
 }

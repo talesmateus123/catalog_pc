@@ -19,11 +19,12 @@ public class JWTUtil {
 	@Value("${jwt.secret}")
 	private String secret;
 	@Value("${jwt.expiration}")
-	private String expiration;
+	private Long expiration;
 	
 	public String generateToken(String username) {
 		return Jwts.builder()
 				.setSubject(username)
+				.setExpiration(getExpiration())
 				.signWith(SignatureAlgorithm.HS512, secret.getBytes())
 				.compact();
 	}
@@ -56,6 +57,14 @@ public class JWTUtil {
 		catch (Exception e) {
 			return null;
 		}
+	}
+	
+	// Getting expiration date in according "now" and "expiration" 
+	public Date getExpiration() {
+		long now = new Date().getTime();
+		this.expiration = this.expiration + now;
+   
+        return new Date(expiration);
 	}
 
 	
