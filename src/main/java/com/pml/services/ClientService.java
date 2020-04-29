@@ -82,7 +82,7 @@ public class ClientService {
 	 */
 	public Client fromDTO(ClientDTO ClientDTO) {
 		Client User = new Client(
-				ClientDTO.getId(), ClientDTO.getEmail(), ClientDTO.getPassword());
+				ClientDTO.getId(), ClientDTO.getEmail(), ClientDTO.getName(), ClientDTO.getPassword());
 		return User;
 	}
 	
@@ -92,7 +92,7 @@ public class ClientService {
 	 * @return User
 	 */
 	public Client fromDTO(ClientNewDTO ClientNewDTO) {
-		Client User = new Client(null, ClientNewDTO.getEmail(), this.bCryptPasswordEncoder.encode(ClientNewDTO.getPassword()));
+		Client User = new Client(null, ClientNewDTO.getEmail(), ClientNewDTO.getName(), this.bCryptPasswordEncoder.encode(ClientNewDTO.getPassword()));
 		
 		return User;
 	}

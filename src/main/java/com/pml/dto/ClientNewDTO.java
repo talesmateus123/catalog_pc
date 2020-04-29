@@ -16,6 +16,8 @@ public class ClientNewDTO implements Serializable {
 	@NotEmpty(message = "This field cannot be empty")
 	private String email;
 	@NotEmpty(message = "This field cannot be empty")
+	private String name;
+	@NotEmpty(message = "This field cannot be empty")
 	private String password;
 	
 	public ClientNewDTO() {		
@@ -23,11 +25,13 @@ public class ClientNewDTO implements Serializable {
 	
 	public ClientNewDTO(Client user) {
 		this.email = user.getEmail();
+		this.name = user.getName();
 		this.password = user.getPassword();
 	}
 	
-	public ClientNewDTO(String email, String password) {
+	public ClientNewDTO(String email, String name, String password) {
 		this.email = email;
+		this.name = name;
 		this.password = password;
 	}
 	
@@ -37,6 +41,14 @@ public class ClientNewDTO implements Serializable {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public String getPassword() {

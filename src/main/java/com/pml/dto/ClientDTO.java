@@ -19,6 +19,7 @@ public class ClientDTO implements Serializable {
 	@NotEmpty(message = "This field is mandatory")
 	@Email(message = "Invalid e-mail")
 	private String email;
+	private String name;
 	@JsonIgnore
 	private String password;
 	
@@ -28,12 +29,14 @@ public class ClientDTO implements Serializable {
 	public ClientDTO(Client client) {
 		this.id = client.getId();
 		this.email = client.getEmail();
+		this.email = client.getName();
 		this.password = client.getPassword();
 	}
 	
-	public ClientDTO(Long id, String email, String password) {
+	public ClientDTO(Long id, String email, String name, String password) {
 		this.id = id;
 		this.email = email;
+		this.name = name;
 		this.password = password;
 	}
 	
@@ -51,6 +54,14 @@ public class ClientDTO implements Serializable {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public String getPassword() {

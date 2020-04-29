@@ -59,9 +59,9 @@ public class DBService {
 	
 	public void instantiateTestDatabase() {
 		// Users creation
-		Client user1 = new Client(null, "talesmateus1999@hotmail.com",  bCryptPasswordEncoder.encode("1234"));
+		Client user1 = new Client(null, "talesmateus1999@hotmail.com", "Tales Mateus", bCryptPasswordEncoder.encode("1234"));
 		user1.addProfile(UserProfile.ADMIN);
-		Client user2 = new Client(null, "renato123@gmail.com",  bCryptPasswordEncoder.encode("1234"));
+		Client user2 = new Client(null, "renato123@gmail.com", "Renato Campos", bCryptPasswordEncoder.encode("1234"));
 		
 		// Monitors creation
 		Monitor monitor1 = new Monitor(null, "00012", new Date(), new Date(), null, null, null, Sector.ADMIN, true, null);

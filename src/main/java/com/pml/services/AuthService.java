@@ -34,7 +34,7 @@ public class AuthService {
 		Client client = object.get();
 		client.setPassword(bCryptPasswordEncoder.encode(newPassword));
 		this.clientRepository.save(client);
-		emailService.sendNewPasswordEmail(client, newPassword);
+		emailService.sendNewPasswordHtmlEmail(client, newPassword);
 		
 	}
 

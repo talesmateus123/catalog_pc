@@ -30,6 +30,8 @@ public class Client implements Serializable{
 	@Email
 	private String email;
 	@NotEmpty
+	private String name;
+	@NotEmpty
 	@JsonIgnore
 	private String password;
 	@ElementCollection(fetch = FetchType.EAGER)
@@ -40,10 +42,11 @@ public class Client implements Serializable{
 		this.addProfile(UserProfile.CLIENT);
 	}
 	
-	public Client(Long id, String email, String password) {
+	public Client(Long id, String email, String name, String password) {
 		this.addProfile(UserProfile.CLIENT);
 		this.id = id;
 		this.email = email;
+		this.name = name;
 		this.password = password;
 	}
 	
@@ -61,6 +64,14 @@ public class Client implements Serializable{
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public String getPassword() {
