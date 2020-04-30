@@ -14,7 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.pml.domain.Machine;
+import com.pml.domain.Equipment;
 import com.pml.domain.Printer;
 import com.pml.dto.PrinterDTO;
 import com.pml.dto.PrinterNewDTO;
@@ -89,7 +89,7 @@ public class PrinterService {
 	 * @return boolean
 	 */
 	private boolean alreadyExists(String patrimonyId) {	
-		Optional<Machine> objectByPatrimonyId = this.machineRepository.findByPatrimonyId(patrimonyId);
+		Optional<Equipment> objectByPatrimonyId = this.machineRepository.findByPatrimonyId(patrimonyId);
 		
 		if(objectByPatrimonyId.isEmpty())
 			return false; 

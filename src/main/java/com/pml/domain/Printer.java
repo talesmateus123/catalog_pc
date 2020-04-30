@@ -13,7 +13,7 @@ import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.Sector;
 
 @Entity
-public class Printer extends Machine{
+public class Printer extends Equipment{
 	private static final long serialVersionUID = 1L;
 	private String ipAddress;
 	private String hostName;

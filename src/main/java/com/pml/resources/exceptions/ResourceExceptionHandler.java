@@ -27,7 +27,7 @@ public class ResourceExceptionHandler {
 		// The Http status
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		// The standard error
-		StandardError err = new StandardError(status.value(), e.getMessage(), System.currentTimeMillis());
+		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Not found", e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	
@@ -36,7 +36,7 @@ public class ResourceExceptionHandler {
 		// The Http status
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		// The standard error
-		StandardError err = new StandardError(status.value(), e.getMessage(), System.currentTimeMillis());
+		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Data integrity", e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	
@@ -45,16 +45,16 @@ public class ResourceExceptionHandler {
 		// The Http status
 		HttpStatus status = HttpStatus.CONFLICT;
 		// The standard error
-		StandardError err = new StandardError(status.value(), e.getMessage(), System.currentTimeMillis());
+		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Conflict of objects", e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandardError> ValidationException(MethodArgumentNotValidException e, HttpServletRequest request){
 		// The Http status
-		HttpStatus status = HttpStatus.CONFLICT;
+		HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
 		// The validation error
-		ValidationError err = new ValidationError(status.value(), "Validation error has occurred", System.currentTimeMillis());		
+		ValidationError err = new ValidationError(System.currentTimeMillis(), status.value(), "Validation error", e.getMessage(), request.getRequestURI());	
 		for(FieldError fieldError : e.getBindingResult().getFieldErrors())
 			err.addError(fieldError.getField(), fieldError.getDefaultMessage());
 		
@@ -66,7 +66,7 @@ public class ResourceExceptionHandler {
 		// The Http status
 		HttpStatus status = HttpStatus.FORBIDDEN;
 		// The standard error
-		StandardError err = new StandardError(status.value(), e.getMessage(), System.currentTimeMillis());
+		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Access denied", e.getMessage(), request.getRequestURI());
 		
 		return ResponseEntity.status(status).body(err);
 	}

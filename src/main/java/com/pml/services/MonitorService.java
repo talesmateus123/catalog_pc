@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.pml.domain.Machine;
+import com.pml.domain.Equipment;
 import com.pml.domain.Monitor;
 import com.pml.dto.MonitorDTO;
 import com.pml.dto.MonitorNewDTO;
@@ -101,7 +101,7 @@ public class MonitorService {
 	 * @return boolean
 	 */
 	private boolean alreadyExists(String patrimonyId) {	
-		Optional<Machine> objectByPatrimonyId = this.machineRepository.findByPatrimonyId(patrimonyId);
+		Optional<Equipment> objectByPatrimonyId = this.machineRepository.findByPatrimonyId(patrimonyId);
 		
 		if(objectByPatrimonyId.isEmpty())
 			return false; 

@@ -16,7 +16,7 @@ import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.Sector;
 
 @Entity
-public class Monitor extends Machine{
+public class Monitor extends Equipment{
 	private static final long serialVersionUID = 1L;
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "monitor")
 	@JsonBackReference

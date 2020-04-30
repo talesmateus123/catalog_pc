@@ -84,6 +84,43 @@ public class DBService {
 				true, null, null, null, processor1, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.I386, false, monitor1);
 		Computer computer2 = new Computer(null, "07178", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
 				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor2);
+		Computer computer3 = new Computer(null, "06770", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor1, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.I386, false, monitor1);
+		Computer computer4 = new Computer(null, "74321", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor2);
+		Computer computer5 = new Computer(null, "8653", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor1, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.I386, false, monitor1);
+		Computer computer6 = new Computer(null, "2114", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor2);
+		Computer computer7 = new Computer(null, "06789", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor1, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.I386, false, monitor1);
+		Computer computer8 = new Computer(null, "77454", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor2);
+		Computer computer9 = new Computer(null, "771469", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor2);
+		Computer computer10 = new Computer(null, "21844", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor1, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.I386, false, monitor1);
+		Computer computer11 = new Computer(null, "217643", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor2);
+		Computer computer12 = new Computer(null, "5757", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor1, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.I386, false, monitor1);
+		Computer computer13 = new Computer(null, "75875", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor2);
+		Computer computer14 = new Computer(null, "789654", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor2);
+		Computer computer15 = new Computer(null, "15951", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor2);
+		Computer computer16 = new Computer(null, "95126", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor2);
+		Computer computer17 = new Computer(null, "78965", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor2);
+		Computer computer18 = new Computer(null, "78542", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor2);
+		Computer computer19 = new Computer(null, "745874", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor2);
+		Computer computer20 = new Computer(null, "7854", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor2);
+		
 		computer1.addComputerUser(computerUser1);
 		computer1.addComputerUser(computerUser2);
 		computer2.addComputerUser(computerUser3);

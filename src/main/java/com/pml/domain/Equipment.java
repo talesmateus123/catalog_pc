@@ -17,7 +17,7 @@ import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.Sector;
 
 @Entity
-public abstract class Machine extends Electronic {
+public abstract class Equipment extends Electronic {
 	private static final long serialVersionUID = 1L;
 	@NotEmpty
 	@Size(min = 4, max = 10)
@@ -26,12 +26,12 @@ public abstract class Machine extends Electronic {
 	@NotNull
 	protected Integer sector;
 	
-	public Machine() {
+	public Equipment() {
 		super();
 		this.setItComposed(true);
 	}
 
-	public Machine(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, EquipmentType equipmentType, 
+	public Equipment(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, EquipmentType equipmentType, 
 			String manufacturer, String model, String description, Sector sector, boolean itWorks) {
 		super(id, createdDate, lastModifiedDate, equipmentType, manufacturer, model, description, itWorks, true);
 		this.patrimonyId = (patrimonyId != null) ? patrimonyId : "N/A";

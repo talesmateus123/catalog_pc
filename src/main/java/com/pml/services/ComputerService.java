@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.pml.domain.Computer;
 import com.pml.domain.ComputerUser;
-import com.pml.domain.Machine;
+import com.pml.domain.Equipment;
 import com.pml.domain.RamMemory;
 import com.pml.domain.StorageDevice;
 import com.pml.dto.ComputerDTO;
@@ -113,7 +113,7 @@ public class ComputerService {
 	 * @return boolean
 	 */
 	private boolean alreadyExists(String patrimonyId) {	
-		Optional<Machine> objectByPatrimonyId = this.machineRepository.findByPatrimonyId(patrimonyId);
+		Optional<Equipment> objectByPatrimonyId = this.machineRepository.findByPatrimonyId(patrimonyId);
 		
 		if(objectByPatrimonyId.isEmpty())
 			return false; 

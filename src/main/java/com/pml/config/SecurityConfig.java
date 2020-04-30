@@ -85,8 +85,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// Unlock requests from multiple sources (cross-origin)
 	@Bean
 	CorsConfigurationSource corsConfigutationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
 	

@@ -23,7 +23,7 @@ import com.pml.domain.enums.OperatingSystem;
 import com.pml.domain.enums.Sector;
 
 @Entity
-public class Computer extends Machine{
+public class Computer extends Equipment{
 	private static final long serialVersionUID = 1L;
 	private String ipAddress;
 	private String hostName;

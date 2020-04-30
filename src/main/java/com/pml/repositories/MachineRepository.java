@@ -10,9 +10,9 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.pml.domain.Machine;
+import com.pml.domain.Equipment;
 @Repository
-public interface MachineRepository extends JpaRepository<Machine, Long>{
-	Optional<Machine> findByPatrimonyId(String patrimonyId);
+public interface MachineRepository extends JpaRepository<Equipment, Long>{
+	Optional<Equipment> findByPatrimonyId(String patrimonyId);
 	
 }
