@@ -50,8 +50,11 @@ public class ClientService {
 	}
 	
 	public Client findByEmail(String email) {
+		UserSS user = UserService.authenticated();
+		if(user == null || !user.hasHole(UserProfile.ADMIN) && !email.equals(user.getUsername()))
+			throw new AuthorizationException("Access denied");
 		Optional<Client> object = this.repository.findByEmail(email);
-		return object.orElseThrow(()-> new ObjectNotFoundException("User not found: id: '" + email + "'. Type: " + object.getClass().getName()));
+		return object.orElseThrow(()-> new ObjectNotFoundException("User not found: email: '" + email + "'. Type: " + object.getClass().getName()));
 	}
 	
 	public Client insert(Client object) {

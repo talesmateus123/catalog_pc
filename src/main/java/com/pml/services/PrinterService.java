@@ -14,9 +14,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.pml.domain.Machine;
 import com.pml.domain.Printer;
 import com.pml.dto.PrinterDTO;
 import com.pml.dto.PrinterNewDTO;
+import com.pml.repositories.MachineRepository;
 import com.pml.repositories.PrinterRepository;
 import com.pml.services.exceptions.ConflictOfObjectsException;
 import com.pml.services.exceptions.ObjectNotFoundException;
@@ -25,6 +27,8 @@ import com.pml.services.exceptions.ObjectNotFoundException;
 public class PrinterService {
 	@Autowired
 	private PrinterRepository repository;
+	@Autowired
+	private MachineRepository machineRepository;
 	
 	public List<Printer> findAll() {
 		return this.repository.findAll();
@@ -47,7 +51,7 @@ public class PrinterService {
 	
 	public Printer insert(Printer object) {
 		if(alreadyExists(object.getPatrimonyId())){
-			throw new ConflictOfObjectsException("This printer already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+			throw new ConflictOfObjectsException("This machine already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
 		object.setId(null);
 		object.setCreatedDate(new Date());
@@ -63,7 +67,7 @@ public class PrinterService {
 		recoverData(object);
 		if(patrimonyIdIsChanged(object)){
 			if(alreadyExists(object.getPatrimonyId()))
-				throw new ConflictOfObjectsException("This printer already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+				throw new ConflictOfObjectsException("This machine already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
 		return this.repository.saveAndFlush(object);		
 	}
@@ -85,7 +89,7 @@ public class PrinterService {
 	 * @return boolean
 	 */
 	private boolean alreadyExists(String patrimonyId) {	
-		Optional<Printer> objectByPatrimonyId = this.repository.findByPatrimonyId(patrimonyId);
+		Optional<Machine> objectByPatrimonyId = this.machineRepository.findByPatrimonyId(patrimonyId);
 		
 		if(objectByPatrimonyId.isEmpty())
 			return false; 

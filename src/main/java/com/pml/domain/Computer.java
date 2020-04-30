@@ -305,6 +305,7 @@ public class Computer extends Machine{
 		return builder.toString();
 	}
 
+	/*
 	private void calculateTotalRamMemories() {
 		if (this.ramMemories.isEmpty()) {
 			Integer totalMemory = 0;
@@ -320,9 +321,9 @@ public class Computer extends Machine{
 			for (StorageDevice storageDevice : this.storageDevices)
 				totalMemory = totalMemory + storageDevice.getSizeInMB();
 			this.totalStorageMemory = totalMemory;
-		}
-		
+		}		
 	}
+	*/
 	
 	
 }

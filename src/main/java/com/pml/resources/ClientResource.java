@@ -37,6 +37,7 @@ public class ClientResource {
 	@Autowired
 	private ClientService service;
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping
 	public ResponseEntity<List<ClientDTO>> findAll() {
 		List<Client> objects = this.service.findAll();
@@ -61,6 +62,12 @@ public class ClientResource {
 	@GetMapping("/{id}")
 	public ResponseEntity<Client> findById(@PathVariable Long id) {
 		Client object = this.service.findById(id);
+		return ResponseEntity.ok().body(object);
+	}
+	
+	@GetMapping("/email")
+	public ResponseEntity<Client> findByEmail(@RequestParam(value = "value") String email) {
+		Client object = this.service.findByEmail(email);
 		return ResponseEntity.ok().body(object);
 	}
 	

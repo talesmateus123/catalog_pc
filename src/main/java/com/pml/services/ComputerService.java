@@ -19,11 +19,13 @@ import org.springframework.stereotype.Service;
 
 import com.pml.domain.Computer;
 import com.pml.domain.ComputerUser;
+import com.pml.domain.Machine;
 import com.pml.domain.RamMemory;
 import com.pml.domain.StorageDevice;
 import com.pml.dto.ComputerDTO;
 import com.pml.dto.ComputerNewDTO;
 import com.pml.repositories.ComputerRepository;
+import com.pml.repositories.MachineRepository;
 import com.pml.services.exceptions.ConflictOfObjectsException;
 import com.pml.services.exceptions.DataIntegrityException;
 import com.pml.services.exceptions.ObjectNotFoundException;
@@ -32,6 +34,8 @@ import com.pml.services.exceptions.ObjectNotFoundException;
 public class ComputerService {
 	@Autowired
 	private ComputerRepository repository;
+	@Autowired
+	private MachineRepository machineRepository;
 	@Autowired
 	private ComputerUserService computerUserService;
 	@Autowired
@@ -65,7 +69,7 @@ public class ComputerService {
 	@Transactional
 	public Computer insert(Computer object) {
 		if(alreadyExists(object.getPatrimonyId())){
-			throw new ConflictOfObjectsException("This computer already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+			throw new ConflictOfObjectsException("This machine already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
 		object.setId(null);
 		object.setCreatedDate(new Date());
@@ -87,7 +91,7 @@ public class ComputerService {
 		recoverData(object);
 		if(patrimonyIdIsChanged(object)){
 			if(alreadyExists(object.getPatrimonyId()))
-				throw new ConflictOfObjectsException("This computer already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+				throw new ConflictOfObjectsException("This machine already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
 		return this.repository.saveAndFlush(object);		
 	}
@@ -109,7 +113,7 @@ public class ComputerService {
 	 * @return boolean
 	 */
 	private boolean alreadyExists(String patrimonyId) {	
-		Optional<Computer> objectByPatrimonyId = this.repository.findByPatrimonyId(patrimonyId);
+		Optional<Machine> objectByPatrimonyId = this.machineRepository.findByPatrimonyId(patrimonyId);
 		
 		if(objectByPatrimonyId.isEmpty())
 			return false; 
