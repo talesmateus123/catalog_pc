@@ -1,5 +1,5 @@
 /**
- * This class is responsible by generate a new token with an secret and an expiration time, defined in the properties file.
+w * This class is responsible by generate a new token with an secret and an expiration time, defined in the properties file.
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */
@@ -21,6 +21,11 @@ public class JWTUtil {
 	@Value("${jwt.expiration}")
 	private Long expiration;
 	
+	/**
+	 * Generate a new token from the username previous authenticated 
+	 * @param username String
+	 * @return String
+	 */
 	public String generateToken(String username) {
 		return Jwts.builder()
 				.setSubject(username)
@@ -29,6 +34,11 @@ public class JWTUtil {
 				.compact();
 	}
 
+	/**
+	 * Verify if the token parameter is valid  
+	 * @param token
+	 * @return boolean
+	 */
 	public boolean tokenIsValid(String token) {
 		Claims claims = getClaims(token);
 		if (claims != null) {
