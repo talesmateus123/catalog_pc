@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.pml.domain.Computer;
 import com.pml.domain.StorageDevice;
 import com.pml.dto.StorageDeviceNewDTO;
 import com.pml.repositories.StorageDeviceRepository;
@@ -42,6 +43,10 @@ public class StorageDeviceService {
 	public StorageDevice findById(Long id) {
 		Optional<StorageDevice> object = this.repository.findById(id);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Storage device not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+	}
+	
+	public List<StorageDevice> findByComputer(Computer computer) {
+		return this.repository.findByComputer(computer);
 	}
 	
 	@Transactional

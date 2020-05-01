@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.pml.domain.Computer;
 import com.pml.domain.RamMemory;
 import com.pml.dto.RamMemoryNewDTO;
 import com.pml.repositories.RamMemoryRepository;
@@ -42,6 +43,10 @@ public class RamMemoryService {
 	public RamMemory findById(Long id) {
 		Optional<RamMemory> object = this.repository.findById(id);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Ram memory not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+	}
+	
+	public List<RamMemory> findByComputer(Computer computer) {
+		return this.repository.findByComputer(computer);
 	}
 	
 	@Transactional

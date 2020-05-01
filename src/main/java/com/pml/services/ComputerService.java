@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.pml.domain.Computer;
 import com.pml.domain.ComputerUser;
 import com.pml.domain.Equipment;
+import com.pml.domain.Monitor;
 import com.pml.domain.RamMemory;
 import com.pml.domain.StorageDevice;
 import com.pml.dto.ComputerNewDTO;
@@ -34,9 +35,9 @@ public class ComputerService {
 	@Autowired
 	private ComputerRepository repository;
 	@Autowired
-	private EquipmentRepository machineRepository;
+	private EquipmentRepository equipmentRepository;
 	@Autowired
-	private ComputerUserService objectUserService;
+	private ComputerUserService computerUserService;
 	@Autowired
 	private MonitorService monitorService;
 	@Autowired
@@ -67,6 +68,20 @@ public class ComputerService {
 		return object.orElseThrow(()-> new ObjectNotFoundException("Computer not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
 	
+	public Computer findByMonitor(Monitor monitor) {
+		Optional<Computer> object = this.repository.findByMonitor(monitor);
+		return object.orElseThrow(()-> new ObjectNotFoundException("This monitor: patrimonyId: '" + monitor.getPatrimonyId() + "'has no computer. Type: " + object.getClass().getName()));
+	}
+	
+	public Computer findByIpAddress(String ipAddress) {
+		Optional<Computer> object = this.repository.findByIpAddress(ipAddress);
+		return object.orElseThrow(()-> new ObjectNotFoundException("This ipAddress: '" + ipAddress + "'has no computer. Type: " + object.getClass().getName()));
+	}
+	
+	public List<Computer> findByManufacturer(String manufacturer) {
+		return this.repository.findByManufacturer(manufacturer);
+	}
+	
 	@Transactional
 	public Computer insert(Computer object) {
 		if(alreadyExists(object.getPatrimonyId())){
@@ -94,7 +109,7 @@ public class ComputerService {
 			if(alreadyExists(object.getPatrimonyId()))
 				throw new ConflictOfObjectsException("This machine already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
-		return this.repository.saveAndFlush(object);		
+		return this.repository.saveAndFlush(object);
 	}
 	
 	/**
@@ -114,7 +129,7 @@ public class ComputerService {
 	 * @return boolean
 	 */
 	private boolean alreadyExists(String patrimonyId) {	
-		Optional<Equipment> objectByPatrimonyId = this.machineRepository.findByPatrimonyId(patrimonyId);
+		Optional<Equipment> objectByPatrimonyId = this.equipmentRepository.findByPatrimonyId(patrimonyId);
 		
 		if(objectByPatrimonyId.isEmpty())
 			return false; 
@@ -154,12 +169,15 @@ public class ComputerService {
 				objectNewDTO.getOperatingSystemArchitecture(), objectNewDTO.isOnTheDomain(), null);
 		
 		// Setting all attributes
-		if(objectNewDTO.getMonitorId() != null)
+		if(objectNewDTO.getMonitorId() != null) {
 			object.setMonitor(this.monitorService.findById(objectNewDTO.getMonitorId()));
-		if(objectNewDTO.getProcessorId() != null)
+		}
+		if(objectNewDTO.getProcessorId() != null) {
 			object.setProcessor(this.processorService.findById(objectNewDTO.getProcessorId()));
-		if(objectNewDTO.getSectorId() != null)
+		}
+		if(objectNewDTO.getSectorId() != null) {
 			object.setSector(this.sectorService.findById(objectNewDTO.getSectorId()));
+		}
 			
 		if(objectNewDTO.getRamMemoriesId() != null) {
 			for(Long ramMemoryId : objectNewDTO.getRamMemoriesId()) {
@@ -168,6 +186,7 @@ public class ComputerService {
 				object.addRamMemory(ramMemory);
 			}
 		}
+		
 		if(objectNewDTO.getStorageDevicesId() != null) {
 			for(Long storageDeviceId : objectNewDTO.getStorageDevicesId()) {
 				StorageDevice storageDevice = this.storageDeviceService.findById(storageDeviceId);
@@ -176,10 +195,10 @@ public class ComputerService {
 			}
 		}
 		if(objectNewDTO.getComputerUsersId() != null) {
-			for(Long objectUserId : objectNewDTO.getComputerUsersId()) {
-				ComputerUser objectUser = this.objectUserService.findById(objectUserId);
-				objectUser.addUseTheComputer(object);
-				object.addComputerUser(objectUser);
+			for(Long computerUserId : objectNewDTO.getComputerUsersId()) {
+				ComputerUser computerUser = this.computerUserService.findById(computerUserId);
+				computerUser.addUseTheComputer(object);
+				object.addComputerUser(computerUser);
 			}
 		}		
 		return object;

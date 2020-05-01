@@ -43,7 +43,7 @@ public class ComputerUser implements Serializable {
 	@Email
 	private String email;
 	
-	// A user can use many computer, because the company uses the Active Directory server.
+	// A computer user can use many computer, because the company uses the Active Directory server.
 	@ManyToMany(mappedBy = "computerUsers")
 	@JsonBackReference
 	private List<Computer> useTheComputers = new ArrayList<>();

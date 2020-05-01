@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.pml.domain.Computer;
 import com.pml.domain.Equipment;
 import com.pml.domain.Monitor;
 import com.pml.dto.MonitorNewDTO;
@@ -32,6 +33,8 @@ public class MonitorService {
 	private MonitorRepository repository;
 	@Autowired
 	private EquipmentRepository machineRepository;
+	@Autowired
+	private SectorService sectorService;
 	@Autowired
 	private ComputerService computerService;
 	
@@ -52,6 +55,11 @@ public class MonitorService {
 	public Monitor findById(Long id) {
 		Optional<Monitor> object = this.repository.findById(id);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Monitor not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+	}
+	
+	public Monitor findByComputer(Computer computer) {
+		Optional<Monitor> object = this.repository.findByComputer(computer);
+		return object.orElseThrow(()-> new ObjectNotFoundException("This computer: patrimonyId: '" + computer.getPatrimonyId() + "'has no monitor. Type: " + object.getClass().getName()));
 	}
 	
 	@Transactional
@@ -134,8 +142,10 @@ public class MonitorService {
 	public Monitor fromDTO(MonitorNewDTO objectNewDTO) {
 		Monitor object = new Monitor(
 				null, objectNewDTO.getPatrimonyId(), null, null, objectNewDTO.getManufacturer(), 
-				objectNewDTO.getModel(), objectNewDTO.getDescription(), objectNewDTO.getSector(), 
+				objectNewDTO.getModel(), objectNewDTO.getDescription(), null, 
 				objectNewDTO.isItWorks(), null);
+		if(objectNewDTO.getSectorId() != null)
+			object.setSector(this.sectorService.findById(objectNewDTO.getSectorId()));
 		if (objectNewDTO.getComputerId() != null)
 			object.setComputer(this.computerService.findById(objectNewDTO.getComputerId()));		
 		return object;

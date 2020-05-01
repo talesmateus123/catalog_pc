@@ -3,6 +3,7 @@ package com.pml.dto;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class MonitorNewDTO implements Serializable {
@@ -16,6 +17,7 @@ public class MonitorNewDTO implements Serializable {
 	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
 	private String description;
 	private boolean itWorks;
+	@NotNull(message = "This field is mandatory")
 	private Long sectorId;
 	private Long computerId;
 	

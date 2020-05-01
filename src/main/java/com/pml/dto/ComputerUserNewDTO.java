@@ -28,6 +28,7 @@ public class ComputerUserNewDTO implements Serializable {
 	private Sector sector;
 	@Email(message = "Invalid e-mail")
 	private String email;
+	@NotNull(message = "This field is mandatory")
 	private Long sectorId;
 	private List<Long> useTheComputersId = new ArrayList<>();
 	

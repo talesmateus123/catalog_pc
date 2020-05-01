@@ -34,6 +34,7 @@ public class ComputerNewDTO implements Serializable {
 	
 	private Long monitorId;
 	private Long processorId;
+	@NotNull(message = "This field is mandatory")	
 	private Long sectorId;
 	private List<Long> ramMemoriesId;
 	private List<Long> storageDevicesId;

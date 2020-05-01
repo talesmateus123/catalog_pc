@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.pml.domain.Computer;
 import com.pml.domain.Processor;
 import com.pml.dto.ProcessorNewDTO;
 import com.pml.repositories.ProcessorRepository;
@@ -41,7 +42,12 @@ public class ProcessorService {
 	
 	public Processor findById(Long id) {
 		Optional<Processor> object = this.repository.findById(id);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Processor user not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+		return object.orElseThrow(()-> new ObjectNotFoundException("Processor not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+	}
+	
+	public Processor findByComputer(Computer computer) {
+		Optional<Processor> object = this.repository.findByComputer(computer);
+		return object.orElseThrow(()-> new ObjectNotFoundException("This computer: patrimonyId: '" + computer.getPatrimonyId() + "'has no processor. Type: " + object.getClass().getName()));
 	}
 	
 	@Transactional
@@ -57,7 +63,7 @@ public class ProcessorService {
 			this.repository.deleteById(id);
 		}
 		catch(DataIntegrityViolationException e){
-			throw new DataIntegrityException("Could not delete the processor: id: '" + id + "'. This user has still dependents.");
+			throw new DataIntegrityException("Could not delete the processor: id: '" + id + "'. This processor has still dependents.");
 		}
 	}
 

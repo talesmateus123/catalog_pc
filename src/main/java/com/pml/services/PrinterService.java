@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import com.pml.domain.Equipment;
 import com.pml.domain.Printer;
-import com.pml.dto.PrinterDTO;
 import com.pml.dto.PrinterNewDTO;
 import com.pml.repositories.EquipmentRepository;
 import com.pml.repositories.PrinterRepository;
@@ -28,7 +27,9 @@ public class PrinterService {
 	@Autowired
 	private PrinterRepository repository;
 	@Autowired
-	private EquipmentRepository machineRepository;
+	private EquipmentRepository equipmentRepository;
+	@Autowired
+	private SectorService sectorService;
 	
 	public List<Printer> findAll() {
 		return this.repository.findAll();
@@ -89,7 +90,7 @@ public class PrinterService {
 	 * @return boolean
 	 */
 	private boolean alreadyExists(String patrimonyId) {	
-		Optional<Equipment> objectByPatrimonyId = this.machineRepository.findByPatrimonyId(patrimonyId);
+		Optional<Equipment> objectByPatrimonyId = this.equipmentRepository.findByPatrimonyId(patrimonyId);
 		
 		if(objectByPatrimonyId.isEmpty())
 			return false; 
@@ -115,20 +116,6 @@ public class PrinterService {
 	}
 	
 	/**
-	 * Convert the PrinterDTO object to a Printer object. 
-	 * @param objectDTO PrinterDTO
-	 * @return Printer
-	 */
-	public Printer fromDTO(PrinterDTO objectDTO) {
-		Printer object = new Printer(
-				objectDTO.getId(), objectDTO.getPatrimonyId(), objectDTO.getCreatedDate(), 
-				objectDTO.getLastModifiedDate(), objectDTO.getManufacturer(), objectDTO.getModel(), 
-				objectDTO.getDescription(), objectDTO.getSector(), objectDTO.isItWorks(), 
-				objectDTO.getIpAddress(), objectDTO.getHostName());
-		return object;
-	}
-	
-	/**
 	 * Convert the PrinterNewDTO object to a Printer object. 
 	 * @param objectDTO PrinterDTO
 	 * @return Printer
@@ -137,8 +124,10 @@ public class PrinterService {
 		Printer object = new Printer(
 				null, objectNewDTO.getPatrimonyId(), null, null,
 				objectNewDTO.getManufacturer(), objectNewDTO.getModel(), objectNewDTO.getDescription(), 
-				objectNewDTO.getSector(), objectNewDTO.isItWorks(), objectNewDTO.getIpAddress(), 
-				objectNewDTO.getHostName());		
+				null, objectNewDTO.isItWorks(), objectNewDTO.getIpAddress(), 
+				objectNewDTO.getHostName());	
+		if(objectNewDTO.getSectorId() != null)
+			object.setSector(this.sectorService.findById(objectNewDTO.getSectorId()));	
 		
 		return object;
 	}

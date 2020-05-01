@@ -66,6 +66,7 @@ public class DBService {
 		user1.addProfile(UserProfile.ADMIN);
 		Client user2 = new Client(null, "renato123@gmail.com", "Renato Campos", bCryptPasswordEncoder.encode("1234"));
 		
+		/*
 		// Sectors creation
 		Sector sector1 = new Sector(null, "Administração", true);
 		Sector sector2 = new Sector(null, "Recursos humanos", true);
@@ -73,8 +74,6 @@ public class DBService {
 		Sector sector4 = new Sector(null, "Licitação", true);
 		Sector sector5 = new Sector(null, "Gabinete do prefeito", true);
 		Sector sector6 = new Sector(null, "CRAS", false);
-		
-		
 		
 		// Computer users creation
 		ComputerUser computerUser1 = new ComputerUser(null, "José Rodrigues", "Gonzales", sector2, "jose.rodriges@ladario.gov.br");
@@ -129,7 +128,6 @@ public class DBService {
 				"description", sector1, true, "ipAddress", "hostName");
 		
 		// Setting data on database
-		userRepository.saveAll(Arrays.asList(user1, user2));
 		sectorRepository.saveAll(Arrays.asList(
 				sector1, sector2, sector3, sector4, sector5, sector6
 				));
@@ -144,6 +142,8 @@ public class DBService {
 		ramMemoryRepository.saveAll(Arrays.asList(ramMemory1, ramMemory2, ramMemory3, ramMemory4));
 		storageDeviceRepository.saveAll(Arrays.asList(storageDevice1, storageDevice2, storageDevice3, storageDevice4));
 		printerRepository.saveAll(Arrays.asList(printer1));
+		*/
+		userRepository.saveAll(Arrays.asList(user1, user2));
 	}
 	
 	

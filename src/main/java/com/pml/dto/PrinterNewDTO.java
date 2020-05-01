@@ -3,6 +3,7 @@ package com.pml.dto;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class PrinterNewDTO implements Serializable {
@@ -15,6 +16,7 @@ public class PrinterNewDTO implements Serializable {
 	private String model;
 	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
 	private String description;
+	@NotNull(message = "This field is mandatory")
 	private Long sectorId;
 	private boolean itWorks;
 	private String ipAddress;

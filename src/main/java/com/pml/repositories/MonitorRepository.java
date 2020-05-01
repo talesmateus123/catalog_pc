@@ -5,7 +5,6 @@
  */
 package com.pml.repositories;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +14,6 @@ import com.pml.domain.Computer;
 import com.pml.domain.Monitor;
 @Repository
 public interface MonitorRepository extends JpaRepository<Monitor, Long>{
-	List<Monitor> findByComputer(Computer computer);
+	Optional<Monitor> findByComputer(Computer computer);
 	Optional<Monitor> findByPatrimonyId(String patrimonyId);
 }

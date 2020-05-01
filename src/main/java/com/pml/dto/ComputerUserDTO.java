@@ -8,14 +8,12 @@ package com.pml.dto;
 import java.io.Serializable;
 
 import com.pml.domain.ComputerUser;
-import com.pml.domain.Sector;
 
 public class ComputerUserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String name;
 	private String lastName;
-	private Sector sector;
 	private String email;
 	
 	public ComputerUserDTO() {		
@@ -25,15 +23,13 @@ public class ComputerUserDTO implements Serializable {
 		this.id = computerUser.getId(); 
 		this.name = computerUser.getName();
 		this.lastName = computerUser.getLastName();
-		this.sector = computerUser.getSector();
 		this.email = computerUser.getEmail();
 	}
 	
-	public ComputerUserDTO(Long id, String name, String lastName, Sector sector, String email) {
+	public ComputerUserDTO(Long id, String name, String lastName, String email) {
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
-		this.sector = sector;
 		this.email = email;
 	}
 	
@@ -59,14 +55,6 @@ public class ComputerUserDTO implements Serializable {
 	
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-	
-	public Sector getSector() {
-		return sector;
-	}
-	
-	public void setSector(Sector sector) {
-		this.sector = sector;
 	}
 	
 	public String getEmail() {

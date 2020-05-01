@@ -10,10 +10,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.pml.domain.Monitor;
+import com.pml.domain.Computer;
 import com.pml.domain.RamMemory;
 @Repository
 public interface RamMemoryRepository extends JpaRepository<RamMemory, Long>{
-	List<RamMemory> findByComputer(Monitor monitor);
+	List<RamMemory> findByComputer(Computer computer);
 	
 }
