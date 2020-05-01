@@ -1,3 +1,8 @@
+/** 
+ * This is the class "UserSS", implementing the UserDetailsServiceImplementation class. That class will be to represent a computer client user to system authentication.
+ * 
+ * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
+ */
 package com.pml.security;
 
 import java.util.Collection;
@@ -11,8 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.pml.domain.enums.UserProfile;
 
 public class UserSS implements UserDetails {
-private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String email;
 	private String password;

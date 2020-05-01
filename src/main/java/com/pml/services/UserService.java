@@ -1,5 +1,5 @@
 /** 
- * This is the class "UserService". Which will be able to intermediate the repository class and the service class.
+ * This is the class "UserService". This class is responsible casting an authenticated user.
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */

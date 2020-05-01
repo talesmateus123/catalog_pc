@@ -22,7 +22,7 @@ public class JWTUtil {
 	private Long expiration;
 	
 	/**
-	 * Generate a new token from the username previous authenticated 
+	 * Generate a new token from the username previous authenticated.
 	 * @param username String
 	 * @return String
 	 */
@@ -35,8 +35,8 @@ public class JWTUtil {
 	}
 
 	/**
-	 * Verify if the token parameter is valid  
-	 * @param token
+	 * Verify if the token parameter is valid.  
+	 * @param token String
 	 * @return boolean
 	 */
 	public boolean tokenIsValid(String token) {
@@ -52,6 +52,11 @@ public class JWTUtil {
 		return false;
 	}
 	
+	/**
+	 * Get a username from token parameter.
+	 * @param token String
+	 * @return String
+	 */
 	public String getUsername(String token) {
 		Claims claims = getClaims(token);
 		if (claims != null) {
@@ -60,6 +65,11 @@ public class JWTUtil {
 		return null;
 	}
 
+	/**
+	 * Get Claims from token parameter.
+	 * @param token String
+	 * @return Claims
+	 */
 	private Claims getClaims(String token) {
 		try {
 			return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();
@@ -68,8 +78,11 @@ public class JWTUtil {
 			return null;
 		}
 	}
-	
-	// Getting expiration date in according "now" and "expiration" 
+	 
+	/**
+	 * Get the expiraton Date from system in according to now.
+	 * @return Date
+	 */
 	public Date getExpiration() {
 		long now = new Date().getTime();
 		this.expiration = this.expiration + now;

@@ -35,7 +35,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.jwtUtil = jwtUtil;
     }
 
-    // Try authenticate method
+    /**
+     * Attempting to authenticate by request body.
+     * @return Authentication
+     */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
@@ -54,7 +57,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		}
 	}
 	
-	// Generate a token and adding to request header response  
+    /**
+     * If authentication is occurred successfully, add a new generated token to response Header.  
+     * @return void
+     */
     @Override
     protected void successfulAuthentication(HttpServletRequest req,
                                             HttpServletResponse res,
@@ -63,12 +69,17 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	
 		String username = ((UserSS) auth.getPrincipal()).getUsername();
         String token = jwtUtil.generateToken(username);
+        // Adding the generated token to the response header.
         res.addHeader("Authorization", "Bearer " + token);
         // Allows to expose the "Authorization" header
         res.addHeader("access-control-expose-headers", "Authorization");        
 	}
 	
-	// Custom exception of Authentication failure
+    /**
+     * Handling a custom exception to send to the request body, in case of authentication failure.
+     * 
+     * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
+     */
     private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
 		 
         @Override

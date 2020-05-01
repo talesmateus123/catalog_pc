@@ -1,3 +1,8 @@
+/**
+ * This class is responsible by implements a UserDetailsService interface, loading an custom user application.
+ * 
+ * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
+ */
 package com.pml.services;
 
 import java.util.Optional;
