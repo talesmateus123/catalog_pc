@@ -18,7 +18,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.pml.domain.Processor;
-import com.pml.dto.ProcessorDTO;
 import com.pml.dto.ProcessorNewDTO;
 import com.pml.repositories.ProcessorRepository;
 import com.pml.services.exceptions.DataIntegrityException;
@@ -76,20 +75,6 @@ public class ProcessorService {
 		Processor oldObject = this.findById(object.getId());
 		object.setCreatedDate(oldObject.getCreatedDate());
 		object.setLastModifiedDate(new Date());
-	}
-	
-	/**
-	 * Convert the StorageDeviceDTO object to a StorageDevice object. 
-	 * @param storageDeviceDTO StorageDeviceDTO
-	 * @return StorageDevice
-	 */
-	public Processor fromDTO(ProcessorDTO objectDTO) {
-		Processor object = new Processor(
-				objectDTO.getId(), objectDTO.getCreatedDate(), 
-				objectDTO.getLastModifiedDate(), objectDTO.getManufacturer(), objectDTO.getModel(),
-				objectDTO.getDescription(), objectDTO.isItWorks(), objectDTO.getProcessorName(),
-				objectDTO.getArchitecture(), null);
-		return object;
 	}
 	
 	/**

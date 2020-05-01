@@ -1,6 +1,7 @@
 package com.pml.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -25,10 +26,10 @@ public class Sector implements Serializable {
 	private boolean itInternal;
 	@OneToMany(mappedBy = "sector")
 	@JsonIgnore
-	private List<Equipment> equipments;
+	private List<Equipment> equipments = new ArrayList<>();
 	@OneToMany(mappedBy = "sector")
 	@JsonIgnore
-	private List<ComputerUser> computerUsers;
+	private List<ComputerUser> computerUsers = new ArrayList<>();
 	
 	public Sector() {
 	}

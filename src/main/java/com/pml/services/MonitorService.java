@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import com.pml.domain.Equipment;
 import com.pml.domain.Monitor;
-import com.pml.dto.MonitorDTO;
 import com.pml.dto.MonitorNewDTO;
 import com.pml.repositories.EquipmentRepository;
 import com.pml.repositories.MonitorRepository;
@@ -126,19 +125,6 @@ public class MonitorService {
 			return false;		
 		return true;
 	}	
-	
-	/**
-	 * Convert the MonitorDTO object to a Monitor object. 
-	 * @param monitorDTO MonitorDTO
-	 * @return Monitor
-	 */
-	public Monitor fromDTO(MonitorDTO objectDTO) {
-		Monitor object = new Monitor(
-				objectDTO.getId(), objectDTO.getPatrimonyId(), objectDTO.getCreatedDate(), 
-				objectDTO.getLastModifiedDate(), objectDTO.getManufacturer(), objectDTO.getModel(),
-				objectDTO.getDescription(),	objectDTO.getSector(), objectDTO.isItWorks(), null);
-		return object;
-	}
 	
 	/**
 	 * Convert the MonitorNewDTO object to a Monitor object. 

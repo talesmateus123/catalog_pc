@@ -15,7 +15,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pml.domain.enums.EquipmentType;
 
 @Entity
@@ -28,7 +27,6 @@ public abstract class Equipment extends Electronic {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "sector_id")
-	@JsonBackReference
 	protected Sector sector;
 	
 	public Equipment() {

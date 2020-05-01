@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import com.pml.domain.Computer;
 import com.pml.domain.ComputerUser;
-import com.pml.dto.ComputerUserDTO;
 import com.pml.dto.ComputerUserNewDTO;
 import com.pml.repositories.ComputerUserRepository;
 import com.pml.services.exceptions.DataIntegrityException;
@@ -68,19 +67,7 @@ public class ComputerUserService {
 		this.findById(object.getId());
 		return this.repository.saveAndFlush(object);		
 	}
-	
-	/**
-	 * Convert the ComputerUserDTO object to a ComputerUser object. 
-	 * @param objectDTO ComputerUserDTO
-	 * @return ComputerUser
-	 */
-	public ComputerUser fromDTO(ComputerUserDTO objectDTO) {
-		ComputerUser object = new ComputerUser(
-				objectDTO.getId(), objectDTO.getName(), objectDTO.getLastName(),
-				objectDTO.getSector(), objectDTO.getEmail());
-		return object;
-	}
-	
+
 	/**
 	 * Convert the ComputerUserNewDTO object to a ComputerUser object. 
 	 * @param objectNewDTO ComputerUserNewDTO

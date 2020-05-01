@@ -89,7 +89,7 @@ public class MonitorResource {
 
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody MonitorDTO objectDTO, @PathVariable Long id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody MonitorNewDTO objectDTO, @PathVariable Long id) {
 		Monitor object = this.service.fromDTO(objectDTO);
 		object.setId(id);
 		

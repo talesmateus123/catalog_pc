@@ -83,7 +83,7 @@ public class ComputerUserResource {
 
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody ComputerUserDTO objectDTO, @PathVariable Long id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody ComputerUserNewDTO objectDTO, @PathVariable Long id) {
 		ComputerUser object = this.service.fromDTO(objectDTO);
 		object.setId(id);
 		

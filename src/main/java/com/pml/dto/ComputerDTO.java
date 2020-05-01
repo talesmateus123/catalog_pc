@@ -5,7 +5,6 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pml.domain.Computer;
-import com.pml.domain.Sector;
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.OperatingSystem;
@@ -24,7 +23,6 @@ public class ComputerDTO implements Serializable {
 	private boolean itWorks = true; 
 	private boolean itComposed;
 	private String patrimonyId = "";
-	private Sector sector;
 	private String ipAddress;
 	private String hostName;
 	private String motherBoardName;
@@ -50,7 +48,6 @@ public class ComputerDTO implements Serializable {
 		this.itWorks = computer.isItWorks();
 		this.itComposed = computer.isItComposed();
 		this.patrimonyId = computer.getPatrimonyId();
-		this.sector = computer.getSector();
 		this.ipAddress = computer.getIpAddress();
 		this.hostName = computer.getHostName();
 		this.motherBoardName = computer.getMotherBoardName(); 
@@ -65,7 +62,7 @@ public class ComputerDTO implements Serializable {
 	}
 	
 	public ComputerDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
-			String model, String description, Sector sector, boolean itWorks, String ipAddress, String hostName,
+			String model, String description, boolean itWorks, String ipAddress, String hostName,
 			String motherBoardName, Integer totalRamMemory, Integer totalStorageMemory, Boolean hasCdBurner, 
 			String cabinetModel, Integer operatingSystem, Integer operatingSystemArchitecture, 
 			boolean onTheDomain, EquipmentType equipmentType, boolean itComposed) {
@@ -79,7 +76,6 @@ public class ComputerDTO implements Serializable {
 		this.itWorks = itWorks;
 		this.itComposed = itComposed;
 		this.patrimonyId = patrimonyId;
-		this.sector = sector;
 		this.ipAddress = ipAddress;
 		this.hostName = hostName;
 		this.motherBoardName = motherBoardName;
@@ -155,14 +151,6 @@ public class ComputerDTO implements Serializable {
 	
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	
-	public Sector getSector() {
-		return sector;
-	}
-	
-	public void setSector(Sector location) {
-		this.sector = location;
 	}
 	
 	public boolean isItWorks() {

@@ -89,7 +89,7 @@ public class PrinterResource {
 
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody PrinterDTO objectDTO, @PathVariable Long id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody PrinterNewDTO objectDTO, @PathVariable Long id) {
 		Printer object = this.service.fromDTO(objectDTO);
 		object.setId(id);
 		

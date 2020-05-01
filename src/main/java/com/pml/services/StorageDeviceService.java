@@ -18,7 +18,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.pml.domain.StorageDevice;
-import com.pml.dto.StorageDeviceDTO;
 import com.pml.dto.StorageDeviceNewDTO;
 import com.pml.repositories.StorageDeviceRepository;
 import com.pml.services.exceptions.DataIntegrityException;
@@ -77,21 +76,7 @@ public class StorageDeviceService {
 		object.setCreatedDate(oldObject.getCreatedDate());
 		object.setLastModifiedDate(new Date());
 	}
-	
-	/**
-	 * Convert the StorageDeviceDTO object to a StorageDevice object. 
-	 * @param storageDeviceDTO StorageDeviceDTO
-	 * @return StorageDevice
-	 */
-	public StorageDevice fromDTO(StorageDeviceDTO objectDTO) {		
-		StorageDevice object = new StorageDevice(
-				objectDTO.getId(), objectDTO.getCreatedDate(), 
-				objectDTO.getLastModifiedDate(), objectDTO.getManufacturer(), objectDTO.getModel(),
-				objectDTO.getDescription(), objectDTO.isItWorks(), objectDTO.getSizeInMB(),
-				objectDTO.getArchitecture(), objectDTO.getType(), null);
-		return object;
-	}
-	
+
 	/**
 	 * Convert the StorageDeviceNewDTO object to a StorageDevice object. 
 	 * @param storageDeviceNewDTO StorageDeviceNewDTO

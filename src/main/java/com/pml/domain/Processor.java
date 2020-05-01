@@ -2,12 +2,11 @@ package com.pml.domain;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.EquipmentType;
 
@@ -18,8 +17,8 @@ public class Processor extends Electronic {
 	private String processorName;
 	@NotNull
 	private Integer architecture;
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "processor")
-	@JsonBackReference
+	@OneToOne
+	@JoinColumn(name = "computer_id")
 	private Computer computer;
 	
 	public Processor() {

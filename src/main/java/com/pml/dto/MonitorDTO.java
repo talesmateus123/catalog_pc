@@ -5,7 +5,6 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pml.domain.Monitor;
-import com.pml.domain.Sector;
 import com.pml.domain.enums.EquipmentType;
 
 public class MonitorDTO implements Serializable {
@@ -20,7 +19,6 @@ public class MonitorDTO implements Serializable {
 	private String manufacturer;
 	private String model;
 	private String description;
-	private Sector sector;
 	private boolean itWorks;
 	private boolean itComposed;
 	
@@ -36,7 +34,6 @@ public class MonitorDTO implements Serializable {
 		this.manufacturer = monitor.getManufacturer();
 		this.model = monitor.getModel();
 		this.description = monitor.getDescription();
-		this.sector = monitor.getSector();
 		this.itWorks = monitor.isItWorks();
 		this.itComposed = monitor.isItComposed();
 		this.equipmentType = monitor.getEquipmentType().getCod();
@@ -44,7 +41,7 @@ public class MonitorDTO implements Serializable {
 	}
 	
 	public MonitorDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
-			String model, String description, Sector sector, boolean itWorks, EquipmentType equipmentType,
+			String model, String description, boolean itWorks, EquipmentType equipmentType,
 			boolean itComposed) {
 		this.id = id;
 		this.patrimonyId = patrimonyId;
@@ -53,7 +50,6 @@ public class MonitorDTO implements Serializable {
 		this.manufacturer = manufacturer;
 		this.model = model;
 		this.description = description;
-		this.sector = sector;
 		this.itWorks = itWorks;
 		this.equipmentType = equipmentType.getCod();
 		this.itComposed = itComposed;
@@ -121,14 +117,6 @@ public class MonitorDTO implements Serializable {
 	
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	
-	public Sector getSector() {
-		return sector;
-	}
-	
-	public void setSector(Sector sector) {
-		this.sector = sector;
 	}
 	
 	public boolean isItWorks() {

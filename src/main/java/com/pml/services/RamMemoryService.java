@@ -18,7 +18,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.pml.domain.RamMemory;
-import com.pml.dto.RamMemoryDTO;
 import com.pml.dto.RamMemoryNewDTO;
 import com.pml.repositories.RamMemoryRepository;
 import com.pml.services.exceptions.DataIntegrityException;
@@ -76,19 +75,6 @@ public class RamMemoryService {
 		RamMemory oldObject = this.findById(object.getId());
 		object.setCreatedDate(oldObject.getCreatedDate());
 		object.setLastModifiedDate(new Date());
-	}
-	
-	/**
-	 * Convert the RamMemoryDTO object to a RamMemory object. 
-	 * @param objectDTO RamMemoryDTO
-	 * @return RamMemory
-	 */
-	public RamMemory fromDTO(RamMemoryDTO objectDTO) {		
-		RamMemory object = new RamMemory(
-				objectDTO.getId(), objectDTO.getCreatedDate(), objectDTO.getLastModifiedDate(), 
-				objectDTO.getManufacturer(), objectDTO.getModel(),objectDTO.getDescription(), 
-				objectDTO.isItWorks(), objectDTO.getSizeInMB(), objectDTO.getArchitecture(), null);
-		return object;
 	}
 	
 	/**

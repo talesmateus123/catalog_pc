@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -17,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.OperatingSystem;
@@ -49,12 +51,12 @@ public class Computer extends Equipment{
 			)
 	private List<ComputerUser> computerUsers = new ArrayList<>();
 	
-	@OneToOne
-	@JoinColumn(name = "monitor_id")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "computer")
+	@JsonBackReference
 	private Monitor monitor;
 	
-	@OneToOne
-	@JoinColumn(name = "processor_id")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "computer")
+	@JsonBackReference
 	private Processor processor;
 	
 	public Computer() {

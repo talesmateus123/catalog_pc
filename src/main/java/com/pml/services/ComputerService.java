@@ -22,7 +22,6 @@ import com.pml.domain.ComputerUser;
 import com.pml.domain.Equipment;
 import com.pml.domain.RamMemory;
 import com.pml.domain.StorageDevice;
-import com.pml.dto.ComputerDTO;
 import com.pml.dto.ComputerNewDTO;
 import com.pml.repositories.ComputerRepository;
 import com.pml.repositories.EquipmentRepository;
@@ -138,22 +137,6 @@ public class ComputerService {
 		if(objectById.getPatrimonyId().equals(objectByPatrimonyId.get().getPatrimonyId()))
 			return false;		
 		return true;
-	}
-	
-	/**
-	 * Convert the ComputerDTO object to a Computer object. 
-	 * @param objectDTO ComputerDTO
-	 * @return Computer
-	 */
-	public Computer fromDTO(ComputerDTO objectDTO) {
-		Computer object = new Computer(
-				objectDTO.getId(), objectDTO.getPatrimonyId(), objectDTO.getCreatedDate(), 
-				objectDTO.getLastModifiedDate(), objectDTO.getManufacturer(), objectDTO.getModel(), 
-				objectDTO.getDescription(), objectDTO.getSector(), objectDTO.isItWorks(), 
-				objectDTO.getIpAddress(), objectDTO.getHostName(), objectDTO.getMotherBoardName(),  null,  
-				objectDTO.getHasCdBurner(), objectDTO.getCabinetModel(), objectDTO.getOperatingSystem(),
-				objectDTO.getOperatingSystemArchitecture(), objectDTO.isOnTheDomain(), null);
-		return object;
 	}
 	
 	/**

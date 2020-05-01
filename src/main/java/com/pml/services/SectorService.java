@@ -17,7 +17,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.pml.domain.Sector;
-import com.pml.dto.SectorDTO;
 import com.pml.dto.SectorNewDTO;
 import com.pml.repositories.SectorRepository;
 import com.pml.services.exceptions.DataIntegrityException;
@@ -65,15 +64,6 @@ public class SectorService {
 
 	public Sector update(Sector object) {
 		return this.repository.saveAndFlush(object);		
-	}
-	
-	/**
-	 * Convert the SectorDTO object to a Sector object. 
-	 * @param objectDTO SectorDTO
-	 * @return Sector
-	 */
-	public Sector fromDTO(SectorDTO objectDTO) {		
-		return new Sector(objectDTO.getId(), objectDTO.getName(), objectDTO.isItInternal());
 	}
 	
 	/**
