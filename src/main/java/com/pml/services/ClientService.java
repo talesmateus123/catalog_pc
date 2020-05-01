@@ -81,10 +81,9 @@ public class ClientService {
 	}
 
 	// Auxiliary methods
-	/*
 	/**
 	 * Convert the ClientDTO object to a User object. 
-	 * @param ClientDTO ClientDTO
+	 * @param objectDTO ClientDTO
 	 * @return User
 	 */
 	public Client fromDTO(ClientDTO objectDTO) {
@@ -94,7 +93,7 @@ public class ClientService {
 	
 	/**
 	 * Convert the ClientNewDTO object to a User object. 
-	 * @param ClientNewDTO ClientNewDTO
+	 * @param objectNewDTO ClientNewDTO
 	 * @return User
 	 */
 	public Client fromDTO(ClientNewDTO objectNewDTO) {

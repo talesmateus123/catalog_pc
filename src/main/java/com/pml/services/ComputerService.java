@@ -118,7 +118,7 @@ public class ComputerService {
 	// Auxiliary methods
 	/**
 	 * Recover data of created date and updates the last modified date.
-	 * @param object
+	 * @param object Computer
 	 * @return void
 	 */
 	private void recoverData(Computer object) {
@@ -129,7 +129,7 @@ public class ComputerService {
 	
 	/**
 	 * Verify if already exists the patrimony id requested.
-	 * @param Long patrimonyId
+	 * @param patrimonyId Long
 	 * @return boolean
 	 */
 	private boolean alreadyExists(String patrimonyId) {	
@@ -142,7 +142,7 @@ public class ComputerService {
 	
 	/**
 	 * Verify if the object in a question has its patrimony id changed.
-	 * @param object
+	 * @param object Computer
 	 * @return boolean
 	 */
 	private boolean patrimonyIdIsChanged(Computer object) {	

@@ -77,7 +77,7 @@ public class RamMemoryService {
 	// Auxiliary methods
 	/**
 	 * Recover data of created date and updates the last modified date.
-	 * @param object
+	 * @param object RamMemory
 	 * @return void
 	 */
 	private void recoverData(RamMemory object) {
@@ -88,7 +88,7 @@ public class RamMemoryService {
 	
 	/**
 	 * Convert the RamMemoryNewDTO object to a RamMemory object. 
-	 * @param objectDTO RamMemoryNewDTO
+	 * @param objectNewDTO RamMemoryNewDTO
 	 * @return RamMemory
 	 */
 	public RamMemory fromDTO(RamMemoryNewDTO objectNewDTO) {

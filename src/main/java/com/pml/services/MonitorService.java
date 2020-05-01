@@ -109,7 +109,7 @@ public class MonitorService {
 	
 	/**
 	 * Verify if already exists the patrimony id requested.
-	 * @param Long patrimonyId
+	 * @param patrimonyId Long
 	 * @return boolean
 	 */
 	private boolean alreadyExists(String patrimonyId) {	
@@ -123,7 +123,7 @@ public class MonitorService {
 	
 	/**
 	 * Verify if the object in a question has its patrimony id changed.
-	 * @param object
+	 * @param object Monitor
 	 * @return boolean
 	 */
 	private boolean patrimonyIdIsChanged(Monitor object) {	
@@ -141,7 +141,7 @@ public class MonitorService {
 	
 	/**
 	 * Convert the MonitorNewDTO object to a Monitor object. 
-	 * @param monitorNewDTO MonitorNewDTO
+	 * @param objectNewDTO MonitorNewDTO
 	 * @return Monitor
 	 */
 	public Monitor fromDTO(MonitorNewDTO objectNewDTO) {

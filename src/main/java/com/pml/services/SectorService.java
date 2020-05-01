@@ -72,7 +72,7 @@ public class SectorService {
 	// Auxiliary methods
 	/**
 	 * Convert the SectorNewDTO object to a Sector object. 
-	 * @param objectDTO SectorNewDTO
+	 * @param objectNewDTO SectorNewDTO
 	 * @return Sector
 	 */
 	public Sector fromDTO(SectorNewDTO objectNewDTO) {

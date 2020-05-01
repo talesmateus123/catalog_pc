@@ -77,7 +77,7 @@ public class StorageDeviceService {
 	// Auxiliary methods
 	/**
 	 * Recover data of created date and updates the last modified date.
-	 * @param object
+	 * @param object StorageDevice
 	 * @return void
 	 */
 	private void recoverData(StorageDevice object) {
@@ -88,7 +88,7 @@ public class StorageDeviceService {
 
 	/**
 	 * Convert the StorageDeviceNewDTO object to a StorageDevice object. 
-	 * @param storageDeviceNewDTO StorageDeviceNewDTO
+	 * @param objectNewDTO StorageDeviceNewDTO
 	 * @return StorageDevice
 	 */
 	public StorageDevice fromDTO(StorageDeviceNewDTO objectNewDTO) {

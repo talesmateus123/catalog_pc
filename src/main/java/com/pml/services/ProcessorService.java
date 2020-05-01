@@ -78,7 +78,7 @@ public class ProcessorService {
 	// Auxiliary methods
 	/**
 	 * Recover data of created date and updates the last modified date.
-	 * @param object
+	 * @param object Processor
 	 * @return void
 	 */
 	private void recoverData(Processor object) {
@@ -89,7 +89,7 @@ public class ProcessorService {
 	
 	/**
 	 * Convert the StorageDeviceNewDTO object to a StorageDevice object. 
-	 * @param storageDeviceNewDTO StorageDeviceNewDTO
+	 * @param objectNewDTO StorageDeviceNewDTO
 	 * @return StorageDevice
 	 */
 	public Processor fromDTO(ProcessorNewDTO objectNewDTO) {

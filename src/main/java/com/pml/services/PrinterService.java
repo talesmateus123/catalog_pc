@@ -30,7 +30,8 @@ public class PrinterService {
 	private EquipmentRepository equipmentRepository;
 	@Autowired
 	private SectorService sectorService;
-	
+
+	// List search methods
 	public List<Printer> findAll() {
 		return this.repository.findAll();
 	}
@@ -75,7 +76,7 @@ public class PrinterService {
 	
 	/**
 	 * Recover data of created date and updates the last modified date.
-	 * @param object
+	 * @param object Printer
 	 * @return void
 	 */
 	private void recoverData(Printer object) {
@@ -86,7 +87,7 @@ public class PrinterService {
 	
 	/**
 	 * Verify if already exists the patrimony id requested.
-	 * @param Long patrimonyId
+	 * @param patrimonyId Long
 	 * @return boolean
 	 */
 	private boolean alreadyExists(String patrimonyId) {	
@@ -99,7 +100,7 @@ public class PrinterService {
 	
 	/**
 	 * Verify if the object in a question has its patrimony id changed.
-	 * @param object
+	 * @param object Printer
 	 * @return boolean
 	 */
 	private boolean patrimonyIdIsChanged(Printer object) {	
@@ -117,7 +118,7 @@ public class PrinterService {
 	
 	/**
 	 * Convert the PrinterNewDTO object to a Printer object. 
-	 * @param objectDTO PrinterDTO
+	 * @param objectNewDTO PrinterDTO
 	 * @return Printer
 	 */
 	public Printer fromDTO(PrinterNewDTO objectNewDTO) {		
