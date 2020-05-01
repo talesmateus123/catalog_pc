@@ -48,7 +48,8 @@ public class ComputerService {
 	private RamMemoryService ramMemoryService;
 	@Autowired
 	private StorageDeviceService storageDeviceService;
-	
+
+	// List search methods
 	public List<Computer> findAll() {
 		return this.repository.findAll();
 	}
@@ -58,19 +59,19 @@ public class ComputerService {
 		return this.repository.findAll(pageRequest);
 	}
 	
-	public Computer findByPatrimonyId(String patrimonyId) {
-		Optional<Computer> object = this.repository.findByPatrimonyId(patrimonyId);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Computer not found: patrimonyId: '" + patrimonyId + "'. Type: " + object.getClass().getName()));
+	public List<Computer> findByManufacturer(String manufacturer) {
+		return this.repository.findByManufacturer(manufacturer);
 	}
-	
+
+	// Simple search methods
 	public Computer findById(Long id) {
 		Optional<Computer> object = this.repository.findById(id);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Computer not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
 	
-	public Computer findByMonitor(Monitor monitor) {
-		Optional<Computer> object = this.repository.findByMonitor(monitor);
-		return object.orElseThrow(()-> new ObjectNotFoundException("This monitor: patrimonyId: '" + monitor.getPatrimonyId() + "'has no computer. Type: " + object.getClass().getName()));
+	public Computer findByPatrimonyId(String patrimonyId) {
+		Optional<Computer> object = this.repository.findByPatrimonyId(patrimonyId);
+		return object.orElseThrow(()-> new ObjectNotFoundException("Computer not found: patrimonyId: '" + patrimonyId + "'. Type: " + object.getClass().getName()));
 	}
 	
 	public Computer findByIpAddress(String ipAddress) {
@@ -78,10 +79,12 @@ public class ComputerService {
 		return object.orElseThrow(()-> new ObjectNotFoundException("This ipAddress: '" + ipAddress + "'has no computer. Type: " + object.getClass().getName()));
 	}
 	
-	public List<Computer> findByManufacturer(String manufacturer) {
-		return this.repository.findByManufacturer(manufacturer);
+	public Computer findByMonitor(Monitor monitor) {
+		Optional<Computer> object = this.repository.findByMonitor(monitor);
+		return object.orElseThrow(()-> new ObjectNotFoundException("This monitor: patrimonyId: '" + monitor.getPatrimonyId() + "'has no computer. Type: " + object.getClass().getName()));
 	}
-	
+
+	// Create, update and delete methods
 	@Transactional
 	public Computer insert(Computer object) {
 		if(alreadyExists(object.getPatrimonyId())){
@@ -111,7 +114,8 @@ public class ComputerService {
 		}
 		return this.repository.saveAndFlush(object);
 	}
-	
+
+	// Auxiliary methods
 	/**
 	 * Recover data of created date and updates the last modified date.
 	 * @param object

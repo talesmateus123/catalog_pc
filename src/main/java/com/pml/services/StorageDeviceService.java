@@ -30,11 +30,13 @@ public class StorageDeviceService {
 	private StorageDeviceRepository repository;
 	@Autowired
 	private ComputerService computerService;
-	
+
+	// List search methods
 	public List<StorageDevice> findAll() {
 		return this.repository.findAll();
 	}
-	
+
+	// Simple search methods
 	public Page<StorageDevice> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage);
 		return this.repository.findAll(pageRequest);
@@ -48,7 +50,8 @@ public class StorageDeviceService {
 	public List<StorageDevice> findByComputer(Computer computer) {
 		return this.repository.findByComputer(computer);
 	}
-	
+
+	// Create, update and delete methods
 	@Transactional
 	public StorageDevice insert(StorageDevice object) {
 		object.setId(null);
@@ -70,7 +73,8 @@ public class StorageDeviceService {
 		recoverData(object);
 		return this.repository.saveAndFlush(object);		
 	}
-	
+
+	// Auxiliary methods
 	/**
 	 * Recover data of created date and updates the last modified date.
 	 * @param object

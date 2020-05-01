@@ -30,7 +30,8 @@ public class RamMemoryService {
 	private RamMemoryRepository repository;
 	@Autowired
 	private ComputerService computerService;
-	
+
+	// List search methods
 	public List<RamMemory> findAll() {
 		return this.repository.findAll();
 	}
@@ -39,7 +40,8 @@ public class RamMemoryService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage);
 		return this.repository.findAll(pageRequest);
 	}
-	
+
+	// Simple search methods
 	public RamMemory findById(Long id) {
 		Optional<RamMemory> object = this.repository.findById(id);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Ram memory not found: id: '" + id + "'. Type: " + object.getClass().getName()));
@@ -48,7 +50,8 @@ public class RamMemoryService {
 	public List<RamMemory> findByComputer(Computer computer) {
 		return this.repository.findByComputer(computer);
 	}
-	
+
+	// Create, update and delete methods
 	@Transactional
 	public RamMemory insert(RamMemory object) {
 		object.setId(null);
@@ -70,7 +73,8 @@ public class RamMemoryService {
 		recoverData(object);
 		return this.repository.saveAndFlush(object);		
 	}
-	
+
+	// Auxiliary methods
 	/**
 	 * Recover data of created date and updates the last modified date.
 	 * @param object

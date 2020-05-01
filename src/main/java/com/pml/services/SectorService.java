@@ -26,7 +26,8 @@ import com.pml.services.exceptions.ObjectNotFoundException;
 public class SectorService {
 	@Autowired
 	private SectorRepository repository;
-	
+
+	// List search methods
 	public List<Sector> findAll() {
 		return this.repository.findAll();
 	}
@@ -35,7 +36,8 @@ public class SectorService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage);
 		return this.repository.findAll(pageRequest);
 	}
-	
+
+	// Simple search methods
 	public Sector findById(Long id) {
 		Optional<Sector> object = this.repository.findById(id);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Ram memory not found: id: '" + id + "'. Type: " + object.getClass().getName()));
@@ -45,7 +47,8 @@ public class SectorService {
 		Optional<Sector> object = this.repository.findByName(name);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Sector not found: name: '" + name + "'. Type: " + object.getClass().getName()));
 	}
-	
+
+	// Create, update and delete methods
 	@Transactional
 	public Sector insert(Sector object) {
 		object.setId(null);
@@ -65,7 +68,8 @@ public class SectorService {
 	public Sector update(Sector object) {
 		return this.repository.saveAndFlush(object);		
 	}
-	
+
+	// Auxiliary methods
 	/**
 	 * Convert the SectorNewDTO object to a Sector object. 
 	 * @param objectDTO SectorNewDTO

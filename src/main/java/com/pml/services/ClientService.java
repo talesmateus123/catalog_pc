@@ -31,7 +31,8 @@ public class ClientService {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	@Autowired
 	private ClientRepository repository;
-	
+
+	// List search methods
 	public List<Client> findAll() {
 		return this.repository.findAll();
 	}
@@ -40,7 +41,8 @@ public class ClientService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage);
 		return this.repository.findAll(pageRequest);
 	}
-	
+
+	// Simple search methods
 	public Client findById(Long id) {
 		UserSS user = UserService.authenticated();
 		if (user == null || user.hasHole(UserProfile.ADMIN) && !id.equals(user.getId()))
@@ -56,7 +58,8 @@ public class ClientService {
 		Optional<Client> object = this.repository.findByEmail(email);
 		return object.orElseThrow(()-> new ObjectNotFoundException("User not found: email: '" + email + "'. Type: " + object.getClass().getName()));
 	}
-	
+
+	// Create, update and delete methods
 	public Client insert(Client object) {
 		object.setId(null);
 		return this.repository.save(object);
@@ -76,7 +79,8 @@ public class ClientService {
 		this.findById(object.getId());
 		return this.repository.saveAndFlush(object);		
 	}
-	
+
+	// Auxiliary methods
 	/*
 	/**
 	 * Convert the ClientDTO object to a User object. 

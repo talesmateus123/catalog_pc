@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.pml.domain.Computer;
 import com.pml.domain.ComputerUser;
+import com.pml.domain.Sector;
 import com.pml.dto.ComputerUserNewDTO;
 import com.pml.repositories.ComputerUserRepository;
 import com.pml.services.exceptions.DataIntegrityException;
@@ -31,7 +32,8 @@ public class ComputerUserService {
 	private SectorService sectorService;
 	@Autowired
 	private ComputerService computerService;
-	
+
+	// List search methods
 	public List<ComputerUser> findAll() {
 		return this.repository.findAll();
 	}
@@ -41,11 +43,34 @@ public class ComputerUserService {
 		return this.repository.findAll(pageRequest);
 	}
 	
+	public List<ComputerUser> findByName(String name) {
+		return this.repository.findByName(name);
+	}
+	
+	public List<ComputerUser> findByLastName(String lastName) {
+		return this.repository.findByLastName(lastName);
+	}
+	
+	public List<ComputerUser> findByComputer(Computer computer) {
+		return this.repository.findByUseTheComputers(computer);
+	}
+	
+	public List<ComputerUser> findBySector(Sector sector) {
+		return this.repository.findBySector(sector);
+	}
+
+	// Simple search methods
 	public ComputerUser findById(Long id) {
 		Optional<ComputerUser> object = this.repository.findById(id);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Computer user not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
 	
+	public ComputerUser findByEmail(String email) {
+		Optional<ComputerUser> object = this.repository.findByEmail(email);
+		return object.orElseThrow(()-> new ObjectNotFoundException("This ipAddress: '" + email + "'has no computer user. Type: " + object.getClass().getName()));
+	}
+	
+	// Create, update and delete methods
 	@Transactional
 	public ComputerUser insert(ComputerUser object) {
 		object.setId(null);
@@ -68,6 +93,7 @@ public class ComputerUserService {
 		return this.repository.saveAndFlush(object);		
 	}
 
+	// Auxiliary methods
 	/**
 	 * Convert the ComputerUserNewDTO object to a ComputerUser object. 
 	 * @param objectNewDTO ComputerUserNewDTO

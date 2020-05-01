@@ -38,6 +38,7 @@ public class MonitorService {
 	@Autowired
 	private ComputerService computerService;
 	
+	// List search methods
 	public List<Monitor> findAll() {
 		return this.repository.findAll();
 	}
@@ -46,7 +47,8 @@ public class MonitorService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage);
 		return this.repository.findAll(pageRequest);
 	}
-	
+
+	// Simple search methods
 	public Monitor findByPatrimonyId(String patrimonyId) {
 		Optional<Monitor> object = this.repository.findByPatrimonyId(patrimonyId);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Monitor not found: patrimonyId: '" + patrimonyId + "'. Type: " + object.getClass().getName()));
@@ -61,7 +63,8 @@ public class MonitorService {
 		Optional<Monitor> object = this.repository.findByComputer(computer);
 		return object.orElseThrow(()-> new ObjectNotFoundException("This computer: patrimonyId: '" + computer.getPatrimonyId() + "'has no monitor. Type: " + object.getClass().getName()));
 	}
-	
+
+	// Create, update and delete methods
 	@Transactional
 	public Monitor insert(Monitor object) {
 		if(alreadyExists(object.getPatrimonyId())){
@@ -90,6 +93,8 @@ public class MonitorService {
 		}	
 		return this.repository.saveAndFlush(object);		
 	}
+	
+	// Auxiliary methods
 	
 	/**
 	 * Recover data of created date and updates the last modified date.

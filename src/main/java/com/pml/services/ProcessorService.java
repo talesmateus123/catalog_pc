@@ -30,7 +30,8 @@ public class ProcessorService {
 	private ProcessorRepository repository;
 	@Autowired
 	private ComputerService computerService;
-	
+
+	// List search methods
 	public List<Processor> findAll() {
 		return this.repository.findAll();
 	}
@@ -39,7 +40,8 @@ public class ProcessorService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage);
 		return this.repository.findAll(pageRequest);
 	}
-	
+
+	// Simple search methods
 	public Processor findById(Long id) {
 		Optional<Processor> object = this.repository.findById(id);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Processor not found: id: '" + id + "'. Type: " + object.getClass().getName()));
@@ -49,7 +51,8 @@ public class ProcessorService {
 		Optional<Processor> object = this.repository.findByComputer(computer);
 		return object.orElseThrow(()-> new ObjectNotFoundException("This computer: patrimonyId: '" + computer.getPatrimonyId() + "'has no processor. Type: " + object.getClass().getName()));
 	}
-	
+
+	// Create, update and delete methods
 	@Transactional
 	public Processor insert(Processor object) {
 		object.setId(null);
@@ -71,7 +74,8 @@ public class ProcessorService {
 		recoverData(object);
 		return this.repository.saveAndFlush(object);		
 	}
-	
+
+	// Auxiliary methods
 	/**
 	 * Recover data of created date and updates the last modified date.
 	 * @param object
