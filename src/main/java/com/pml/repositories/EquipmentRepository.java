@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pml.domain.Equipment;
 @Repository
-public interface MachineRepository extends JpaRepository<Equipment, Long>{
+public interface EquipmentRepository extends JpaRepository<Equipment, Long>{
 	Optional<Equipment> findByPatrimonyId(String patrimonyId);
 	
 }

@@ -25,7 +25,7 @@ import com.pml.domain.StorageDevice;
 import com.pml.dto.ComputerDTO;
 import com.pml.dto.ComputerNewDTO;
 import com.pml.repositories.ComputerRepository;
-import com.pml.repositories.MachineRepository;
+import com.pml.repositories.EquipmentRepository;
 import com.pml.services.exceptions.ConflictOfObjectsException;
 import com.pml.services.exceptions.DataIntegrityException;
 import com.pml.services.exceptions.ObjectNotFoundException;
@@ -35,13 +35,15 @@ public class ComputerService {
 	@Autowired
 	private ComputerRepository repository;
 	@Autowired
-	private MachineRepository machineRepository;
+	private EquipmentRepository machineRepository;
 	@Autowired
-	private ComputerUserService computerUserService;
+	private ComputerUserService objectUserService;
 	@Autowired
 	private MonitorService monitorService;
 	@Autowired
 	private ProcessorService processorService;
+	@Autowired
+	private SectorService sectorService;
 	@Autowired
 	private RamMemoryService ramMemoryService;
 	@Autowired
@@ -82,7 +84,7 @@ public class ComputerService {
 			this.repository.deleteById(id);
 		}
 		catch(DataIntegrityViolationException e){
-			throw new DataIntegrityException("Could not delete the computer: id: '" + id + "'. This computer has still dependents.");
+			throw new DataIntegrityException("Could not delete the object: id: '" + id + "'. This object has still dependents.");
 		}
 	}
 
@@ -140,63 +142,64 @@ public class ComputerService {
 	
 	/**
 	 * Convert the ComputerDTO object to a Computer object. 
-	 * @param computerDTO ComputerDTO
+	 * @param objectDTO ComputerDTO
 	 * @return Computer
 	 */
-	public Computer fromDTO(ComputerDTO computerDTO) {
-		Computer computer = new Computer(
-				computerDTO.getId(), computerDTO.getPatrimonyId(), computerDTO.getCreatedDate(), 
-				computerDTO.getLastModifiedDate(), computerDTO.getManufacturer(), computerDTO.getModel(), 
-				computerDTO.getDescription(), computerDTO.getSector(), computerDTO.isItWorks(), 
-				computerDTO.getIpAddress(), computerDTO.getHostName(), computerDTO.getMotherBoardName(),  null,  
-				computerDTO.getHasCdBurner(), computerDTO.getCabinetModel(), computerDTO.getOperatingSystem(),
-				computerDTO.getOperatingSystemArchitecture(), computerDTO.isOnTheDomain(), null);
-		return computer;
+	public Computer fromDTO(ComputerDTO objectDTO) {
+		Computer object = new Computer(
+				objectDTO.getId(), objectDTO.getPatrimonyId(), objectDTO.getCreatedDate(), 
+				objectDTO.getLastModifiedDate(), objectDTO.getManufacturer(), objectDTO.getModel(), 
+				objectDTO.getDescription(), objectDTO.getSector(), objectDTO.isItWorks(), 
+				objectDTO.getIpAddress(), objectDTO.getHostName(), objectDTO.getMotherBoardName(),  null,  
+				objectDTO.getHasCdBurner(), objectDTO.getCabinetModel(), objectDTO.getOperatingSystem(),
+				objectDTO.getOperatingSystemArchitecture(), objectDTO.isOnTheDomain(), null);
+		return object;
 	}
 	
 	/**
 	 * Convert the ComputerNewDTO object to a Computer object. 
-	 * @param computerDTO ComputerDTO
+	 * @param objectDTO ComputerDTO
 	 * @return Computer
 	 */
-	public Computer fromDTO(ComputerNewDTO computerNewDTO) {		
-		Computer computer = new Computer(
-				null, computerNewDTO.getPatrimonyId(), null, null,
-				computerNewDTO.getManufacturer(), computerNewDTO.getModel(), computerNewDTO.getDescription(), 
-				computerNewDTO.getSector(), computerNewDTO.isItWorks(), computerNewDTO.getIpAddress(), 
-				computerNewDTO.getHostName(), computerNewDTO.getMotherBoardName(), null, computerNewDTO.getHasCdBurner(),
-				 computerNewDTO.getCabinetModel(), computerNewDTO.getOperatingSystem(),
-				computerNewDTO.getOperatingSystemArchitecture(), computerNewDTO.isOnTheDomain(), null);
+	public Computer fromDTO(ComputerNewDTO objectNewDTO) {		
+		Computer object = new Computer(
+				null, objectNewDTO.getPatrimonyId(), null, null,
+				objectNewDTO.getManufacturer(), objectNewDTO.getModel(), objectNewDTO.getDescription(), 
+				null, objectNewDTO.isItWorks(), objectNewDTO.getIpAddress(), 
+				objectNewDTO.getHostName(), objectNewDTO.getMotherBoardName(), null, objectNewDTO.getHasCdBurner(),
+				 objectNewDTO.getCabinetModel(), objectNewDTO.getOperatingSystem(),
+				objectNewDTO.getOperatingSystemArchitecture(), objectNewDTO.isOnTheDomain(), null);
 		
 		// Setting all attributes
-		if(computerNewDTO.getMonitorId() != null)
-			computer.setMonitor(this.monitorService.findById(computerNewDTO.getMonitorId()));
-		if(computerNewDTO.getProcessorId() != null)
-			computer.setProcessor(this.processorService.findById(computerNewDTO.getProcessorId()));
-		
-		if(computerNewDTO.getRamMemoriesId() != null) {
-			for(Long ramMemoryId : computerNewDTO.getRamMemoriesId()) {
+		if(objectNewDTO.getMonitorId() != null)
+			object.setMonitor(this.monitorService.findById(objectNewDTO.getMonitorId()));
+		if(objectNewDTO.getProcessorId() != null)
+			object.setProcessor(this.processorService.findById(objectNewDTO.getProcessorId()));
+		if(objectNewDTO.getSectorId() != null)
+			object.setSector(this.sectorService.findById(objectNewDTO.getSectorId()));
+			
+		if(objectNewDTO.getRamMemoriesId() != null) {
+			for(Long ramMemoryId : objectNewDTO.getRamMemoriesId()) {
 				RamMemory ramMemory = this.ramMemoryService.findById(ramMemoryId);
-				ramMemory.setComputer(computer);
-				computer.addRamMemory(ramMemory);
+				ramMemory.setComputer(object);
+				object.addRamMemory(ramMemory);
 			}
 		}
-		if(computerNewDTO.getStorageDevicesId() != null) {
-			for(Long storageDeviceId : computerNewDTO.getStorageDevicesId()) {
+		if(objectNewDTO.getStorageDevicesId() != null) {
+			for(Long storageDeviceId : objectNewDTO.getStorageDevicesId()) {
 				StorageDevice storageDevice = this.storageDeviceService.findById(storageDeviceId);
-				storageDevice.setComputer(computer);
-				computer.addStorageDevice(storageDevice);
+				storageDevice.setComputer(object);
+				object.addStorageDevice(storageDevice);
 			}
 		}
-		if(computerNewDTO.getComputerUsersId() != null) {
-			for(Long computerUserId : computerNewDTO.getComputerUsersId()) {
-				ComputerUser computerUser = this.computerUserService.findById(computerUserId);
-				computerUser.addUseTheComputer(computer);
-				computer.addComputerUser(computerUser);
+		if(objectNewDTO.getComputerUsersId() != null) {
+			for(Long objectUserId : objectNewDTO.getComputerUsersId()) {
+				ComputerUser objectUser = this.objectUserService.findById(objectUserId);
+				objectUser.addUseTheComputer(object);
+				object.addComputerUser(objectUser);
 			}
-		}
-		
-		return computer;
+		}		
+		return object;
 	}
 	
 	

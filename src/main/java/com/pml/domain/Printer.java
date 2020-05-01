@@ -10,7 +10,6 @@ import java.util.Date;
 import javax.persistence.Entity;
 
 import com.pml.domain.enums.EquipmentType;
-import com.pml.domain.enums.Sector;
 
 @Entity
 public class Printer extends Equipment{
@@ -49,7 +48,7 @@ public class Printer extends Equipment{
 	
 	public String generateHostName(){
 		if(patrimonyId != null)
-			return "Brother " + getSector().getDescription();
+			return "Brother " + getSector().getName();
 		return "N/A";		
 	}
 	

@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.pml.domain.ComputerUser;
-import com.pml.domain.enums.Sector;
+import com.pml.domain.Sector;
 @Repository
 public interface ComputerUserRepository extends JpaRepository<ComputerUser, Long>{
 	List<ComputerUser> findByEmail(String email);

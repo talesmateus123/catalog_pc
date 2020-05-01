@@ -13,14 +13,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.pml.domain.enums.Sector;
 
 @Entity
 public class ComputerUser implements Serializable {
@@ -35,7 +36,10 @@ public class ComputerUser implements Serializable {
 	@Size(min = 4, max = 20)
 	private String lastName;
 	@NotNull
-	private Integer sector;
+	@ManyToOne
+	@JoinColumn(name = "sector_id")
+	@JsonBackReference
+	private Sector sector;
 	@Email
 	private String email;
 	
@@ -52,7 +56,7 @@ public class ComputerUser implements Serializable {
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
-		this.sector = (sector == null) ? null : sector.getCod();
+		this.sector = sector;
 		this.email = email;
 	}
 	
@@ -81,11 +85,11 @@ public class ComputerUser implements Serializable {
 	}
 	
 	public Sector getSector() {
-		return Sector.toEnum(sector);
+		return sector;
 	}
 	
-	public void setSector(Sector location) {
-		this.sector = location.getCod();
+	public void setSector(Sector sector) {
+		this.sector = sector;
 	}
 
 	public String getEmail() {

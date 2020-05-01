@@ -21,7 +21,7 @@ import com.pml.domain.Equipment;
 import com.pml.domain.Monitor;
 import com.pml.dto.MonitorDTO;
 import com.pml.dto.MonitorNewDTO;
-import com.pml.repositories.MachineRepository;
+import com.pml.repositories.EquipmentRepository;
 import com.pml.repositories.MonitorRepository;
 import com.pml.services.exceptions.ConflictOfObjectsException;
 import com.pml.services.exceptions.DataIntegrityException;
@@ -32,7 +32,7 @@ public class MonitorService {
 	@Autowired
 	private MonitorRepository repository;
 	@Autowired
-	private MachineRepository machineRepository;
+	private EquipmentRepository machineRepository;
 	@Autowired
 	private ComputerService computerService;
 	
@@ -133,9 +133,6 @@ public class MonitorService {
 	 * @return Monitor
 	 */
 	public Monitor fromDTO(MonitorDTO objectDTO) {
-		
-		//Long, String, Date, Date, String, String, String, Sector, boolean, Computer
-		
 		Monitor object = new Monitor(
 				objectDTO.getId(), objectDTO.getPatrimonyId(), objectDTO.getCreatedDate(), 
 				objectDTO.getLastModifiedDate(), objectDTO.getManufacturer(), objectDTO.getModel(),
@@ -154,8 +151,7 @@ public class MonitorService {
 				objectNewDTO.getModel(), objectNewDTO.getDescription(), objectNewDTO.getSector(), 
 				objectNewDTO.isItWorks(), null);
 		if (objectNewDTO.getComputerId() != null)
-			object.setComputer(this.computerService.findById(objectNewDTO.getComputerId()));
-		
+			object.setComputer(this.computerService.findById(objectNewDTO.getComputerId()));		
 		return object;
 	}
 	

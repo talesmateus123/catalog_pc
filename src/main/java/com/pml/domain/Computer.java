@@ -20,7 +20,6 @@ import javax.validation.constraints.NotNull;
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.OperatingSystem;
-import com.pml.domain.enums.Sector;
 
 @Entity
 public class Computer extends Equipment{

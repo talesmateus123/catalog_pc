@@ -80,20 +80,20 @@ public class RamMemoryService {
 	
 	/**
 	 * Convert the RamMemoryDTO object to a RamMemory object. 
-	 * @param ramMemoryDTO RamMemoryDTO
+	 * @param objectDTO RamMemoryDTO
 	 * @return RamMemory
 	 */
-	public RamMemory fromDTO(RamMemoryDTO ramMemoryDTO) {		
-		RamMemory ramMemory = new RamMemory(
-				ramMemoryDTO.getId(), ramMemoryDTO.getCreatedDate(), ramMemoryDTO.getLastModifiedDate(), 
-				ramMemoryDTO.getManufacturer(), ramMemoryDTO.getModel(),ramMemoryDTO.getDescription(), 
-				ramMemoryDTO.isItWorks(), ramMemoryDTO.getSizeInMB(), ramMemoryDTO.getArchitecture(), null);
-		return ramMemory;
+	public RamMemory fromDTO(RamMemoryDTO objectDTO) {		
+		RamMemory object = new RamMemory(
+				objectDTO.getId(), objectDTO.getCreatedDate(), objectDTO.getLastModifiedDate(), 
+				objectDTO.getManufacturer(), objectDTO.getModel(),objectDTO.getDescription(), 
+				objectDTO.isItWorks(), objectDTO.getSizeInMB(), objectDTO.getArchitecture(), null);
+		return object;
 	}
 	
 	/**
 	 * Convert the RamMemoryNewDTO object to a RamMemory object. 
-	 * @param ramMemoryDTO RamMemoryNewDTO
+	 * @param objectDTO RamMemoryNewDTO
 	 * @return RamMemory
 	 */
 	public RamMemory fromDTO(RamMemoryNewDTO objectNewDTO) {

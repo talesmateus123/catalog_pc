@@ -1,5 +1,5 @@
 /** 
- * This is the class "TestConfig". Which will be able to iserve to configure the database with all data test.
+ * This is the class "TestConfig". Which will be able to serve to configure the database with all data test.
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */

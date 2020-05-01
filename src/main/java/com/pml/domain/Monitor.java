@@ -13,7 +13,6 @@ import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pml.domain.enums.EquipmentType;
-import com.pml.domain.enums.Sector;
 
 @Entity
 public class Monitor extends Equipment{

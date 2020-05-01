@@ -14,7 +14,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.pml.domain.enums.Sector;
+import com.pml.domain.Sector;
 
 public class ComputerUserNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -25,9 +25,10 @@ public class ComputerUserNewDTO implements Serializable {
 	@Size(min = 4, max = 20, message = "The text of this field must contain between 4 and 20 characters")
 	private String lastName;
 	@NotNull(message = "This field is mandatory")
-	private Integer sector;
+	private Sector sector;
 	@Email(message = "Invalid e-mail")
 	private String email;
+	private Long sectorId;
 	private List<Long> useTheComputersId = new ArrayList<>();
 	
 	public ComputerUserNewDTO() {		
@@ -49,12 +50,12 @@ public class ComputerUserNewDTO implements Serializable {
 		this.lastName = lastName;
 	}
 	
-	public Sector getSector() {
-		return Sector.toEnum(sector);
+	public Long getSectorId() {
+		return sectorId;
 	}
 	
-	public void setSector(Sector location) {
-		this.sector = location.getCod();
+	public void setSectorId(Long sectorId) {
+		this.sectorId = sectorId;
 	}
 	
 	public String getEmail() {
@@ -73,14 +74,6 @@ public class ComputerUserNewDTO implements Serializable {
 		this.useTheComputersId = useTheComputersId;
 	}
 	
-	/**
-	 * Add a new computer id Long to this list of computers usage.
-	 * @param useTheComputerId Long
-	 * @return void
-	 */
-	public void addUseTheComputer(Long useTheComputerId) {
-		this.useTheComputersId.add(useTheComputerId);
-	}
 
 
 }

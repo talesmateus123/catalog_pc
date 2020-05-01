@@ -5,8 +5,8 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pml.domain.Printer;
+import com.pml.domain.Sector;
 import com.pml.domain.enums.EquipmentType;
-import com.pml.domain.enums.Sector;
 
 public class PrinterDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -22,7 +22,7 @@ public class PrinterDTO implements Serializable {
 	private boolean itWorks = true; 
 	private boolean itComposed;
 	private String patrimonyId = "";
-	private Integer sector;
+	private Sector sector;
 	private String ipAddress;
 	private String hostName;
 	
@@ -40,14 +40,14 @@ public class PrinterDTO implements Serializable {
 		this.itWorks = printer.isItWorks();
 		this.itComposed = printer.isItComposed();
 		this.patrimonyId = printer.getPatrimonyId();
-		this.sector = printer.getSector().getCod();
+		this.sector = printer.getSector();
 		this.ipAddress = printer.getIpAddress();
 		this.hostName = printer.getHostName();
 		this.itComposed = printer.isItComposed();
 	}
 	
 	public PrinterDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
-			String model, String description, Integer sector, boolean itWorks, String ipAddress, String hostName,
+			String model, String description, Sector sector, boolean itWorks, String ipAddress, String hostName,
 			EquipmentType equipmentType, boolean itComposed) {
 		this.id = id;
 		this.createdDate = createdDate;
@@ -130,11 +130,11 @@ public class PrinterDTO implements Serializable {
 	}
 	
 	public Sector getSector() {
-		return Sector.toEnum(sector);
+		return sector;
 	}
 	
-	public void setSector(Sector location) {
-		this.sector = location.getCod();
+	public void setSector(Sector sector) {
+		this.sector = sector;
 	}
 	
 	public boolean isItWorks() {

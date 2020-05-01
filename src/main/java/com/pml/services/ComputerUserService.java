@@ -29,6 +29,8 @@ public class ComputerUserService {
 	@Autowired
 	private ComputerUserRepository repository;
 	@Autowired
+	private SectorService sectorService;
+	@Autowired
 	private ComputerService computerService;
 	
 	public List<ComputerUser> findAll() {
@@ -69,33 +71,37 @@ public class ComputerUserService {
 	
 	/**
 	 * Convert the ComputerUserDTO object to a ComputerUser object. 
-	 * @param computerUserDTO ComputerUserDTO
+	 * @param objectDTO ComputerUserDTO
 	 * @return ComputerUser
 	 */
-	public ComputerUser fromDTO(ComputerUserDTO computerUserDTO) {
-		ComputerUser computerUser = new ComputerUser(
-				computerUserDTO.getId(), computerUserDTO.getName(), computerUserDTO.getLastName(),
-				computerUserDTO.getSector(), computerUserDTO.getEmail());
-		return computerUser;
+	public ComputerUser fromDTO(ComputerUserDTO objectDTO) {
+		ComputerUser object = new ComputerUser(
+				objectDTO.getId(), objectDTO.getName(), objectDTO.getLastName(),
+				objectDTO.getSector(), objectDTO.getEmail());
+		return object;
 	}
 	
 	/**
 	 * Convert the ComputerUserNewDTO object to a ComputerUser object. 
-	 * @param computerUserNewDTO ComputerUserNewDTO
+	 * @param objectNewDTO ComputerUserNewDTO
 	 * @return ComputerUser
 	 */
-	public ComputerUser fromDTO(ComputerUserNewDTO computerUserNewDTO) {
-		ComputerUser computerUser = new ComputerUser(
-				null, computerUserNewDTO.getName(), computerUserNewDTO.getLastName(),
-				computerUserNewDTO.getSector(), computerUserNewDTO.getEmail());
-		if(computerUserNewDTO.getUseTheComputersId() != null) {
-			for(Long computerId : computerUserNewDTO.getUseTheComputersId()) {
+	public ComputerUser fromDTO(ComputerUserNewDTO objectNewDTO) {
+		ComputerUser object = new ComputerUser(
+				null, objectNewDTO.getName(), objectNewDTO.getLastName(),
+				null, objectNewDTO.getEmail());		
+
+		if(objectNewDTO.getSectorId() != null)
+			object.setSector(this.sectorService.findById(objectNewDTO.getSectorId()));
+		
+		if(objectNewDTO.getUseTheComputersId() != null) {
+			for(Long computerId : objectNewDTO.getUseTheComputersId()) {
 				Computer computer = this.computerService.findById(computerId);
-				computer.addComputerUser(computerUser);
-				computerUser.addUseTheComputer(computer);
+				computer.addComputerUser(object);
+				object.addUseTheComputer(computer);
 			}
 		}
-		return computerUser;
+		return object;
 	}
 	
 	

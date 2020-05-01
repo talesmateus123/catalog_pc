@@ -18,7 +18,7 @@ import com.pml.domain.Equipment;
 import com.pml.domain.Printer;
 import com.pml.dto.PrinterDTO;
 import com.pml.dto.PrinterNewDTO;
-import com.pml.repositories.MachineRepository;
+import com.pml.repositories.EquipmentRepository;
 import com.pml.repositories.PrinterRepository;
 import com.pml.services.exceptions.ConflictOfObjectsException;
 import com.pml.services.exceptions.ObjectNotFoundException;
@@ -28,7 +28,7 @@ public class PrinterService {
 	@Autowired
 	private PrinterRepository repository;
 	@Autowired
-	private MachineRepository machineRepository;
+	private EquipmentRepository machineRepository;
 	
 	public List<Printer> findAll() {
 		return this.repository.findAll();
@@ -116,31 +116,31 @@ public class PrinterService {
 	
 	/**
 	 * Convert the PrinterDTO object to a Printer object. 
-	 * @param computerDTO PrinterDTO
+	 * @param objectDTO PrinterDTO
 	 * @return Printer
 	 */
-	public Printer fromDTO(PrinterDTO computerDTO) {
-		Printer computer = new Printer(
-				computerDTO.getId(), computerDTO.getPatrimonyId(), computerDTO.getCreatedDate(), 
-				computerDTO.getLastModifiedDate(), computerDTO.getManufacturer(), computerDTO.getModel(), 
-				computerDTO.getDescription(), computerDTO.getSector(), computerDTO.isItWorks(), 
-				computerDTO.getIpAddress(), computerDTO.getHostName());
-		return computer;
+	public Printer fromDTO(PrinterDTO objectDTO) {
+		Printer object = new Printer(
+				objectDTO.getId(), objectDTO.getPatrimonyId(), objectDTO.getCreatedDate(), 
+				objectDTO.getLastModifiedDate(), objectDTO.getManufacturer(), objectDTO.getModel(), 
+				objectDTO.getDescription(), objectDTO.getSector(), objectDTO.isItWorks(), 
+				objectDTO.getIpAddress(), objectDTO.getHostName());
+		return object;
 	}
 	
 	/**
 	 * Convert the PrinterNewDTO object to a Printer object. 
-	 * @param computerDTO PrinterDTO
+	 * @param objectDTO PrinterDTO
 	 * @return Printer
 	 */
-	public Printer fromDTO(PrinterNewDTO computerNewDTO) {		
-		Printer computer = new Printer(
-				null, computerNewDTO.getPatrimonyId(), null, null,
-				computerNewDTO.getManufacturer(), computerNewDTO.getModel(), computerNewDTO.getDescription(), 
-				computerNewDTO.getSector(), computerNewDTO.isItWorks(), computerNewDTO.getIpAddress(), 
-				computerNewDTO.getHostName());		
+	public Printer fromDTO(PrinterNewDTO objectNewDTO) {		
+		Printer object = new Printer(
+				null, objectNewDTO.getPatrimonyId(), null, null,
+				objectNewDTO.getManufacturer(), objectNewDTO.getModel(), objectNewDTO.getDescription(), 
+				objectNewDTO.getSector(), objectNewDTO.isItWorks(), objectNewDTO.getIpAddress(), 
+				objectNewDTO.getHostName());		
 		
-		return computer;
+		return object;
 	}
 	
 	

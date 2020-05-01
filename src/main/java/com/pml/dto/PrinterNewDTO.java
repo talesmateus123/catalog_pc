@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.pml.domain.enums.Sector;
+import com.pml.domain.Sector;
 
 public class PrinterNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -17,7 +17,7 @@ public class PrinterNewDTO implements Serializable {
 	private String model;
 	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
 	private String description;
-	private Integer sector;
+	private Sector sector;
 	private boolean itWorks;
 	private String ipAddress;
 	private String hostName;
@@ -66,11 +66,11 @@ public class PrinterNewDTO implements Serializable {
 	}
 	
 	public Sector getSector() {
-		return Sector.toEnum(sector);
+		return sector;
 	}
 	
-	public void setSector(Sector location) {
-		this.sector = location.getCod();
+	public void setSector(Sector sector) {
+		this.sector = sector;
 	}
 	
 	public boolean isItWorks() {

@@ -83,10 +83,9 @@ public class ClientService {
 	 * @param ClientDTO ClientDTO
 	 * @return User
 	 */
-	public Client fromDTO(ClientDTO ClientDTO) {
-		Client User = new Client(
-				ClientDTO.getId(), ClientDTO.getEmail(), ClientDTO.getName(), ClientDTO.getPassword());
-		return User;
+	public Client fromDTO(ClientDTO objectDTO) {
+		return new Client(
+				objectDTO.getId(), objectDTO.getEmail(), objectDTO.getName(), objectDTO.getPassword());
 	}
 	
 	/**
@@ -94,10 +93,8 @@ public class ClientService {
 	 * @param ClientNewDTO ClientNewDTO
 	 * @return User
 	 */
-	public Client fromDTO(ClientNewDTO ClientNewDTO) {
-		Client User = new Client(null, ClientNewDTO.getEmail(), ClientNewDTO.getName(), this.bCryptPasswordEncoder.encode(ClientNewDTO.getPassword()));
-		
-		return User;
+	public Client fromDTO(ClientNewDTO objectNewDTO) {
+		return new Client(null, objectNewDTO.getEmail(), objectNewDTO.getName(), this.bCryptPasswordEncoder.encode(objectNewDTO.getPassword()));
 	}
 	
 	

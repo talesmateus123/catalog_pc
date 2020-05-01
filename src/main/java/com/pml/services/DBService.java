@@ -12,29 +12,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.pml.domain.Client;
 import com.pml.domain.Computer;
 import com.pml.domain.ComputerUser;
 import com.pml.domain.Monitor;
 import com.pml.domain.Printer;
 import com.pml.domain.Processor;
 import com.pml.domain.RamMemory;
+import com.pml.domain.Sector;
 import com.pml.domain.StorageDevice;
-import com.pml.domain.Client;
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.OperatingSystem;
 import com.pml.domain.enums.RamMemoryArchitecture;
-import com.pml.domain.enums.Sector;
 import com.pml.domain.enums.StorageDeviceArchitecture;
 import com.pml.domain.enums.StorageDeviceType;
 import com.pml.domain.enums.UserProfile;
+import com.pml.repositories.ClientRepository;
 import com.pml.repositories.ComputerRepository;
 import com.pml.repositories.ComputerUserRepository;
 import com.pml.repositories.MonitorRepository;
 import com.pml.repositories.PrinterRepository;
 import com.pml.repositories.ProcessorRepository;
 import com.pml.repositories.RamMemoryRepository;
+import com.pml.repositories.SectorRepository;
 import com.pml.repositories.StorageDeviceRepository;
-import com.pml.repositories.ClientRepository;
 
 @Service
 public class DBService {
@@ -42,6 +43,8 @@ public class DBService {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	@Autowired
 	private ClientRepository userRepository;
+	@Autowired
+	private SectorRepository sectorRepository;
 	@Autowired
 	private ComputerRepository computerRepository;
 	@Autowired
@@ -63,27 +66,35 @@ public class DBService {
 		user1.addProfile(UserProfile.ADMIN);
 		Client user2 = new Client(null, "renato123@gmail.com", "Renato Campos", bCryptPasswordEncoder.encode("1234"));
 		
+		// Sectors creation
+		Sector sector1 = new Sector(null, "Administração", true);
+		Sector sector2 = new Sector(null, "Recursos humanos", true);
+		Sector sector3 = new Sector(null, "Contabilidade", true);
+		Sector sector4 = new Sector(null, "Licitação", true);
+		Sector sector5 = new Sector(null, "Gabinete do prefeito", true);
+		Sector sector6 = new Sector(null, "CRAS", false);
+		
 		// Monitors creation
-		Monitor monitor1 = new Monitor(null, "00012", new Date(), new Date(), null, null, null, Sector.ADMIN, true, null);
-		Monitor monitor2 = new Monitor(null, "02013", new Date(), new Date(), null, null, null, Sector.ADMIN, true, null);
-		Monitor monitor3 = new Monitor(null, "01012", new Date(), new Date(), null, null, null, Sector.ADMIN, true, null);
-		Monitor monitor4 = new Monitor(null, "03013", new Date(), new Date(), null, null, null, Sector.RH, true, null);
-		Monitor monitor5 = new Monitor(null, "05012", new Date(), new Date(), null, null, null, Sector.ADMIN, true, null);
-		Monitor monitor6 = new Monitor(null, "06013", new Date(), new Date(), null, null, null, Sector.ADMIN, true, null);
-		Monitor monitor7 = new Monitor(null, "0012", new Date(), new Date(), null, null, null, Sector.ADMIN, true, null);
-		Monitor monitor8 = new Monitor(null, "08001323", new Date(), new Date(), null, null, null, Sector.RH, true, null);
-		Monitor monitor9 = new Monitor(null, "07012", new Date(), new Date(), null, null, null, Sector.ADMIN, true, null);
-		Monitor monitor10 = new Monitor(null, "080013", new Date(), new Date(), null, null, null, Sector.ADMIN, true, null);
-		Monitor monitor11 = new Monitor(null, "009012", new Date(), new Date(), null, null, null, Sector.ADMIN, true, null);
-		Monitor monitor12 = new Monitor(null, "000013", new Date(), new Date(), null, null, null, Sector.RH, true, null);
-		Monitor monitor13 = new Monitor(null, "000112", new Date(), new Date(), null, null, null, Sector.ADMIN, true, null);
-		Monitor monitor14 = new Monitor(null, "000113", new Date(), new Date(), null, null, null, Sector.ADMIN, true, null);
-		Monitor monitor15 = new Monitor(null, "20012", new Date(), new Date(), null, null, null, Sector.RH, true, null);
-		Monitor monitor16 = new Monitor(null, "30013", new Date(), new Date(), null, null, null, Sector.ADMIN, true, null);
-		Monitor monitor17 = new Monitor(null, "40012", new Date(), new Date(), null, null, null, Sector.ADMIN, true, null);
-		Monitor monitor18 = new Monitor(null, "50013", new Date(), new Date(), null, null, null, Sector.ADMIN, true, null);
-		Monitor monitor19 = new Monitor(null, "60012", new Date(), new Date(), null, null, null, Sector.RH, true, null);
-		Monitor monitor20 = new Monitor(null, "120013", new Date(), new Date(), null, null, null, Sector.ADMIN, true, null);
+		Monitor monitor1 = new Monitor(null, "00012", new Date(), new Date(), null, null, null, sector2, true, null);
+		Monitor monitor2 = new Monitor(null, "02013", new Date(), new Date(), null, null, null, sector6, true, null);
+		Monitor monitor3 = new Monitor(null, "01012", new Date(), new Date(), null, null, null, sector3, true, null);
+		Monitor monitor4 = new Monitor(null, "03013", new Date(), new Date(), null, null, null, sector2, true, null);
+		Monitor monitor5 = new Monitor(null, "05012", new Date(), new Date(), null, null, null, sector1, true, null);
+		Monitor monitor6 = new Monitor(null, "06013", new Date(), new Date(), null, null, null, sector6, true, null);
+		Monitor monitor7 = new Monitor(null, "0012", new Date(), new Date(), null, null, null, sector5, true, null);
+		Monitor monitor8 = new Monitor(null, "08001323", new Date(), new Date(), null, null, null, sector2, true, null);
+		Monitor monitor9 = new Monitor(null, "07012", new Date(), new Date(), null, null, null, sector1, true, null);
+		Monitor monitor10 = new Monitor(null, "080013", new Date(), new Date(), null, null, null, sector4, true, null);
+		Monitor monitor11 = new Monitor(null, "009012", new Date(), new Date(), null, null, null, sector1, true, null);
+		Monitor monitor12 = new Monitor(null, "000013", new Date(), new Date(), null, null, null, sector2, true, null);
+		Monitor monitor13 = new Monitor(null, "000112", new Date(), new Date(), null, null, null, sector1, true, null);
+		Monitor monitor14 = new Monitor(null, "000113", new Date(), new Date(), null, null, null, sector1, true, null);
+		Monitor monitor15 = new Monitor(null, "20012", new Date(), new Date(), null, null, null, sector2, true, null);
+		Monitor monitor16 = new Monitor(null, "30013", new Date(), new Date(), null, null, null, sector1, true, null);
+		Monitor monitor17 = new Monitor(null, "40012", new Date(), new Date(), null, null, null, sector3, true, null);
+		Monitor monitor18 = new Monitor(null, "50013", new Date(), new Date(), null, null, null, sector1, true, null);
+		Monitor monitor19 = new Monitor(null, "60012", new Date(), new Date(), null, null, null, sector2, true, null);
+		Monitor monitor20 = new Monitor(null, "120013", new Date(), new Date(), null, null, null, sector4, true, null);
 		
 		// Processors creation
 		Processor processor1 = new Processor(null, new Date(), new Date(), "Intel", "model", "description", true, 
@@ -92,51 +103,51 @@ public class DBService {
 				"i7 7000U ", ArchitectureType.AMD64, null);
 		
 		// Computer users creation
-		ComputerUser computerUser1 = new ComputerUser(null, "José Rodrigues", "Gonzales", Sector.ADMIN, "jose.rodriges@ladario.gov.br");
-		ComputerUser computerUser2 = new ComputerUser(null, "José Rodrigues", "Gonzales", Sector.ADMIN, "jose.rodriges@ladario.gov.br");
-		ComputerUser computerUser3 = new ComputerUser(null, "José Rodrigues", "Gonzales", Sector.ADMIN, "jose.rodriges@ladario.gov.br");
-		ComputerUser computerUser4 = new ComputerUser(null, "José Rodrigues", "Gonzales", Sector.ADMIN, "jose.rodriges@ladario.gov.br");
+		ComputerUser computerUser1 = new ComputerUser(null, "José Rodrigues", "Gonzales", sector2, "jose.rodriges@ladario.gov.br");
+		ComputerUser computerUser2 = new ComputerUser(null, "José Rodrigues", "Gonzales", sector1, "jose.rodriges@ladario.gov.br");
+		ComputerUser computerUser3 = new ComputerUser(null, "José Rodrigues", "Gonzales", sector3, "jose.rodriges@ladario.gov.br");
+		ComputerUser computerUser4 = new ComputerUser(null, "José Rodrigues", "Gonzales", sector6, "jose.rodriges@ladario.gov.br");
 				
 		// Computers creation		
-		Computer computer1 = new Computer(null, "06770", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer1 = new Computer(null, "06770", new Date(), new Date(), "Micron Technology", null, null, sector2, 
 				true, null, null, null, processor1, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.I386, false, monitor1);
-		Computer computer2 = new Computer(null, "07178", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer2 = new Computer(null, "07178", new Date(), new Date(), "Micron Technology", null, null, sector2, 
 				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor2);
-		Computer computer3 = new Computer(null, "06771", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer3 = new Computer(null, "06771", new Date(), new Date(), "Micron Technology", null, null, sector3, 
 				true, null, null, null, processor1, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.AMD64, false, monitor3);
-		Computer computer4 = new Computer(null, "74321", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer4 = new Computer(null, "74321", new Date(), new Date(), "Micron Technology", null, null, sector4, 
 				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor4);
-		Computer computer5 = new Computer(null, "8653", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer5 = new Computer(null, "8653", new Date(), new Date(), "Micron Technology", null, null, sector3, 
 				true, null, null, null, processor1, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.I386, false, monitor5);
-		Computer computer6 = new Computer(null, "2114", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer6 = new Computer(null, "2114", new Date(), new Date(), "Micron Technology", null, null, sector4, 
 				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor6);
-		Computer computer7 = new Computer(null, "06789", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer7 = new Computer(null, "06789", new Date(), new Date(), "Micron Technology", null, null, sector6, 
 				true, null, null, null, processor1, true, null, OperatingSystem.LINUX_DISTRO, ArchitectureType.I386, false, monitor7);
-		Computer computer8 = new Computer(null, "77454", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer8 = new Computer(null, "77454", new Date(), new Date(), "Micron Technology", null, null, sector5, 
 				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor8);
-		Computer computer9 = new Computer(null, "771469", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer9 = new Computer(null, "771469", new Date(), new Date(), "Micron Technology", null, null, sector2, 
 				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.AMD64, false, monitor9);
-		Computer computer10 = new Computer(null, "21844", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer10 = new Computer(null, "21844", new Date(), new Date(), "Micron Technology", null, null, sector1, 
 				true, null, null, null, processor1, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.I386, false, monitor10);
-		Computer computer11 = new Computer(null, "217643", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer11 = new Computer(null, "217643", new Date(), new Date(), "Micron Technology", null, null, sector3, 
 				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor11);
-		Computer computer12 = new Computer(null, "5757", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer12 = new Computer(null, "5757", new Date(), new Date(), "Micron Technology", null, null, sector3, 
 				true, null, null, null, processor1, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.I386, false, monitor12);
-		Computer computer13 = new Computer(null, "75875", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer13 = new Computer(null, "75875", new Date(), new Date(), "Micron Technology", null, null, sector4, 
 				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_VISTA, ArchitectureType.AMD64, false, monitor13);
-		Computer computer14 = new Computer(null, "789654", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer14 = new Computer(null, "789654", new Date(), new Date(), "Micron Technology", null, null, sector4, 
 				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor14);
-		Computer computer15 = new Computer(null, "15951", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer15 = new Computer(null, "15951", new Date(), new Date(), "Micron Technology", null, null, sector6, 
 				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_XP, ArchitectureType.I386, false, monitor15);
-		Computer computer16 = new Computer(null, "95126", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer16 = new Computer(null, "95126", new Date(), new Date(), "Micron Technology", null, null, sector5, 
 				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor16);
-		Computer computer17 = new Computer(null, "78965", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer17 = new Computer(null, "78965", new Date(), new Date(), "Micron Technology", null, null, sector5, 
 				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.AMD64, false, monitor17);
-		Computer computer18 = new Computer(null, "78542", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer18 = new Computer(null, "78542", new Date(), new Date(), "Micron Technology", null, null, sector6, 
 				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor18);
-		Computer computer19 = new Computer(null, "745874", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer19 = new Computer(null, "745874", new Date(), new Date(), "Micron Technology", null, null, sector2, 
 				true, null, null, null, processor2, true, null, OperatingSystem.LINUX_DISTRO, ArchitectureType.I386, false, monitor19);
-		Computer computer20 = new Computer(null, "7854", new Date(), new Date(), "Micron Technology", null, null, Sector.ADMIN, 
+		Computer computer20 = new Computer(null, "7854", new Date(), new Date(), "Micron Technology", null, null, sector2, 
 				true, null, null, null, processor2, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.AMD64, false, monitor20);
 		
 		computer1.addComputerUser(computerUser1);
@@ -169,10 +180,13 @@ public class DBService {
 		
 		// Printers creation
 		Printer printer1 = new Printer(null, "PML0000", new Date(), new Date(), "manufacturer", "model", 
-				"description", Sector.ADMIN, true, "ipAddress", "hostName");
+				"description", sector1, true, "ipAddress", "hostName");
 		
 		// Setting data on database
 		userRepository.saveAll(Arrays.asList(user1, user2));
+		sectorRepository.saveAll(Arrays.asList(
+				sector1, sector2, sector3, sector4, sector5, sector6
+				));
 		monitorRepository.saveAll(Arrays.asList(
 				monitor1, monitor2, monitor3, monitor4, monitor5, monitor6, monitor7, monitor8, monitor9, monitor10,
 				monitor11, monitor12, monitor13, monitor14, monitor15, monitor16, monitor17, monitor18, monitor19, monitor20

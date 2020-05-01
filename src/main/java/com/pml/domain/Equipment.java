@@ -9,12 +9,14 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pml.domain.enums.EquipmentType;
-import com.pml.domain.enums.Sector;
 
 @Entity
 public abstract class Equipment extends Electronic {
@@ -24,7 +26,10 @@ public abstract class Equipment extends Electronic {
 	@Column(unique = true)
 	protected String patrimonyId = "";
 	@NotNull
-	protected Integer sector;
+	@ManyToOne
+	@JoinColumn(name = "sector_id")
+	@JsonBackReference
+	protected Sector sector;
 	
 	public Equipment() {
 		super();
@@ -35,7 +40,7 @@ public abstract class Equipment extends Electronic {
 			String manufacturer, String model, String description, Sector sector, boolean itWorks) {
 		super(id, createdDate, lastModifiedDate, equipmentType, manufacturer, model, description, itWorks, true);
 		this.patrimonyId = (patrimonyId != null) ? patrimonyId : "N/A";
-		this.sector = (sector == null) ? null : sector.getCod();
+		this.sector = sector;
 	}
 
 	public String getPatrimonyId() {
@@ -47,11 +52,11 @@ public abstract class Equipment extends Electronic {
 	}
 	
 	public Sector getSector() {
-		return Sector.toEnum(sector);
+		return sector;
 	}
 	
-	public void setSector(Sector location) {
-		this.sector = location.getCod();
+	public void setSector(Sector sector) {
+		this.sector = sector;
 	}
 
 

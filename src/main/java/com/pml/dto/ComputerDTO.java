@@ -5,10 +5,10 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pml.domain.Computer;
+import com.pml.domain.Sector;
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.OperatingSystem;
-import com.pml.domain.enums.Sector;
 
 public class ComputerDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,7 +24,7 @@ public class ComputerDTO implements Serializable {
 	private boolean itWorks = true; 
 	private boolean itComposed;
 	private String patrimonyId = "";
-	private Integer sector;
+	private Sector sector;
 	private String ipAddress;
 	private String hostName;
 	private String motherBoardName;
@@ -50,7 +50,7 @@ public class ComputerDTO implements Serializable {
 		this.itWorks = computer.isItWorks();
 		this.itComposed = computer.isItComposed();
 		this.patrimonyId = computer.getPatrimonyId();
-		this.sector = computer.getSector().getCod();
+		this.sector = computer.getSector();
 		this.ipAddress = computer.getIpAddress();
 		this.hostName = computer.getHostName();
 		this.motherBoardName = computer.getMotherBoardName(); 
@@ -65,7 +65,7 @@ public class ComputerDTO implements Serializable {
 	}
 	
 	public ComputerDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
-			String model, String description, Integer sector, boolean itWorks, String ipAddress, String hostName,
+			String model, String description, Sector sector, boolean itWorks, String ipAddress, String hostName,
 			String motherBoardName, Integer totalRamMemory, Integer totalStorageMemory, Boolean hasCdBurner, 
 			String cabinetModel, Integer operatingSystem, Integer operatingSystemArchitecture, 
 			boolean onTheDomain, EquipmentType equipmentType, boolean itComposed) {
@@ -158,11 +158,11 @@ public class ComputerDTO implements Serializable {
 	}
 	
 	public Sector getSector() {
-		return Sector.toEnum(sector);
+		return sector;
 	}
 	
 	public void setSector(Sector location) {
-		this.sector = location.getCod();
+		this.sector = location;
 	}
 	
 	public boolean isItWorks() {

@@ -10,7 +10,6 @@ import javax.validation.constraints.Size;
 
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.OperatingSystem;
-import com.pml.domain.enums.Sector;
 
 public class ComputerNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -22,7 +21,6 @@ public class ComputerNewDTO implements Serializable {
 	private String model;
 	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
 	private String description;
-	private Integer sector;
 	private boolean itWorks;
 	private String ipAddress;
 	private String hostName;
@@ -36,6 +34,7 @@ public class ComputerNewDTO implements Serializable {
 	
 	private Long monitorId;
 	private Long processorId;
+	private Long sectorId;
 	private List<Long> ramMemoriesId;
 	private List<Long> storageDevicesId;
 	private List<Long> computerUsersId = new ArrayList<>();
@@ -83,12 +82,12 @@ public class ComputerNewDTO implements Serializable {
 		this.description = description;
 	}
 	
-	public Sector getSector() {
-		return Sector.toEnum(sector);
+	public Long getSectorId() {
+		return sectorId;
 	}
 	
-	public void setSector(Sector location) {
-		this.sector = location.getCod();
+	public void setSectorId(Long sectorId) {
+		this.sectorId = sectorId;
 	}
 	
 	public boolean isItWorks() {
