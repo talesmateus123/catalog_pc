@@ -94,8 +94,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             long date = new Date().getTime();
             return "{\"timestamp\": " + date + ", "
                 + "\"status\": 401, "
-                + "\"error\": \"Access denied\", "
-                + "\"message\": \"Invalid email or passord\", "
+                + "\"error\": \"Access Denied\", "
+                + "\"message\": \"Invalid email or password\", "
                 + "\"path\": \"/login\"}";
         }
     }

@@ -143,6 +143,7 @@ public class DBService {
 		storageDeviceRepository.saveAll(Arrays.asList(storageDevice1, storageDevice2, storageDevice3, storageDevice4));
 		printerRepository.saveAll(Arrays.asList(printer1));
 		*/
+		
 		userRepository.saveAll(Arrays.asList(user1, user2));
 	}
 	

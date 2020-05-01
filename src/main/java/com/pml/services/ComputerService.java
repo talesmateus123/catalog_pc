@@ -19,23 +19,19 @@ import org.springframework.stereotype.Service;
 
 import com.pml.domain.Computer;
 import com.pml.domain.ComputerUser;
-import com.pml.domain.Equipment;
 import com.pml.domain.Monitor;
 import com.pml.domain.RamMemory;
 import com.pml.domain.StorageDevice;
 import com.pml.dto.ComputerNewDTO;
 import com.pml.repositories.ComputerRepository;
-import com.pml.repositories.EquipmentRepository;
 import com.pml.services.exceptions.ConflictOfObjectsException;
 import com.pml.services.exceptions.DataIntegrityException;
 import com.pml.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class ComputerService {
+public class ComputerService extends EquipmentService {
 	@Autowired
 	private ComputerRepository repository;
-	@Autowired
-	private EquipmentRepository equipmentRepository;
 	@Autowired
 	private ComputerUserService computerUserService;
 	@Autowired
@@ -64,11 +60,13 @@ public class ComputerService {
 	}
 
 	// Simple search methods
+	@Override
 	public Computer findById(Long id) {
 		Optional<Computer> object = this.repository.findById(id);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Computer not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
 	
+	@Override
 	public Computer findByPatrimonyId(String patrimonyId) {
 		Optional<Computer> object = this.repository.findByPatrimonyId(patrimonyId);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Computer not found: patrimonyId: '" + patrimonyId + "'. Type: " + object.getClass().getName()));
@@ -87,8 +85,8 @@ public class ComputerService {
 	// Create, update and delete methods
 	@Transactional
 	public Computer insert(Computer object) {
-		if(alreadyExists(object.getPatrimonyId())){
-			throw new ConflictOfObjectsException("This machine already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+		if(this.alreadyExists(object.getPatrimonyId())){
+			throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
 		object.setId(null);
 		object.setCreatedDate(new Date());
@@ -107,57 +105,15 @@ public class ComputerService {
 
 	@Transactional
 	public Computer update(Computer object) {
-		recoverData(object);
-		if(patrimonyIdIsChanged(object)){
-			if(alreadyExists(object.getPatrimonyId()))
-				throw new ConflictOfObjectsException("This machine already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+		this.recoverData(object);
+		if(this.patrimonyIdIsChanged(object)){
+			if(this.alreadyExists(object.getPatrimonyId()))
+				throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
 		return this.repository.saveAndFlush(object);
 	}
 
-	// Auxiliary methods
-	/**
-	 * Recover data of created date and updates the last modified date.
-	 * @param object Computer
-	 * @return void
-	 */
-	private void recoverData(Computer object) {
-		Computer oldObject = this.findById(object.getId());
-		object.setCreatedDate(oldObject.getCreatedDate());
-		object.setLastModifiedDate(new Date());
-	}
-	
-	/**
-	 * Verify if already exists the patrimony id requested.
-	 * @param patrimonyId Long
-	 * @return boolean
-	 */
-	private boolean alreadyExists(String patrimonyId) {	
-		Optional<Equipment> objectByPatrimonyId = this.equipmentRepository.findByPatrimonyId(patrimonyId);
-		
-		if(objectByPatrimonyId.isEmpty())
-			return false; 
-		return true;
-	}
-	
-	/**
-	 * Verify if the object in a question has its patrimony id changed.
-	 * @param object Computer
-	 * @return boolean
-	 */
-	private boolean patrimonyIdIsChanged(Computer object) {	
-		Optional<Computer> objectByPatrimonyId = this.repository.findByPatrimonyId(object.getPatrimonyId());	
-		// Generates an exception if object doesn't exists 
-		Computer objectById = this.findById(object.getId());
-		
-		if(objectByPatrimonyId.isEmpty())
-			return true;
-		
-		if(objectById.getPatrimonyId().equals(objectByPatrimonyId.get().getPatrimonyId()))
-			return false;		
-		return true;
-	}
-	
+	// Auxiliary methods	
 	/**
 	 * Convert the ComputerNewDTO object to a Computer object. 
 	 * @param objectDTO ComputerDTO
@@ -204,7 +160,7 @@ public class ComputerService {
 				computerUser.addUseTheComputer(object);
 				object.addComputerUser(computerUser);
 			}
-		}		
+		}
 		return object;
 	}
 	

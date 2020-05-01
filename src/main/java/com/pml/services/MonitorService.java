@@ -18,21 +18,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.pml.domain.Computer;
-import com.pml.domain.Equipment;
 import com.pml.domain.Monitor;
 import com.pml.dto.MonitorNewDTO;
-import com.pml.repositories.EquipmentRepository;
 import com.pml.repositories.MonitorRepository;
 import com.pml.services.exceptions.ConflictOfObjectsException;
 import com.pml.services.exceptions.DataIntegrityException;
 import com.pml.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class MonitorService {
+public class MonitorService extends EquipmentService {
 	@Autowired
 	private MonitorRepository repository;
-	@Autowired
-	private EquipmentRepository machineRepository;
 	@Autowired
 	private SectorService sectorService;
 	@Autowired
@@ -49,11 +45,13 @@ public class MonitorService {
 	}
 
 	// Simple search methods
+	@Override
 	public Monitor findByPatrimonyId(String patrimonyId) {
 		Optional<Monitor> object = this.repository.findByPatrimonyId(patrimonyId);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Monitor not found: patrimonyId: '" + patrimonyId + "'. Type: " + object.getClass().getName()));
 	}
 	
+	@Override
 	public Monitor findById(Long id) {
 		Optional<Monitor> object = this.repository.findById(id);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Monitor not found: id: '" + id + "'. Type: " + object.getClass().getName()));
@@ -67,8 +65,8 @@ public class MonitorService {
 	// Create, update and delete methods
 	@Transactional
 	public Monitor insert(Monitor object) {
-		if(alreadyExists(object.getPatrimonyId())){
-			throw new ConflictOfObjectsException("This machine already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+		if(this.alreadyExists(object.getPatrimonyId())){
+			throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
 		object.setId(null);
 		object.setCreatedDate(new Date());
@@ -86,59 +84,15 @@ public class MonitorService {
 	}
 
 	public Monitor update(Monitor object) {
-		recoverData(object);	
-		if(patrimonyIdIsChanged(object)){
-			if(alreadyExists(object.getPatrimonyId()))
-				throw new ConflictOfObjectsException("This machine already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+		this.recoverData(object);	
+		if(this.patrimonyIdIsChanged(object)){
+			if(this.alreadyExists(object.getPatrimonyId()))
+				throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}	
 		return this.repository.saveAndFlush(object);		
 	}
 	
-	// Auxiliary methods
-	
-	/**
-	 * Recover data of created date and updates the last modified date.
-	 * @param object
-	 * @return void
-	 */
-	private void recoverData(Monitor object) {
-		Monitor oldMonitor = this.findById(object.getId());
-		object.setCreatedDate(oldMonitor.getCreatedDate());
-		object.setLastModifiedDate(new Date());
-	}
-	
-	/**
-	 * Verify if already exists the patrimony id requested.
-	 * @param patrimonyId Long
-	 * @return boolean
-	 */
-	private boolean alreadyExists(String patrimonyId) {	
-		Optional<Equipment> objectByPatrimonyId = this.machineRepository.findByPatrimonyId(patrimonyId);
-		
-		if(objectByPatrimonyId.isEmpty())
-			return false; 
-		return true;
-	}
-	
-	
-	/**
-	 * Verify if the object in a question has its patrimony id changed.
-	 * @param object Monitor
-	 * @return boolean
-	 */
-	private boolean patrimonyIdIsChanged(Monitor object) {	
-		Optional<Monitor> objectByPatrimonyId = this.repository.findByPatrimonyId(object.getPatrimonyId());		
-		// Generates an exception if object doesn't exists 
-		Monitor objectById = this.findById(object.getId());
-		
-		if(objectByPatrimonyId.isEmpty())
-			return true;
-		
-		if(objectById.getPatrimonyId().equals(objectByPatrimonyId.get().getPatrimonyId()))
-			return false;		
-		return true;
-	}	
-	
+	// Auxiliary methods	
 	/**
 	 * Convert the MonitorNewDTO object to a Monitor object. 
 	 * @param objectNewDTO MonitorNewDTO

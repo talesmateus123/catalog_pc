@@ -5,6 +5,7 @@
  */
 package com.pml.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,5 +15,6 @@ import com.pml.domain.Equipment;
 @Repository
 public interface EquipmentRepository extends JpaRepository<Equipment, Long>{
 	Optional<Equipment> findByPatrimonyId(String patrimonyId);
+	List<Equipment> findByManufacturer(String manufacturer);
 	
 }
