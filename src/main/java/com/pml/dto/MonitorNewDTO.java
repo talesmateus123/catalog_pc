@@ -5,8 +5,6 @@ import java.io.Serializable;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.pml.domain.Sector;
-
 public class MonitorNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
@@ -18,7 +16,7 @@ public class MonitorNewDTO implements Serializable {
 	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
 	private String description;
 	private boolean itWorks;
-	private Sector sector;
+	private Long sectorId;
 	private Long computerId;
 	
 	public MonitorNewDTO() {
@@ -64,12 +62,12 @@ public class MonitorNewDTO implements Serializable {
 		this.description = description;
 	}
 	
-	public Sector getSector() {
-		return sector;
+	public Long getSectorId() {
+		return sectorId;
 	}
 	
-	public void setSector(Sector sector) {
-		this.sector = sector;
+	public void setSectorId(Long sectorId) {
+		this.sectorId = sectorId;
 	}
 	
 	public boolean isItWorks() {
