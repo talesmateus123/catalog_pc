@@ -17,4 +17,6 @@ public interface EquipmentRepository extends JpaRepository<Equipment, Long>{
 	Optional<Equipment> findByPatrimonyId(String patrimonyId);
 	List<Equipment> findByManufacturer(String manufacturer);
 	
+	
+	
 }

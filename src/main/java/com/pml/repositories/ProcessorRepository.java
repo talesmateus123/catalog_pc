@@ -15,5 +15,7 @@ import com.pml.domain.Processor;
 @Repository
 public interface ProcessorRepository extends JpaRepository<Processor, Long>{
 	Optional<Processor> findByComputer(Computer computer);
+
+	
 	
 }

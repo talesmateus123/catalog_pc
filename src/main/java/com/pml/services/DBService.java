@@ -66,7 +66,6 @@ public class DBService {
 		user1.addProfile(UserProfile.ADMIN);
 		Client user2 = new Client(null, "renato123@gmail.com", "Renato Campos", bCryptPasswordEncoder.encode("1234"));
 		
-		/*
 		// Sectors creation
 		Sector sector1 = new Sector(null, "Administração", true);
 		Sector sector2 = new Sector(null, "Recursos humanos", true);
@@ -142,10 +141,10 @@ public class DBService {
 		ramMemoryRepository.saveAll(Arrays.asList(ramMemory1, ramMemory2, ramMemory3, ramMemory4));
 		storageDeviceRepository.saveAll(Arrays.asList(storageDevice1, storageDevice2, storageDevice3, storageDevice4));
 		printerRepository.saveAll(Arrays.asList(printer1));
-		*/
 		
 		userRepository.saveAll(Arrays.asList(user1, user2));
 	}
+	
 	
 	
 }

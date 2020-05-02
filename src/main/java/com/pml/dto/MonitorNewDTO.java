@@ -88,5 +88,6 @@ public class MonitorNewDTO implements Serializable {
 		this.computerId = computerId;
 	}
 	
+	
 
 }

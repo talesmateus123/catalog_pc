@@ -10,4 +10,6 @@ public class ComputerCatalogationSystemApplication {
 		SpringApplication.run(ComputerCatalogationSystemApplication.class, args);
 	}
 	
+	
+	
 }

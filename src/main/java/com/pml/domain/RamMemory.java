@@ -64,4 +64,5 @@ public class RamMemory extends Electronic {
 	}
 	
 	
+	
 }

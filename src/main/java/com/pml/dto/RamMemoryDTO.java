@@ -145,6 +145,7 @@ public class RamMemoryDTO implements Serializable {
 	public void setArchitecture(RamMemoryArchitecture architecture) {
 		this.architecture = architecture.getCod();
 	}
+	
 
 	
 }

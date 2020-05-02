@@ -37,5 +37,7 @@ public enum ArchitectureType {
 		
 		throw new IllegalArgumentException("Invalid ID: " + cod + ".");
 	}
+	
+	
 
 }

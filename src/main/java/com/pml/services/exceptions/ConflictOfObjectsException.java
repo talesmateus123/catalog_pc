@@ -17,4 +17,7 @@ public class ConflictOfObjectsException extends RuntimeException{
 		super(msg, cause);
 		
 	}
+	
+	
+	
 }

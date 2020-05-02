@@ -19,4 +19,7 @@ public interface ComputerRepository extends JpaRepository<Computer, Long>{
 	Optional<Computer> findByMonitor(Monitor monitor);
 	Optional<Computer> findByPatrimonyId(String patrimonyId);
 	List<Computer> findByManufacturer(String manufacturer);	
+	
+	
+	
 }

@@ -78,6 +78,7 @@ public class RamMemoryNewDTO implements Serializable {
 	public void setComputerId(Long computerId) {
 		this.computerId = computerId;
 	}
+	
 
 	
 }

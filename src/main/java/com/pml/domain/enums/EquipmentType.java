@@ -42,4 +42,6 @@ public enum EquipmentType {
 		throw new IllegalArgumentException("Invalid ID: " + cod + ".");
 	}
 
+	
+	
 }

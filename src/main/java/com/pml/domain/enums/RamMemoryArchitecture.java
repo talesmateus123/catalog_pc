@@ -39,5 +39,7 @@ public enum RamMemoryArchitecture {
 		
 		throw new IllegalArgumentException("Invalid ID: " + cod + ".");
 	}
+	
+	
 
 }

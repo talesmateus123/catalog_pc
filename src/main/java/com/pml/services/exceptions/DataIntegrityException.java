@@ -17,4 +17,7 @@ public class DataIntegrityException extends RuntimeException{
 		super(msg, cause);
 		
 	}
+	
+	
+	
 }

@@ -158,6 +158,7 @@ public class StorageDeviceDTO implements Serializable {
 	public void setArchitecture(StorageDeviceArchitecture architecture) {
 		this.architecture = architecture.getCod();
 	}
+	
 
 	
 }

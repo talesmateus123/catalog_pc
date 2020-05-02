@@ -33,5 +33,6 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
 		return new UserSS(client.getId(), client.getEmail(), client.getPassword(), client.getProfiles());
 	}
 	
+	
 
 }

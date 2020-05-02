@@ -22,4 +22,5 @@ public interface EmailService {
 	void sendHtmlEmail(MimeMessage msg);
 	
 	
+	
 }

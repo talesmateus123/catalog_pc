@@ -165,7 +165,6 @@ public class Computer extends Equipment{
 
 	public void setRamMemories(List<RamMemory> ramMemories) {
 		this.ramMemories = ramMemories;
-		//this.calculateTotalRamMemories();
 	}
 	
 	/**
@@ -184,7 +183,6 @@ public class Computer extends Equipment{
 
 	public void setStorageDevices(List<StorageDevice> storageDevices) {
 		this.storageDevices = storageDevices;
-		// this.calculateTotalStorageDeviceMemories();		
 	}
 	
 	/**
@@ -306,25 +304,6 @@ public class Computer extends Equipment{
 		return builder.toString();
 	}
 
-	/*
-	private void calculateTotalRamMemories() {
-		if (this.ramMemories.isEmpty()) {
-			Integer totalMemory = 0;
-			for (RamMemory ramMemory : this.ramMemories)
-				totalMemory = totalMemory + ramMemory.getSizeInMB();
-			this.totalRamMemory = totalMemory;
-		}
-	}
-	
-	private void calculateTotalStorageDeviceMemories() {
-		if (this.storageDevices.isEmpty()) {
-			Integer totalMemory = 0;
-			for (StorageDevice storageDevice : this.storageDevices)
-				totalMemory = totalMemory + storageDevice.getSizeInMB();
-			this.totalStorageMemory = totalMemory;
-		}		
-	}
-	*/
 	
 	
 }

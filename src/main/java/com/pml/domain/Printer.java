@@ -53,5 +53,6 @@ public class Printer extends Equipment{
 	}
 	
 	
+	
 }
 
