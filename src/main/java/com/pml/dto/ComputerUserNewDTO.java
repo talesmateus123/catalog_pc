@@ -14,8 +14,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.pml.domain.Sector;
-
 public class ComputerUserNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@NotEmpty(message = "This field is mandatory")
@@ -24,8 +22,6 @@ public class ComputerUserNewDTO implements Serializable {
 	@NotEmpty(message = "This field is mandatory")
 	@Size(min = 4, max = 20, message = "The text of this field must contain between 4 and 20 characters")
 	private String lastName;
-	@NotNull(message = "This field is mandatory")
-	private Sector sector;
 	@Email(message = "Invalid e-mail")
 	private String email;
 	@NotNull(message = "This field is mandatory")

@@ -40,7 +40,7 @@ public class SectorService {
 	// Simple search methods
 	public Sector findById(Long id) {
 		Optional<Sector> object = this.repository.findById(id);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Ram memory not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+		return object.orElseThrow(()-> new ObjectNotFoundException("Sector not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
 	
 	public Sector findByName(String name) {
@@ -61,7 +61,7 @@ public class SectorService {
 			this.repository.deleteById(id);
 		}
 		catch(DataIntegrityViolationException e){
-			throw new DataIntegrityException("Could not delete the ram memory: id: '" + id + "'. This user has still dependents.");
+			throw new DataIntegrityException("Could not delete the Sector: id: '" + id + "'. This user has still dependents.");
 		}
 	}
 

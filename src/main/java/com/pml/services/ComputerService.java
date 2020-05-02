@@ -20,7 +20,9 @@ import org.springframework.stereotype.Service;
 import com.pml.domain.Computer;
 import com.pml.domain.ComputerUser;
 import com.pml.domain.Monitor;
+import com.pml.domain.Processor;
 import com.pml.domain.RamMemory;
+import com.pml.domain.Sector;
 import com.pml.domain.StorageDevice;
 import com.pml.dto.ComputerNewDTO;
 import com.pml.repositories.ComputerRepository;
@@ -129,6 +131,49 @@ public class ComputerService extends EquipmentService {
 				objectNewDTO.getOperatingSystemArchitecture(), objectNewDTO.isOnTheDomain(), null);
 		
 		// Setting all attributes
+		/*
+		if(objectNewDTO.getMonitorId() != null) {
+			Monitor monitor = new Monitor();
+			monitor.setId(objectNewDTO.getMonitorId());
+			object.setMonitor(monitor);
+		}
+		if(objectNewDTO.getProcessorId() != null) {
+			Processor processor = new Processor();
+			processor.setId(objectNewDTO.getProcessorId());
+			object.setProcessor(processor);
+		}
+		if(objectNewDTO.getSectorId() != null) {
+			Sector sector = new Sector();
+			sector.setId(objectNewDTO.getSectorId());
+			object.setSector(sector);
+		}
+			
+		if(objectNewDTO.getRamMemoriesId() != null) {
+			for(Long ramMemoryId : objectNewDTO.getRamMemoriesId()) {
+				RamMemory ramMemory = new RamMemory();
+				ramMemory.setId(ramMemoryId);
+				ramMemory.setComputer(object);
+				object.addRamMemory(ramMemory);
+			}
+		}
+		if(objectNewDTO.getStorageDevicesId() != null) {
+			for(Long storageDeviceId : objectNewDTO.getStorageDevicesId()) {
+				StorageDevice storageDevice = new StorageDevice();
+				storageDevice.setId(storageDeviceId);
+				storageDevice.setComputer(object);
+				object.addStorageDevice(storageDevice);
+			}
+		}
+		if(objectNewDTO.getComputerUsersId() != null) {
+			for(Long computerUserId : objectNewDTO.getComputerUsersId()) {
+				ComputerUser computerUser = new ComputerUser();
+				computerUser.setId(computerUserId);
+				computerUser.addUseTheComputer(object);
+				object.addComputerUser(computerUser);
+			}
+		}
+		*/
+		 // Setting all attributes
 		if(objectNewDTO.getMonitorId() != null) {
 			object.setMonitor(this.monitorService.findById(objectNewDTO.getMonitorId()));
 		}
@@ -161,8 +206,9 @@ public class ComputerService extends EquipmentService {
 				object.addComputerUser(computerUser);
 			}
 		}
+	
 		return object;
-	}
+	}	
 	
 	
 	

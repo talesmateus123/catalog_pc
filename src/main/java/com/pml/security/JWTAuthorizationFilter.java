@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
-
+	// These objects will be injected in this class by the constructor method
 	private JWTUtil jwtUtil;
 	private UserDetailsService userDetailsService;
 	
@@ -27,21 +27,24 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 	
 	/**
 	 * Create an authentication filter to request.
+     * @param req HttpServletRequest
+     * @param res HttpServletResponse
+     * @param chain FilterChain
 	 * @return void
 	 */
 	@Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
+    protected void doFilterInternal(HttpServletRequest req,
+                                    HttpServletResponse res,
                                     FilterChain chain) throws IOException, ServletException {
 		// Get the authentication header
-		String header = request.getHeader("Authorization");
+		String header = req.getHeader("Authorization");
 		if (header != null && header.startsWith("Bearer ")) {
 			// Obtain 7-digit token authentication (Bearer )
 			UsernamePasswordAuthenticationToken auth = getAuthentication(header.substring(7));
 			if (auth != null) 
 				SecurityContextHolder.getContext().setAuthentication(auth);
 		}
-		chain.doFilter(request, response);
+		chain.doFilter(req, res);
 	}
 
 	/**

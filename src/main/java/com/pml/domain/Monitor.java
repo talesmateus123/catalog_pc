@@ -11,13 +11,14 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pml.domain.enums.EquipmentType;
 
 @Entity
 public class Monitor extends Equipment{
-	private static final long serialVersionUID = 1L;
-	@OneToOne
+	private static final long serialVersionUID = 1L;@OneToOne
 	@JoinColumn(name = "computer_id")
+	@JsonIgnore
 	private Computer computer;
 
 	public Monitor() {

@@ -106,7 +106,7 @@ public class MonitorService extends EquipmentService {
 		if(objectNewDTO.getSectorId() != null)
 			object.setSector(this.sectorService.findById(objectNewDTO.getSectorId()));
 		if (objectNewDTO.getComputerId() != null)
-			object.setComputer(this.computerService.findById(objectNewDTO.getComputerId()));		
+			object.setComputer(this.computerService.findById(objectNewDTO.getComputerId()));
 		return object;
 	}
 	

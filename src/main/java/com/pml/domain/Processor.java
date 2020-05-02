@@ -16,8 +16,7 @@ public class Processor extends Electronic {
 	@NotNull
 	private String processorName;
 	@NotNull
-	private Integer architecture;
-	@OneToOne
+	private Integer architecture;@OneToOne
 	@JoinColumn(name = "computer_id")
 	private Computer computer;
 	

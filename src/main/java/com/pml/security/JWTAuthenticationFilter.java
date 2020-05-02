@@ -37,6 +37,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     /**
      * Attempting to authenticate by request body.
+     * @param req HttpServletRequest
+     * @param res HttpServletResponse
      * @return Authentication
      */
     @Override
@@ -58,7 +60,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	}
 	
     /**
-     * If authentication is occurred successfully, add a new generated token to response Header.  
+     * If authentication is occurred successfully, add a new generated token to response Header.
+     * @param req HttpServletRequest
+     * @param res HttpServletResponse
+     * @param chain FilterChain
+     * @param auth Authentication
      * @return void
      */
     @Override

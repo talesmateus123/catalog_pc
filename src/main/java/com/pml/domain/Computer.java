@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.OperatingSystem;
@@ -49,14 +49,12 @@ public class Computer extends Equipment{
 		joinColumns = @JoinColumn(name = "computer_id"),
 		inverseJoinColumns =  @JoinColumn(name = "computer_user_id")
 			)
-	private List<ComputerUser> computerUsers = new ArrayList<>();
-	
+	private List<ComputerUser> computerUsers = new ArrayList<>();	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "computer")
-	@JsonBackReference
-	private Monitor monitor;
-	
+	@JsonIgnore
+	private Monitor monitor;	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "computer")
-	@JsonBackReference
+	@JsonIgnore
 	private Processor processor;
 	
 	public Computer() {
@@ -173,8 +171,10 @@ public class Computer extends Equipment{
 	 * @return void
 	 */	
 	public void addRamMemory(RamMemory ramMemory) {
+		if(this.ramMemories.contains(ramMemory))
+			return;
 		this.ramMemories.add(ramMemory);
-		this.totalRamMemory = this.totalRamMemory + ramMemory.getSizeInMB();
+		this.totalRamMemory = (ramMemory.getSizeInMB() != null) ? this.totalRamMemory + ramMemory.getSizeInMB() : this.totalRamMemory;
 	}
 
 	public List<StorageDevice> getStorageDevices() {
@@ -191,8 +191,10 @@ public class Computer extends Equipment{
 	 * @return void
 	 */
 	public void addStorageDevice(StorageDevice storageDevice) {
+		if(this.storageDevices.contains(storageDevice))
+			return;
 		this.storageDevices.add(storageDevice);
-		this.totalStorageMemory = this.totalStorageMemory + storageDevice.getSizeInMB();
+		this.totalStorageMemory = (storageDevice.getSizeInMB() != null) ? this.totalStorageMemory + storageDevice.getSizeInMB() : this.totalRamMemory;
 	}
 
 	public List<ComputerUser> getComputerUsers() {
