@@ -20,9 +20,9 @@ public class ComputerDTO implements Serializable {
 	private String manufacturer;
 	private String model;
 	private String description;
-	private boolean itWorks = true; 
+	private boolean itWorks;
 	private boolean itComposed;
-	private String patrimonyId = "";
+	private String patrimonyId;
 	private String ipAddress;
 	private String hostName;
 	private String motherBoardName;
@@ -41,7 +41,7 @@ public class ComputerDTO implements Serializable {
 		this.id = computer.getId(); 
 		this.createdDate = computer.getCreatedDate();
 		this.lastModifiedDate = computer.getLastModifiedDate();
-		this.equipmentType = computer.getEquipmentType().getCod();
+		this.equipmentType = (computer.getEquipmentType() != null) ? computer.getEquipmentType().getCod() : null;
 		this.manufacturer = computer.getManufacturer();
 		this.model = computer.getModel();
 		this.description = computer.getDescription();
@@ -52,41 +52,13 @@ public class ComputerDTO implements Serializable {
 		this.hostName = computer.getHostName();
 		this.motherBoardName = computer.getMotherBoardName(); 
 		this.hasCdBurner = computer.getHasCdBurner();
-		this.operatingSystem = computer.getOperatingSystem().getCod();
-		this.operatingSystemArchitecture = computer.getOperatingSystemArchitecture().getCod();
+		this.operatingSystem = (computer.getOperatingSystem() != null) ? computer.getOperatingSystem().getCod() : null;
+		this.operatingSystemArchitecture = (computer.getOperatingSystemArchitecture() != null) ? computer.getOperatingSystemArchitecture().getCod() : null;
 		this.onTheDomain = computer.isOnTheDomain();
 		this.cabinetModel = computer.getCabinetModel();;
 		this.totalRamMemory = computer.getTotalRamMemory();
 		this.totalStorageMemory = computer.getTotalStorageMemory();
 		this.itComposed = computer.isItComposed();
-	}
-	
-	public ComputerDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
-			String model, String description, boolean itWorks, String ipAddress, String hostName,
-			String motherBoardName, Integer totalRamMemory, Integer totalStorageMemory, Boolean hasCdBurner, 
-			String cabinetModel, Integer operatingSystem, Integer operatingSystemArchitecture, 
-			boolean onTheDomain, EquipmentType equipmentType, boolean itComposed) {
-		this.id = id;
-		this.createdDate = createdDate;
-		this.lastModifiedDate = lastModifiedDate;
-		this.equipmentType = equipmentType.getCod();
-		this.manufacturer = manufacturer;
-		this.model = model;
-		this.description = description;
-		this.itWorks = itWorks;
-		this.itComposed = itComposed;
-		this.patrimonyId = patrimonyId;
-		this.ipAddress = ipAddress;
-		this.hostName = hostName;
-		this.motherBoardName = motherBoardName;
-		this.hasCdBurner = hasCdBurner;
-		this.operatingSystem = operatingSystem;
-		this.operatingSystemArchitecture = operatingSystemArchitecture;
-		this.onTheDomain = onTheDomain;
-		this.cabinetModel = cabinetModel;
-		this.totalRamMemory = totalRamMemory;
-		this.totalStorageMemory = totalStorageMemory;
-		this.itComposed = itComposed;
 	}
 	
 	public Long getId() {
@@ -232,7 +204,7 @@ public class ComputerDTO implements Serializable {
 	public void setOnTheDomain(boolean onTheDomain) {
 		this.onTheDomain = onTheDomain;
 	}
-	
+
 	public Integer getTotalRamMemory() {
 		return totalRamMemory;
 	}

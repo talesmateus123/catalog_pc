@@ -20,7 +20,7 @@ public class StorageDeviceDTO implements Serializable {
 	private String manufacturer;
 	private String model;
 	private String description;
-	private boolean itWorks = true; 
+	private boolean itWorks; 
 	private boolean itComposed;
 	private Integer sizeInMB;
 	private Integer architecture;
@@ -43,23 +43,6 @@ public class StorageDeviceDTO implements Serializable {
 		this.sizeInMB = storageDevice.getSizeInMB();
 		this.architecture = storageDevice.getArchitecture().getCod();	
 		this.type = storageDevice.getType().getCod();	
-	}
-	
-	public StorageDeviceDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate,  EquipmentType equipmentType,
-			String manufacturer, String model, String description, Integer sector, boolean itWorks, boolean itComposed, 
-			Integer sizeInMB, StorageDeviceArchitecture architecture, StorageDeviceType type) {
-		this.id = id;
-		this.createdDate = createdDate;
-		this.lastModifiedDate = lastModifiedDate;
-		this.equipmentType = equipmentType.getCod();
-		this.manufacturer = manufacturer;
-		this.model = model;
-		this.description = description;
-		this.itWorks = itWorks;
-		this.itComposed = itComposed;
-		this.sizeInMB = sizeInMB;
-		this.architecture = architecture.getCod();
-		this.type = type.getCod();
 	}
 	
 	public Long getId() {

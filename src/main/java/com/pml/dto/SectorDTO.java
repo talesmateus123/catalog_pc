@@ -6,7 +6,7 @@ import com.pml.domain.Sector;
 
 public class SectorDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Long id;
+	private Integer id;
 	private String name;
 	private boolean itInternal;
 	
@@ -19,17 +19,11 @@ public class SectorDTO implements Serializable {
 		this.itInternal = sector.isItInternal();
 	}
 	
-	public SectorDTO(Long id, String name, boolean itInternal) {
-		this.id = id;
-		this.name = name;
-		this.itInternal = itInternal;
-	}
-	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

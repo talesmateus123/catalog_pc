@@ -25,7 +25,7 @@ public class ComputerUserNewDTO implements Serializable {
 	@Email(message = "Invalid e-mail")
 	private String email;
 	@NotNull(message = "This field is mandatory")
-	private Long sectorId;
+	private Integer sectorId;
 	private List<Long> useTheComputersId = new ArrayList<>();
 	
 	public ComputerUserNewDTO() {		
@@ -47,11 +47,11 @@ public class ComputerUserNewDTO implements Serializable {
 		this.lastName = lastName;
 	}
 	
-	public Long getSectorId() {
+	public Integer getSectorId() {
 		return sectorId;
 	}
 	
-	public void setSectorId(Long sectorId) {
+	public void setSectorId(Integer sectorId) {
 		this.sectorId = sectorId;
 	}
 	

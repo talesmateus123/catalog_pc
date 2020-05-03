@@ -2,15 +2,12 @@ package com.pml.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class MonitorNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	@NotEmpty(message = "This field is mandatory")
-	@Size(min = 4, max = 10, message = "The text of this field must contain between 4 and 10 characters")
 	private String patrimonyId;
 	private String manufacturer;
 	private String model;
@@ -18,7 +15,7 @@ public class MonitorNewDTO implements Serializable {
 	private String description;
 	private boolean itWorks;
 	@NotNull(message = "This field is mandatory")
-	private Long sectorId;
+	private Integer sectorId;
 	private Long computerId;
 	
 	public MonitorNewDTO() {
@@ -64,11 +61,11 @@ public class MonitorNewDTO implements Serializable {
 		this.description = description;
 	}
 	
-	public Long getSectorId() {
+	public Integer getSectorId() {
 		return sectorId;
 	}
 	
-	public void setSectorId(Long sectorId) {
+	public void setSectorId(Integer sectorId) {
 		this.sectorId = sectorId;
 	}
 	

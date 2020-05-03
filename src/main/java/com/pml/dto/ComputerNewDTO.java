@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.OperatingSystem;
@@ -14,12 +12,9 @@ import com.pml.domain.enums.OperatingSystem;
 public class ComputerNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	@NotEmpty(message = "This field is mandatory")
-	@Size(min = 4, max = 10, message = "The text of this field must contain between 4 and 10 characters")
 	private String patrimonyId;
 	private String manufacturer;
 	private String model;
-	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
 	private String description;
 	private boolean itWorks;
 	private String ipAddress;
@@ -29,15 +24,13 @@ public class ComputerNewDTO implements Serializable {
 	private String cabinetModel;
 	private Integer operatingSystem;
 	private Integer operatingSystemArchitecture;
-	@NotNull(message = "This field is mandatory")
 	private boolean onTheDomain;
-	
 	private Long monitorId;
 	private Long processorId;
-	@NotNull(message = "This field is mandatory")	
-	private Long sectorId;
-	private List<Long> ramMemoriesId;
-	private List<Long> storageDevicesId;
+	@NotNull(message = "This field is mandatory")
+	private Integer sectorId;
+	private List<Long> ramMemoriesId = new ArrayList<>();
+	private List<Long> storageDevicesId = new ArrayList<>();
 	private List<Long> computerUsersId = new ArrayList<>();
 	
 	public ComputerNewDTO() {
@@ -83,11 +76,11 @@ public class ComputerNewDTO implements Serializable {
 		this.description = description;
 	}
 	
-	public Long getSectorId() {
+	public Integer getSectorId() {
 		return sectorId;
 	}
 	
-	public void setSectorId(Long sectorId) {
+	public void setSectorId(Integer sectorId) {
 		this.sectorId = sectorId;
 	}
 	

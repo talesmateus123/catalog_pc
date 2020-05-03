@@ -2,22 +2,19 @@ package com.pml.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class PrinterNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	@NotEmpty(message = "This field is mandatory")
-	@Size(min = 4, max = 10, message = "The text of this field must contain between 4 and 10 characters")
 	private String patrimonyId;
 	private String manufacturer;
 	private String model;
 	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
 	private String description;
 	@NotNull(message = "This field is mandatory")
-	private Long sectorId;
+	private Integer sectorId;
 	private boolean itWorks;
 	private String ipAddress;
 	private String hostName;
@@ -65,11 +62,11 @@ public class PrinterNewDTO implements Serializable {
 		this.description = description;
 	}
 	
-	public Long getSectorId() {
+	public Integer getSectorId() {
 		return sectorId;
 	}
 	
-	public void setSectorId(Long sectorId) {
+	public void setSectorId(Integer sectorId) {
 		this.sectorId = sectorId;
 	}
 	

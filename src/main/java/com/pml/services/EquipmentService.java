@@ -43,10 +43,13 @@ public abstract class EquipmentService {
 	
 	/**
 	 * Verify if already exists the patrimony id requested.
-	 * @param patrimonyId Long
+	 * @param patrimonyId String
 	 * @return boolean
 	 */
 	protected boolean alreadyExists(String patrimonyId) {	
+		if(patrimonyId == null)
+			return false;
+		
 		Optional<Equipment> objectByPatrimonyId = this.repository.findByPatrimonyId(patrimonyId);
 		
 		if(objectByPatrimonyId.isEmpty())

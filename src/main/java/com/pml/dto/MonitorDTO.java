@@ -40,21 +40,6 @@ public class MonitorDTO implements Serializable {
 		this.itComposed = monitor.isItComposed();
 	}
 	
-	public MonitorDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
-			String model, String description, boolean itWorks, EquipmentType equipmentType,
-			boolean itComposed) {
-		this.id = id;
-		this.patrimonyId = patrimonyId;
-		this.createdDate = createdDate;
-		this.lastModifiedDate = lastModifiedDate;
-		this.manufacturer = manufacturer;
-		this.model = model;
-		this.description = description;
-		this.itWorks = itWorks;
-		this.equipmentType = equipmentType.getCod();
-		this.itComposed = itComposed;
-	}
-	
 	public Long getId() {
 		return id;
 	}

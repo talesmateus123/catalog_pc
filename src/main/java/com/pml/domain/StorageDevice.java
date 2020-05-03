@@ -7,7 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.StorageDeviceArchitecture;
 import com.pml.domain.enums.StorageDeviceType;
@@ -23,7 +23,7 @@ public class StorageDevice extends Electronic {
 	private Integer type;
 	@ManyToOne
 	@JoinColumn(name = "computer_id")
-	@JsonBackReference
+	@JsonIgnore
 	private Computer computer;
 	
 	public StorageDevice() {

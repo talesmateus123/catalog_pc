@@ -33,13 +33,6 @@ public class ClientDTO implements Serializable {
 		this.password = client.getPassword();
 	}
 	
-	public ClientDTO(Long id, String email, String name, String password) {
-		this.id = id;
-		this.email = email;
-		this.name = name;
-		this.password = password;
-	}
-	
 	public Long getId() {
 		return id;
 	}

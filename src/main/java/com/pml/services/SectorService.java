@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.pml.domain.Address;
 import com.pml.domain.Sector;
 import com.pml.dto.SectorNewDTO;
 import com.pml.repositories.SectorRepository;
@@ -26,7 +27,9 @@ import com.pml.services.exceptions.ObjectNotFoundException;
 public class SectorService {
 	@Autowired
 	private SectorRepository repository;
-
+	@Autowired
+	private AddressService addressService;
+	
 	// List search methods
 	public List<Sector> findAll() {
 		return this.repository.findAll();
@@ -38,7 +41,7 @@ public class SectorService {
 	}
 
 	// Simple search methods
-	public Sector findById(Long id) {
+	public Sector findById(Integer id) {
 		Optional<Sector> object = this.repository.findById(id);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Sector not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
@@ -52,24 +55,28 @@ public class SectorService {
 	@Transactional
 	public Sector insert(Sector object) {
 		object.setId(null);
+		this.addressService.insert(object.getAddress());
 		return this.repository.save(object);
 	}
 
-	public void delete(Long id) {
+	public void delete(Integer id) {
 		this.findById(id);
 		try {
 			this.repository.deleteById(id);
 		}
 		catch(DataIntegrityViolationException e){
-			throw new DataIntegrityException("Could not delete the Sector: id: '" + id + "'. This user has still dependents.");
+			throw new DataIntegrityException("Could not delete the sector: id: '" + id + "'. This user has still dependents.");
 		}
 	}
 
 	public Sector update(Sector object) {
-		return this.repository.saveAndFlush(object);		
+		Address address = object.getAddress();
+		address.setSector(null);
+		this.addressService.update(address);
+		return this.repository.saveAndFlush(object);
 	}
 
-	// Auxiliary methods
+	// Auxiliary methods	
 	/**
 	 * Convert the SectorNewDTO object to a Sector object. 
 	 * @param objectNewDTO SectorNewDTO
@@ -77,6 +84,12 @@ public class SectorService {
 	 */
 	public Sector fromDTO(SectorNewDTO objectNewDTO) {
 		Sector object = new Sector(null, objectNewDTO.getName(), objectNewDTO.isItInternal());
+		
+		Address address = new Address(null, objectNewDTO.getAddressName(), objectNewDTO.getAddressStreet(), objectNewDTO.getAddressNumber(), 
+				objectNewDTO.getAddressNeighborhood(), objectNewDTO.getAddressComplement(), objectNewDTO.getAddressCity(), 
+				objectNewDTO.getAddressTelephone(), null);
+		object.setAddress(address);
+		
 		return object;
 	}
 	

@@ -20,9 +20,7 @@ import org.springframework.stereotype.Service;
 import com.pml.domain.Computer;
 import com.pml.domain.ComputerUser;
 import com.pml.domain.Monitor;
-import com.pml.domain.Processor;
 import com.pml.domain.RamMemory;
-import com.pml.domain.Sector;
 import com.pml.domain.StorageDevice;
 import com.pml.dto.ComputerNewDTO;
 import com.pml.repositories.ComputerRepository;
@@ -115,13 +113,13 @@ public class ComputerService extends EquipmentService {
 		return this.repository.saveAndFlush(object);
 	}
 
-	// Auxiliary methods	
+	// Auxiliary method
 	/**
 	 * Convert the ComputerNewDTO object to a Computer object. 
 	 * @param objectDTO ComputerDTO
 	 * @return Computer
 	 */
-	public Computer fromDTO(ComputerNewDTO objectNewDTO) {		
+	public Computer fromDTO(ComputerNewDTO objectNewDTO) {
 		Computer object = new Computer(
 				null, objectNewDTO.getPatrimonyId(), null, null,
 				objectNewDTO.getManufacturer(), objectNewDTO.getModel(), objectNewDTO.getDescription(), 
@@ -131,49 +129,8 @@ public class ComputerService extends EquipmentService {
 				objectNewDTO.getOperatingSystemArchitecture(), objectNewDTO.isOnTheDomain(), null);
 		
 		// Setting all attributes
-		/*
-		if(objectNewDTO.getMonitorId() != null) {
-			Monitor monitor = new Monitor();
-			monitor.setId(objectNewDTO.getMonitorId());
-			object.setMonitor(monitor);
-		}
-		if(objectNewDTO.getProcessorId() != null) {
-			Processor processor = new Processor();
-			processor.setId(objectNewDTO.getProcessorId());
-			object.setProcessor(processor);
-		}
-		if(objectNewDTO.getSectorId() != null) {
-			Sector sector = new Sector();
-			sector.setId(objectNewDTO.getSectorId());
-			object.setSector(sector);
-		}
-			
-		if(objectNewDTO.getRamMemoriesId() != null) {
-			for(Long ramMemoryId : objectNewDTO.getRamMemoriesId()) {
-				RamMemory ramMemory = new RamMemory();
-				ramMemory.setId(ramMemoryId);
-				ramMemory.setComputer(object);
-				object.addRamMemory(ramMemory);
-			}
-		}
-		if(objectNewDTO.getStorageDevicesId() != null) {
-			for(Long storageDeviceId : objectNewDTO.getStorageDevicesId()) {
-				StorageDevice storageDevice = new StorageDevice();
-				storageDevice.setId(storageDeviceId);
-				storageDevice.setComputer(object);
-				object.addStorageDevice(storageDevice);
-			}
-		}
-		if(objectNewDTO.getComputerUsersId() != null) {
-			for(Long computerUserId : objectNewDTO.getComputerUsersId()) {
-				ComputerUser computerUser = new ComputerUser();
-				computerUser.setId(computerUserId);
-				computerUser.addUseTheComputer(object);
-				object.addComputerUser(computerUser);
-			}
-		}
-		*/
-		 // Setting all attributes
+		
+		// One to one relationships
 		if(objectNewDTO.getMonitorId() != null) {
 			object.setMonitor(this.monitorService.findById(objectNewDTO.getMonitorId()));
 		}
@@ -183,30 +140,36 @@ public class ComputerService extends EquipmentService {
 		if(objectNewDTO.getSectorId() != null) {
 			object.setSector(this.sectorService.findById(objectNewDTO.getSectorId()));
 		}
-			
+		// One to many relationships
 		if(objectNewDTO.getRamMemoriesId() != null) {
-			for(Long ramMemoryId : objectNewDTO.getRamMemoriesId()) {
-				RamMemory ramMemory = this.ramMemoryService.findById(ramMemoryId);
-				ramMemory.setComputer(object);
-				object.addRamMemory(ramMemory);
+			if(!objectNewDTO.getRamMemoriesId().isEmpty()) {
+				for(Long ramMemoryId : objectNewDTO.getRamMemoriesId()) {
+					RamMemory ramMemory = this.ramMemoryService.findById(ramMemoryId);
+					ramMemory.setComputer(object);
+					object.addRamMemory(ramMemory);
+				}
 			}
 		}
-		
 		if(objectNewDTO.getStorageDevicesId() != null) {
-			for(Long storageDeviceId : objectNewDTO.getStorageDevicesId()) {
-				StorageDevice storageDevice = this.storageDeviceService.findById(storageDeviceId);
-				storageDevice.setComputer(object);
-				object.addStorageDevice(storageDevice);
+			if(!objectNewDTO.getStorageDevicesId().isEmpty()) {
+				for(Long storageDeviceId : objectNewDTO.getStorageDevicesId()) {
+					StorageDevice storageDevice = this.storageDeviceService.findById(storageDeviceId);
+					storageDevice.setComputer(object);
+					object.addStorageDevice(storageDevice);
+				}
 			}
 		}
+		// Many to many relationships
 		if(objectNewDTO.getComputerUsersId() != null) {
-			for(Long computerUserId : objectNewDTO.getComputerUsersId()) {
-				ComputerUser computerUser = this.computerUserService.findById(computerUserId);
-				computerUser.addUseTheComputer(object);
-				object.addComputerUser(computerUser);
+			if(!objectNewDTO.getComputerUsersId().isEmpty()) {
+				for(Long computerUserId : objectNewDTO.getComputerUsersId()) {
+					ComputerUser computerUser = this.computerUserService.findById(computerUserId);
+					computerUser.addUseTheComputer(object);
+					object.addComputerUser(computerUser);
+				}
 			}
 		}
-	
+		System.out.println(object.toString());
 		return object;
 	}	
 	

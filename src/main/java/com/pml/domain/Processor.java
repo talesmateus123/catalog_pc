@@ -7,6 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.EquipmentType;
 
@@ -16,8 +17,10 @@ public class Processor extends Electronic {
 	@NotNull
 	private String processorName;
 	@NotNull
-	private Integer architecture;@OneToOne
+	private Integer architecture;
+	@OneToOne
 	@JoinColumn(name = "computer_id")
+	@JsonIgnore
 	private Computer computer;
 	
 	public Processor() {

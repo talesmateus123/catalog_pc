@@ -19,7 +19,7 @@ public class ProcessorDTO implements Serializable {
 	private String manufacturer;
 	private String model;
 	private String description;
-	private boolean itWorks = true; 
+	private boolean itWorks; 
 	private boolean itComposed;
 	private String processorName;
 	private Integer architecture;
@@ -39,22 +39,6 @@ public class ProcessorDTO implements Serializable {
 		this.itComposed = processor.isItComposed();
 		this.processorName = processor.getProcessorName();
 		this.architecture = processor.getArchitecture().getCod();	
-	}
-	
-	public ProcessorDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate,  EquipmentType equipmentType,
-			String manufacturer, String model, String description, Integer sector, boolean itWorks, boolean itComposed, 
-			String processorName, Integer architecture) {
-		this.id = id;
-		this.createdDate = createdDate;
-		this.lastModifiedDate = lastModifiedDate;
-		this.equipmentType = equipmentType.getCod();
-		this.manufacturer = manufacturer;
-		this.model = model;
-		this.description = description;
-		this.itWorks = itWorks;
-		this.itComposed = itComposed;
-		this.processorName = processorName;
-		this.architecture = architecture;
 	}
 	
 	public Long getId() {

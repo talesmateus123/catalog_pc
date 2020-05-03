@@ -18,9 +18,9 @@ public class PrinterDTO implements Serializable {
 	private String manufacturer;
 	private String model;
 	private String description;
-	private boolean itWorks = true; 
+	private boolean itWorks; 
 	private boolean itComposed;
-	private String patrimonyId = "";
+	private String patrimonyId;
 	private String ipAddress;
 	private String hostName;
 	
@@ -41,24 +41,6 @@ public class PrinterDTO implements Serializable {
 		this.ipAddress = printer.getIpAddress();
 		this.hostName = printer.getHostName();
 		this.itComposed = printer.isItComposed();
-	}
-	
-	public PrinterDTO(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
-			String model, String description, boolean itWorks, String ipAddress, String hostName,
-			EquipmentType equipmentType, boolean itComposed) {
-		this.id = id;
-		this.createdDate = createdDate;
-		this.lastModifiedDate = lastModifiedDate;
-		this.equipmentType = equipmentType.getCod();
-		this.manufacturer = manufacturer;
-		this.model = model;
-		this.description = description;
-		this.itWorks = itWorks;
-		this.itComposed = itComposed;
-		this.patrimonyId = patrimonyId;
-		this.ipAddress = ipAddress;
-		this.hostName = hostName;
-		this.itComposed = itComposed;
 	}
 	
 	public Long getId() {

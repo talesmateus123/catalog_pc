@@ -39,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/h2-console/**"
 	};
 	
+	/*
 	private static final String[] PUBLIC_MATCHERS_GET = {
 			"/api/sectors/**",
 			"/api/computers/**",
@@ -54,6 +55,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/api/users/**",
 			"/auth/forgot_password"
 	};
+	*/
+	
+	private static final String[] PUBLIC_MATCHERS_GET = {
+			"/api/sectors/**",
+			"/api/computers/**",
+			"/api/computer_users/**",
+			"/api/monitors/**",
+			"/api/processors/**",
+			"/api/ram_memories/**",
+			"/api/storage_devices/**",
+			"/api/printers/**"
+	};
+	
+	private static final String[] PUBLIC_MATCHERS_POST = {
+			"/api/sectors/**",
+			"/api/computers/**",
+			"/api/computer_users/**",
+			"/api/monitors/**",
+			"/api/processors/**",
+			"/api/ram_memories/**",
+			"/api/storage_devices/**",
+			"/api/printers/**",
+			"/api/users/**",
+			"/auth/forgot_password"
+	};	
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

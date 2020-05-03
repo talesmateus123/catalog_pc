@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,11 +21,15 @@ public class Sector implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	@NotEmpty
 	private String name;
 	@NotNull
 	private boolean itInternal;
+	@OneToOne
+	@JoinColumn(name = "address_id")
+	@NotNull
+	private Address address;
 	@OneToMany(mappedBy = "sector")
 	@JsonIgnore
 	private List<Equipment> equipments = new ArrayList<>();
@@ -34,18 +40,18 @@ public class Sector implements Serializable {
 	public Sector() {
 	}
 	
-	public Sector(Long id, String name, boolean itInternal) {
+	public Sector(Integer id, String name, boolean itInternal) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.itInternal = itInternal;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -64,6 +70,14 @@ public class Sector implements Serializable {
 	public void setItInternal(boolean itInternal) {
 		this.itInternal = itInternal;
 	}	
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
 	public List<Equipment> getEquipments() {
 		return equipments;

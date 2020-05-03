@@ -12,8 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pml.domain.Sector;
 @Repository
-public interface SectorRepository extends JpaRepository<Sector, Long>{
-	Optional<Sector> findById(Long id);
+public interface SectorRepository extends JpaRepository<Sector, Integer>{
 	Optional<Sector> findByName(String patrimonyId);
 	
 	

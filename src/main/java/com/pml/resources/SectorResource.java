@@ -59,7 +59,7 @@ public class SectorResource {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Sector> findById(@PathVariable Long id) {
+	public ResponseEntity<Sector> findById(@PathVariable Integer id) {
 		Sector object = this.service.findById(id);
 		return ResponseEntity.ok().body(object);
 	}
@@ -82,14 +82,14 @@ public class SectorResource {
 
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id) {
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		this.service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody SectorNewDTO objectDTO, @PathVariable Long id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody SectorNewDTO objectDTO, @PathVariable Integer id) {
 		Sector object = this.service.fromDTO(objectDTO);
 		object.setId(id);
 		

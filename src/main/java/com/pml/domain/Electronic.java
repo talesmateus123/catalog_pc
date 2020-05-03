@@ -29,11 +29,10 @@ public abstract class Electronic implements Serializable{
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	protected Date lastModifiedDate;
 	protected Integer equipmentType;
-	protected String manufacturer = "N/A";
-	protected String model = "N/A";
-	protected String description = "N/A";
+	protected String manufacturer = "Undefined";
+	protected String model = "Undefined";
+	protected String description = "Undefined";
 	protected boolean itWorks = true;
-	// Equipment composed is not a computer part 
 	protected boolean itComposed;
 
 	
@@ -45,12 +44,10 @@ public abstract class Electronic implements Serializable{
 		this.id = id;
 		this.createdDate = createdDate;
 		this.lastModifiedDate = lastModifiedDate;
-		this.equipmentType = (equipmentType == null) ? null : equipmentType.getCod();
-		
-		this.manufacturer = (manufacturer != null) ? manufacturer : "N/A";
-		this.model = (model != null) ? model : "N/A";
-		this.description = (description != null) ? description : "N/A";
-		
+		this.equipmentType = (equipmentType == null) ? null : equipmentType.getCod();		
+		this.manufacturer = manufacturer ;
+		this.model = model;
+		this.description = description;		
 		this.itWorks = itWorks;
 		this.itComposed = itComposed;
 	}

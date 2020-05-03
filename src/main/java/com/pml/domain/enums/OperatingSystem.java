@@ -1,11 +1,12 @@
 package com.pml.domain.enums;
 
 public enum OperatingSystem {
-	WINDOWS_XP(0, "Windows XP"),
-	WINDOWS_VISTA(1, "Windows Vista"),
-	WINDOWS_7(2, "Windows 7"),
-	WINDOWS_10(3, "Windows 10"),
-	LINUX_DISTRO(4, "Distribuição linux");
+	NONE(0, "None"),
+	WINDOWS_XP(1, "Windows XP"),
+	WINDOWS_VISTA(2, "Windows Vista"),
+	WINDOWS_7(3, "Windows 7"),
+	WINDOWS_10(4, "Windows 10"),
+	LINUX_DISTRO(5, "Distribuição linux");
 	
 	private Integer cod;
 	private String description;

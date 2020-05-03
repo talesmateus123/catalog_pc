@@ -16,9 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.OperatingSystem;
@@ -29,21 +27,16 @@ public class Computer extends Equipment{
 	private String ipAddress;
 	private String hostName;
 	private String motherBoardName;
-	private Boolean hasCdBurner;
+	private boolean hasCdBurner = true;
 	private String cabinetModel;
-	@NotNull
-	private Integer operatingSystem;
-	@NotNull
-	private Integer operatingSystemArchitecture;
-	@NotNull
-	private boolean onTheDomain;	
+	private Integer operatingSystem = 0;
+	private Integer operatingSystemArchitecture = 0;
+	private boolean onTheDomain = false;
 
 	@OneToMany(mappedBy = "computer")
 	private List<RamMemory> ramMemories = new ArrayList<>();
-	private Integer totalRamMemory;
 	@OneToMany(mappedBy = "computer")
 	private List<StorageDevice> storageDevices = new ArrayList<>();
-	private Integer totalStorageMemory;	
 	@ManyToMany
 	@JoinTable(name = "computer_computer_user",
 		joinColumns = @JoinColumn(name = "computer_id"),
@@ -51,17 +44,13 @@ public class Computer extends Equipment{
 			)
 	private List<ComputerUser> computerUsers = new ArrayList<>();	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "computer")
-	@JsonIgnore
-	private Monitor monitor;	
+	private Monitor monitor;
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "computer")
-	@JsonIgnore
 	private Processor processor;
 	
 	public Computer() {
 		super();
 		this.setEquipmentType(EquipmentType.COMPUTER);
-		this.totalRamMemory = 0;
-		this.totalStorageMemory = 0;
 	}
 
 	public Computer(Long id, String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
@@ -70,19 +59,16 @@ public class Computer extends Equipment{
 			OperatingSystem operatingSystem, ArchitectureType operatingSystemArchitecture, boolean onTheDomain, 
 			Monitor monitor) {
 		super(id, patrimonyId, createdDate, modifiedDate, EquipmentType.COMPUTER, manufacturer, model, description, sector, itWorks);
-		this.ipAddress = (ipAddress != null) ? ipAddress : "0.0.0.0";
-		this.hostName = (hostName != null) ? hostName : generateHostName();
+		this.ipAddress = ipAddress;
 		this.hostName = hostName;
-		this.motherBoardName = (motherBoardName != null) ? motherBoardName : "N/A";
+		this.motherBoardName = motherBoardName;
 		this.processor = processor;
 		this.hasCdBurner = hasCdBurner;
-		this.cabinetModel = (cabinetModel != null) ? cabinetModel : "N/A";
-		this.operatingSystem = operatingSystem.getCod();
-		this.operatingSystemArchitecture = operatingSystemArchitecture.getCod();
+		this.cabinetModel = cabinetModel;
+		this.operatingSystem = (operatingSystem != null) ? operatingSystem.getCod() : null;
+		this.operatingSystemArchitecture = (operatingSystemArchitecture != null) ? operatingSystemArchitecture.getCod() : null;
 		this.onTheDomain = onTheDomain;
 		this.monitor = monitor;
-		this.totalRamMemory = 0;
-		this.totalStorageMemory = 0;
 	}
 
 	public String getIpAddress() {
@@ -174,7 +160,6 @@ public class Computer extends Equipment{
 		if(this.ramMemories.contains(ramMemory))
 			return;
 		this.ramMemories.add(ramMemory);
-		this.totalRamMemory = (ramMemory.getSizeInMB() != null) ? this.totalRamMemory + ramMemory.getSizeInMB() : this.totalRamMemory;
 	}
 
 	public List<StorageDevice> getStorageDevices() {
@@ -194,7 +179,6 @@ public class Computer extends Equipment{
 		if(this.storageDevices.contains(storageDevice))
 			return;
 		this.storageDevices.add(storageDevice);
-		this.totalStorageMemory = (storageDevice.getSizeInMB() != null) ? this.totalStorageMemory + storageDevice.getSizeInMB() : this.totalRamMemory;
 	}
 
 	public List<ComputerUser> getComputerUsers() {
@@ -223,10 +207,16 @@ public class Computer extends Equipment{
 	}
 	
 	public Integer getTotalStorageMemory() {
+		Integer totalStorageMemory = 0;
+		for (StorageDevice storageDevice : this.storageDevices)
+			totalStorageMemory = totalStorageMemory + storageDevice.getSizeInMB();
 		return totalStorageMemory;
 	}
 	
 	public Integer getTotalRamMemory() {
+		Integer totalRamMemory = 0;
+		for (RamMemory ramMemory : this.ramMemories)
+			totalRamMemory = totalRamMemory + ramMemory.getSizeInMB();
 		return totalRamMemory;
 	}
 	
@@ -246,7 +236,7 @@ public class Computer extends Equipment{
 		builder.append(", lastModifiedDate=");
 		builder.append(lastModifiedDate);
 		builder.append(", equipmentType=");
-		builder.append(getEquipmentType().toString());
+		builder.append(getEquipmentType().getDescription());
 		builder.append(", manufacturer=");
 		builder.append(manufacturer);
 		builder.append(", model=");
@@ -261,7 +251,7 @@ public class Computer extends Equipment{
 		builder.append(", patrimonyId=");
 		builder.append(getPatrimonyId());
 		builder.append(", sector=");
-		builder.append(getSector().toString());
+		builder.append(getSector().getName());
 		builder.append(", ipAddress=");
 		builder.append(ipAddress);
 		builder.append(", hostName=");
@@ -275,10 +265,10 @@ public class Computer extends Equipment{
 			builder.append("No");
 		builder.append(", cabinetModel=");
 		builder.append(cabinetModel);
-		builder.append(", operatingSystem=");
-		builder.append(getOperatingSystem().toString());
+		builder.append(", operatingSystem=");		
+		builder.append((getOperatingSystem() != null) ? getOperatingSystem().getDescription() : "Undefined");
 		builder.append(", operatingSystemArchitecture=");
-		builder.append(getOperatingSystemArchitecture().toString());
+		builder.append((getOperatingSystemArchitecture() != null) ? getOperatingSystemArchitecture().getDescription() : "Undefined");
 		builder.append(", onTheDomain=");
 		if(onTheDomain)
 			builder.append("Yes");
@@ -288,20 +278,22 @@ public class Computer extends Equipment{
 		for(RamMemory object : getRamMemories())
 			builder.append(object.getManufacturer() + " - " + object.getModel());
 		builder.append(", totalRamMemory=");
-		builder.append(totalRamMemory);
+		builder.append(getTotalRamMemory());
 		builder.append(", storageDevices=");
 		for(StorageDevice object : getStorageDevices())
 			builder.append(object.getManufacturer() + " - " + object.getModel());
 		builder.append(", totalStorageMemory=");
-		builder.append(totalStorageMemory);
+		builder.append(getTotalStorageMemory());
 		builder.append(", computerUsers=");
 		for(ComputerUser object : getComputerUsers())
 			builder.append(object.getName() + " " + object.getLastName());
 		builder.append(", monitor=");
-		builder.append(monitor.getManufacturer());
-		builder.append(monitor.getModel());
+		
+		builder.append((monitor != null) ? monitor.getManufacturer() : "Undefined");
+		builder.append(" - ");
+		builder.append((monitor != null) ? monitor.getModel() : "Undefined");
 		builder.append(", processor=");
-		builder.append(processor.getProcessorName());
+		builder.append((processor != null) ? processor.getProcessorName() : "Undefined");
 		builder.append("]");
 		return builder.toString();
 	}
