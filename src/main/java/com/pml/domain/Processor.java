@@ -2,8 +2,8 @@ package com.pml.domain;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
@@ -18,8 +18,7 @@ public class Processor extends Electronic {
 	private String processorName;
 	@NotNull
 	private Integer architecture;
-	@OneToOne
-	@JoinColumn(name = "computer_id")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "processor")
 	@JsonIgnore
 	private Computer computer;
 	

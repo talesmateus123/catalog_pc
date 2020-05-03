@@ -1,3 +1,8 @@
+/** 
+ * This is the class "AddressUser". That class will be to represent a computer user.
+ * 
+ * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
+ */
 package com.pml.domain;
 
 import java.io.Serializable;

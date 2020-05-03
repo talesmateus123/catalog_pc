@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -43,9 +42,11 @@ public class Computer extends Equipment{
 		inverseJoinColumns =  @JoinColumn(name = "computer_user_id")
 			)
 	private List<ComputerUser> computerUsers = new ArrayList<>();	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "computer")
+	@OneToOne
+	@JoinColumn(name = "monitor_id")
 	private Monitor monitor;
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "computer")
+	@OneToOne
+	@JoinColumn(name = "processor_id")
 	private Processor processor;
 	
 	public Computer() {

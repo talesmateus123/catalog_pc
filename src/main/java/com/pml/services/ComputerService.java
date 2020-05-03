@@ -110,10 +110,28 @@ public class ComputerService extends EquipmentService {
 			if(this.alreadyExists(object.getPatrimonyId()))
 				throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
+		updateReferences(object);
+		
 		return this.repository.saveAndFlush(object);
 	}
 
 	// Auxiliary method
+	private void updateReferences(Computer object) {
+		Computer oldObject = this.findById(object.getId());
+		
+		for(RamMemory ramMemory : oldObject.getRamMemories()) {
+			if(!object.getRamMemories().contains(ramMemory)) {
+				ramMemory.setComputer(null);
+				this.ramMemoryService.update(ramMemory);
+			}
+		}
+		for(StorageDevice storageDevice : oldObject.getStorageDevices()) {
+			if(!object.getStorageDevices().contains(storageDevice)) {
+				storageDevice.setComputer(null);
+				this.storageDeviceService.update(storageDevice);
+			}
+		}
+	}
 	/**
 	 * Convert the ComputerNewDTO object to a Computer object. 
 	 * @param objectDTO ComputerDTO

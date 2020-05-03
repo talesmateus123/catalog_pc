@@ -7,8 +7,8 @@ package com.pml.domain;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,8 +17,7 @@ import com.pml.domain.enums.EquipmentType;
 @Entity
 public class Monitor extends Equipment{
 	private static final long serialVersionUID = 1L;
-	@OneToOne
-	@JoinColumn(name = "computer_id")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "monitor")
 	@JsonIgnore
 	private Computer computer;
 
