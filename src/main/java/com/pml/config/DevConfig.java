@@ -26,9 +26,7 @@ public class DevConfig {
 	
 	@Bean
 	public boolean instantiateDatabase() {
-		if(!"create-drop".equals(strategy) || !"create".equals(strategy))
-			return false;
-		dBService.instantiateTestDatabase();
+		// dBService.instantiateTestDatabase();
 		return true;
 	}
 

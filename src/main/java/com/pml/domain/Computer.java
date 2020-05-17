@@ -41,7 +41,7 @@ public class Computer extends Equipment{
 		joinColumns = @JoinColumn(name = "computer_id"),
 		inverseJoinColumns =  @JoinColumn(name = "computer_user_id")
 			)
-	private List<ComputerUser> computerUsers = new ArrayList<>();	
+	private List<ComputerUser> computerUsers = new ArrayList<>();
 	@OneToOne
 	@JoinColumn(name = "monitor_id")
 	private Monitor monitor;

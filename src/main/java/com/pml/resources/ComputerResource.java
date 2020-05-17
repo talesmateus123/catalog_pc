@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,13 +34,20 @@ import com.pml.services.ComputerService;
 @RestController
 @RequestMapping(value = "/api/computers")
 public class ComputerResource {
-	@Autowired
-	
+	@Autowired	
 	private ComputerService service;
 	
 	@GetMapping
 	public ResponseEntity<List<ComputerDTO>> findAll() {
 		List<Computer> objects = this.service.findAll();
+		List<ComputerDTO> objectsDTO = objects.stream().map(
+				obj -> new ComputerDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(objectsDTO);
+	}
+	
+	@GetMapping("/available")
+	public ResponseEntity<List<ComputerDTO>> findAllWithoutMonitor() {
+		List<Computer> objects = this.service.findAllWithoutMonitor();
 		List<ComputerDTO> objectsDTO = objects.stream().map(
 				obj -> new ComputerDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(objectsDTO);
@@ -70,7 +77,8 @@ public class ComputerResource {
 		return ResponseEntity.ok().body(object);
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	// @PreAuthorize("hasAnyRole('ADMIN')")
+	@CrossOrigin(origins = "http://localhost:8100")
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody ComputerNewDTO objectDTO) {
 		Computer object = this.service.fromDTO(objectDTO);
@@ -80,14 +88,16 @@ public class ComputerResource {
 		return ResponseEntity.created(uri).build();
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	// @PreAuthorize("hasAnyRole('ADMIN')")
+	@CrossOrigin(origins = "http://localhost:8100")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		this.service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	// @PreAuthorize("hasAnyRole('ADMIN')")
+	@CrossOrigin(origins = "http://localhost:8100")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody ComputerNewDTO objectDTO, @PathVariable Long id) {
 		Computer object = this.service.fromDTO(objectDTO);

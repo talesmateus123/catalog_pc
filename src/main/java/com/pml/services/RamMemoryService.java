@@ -36,6 +36,10 @@ public class RamMemoryService {
 		return this.repository.findAll();
 	}
 	
+	public List<RamMemory> findAllWithoutComputer() {
+		return this.repository.findAllByComputerNull();
+	}
+	
 	public Page<RamMemory> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage);
 		return this.repository.findAll(pageRequest);

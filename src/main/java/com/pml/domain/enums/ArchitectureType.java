@@ -1,8 +1,9 @@
 package com.pml.domain.enums;
 
 public enum ArchitectureType {
-	AMD64(0, "64 bits"),
-	I386(1, "32 bits");
+	NONE(0, "None"),
+	AMD64(1, "64 bits"),
+	I386(2, "32 bits");
 	
 	private Integer cod;
 	private String description;

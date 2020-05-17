@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,13 +34,20 @@ import com.pml.services.RamMemoryService;
 @RestController
 @RequestMapping(value = "/api/ram_memories")
 public class RamMemoryResource {
-	@Autowired
-	
+	@Autowired	
 	private RamMemoryService service;
 	
 	@GetMapping
 	public ResponseEntity<List<RamMemoryDTO>> findAll() {
 		List<RamMemory> objects = this.service.findAll();
+		List<RamMemoryDTO> objectsDTO = objects.stream().map(
+				obj -> new RamMemoryDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(objectsDTO);
+	}
+	
+	@GetMapping("/available")
+	public ResponseEntity<List<RamMemoryDTO>> findAllWithoutComputer() {
+		List<RamMemory> objects = this.service.findAllWithoutComputer();
 		List<RamMemoryDTO> objectsDTO = objects.stream().map(
 				obj -> new RamMemoryDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(objectsDTO);
@@ -64,7 +71,8 @@ public class RamMemoryResource {
 		return ResponseEntity.ok().body(object);
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	// @PreAuthorize("hasAnyRole('ADMIN')")
+	@CrossOrigin(origins = "http://localhost:8100")
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody RamMemoryNewDTO objectDTO) {
 		RamMemory object = this.service.fromDTO(objectDTO);
@@ -74,14 +82,16 @@ public class RamMemoryResource {
 		return ResponseEntity.created(uri).build();
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	// @PreAuthorize("hasAnyRole('ADMIN')")
+	@CrossOrigin(origins = "http://localhost:8100")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		this.service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	// @PreAuthorize("hasAnyRole('ADMIN')")
+	@CrossOrigin(origins = "http://localhost:8100")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody RamMemoryNewDTO objectDTO, @PathVariable Long id) {
 		RamMemory object = this.service.fromDTO(objectDTO);

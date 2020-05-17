@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,8 +35,7 @@ import com.pml.services.SectorService;
 @RestController
 @RequestMapping(value = "/api/sectors")
 public class SectorResource {
-	@Autowired
-	
+	@Autowired	
 	private SectorService service;
 	
 	@GetMapping
@@ -70,7 +70,8 @@ public class SectorResource {
 		return ResponseEntity.ok().body(object);
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	// @PreAuthorize("hasAnyRole('ADMIN')")
+	@CrossOrigin(origins = "http://localhost:8100")
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody SectorNewDTO objectDTO) {
 		Sector object = this.service.fromDTO(objectDTO);
@@ -80,14 +81,16 @@ public class SectorResource {
 		return ResponseEntity.created(uri).build();
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	// @PreAuthorize("hasAnyRole('ADMIN')")
+	@CrossOrigin(origins = "http://localhost:8100")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		this.service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	// @PreAuthorize("hasAnyRole('ADMIN')")
+	@CrossOrigin(origins = "http://localhost:8100")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody SectorNewDTO objectDTO, @PathVariable Integer id) {
 		Sector object = this.service.fromDTO(objectDTO);

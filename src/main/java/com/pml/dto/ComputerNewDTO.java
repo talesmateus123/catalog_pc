@@ -16,7 +16,8 @@ public class ComputerNewDTO implements Serializable {
 	private String manufacturer;
 	private String model;
 	private String description;
-	private boolean itWorks;
+	@NotNull(message = "This field is mandatory")
+	private Boolean itWorks;
 	private String ipAddress;
 	private String hostName;
 	private String motherBoardName;
@@ -24,7 +25,8 @@ public class ComputerNewDTO implements Serializable {
 	private String cabinetModel;
 	private Integer operatingSystem;
 	private Integer operatingSystemArchitecture;
-	private boolean onTheDomain;
+	@NotNull(message = "This field is mandatory")
+	private Boolean onTheDomain;
 	private Long monitorId;
 	private Long processorId;
 	@NotNull(message = "This field is mandatory")

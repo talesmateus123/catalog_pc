@@ -65,10 +65,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/api/processors/**",
 			"/api/ram_memories/**",
 			"/api/storage_devices/**",
-			"/api/printers/**"
+			"/api/printers/**",
+			"/api/equipments/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_POST = {
+			"/login",
 			"/api/sectors/**",
 			"/api/computers/**",
 			"/api/computer_users/**",
@@ -79,7 +81,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/api/printers/**",
 			"/api/users/**",
 			"/auth/forgot_password"
-	};	
+	};
+	
+	private static final String[] PUBLIC_MATCHERS_PUT = {
+			"/api/sectors/**",
+			"/api/computers/**",
+			"/api/computer_users/**",
+			"/api/monitors/**",
+			"/api/processors/**",
+			"/api/ram_memories/**",
+			"/api/storage_devices/**",
+			"/api/printers/**",
+	};
+	
+	private static final String[] PUBLIC_MATCHERS_DELETE = {
+			"/api/sectors/**",
+			"/api/computers/**",
+			"/api/computer_users/**",
+			"/api/monitors/**",
+			"/api/processors/**",
+			"/api/ram_memories/**",
+			"/api/storage_devices/**",
+			"/api/printers/**",
+	};
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -91,6 +115,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 		// Just permits POST method to users
 		.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
+		// Just permits POST method to users
+		.antMatchers(HttpMethod.PUT, PUBLIC_MATCHERS_PUT).permitAll()
+		// Just permits POST method to users
+		.antMatchers(HttpMethod.DELETE, PUBLIC_MATCHERS_DELETE).permitAll()
 		// Just permits GET method publicly
 		.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
 		.antMatchers(PUBLIC_MATCHERS).permitAll()

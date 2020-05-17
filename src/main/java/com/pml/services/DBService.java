@@ -66,33 +66,34 @@ public class DBService {
 		user1.addProfile(UserProfile.ADMIN);
 		Client user2 = new Client(null, "renato123@gmail.com", "Renato Campos", bCryptPasswordEncoder.encode("1234"));
 		
-		/*
+		
 		// Sectors creation
-		Sector sector1 = new Sector(null, "Administração", true);
-		Sector sector2 = new Sector(null, "Recursos humanos", true);
-		Sector sector3 = new Sector(null, "Contabilidade", true);
-		Sector sector4 = new Sector(null, "Licitação", true);
-		Sector sector5 = new Sector(null, "Gabinete do prefeito", true);
-		Sector sector6 = new Sector(null, "CRAS", false);
+		Sector sector1 = new Sector(null, "Administração");
+		Sector sector2 = new Sector(null, "Recursos humanos");
+		Sector sector3 = new Sector(null, "Contabilidade");
+		Sector sector4 = new Sector(null, "Licitação");
+		Sector sector5 = new Sector(null, "Gabinete do prefeito");
+		Sector sector6 = new Sector(null, "CRAS");
 		
 		// Computer users creation
 		ComputerUser computerUser1 = new ComputerUser(null, "José Rodrigues", "Gonzales", sector2, "jose.rodriges@ladario.gov.br");
 		ComputerUser computerUser2 = new ComputerUser(null, "José Rodrigues", "Gonzales", sector1, "jose.rodriges@ladario.gov.br");
 		ComputerUser computerUser3 = new ComputerUser(null, "José Rodrigues", "Gonzales", sector3, "jose.rodriges@ladario.gov.br");
 		ComputerUser computerUser4 = new ComputerUser(null, "José Rodrigues", "Gonzales", sector6, "jose.rodriges@ladario.gov.br");
-				
+
+		// Monitors creation
+		Monitor monitor1 = new Monitor(null, "00012", new Date(), new Date(), null, null, null, sector2, true, null);
+		Monitor monitor2 = new Monitor(null, "02013", new Date(), new Date(), null, null, null, sector6, true, null);
+		
 		// Computers creation		
 		Computer computer1 = new Computer(null, "06770", new Date(), new Date(), "Micron Technology", null, null, sector2, 
-				true, null, null, null, null, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.I386, false, null);
+				true, null, null, null, null, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.I386, false, monitor1);
 		Computer computer2 = new Computer(null, "07178", new Date(), new Date(), "Micron Technology", null, null, sector2, 
-				true, null, null, null, null, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, null);
+				true, null, null, null, null, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor2);
 		computer1.addComputerUser(computerUser1);
 		computer1.addComputerUser(computerUser2);
 		computer2.addComputerUser(computerUser3);
 		computer2.addComputerUser(computerUser4);	
-		// Monitors creation
-		Monitor monitor1 = new Monitor(null, "00012", new Date(), new Date(), null, null, null, sector2, true, computer1);
-		Monitor monitor2 = new Monitor(null, "02013", new Date(), new Date(), null, null, null, sector6, true, computer2);
 		
 		// Processors creation
 		Processor processor1 = new Processor(null, new Date(), new Date(), "Intel", "model", "description", true, 
@@ -132,19 +133,20 @@ public class DBService {
 				sector1, sector2, sector3, sector4, sector5, sector6
 				));
 		computerUserRepository.saveAll(Arrays.asList(computerUser1, computerUser2, computerUser3, computerUser4));
-		computerRepository.saveAll(Arrays.asList(
-				computer1, computer2
-				));
 		monitorRepository.saveAll(Arrays.asList(
 				monitor1, monitor2
 				));
+		computerRepository.saveAll(Arrays.asList(
+				computer1, computer2
+				));
+		
 		processorRepository.saveAll(Arrays.asList(processor1, processor2));
 		ramMemoryRepository.saveAll(Arrays.asList(ramMemory1, ramMemory2, ramMemory3, ramMemory4));
 		storageDeviceRepository.saveAll(Arrays.asList(storageDevice1, storageDevice2, storageDevice3, storageDevice4));
 		printerRepository.saveAll(Arrays.asList(printer1));
-		*/
 		
-		userRepository.saveAll(Arrays.asList(user1, user2));
+		
+		//userRepository.saveAll(Arrays.asList(user1, user2));
 	}
 	
 	

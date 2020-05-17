@@ -15,7 +15,8 @@ public class PrinterNewDTO implements Serializable {
 	private String description;
 	@NotNull(message = "This field is mandatory")
 	private Integer sectorId;
-	private boolean itWorks;
+	@NotNull(message = "This field is mandatory")
+	private Boolean itWorks;
 	private String ipAddress;
 	private String hostName;
 	

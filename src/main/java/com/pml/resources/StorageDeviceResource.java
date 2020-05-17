@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,13 +34,20 @@ import com.pml.services.StorageDeviceService;
 @RestController
 @RequestMapping(value = "/api/storage_devices")
 public class StorageDeviceResource {
-	@Autowired
-	
+	@Autowired	
 	private StorageDeviceService service;
 	
 	@GetMapping
 	public ResponseEntity<List<StorageDeviceDTO>> findAll() {
 		List<StorageDevice> objects = this.service.findAll();
+		List<StorageDeviceDTO> objectsDTO = objects.stream().map(
+				obj -> new StorageDeviceDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(objectsDTO);
+	}
+	
+	@GetMapping("/available")
+	public ResponseEntity<List<StorageDeviceDTO>> findAllWithoutComputer() {
+		List<StorageDevice> objects = this.service.findAllWithoutComputer();
 		List<StorageDeviceDTO> objectsDTO = objects.stream().map(
 				obj -> new StorageDeviceDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(objectsDTO);
@@ -64,7 +71,8 @@ public class StorageDeviceResource {
 		return ResponseEntity.ok().body(object);
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	// @PreAuthorize("hasAnyRole('ADMIN')")
+	@CrossOrigin(origins = "http://localhost:8100")
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody StorageDeviceNewDTO objectDTO) {
 		StorageDevice object = this.service.fromDTO(objectDTO);
@@ -74,14 +82,16 @@ public class StorageDeviceResource {
 		return ResponseEntity.created(uri).build();
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	// @PreAuthorize("hasAnyRole('ADMIN')")
+	@CrossOrigin(origins = "http://localhost:8100")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		this.service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	// @PreAuthorize("hasAnyRole('ADMIN')")
+	@CrossOrigin(origins = "http://localhost:8100")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody StorageDeviceNewDTO objectDTO, @PathVariable Long id) {
 		StorageDevice object = this.service.fromDTO(objectDTO);

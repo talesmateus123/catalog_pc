@@ -39,6 +39,10 @@ public class MonitorService extends EquipmentService {
 		return this.repository.findAll();
 	}
 	
+	public List<Monitor> findAllWithoutComputer() {
+		return this.repository.findAllByComputerNull();
+	}
+	
 	public Page<Monitor> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage);
 		return this.repository.findAll(pageRequest);
@@ -89,10 +93,44 @@ public class MonitorService extends EquipmentService {
 			if(this.alreadyExists(object.getPatrimonyId()))
 				throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}	
-		return this.repository.saveAndFlush(object);		
+		//updateReferences(object);
+		return this.repository.saveAndFlush(object);
 	}
 	
-	// Auxiliary methods	
+	// Auxiliary methods
+	private void updateReferences(Monitor monitor) {
+		Computer oldComputer = this.findById(monitor.getId()).getComputer();
+		Computer monitorComputer = monitor.getComputer();
+		
+		if(oldComputer != null && monitorComputer != null) {
+			if(!monitorComputer.equals(oldComputer)) {
+				monitorComputer.setMonitor(monitor);
+				this.computerService.update(monitorComputer);
+			}
+		}
+		
+		if(oldComputer == null && monitorComputer != null) {
+			monitorComputer.setMonitor(monitor);
+			this.computerService.update(monitorComputer);
+		}
+		
+		if(oldComputer != null && monitorComputer == null) {
+			monitorComputer.setMonitor(null);
+			this.computerService.update(monitorComputer);
+		}
+		
+		if(oldComputer == null && monitorComputer == null) {
+			monitorComputer.setMonitor(null);
+			this.computerService.update(monitorComputer);
+		}
+		
+		if(!monitorComputer.equals(oldComputer)) {
+			monitorComputer.setMonitor(null);
+			this.computerService.update(monitorComputer);
+		}
+		
+	}
+		
 	/**
 	 * Convert the MonitorNewDTO object to a Monitor object. 
 	 * @param objectNewDTO MonitorNewDTO

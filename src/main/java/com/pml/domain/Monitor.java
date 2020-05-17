@@ -17,7 +17,7 @@ import com.pml.domain.enums.EquipmentType;
 @Entity
 public class Monitor extends Equipment{
 	private static final long serialVersionUID = 1L;
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "monitor")
+	@OneToOne(cascade = CascadeType.PERSIST, mappedBy = "monitor")
 	@JsonIgnore
 	private Computer computer;
 

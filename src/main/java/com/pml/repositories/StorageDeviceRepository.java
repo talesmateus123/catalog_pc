@@ -15,6 +15,7 @@ import com.pml.domain.StorageDevice;
 @Repository
 public interface StorageDeviceRepository extends JpaRepository<StorageDevice, Long>{
 	List<StorageDevice> findByComputer(Computer computer);	
+	List<StorageDevice> findAllByComputerNull();
 	
 	
 	

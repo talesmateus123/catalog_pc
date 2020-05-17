@@ -5,6 +5,7 @@
  */
 package com.pml.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +16,6 @@ import com.pml.domain.Printer;
 public interface PrinterRepository extends JpaRepository<Printer, Long>{
 	Optional<Printer> findByPatrimonyId(String patrimonyId);
 	
-	
+	//List<Printer> findOrderByPatrimonyId();	
 	
 }

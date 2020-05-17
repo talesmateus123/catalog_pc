@@ -15,6 +15,7 @@ import com.pml.domain.RamMemory;
 @Repository
 public interface RamMemoryRepository extends JpaRepository<RamMemory, Long>{
 	List<RamMemory> findByComputer(Computer computer);
+	List<RamMemory> findAllByComputerNull();
 	
 	
 	

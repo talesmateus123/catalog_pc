@@ -20,6 +20,6 @@ public interface ComputerRepository extends JpaRepository<Computer, Long>{
 	Optional<Computer> findByPatrimonyId(String patrimonyId);
 	List<Computer> findByManufacturer(String manufacturer);	
 	
-	
+	List<Computer> findAllByMonitorNull();
 	
 }

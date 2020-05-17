@@ -50,6 +50,10 @@ public class ComputerService extends EquipmentService {
 		return this.repository.findAll();
 	}
 	
+	public List<Computer> findAllWithoutMonitor() {
+		return this.repository.findAllByMonitorNull();
+	}
+	
 	public Page<Computer> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage);
 		return this.repository.findAll(pageRequest);

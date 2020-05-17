@@ -36,6 +36,10 @@ public class ProcessorService {
 		return this.repository.findAll();
 	}
 	
+	public List<Processor> findAllWithoutComputer() {
+		return this.repository.findAllByComputerNull();
+	}
+	
 	public Page<Processor> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage);
 		return this.repository.findAll(pageRequest);

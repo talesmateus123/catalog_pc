@@ -35,6 +35,10 @@ public class StorageDeviceService {
 	public List<StorageDevice> findAll() {
 		return this.repository.findAll();
 	}
+	
+	public List<StorageDevice> findAllWithoutComputer() {
+		return this.repository.findAllByComputerNull();
+	}
 
 	// Simple search methods
 	public Page<StorageDevice> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
