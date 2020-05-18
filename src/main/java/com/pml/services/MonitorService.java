@@ -93,42 +93,49 @@ public class MonitorService extends EquipmentService {
 			if(this.alreadyExists(object.getPatrimonyId()))
 				throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}	
-		//updateReferences(object);
+		updateReferences(object);
 		return this.repository.saveAndFlush(object);
 	}
 	
 	// Auxiliary methods
+	/**
+	 * Performs a series of checks to make changes to the computer object.
+	 * @param monitor
+	 * @return void
+	 */
 	private void updateReferences(Monitor monitor) {
-		Computer oldComputer = this.findById(monitor.getId()).getComputer();
-		Computer monitorComputer = monitor.getComputer();
+		// Get the previous monitor values
+		Monitor oldMonitor = this.findById(monitor.getId());
 		
-		if(oldComputer != null && monitorComputer != null) {
-			if(!monitorComputer.equals(oldComputer)) {
-				monitorComputer.setMonitor(monitor);
-				this.computerService.update(monitorComputer);
+		Computer oldComputer = oldMonitor.getComputer();		
+		Computer currentComputer = monitor.getComputer();
+		
+		if (currentComputer != null) {
+			// All computer are filled
+			if (oldComputer != null) {
+				if (currentComputer.equals(oldComputer))
+					return;
+				else {
+					oldComputer.setMonitor(null);
+					this.computerService.update(oldComputer);
+					currentComputer.setMonitor(monitor);
+					this.computerService.update(currentComputer);
+				}
 			}
-		}
-		
-		if(oldComputer == null && monitorComputer != null) {
-			monitorComputer.setMonitor(monitor);
-			this.computerService.update(monitorComputer);
-		}
-		
-		if(oldComputer != null && monitorComputer == null) {
-			monitorComputer.setMonitor(null);
-			this.computerService.update(monitorComputer);
-		}
-		
-		if(oldComputer == null && monitorComputer == null) {
-			monitorComputer.setMonitor(null);
-			this.computerService.update(monitorComputer);
-		}
-		
-		if(!monitorComputer.equals(oldComputer)) {
-			monitorComputer.setMonitor(null);
-			this.computerService.update(monitorComputer);
-		}
-		
+			// Just current computer is filled
+			else {
+				currentComputer.setMonitor(monitor);
+				this.computerService.update(currentComputer);
+			}
+		}	
+		else {
+			// Just old computer is filled
+			if (oldComputer != null) {
+				// Set old computer in null if the current computer is null
+				oldComputer.setMonitor(null);
+				this.computerService.update(oldComputer);
+			}
+		}		
 	}
 		
 	/**
