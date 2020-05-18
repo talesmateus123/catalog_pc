@@ -15,7 +15,8 @@ import com.pml.domain.Printer;
 @Repository
 public interface PrinterRepository extends JpaRepository<Printer, Long>{
 	Optional<Printer> findByPatrimonyId(String patrimonyId);
+	List<Printer> findByOrderByPatrimonyId();	
 	
-	//List<Printer> findOrderByPatrimonyId();	
+	
 	
 }

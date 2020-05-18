@@ -5,6 +5,7 @@
  */
 package com.pml.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,6 +15,7 @@ import com.pml.domain.Sector;
 @Repository
 public interface SectorRepository extends JpaRepository<Sector, Integer>{
 	Optional<Sector> findByName(String patrimonyId);
+	List<Sector> findByOrderByName();
 	
 	
 	

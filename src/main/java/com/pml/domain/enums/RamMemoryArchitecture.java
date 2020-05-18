@@ -3,8 +3,8 @@ package com.pml.domain.enums;
 public enum RamMemoryArchitecture {
 	DDR1(0, "DDR1"),
 	DDR2(1, "DDR2"),
-	DDR3(1, "DDR3"),
-	DDR4(2, "DDR4");
+	DDR3(2, "DDR3"),
+	DDR4(3, "DDR4");
 	
 	private Integer cod;
 	private String description;

@@ -47,7 +47,7 @@ public class ComputerService extends EquipmentService {
 
 	// List search methods
 	public List<Computer> findAll() {
-		return this.repository.findAll();
+		return this.repository.findByOrderByPatrimonyId();
 	}
 	
 	public List<Computer> findAllWithoutMonitor() {

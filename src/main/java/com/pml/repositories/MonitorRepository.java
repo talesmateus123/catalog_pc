@@ -17,7 +17,9 @@ import com.pml.domain.Monitor;
 public interface MonitorRepository extends JpaRepository<Monitor, Long>{
 	Optional<Monitor> findByComputer(Computer computer);
 	Optional<Monitor> findByPatrimonyId(String patrimonyId);
+	List<Monitor> findByOrderByPatrimonyId();	
+	List<Monitor> findAllByComputerNull();	
 	
-	List<Monitor> findAllByComputerNull();
+	
 	
 }

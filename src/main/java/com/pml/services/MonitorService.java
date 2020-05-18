@@ -36,7 +36,7 @@ public class MonitorService extends EquipmentService {
 	
 	// List search methods
 	public List<Monitor> findAll() {
-		return this.repository.findAll();
+		return this.repository.findByOrderByPatrimonyId();
 	}
 	
 	public List<Monitor> findAllWithoutComputer() {

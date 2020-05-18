@@ -29,7 +29,7 @@ public class PrinterService extends EquipmentService {
 
 	// List search methods
 	public List<Printer> findAll() {
-		return this.repository.findAll();
+		return this.repository.findByOrderByPatrimonyId();
 	}
 	
 	public Page<Printer> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {

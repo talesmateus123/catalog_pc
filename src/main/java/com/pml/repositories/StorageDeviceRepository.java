@@ -11,11 +11,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.pml.domain.Computer;
+import com.pml.domain.Monitor;
 import com.pml.domain.StorageDevice;
 @Repository
 public interface StorageDeviceRepository extends JpaRepository<StorageDevice, Long>{
 	List<StorageDevice> findByComputer(Computer computer);	
 	List<StorageDevice> findAllByComputerNull();
+	//List<Monitor> findByOrderByPatrimonyId();
 	
 	
 	

@@ -21,6 +21,7 @@ public interface ComputerUserRepository extends JpaRepository<ComputerUser, Long
 	List<ComputerUser> findByName(String name);
 	List<ComputerUser> findByLastName(String lastName);
 	List<ComputerUser> findBySector(Sector sector);
+	List<ComputerUser> findByOrderByName();
 	
 	
 	

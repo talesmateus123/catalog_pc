@@ -29,7 +29,7 @@ public class SectorService {
 	
 	// List search methods
 	public List<Sector> findAll() {
-		return this.repository.findAll();
+		return this.repository.findByOrderByName();
 	}
 	
 	public Page<Sector> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {

@@ -35,7 +35,7 @@ public class ComputerUserService {
 
 	// List search methods
 	public List<ComputerUser> findAll() {
-		return this.repository.findAll();
+		return this.repository.findByOrderByName();
 	}
 	
 	public Page<ComputerUser> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
