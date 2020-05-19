@@ -24,7 +24,7 @@ public class EquipmentResource {
 	@Autowired
 	private EquipmentRepository repository;
 	
-	 @GetMapping("/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Equipment> findById(@PathVariable Long id) {
 		Optional<Equipment> object = this.repository.findById(id);
 		
