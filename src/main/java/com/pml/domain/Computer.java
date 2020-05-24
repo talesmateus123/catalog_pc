@@ -210,14 +210,14 @@ public class Computer extends Equipment{
 	public Integer getTotalStorageMemory() {
 		Integer totalStorageMemory = 0;
 		for (StorageDevice storageDevice : this.storageDevices)
-			totalStorageMemory = totalStorageMemory + storageDevice.getSizeInMB();
+			totalStorageMemory = totalStorageMemory + storageDevice.getSizeInGB();
 		return totalStorageMemory;
 	}
 	
 	public Integer getTotalRamMemory() {
 		Integer totalRamMemory = 0;
 		for (RamMemory ramMemory : this.ramMemories)
-			totalRamMemory = totalRamMemory + ramMemory.getSizeInMB();
+			totalRamMemory = totalRamMemory + ramMemory.getSizeInGB();
 		return totalRamMemory;
 	}
 	

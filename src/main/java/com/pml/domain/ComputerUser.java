@@ -38,7 +38,6 @@ public class ComputerUser implements Serializable {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "sector_id")
-	@JsonBackReference
 	private Sector sector;
 	@Email
 	private String email;

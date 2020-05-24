@@ -16,7 +16,7 @@ import com.pml.domain.enums.StorageDeviceType;
 public class StorageDevice extends Electronic {
 	private static final long serialVersionUID = 1L;
 	@NotNull
-	private Integer sizeInMB;
+	private Integer sizeInGB;
 	@NotNull
 	private Integer architecture;
 	@NotNull
@@ -33,22 +33,22 @@ public class StorageDevice extends Electronic {
 	}
 	
 	public StorageDevice(Long id, Date createdDate, Date lastModifiedDate, String manufacturer,
-			String model, String description, boolean itWorks, Integer sizeInMB, 
+			String model, String description, boolean itWorks, Integer sizeInGB, 
 			StorageDeviceArchitecture storageDeviceArchitecture, StorageDeviceType type, Computer computer) {
 		super(id, createdDate, lastModifiedDate, EquipmentType.STORAGE_DEVICE, manufacturer, model, description, itWorks, false);
-		this.sizeInMB = sizeInMB;
+		this.sizeInGB = sizeInGB;
 		this.architecture = storageDeviceArchitecture.getCod();
 		this.type = type.getCod();
 		this.computer = computer;
 		this.setItComposed(false);
 	}
 		
-	public Integer getSizeInMB() {
-		return sizeInMB;
+	public Integer getSizeInGB() {
+		return sizeInGB;
 	}
 	
-	public void setSizeInMB(Integer sizeInMB) {
-		this.sizeInMB = sizeInMB;
+	public void setSizeInGB(Integer sizeInGB) {
+		this.sizeInGB = sizeInGB;
 	}
 	
 	public StorageDeviceArchitecture getArchitecture() {
