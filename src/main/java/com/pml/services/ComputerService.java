@@ -147,8 +147,8 @@ public class ComputerService extends EquipmentService {
 				objectNewDTO.getManufacturer(), objectNewDTO.getModel(), objectNewDTO.getDescription(), 
 				null, objectNewDTO.isItWorks(), objectNewDTO.getIpAddress(), 
 				objectNewDTO.getHostName(), objectNewDTO.getMotherBoardName(), null, objectNewDTO.getHasCdBurner(),
-				 objectNewDTO.getCabinetModel(), objectNewDTO.getOperatingSystem(),
-				objectNewDTO.getOperatingSystemArchitecture(), objectNewDTO.isOnTheDomain(), null);
+				 objectNewDTO.getCabinetModel(), objectNewDTO.getOperatingSystem(), objectNewDTO.getOperatingSystemArchitecture(), 
+				 objectNewDTO.isOnTheDomain(), objectNewDTO.isLaptop(), objectNewDTO.getTotalRamMemory(), objectNewDTO.getTotalStorageMemory(), null);
 		
 		// Setting all attributes
 		

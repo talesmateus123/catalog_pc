@@ -87,9 +87,9 @@ public class DBService {
 		
 		// Computers creation		
 		Computer computer1 = new Computer(null, "06770", new Date(), new Date(), "Micron Technology", null, null, sector2, 
-				true, null, null, null, null, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.I386, false, monitor1);
+				true, null, null, null, null, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.I386, false, false, 0.0, 0.0, monitor1);
 		Computer computer2 = new Computer(null, "07178", new Date(), new Date(), "Micron Technology", null, null, sector2, 
-				true, null, null, null, null, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, monitor2);
+				true, null, null, null, null, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, false, 0.0, 0.0, monitor2);
 		computer1.addComputerUser(computerUser1);
 		computer1.addComputerUser(computerUser2);
 		computer2.addComputerUser(computerUser3);
@@ -102,16 +102,16 @@ public class DBService {
 				"i7 7000U ", ArchitectureType.AMD64, computer2);
 				
 		// Ram memories creation
-		RamMemory ramMemory1 = new RamMemory(null, new Date(), new Date(), null, null, null, true, 1024, RamMemoryArchitecture.DDR3, computer1);
-		RamMemory ramMemory2 = new RamMemory(null, new Date(), new Date(), null, null, null, true, 2048, RamMemoryArchitecture.DDR3, computer1);
-		RamMemory ramMemory3 = new RamMemory(null, new Date(), new Date(), null, null, null, true, 512, RamMemoryArchitecture.DDR2, computer2);
-		RamMemory ramMemory4 = new RamMemory(null, new Date(), new Date(), null, null, null, true, 1024, RamMemoryArchitecture.DDR3, computer2);
+		RamMemory ramMemory1 = new RamMemory(null, new Date(), new Date(), null, null, null, true, 1.0, RamMemoryArchitecture.DDR3, computer1);
+		RamMemory ramMemory2 = new RamMemory(null, new Date(), new Date(), null, null, null, true, 2.0, RamMemoryArchitecture.DDR3, computer1);
+		RamMemory ramMemory3 = new RamMemory(null, new Date(), new Date(), null, null, null, true, 0.5, RamMemoryArchitecture.DDR2, computer2);
+		RamMemory ramMemory4 = new RamMemory(null, new Date(), new Date(), null, null, null, true, 1.0, RamMemoryArchitecture.DDR3, computer2);
 		
 		// Storage devices creation
-		StorageDevice storageDevice1 = new StorageDevice(null, new Date(), new Date(), null, null, null, true, 102400, StorageDeviceArchitecture.SATA, StorageDeviceType.HD, computer1);
-		StorageDevice storageDevice2 = new StorageDevice(null, new Date(), new Date(), null, null, null, true, 102400, StorageDeviceArchitecture.SATA, StorageDeviceType.HD, computer1);
-		StorageDevice storageDevice3 = new StorageDevice(null, new Date(), new Date(), null, null, null, true, 204800, StorageDeviceArchitecture.SATA, StorageDeviceType.HD, computer2);
-		StorageDevice storageDevice4 = new StorageDevice(null, new Date(), new Date(), null, null, null, true, 51200, StorageDeviceArchitecture.SATA, StorageDeviceType.HD, computer2);
+		StorageDevice storageDevice1 = new StorageDevice(null, new Date(), new Date(), null, null, null, true, 1000.0, StorageDeviceArchitecture.SATA, StorageDeviceType.HD, computer1);
+		StorageDevice storageDevice2 = new StorageDevice(null, new Date(), new Date(), null, null, null, true, 1000.0, StorageDeviceArchitecture.SATA, StorageDeviceType.HD, computer1);
+		StorageDevice storageDevice3 = new StorageDevice(null, new Date(), new Date(), null, null, null, true, 2000.0, StorageDeviceArchitecture.SATA, StorageDeviceType.HD, computer2);
+		StorageDevice storageDevice4 = new StorageDevice(null, new Date(), new Date(), null, null, null, true, 500.0, StorageDeviceArchitecture.SATA, StorageDeviceType.HD, computer2);
 		
 		// Setting all computer attributes
 		computer1.addRamMemory(ramMemory1);

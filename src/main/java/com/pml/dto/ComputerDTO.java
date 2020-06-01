@@ -31,8 +31,8 @@ public class ComputerDTO implements Serializable {
 	private Integer operatingSystem;
 	private Integer operatingSystemArchitecture;
 	private boolean onTheDomain;
-	private Integer totalRamMemory;
-	private Integer totalStorageMemory;
+	private Double totalRamMemory;
+	private Double totalStorageMemory;
 	
 	public ComputerDTO() {
 	}
@@ -55,6 +55,8 @@ public class ComputerDTO implements Serializable {
 		this.operatingSystem = (computer.getOperatingSystem() != null) ? computer.getOperatingSystem().getCod() : null;
 		this.operatingSystemArchitecture = (computer.getOperatingSystemArchitecture() != null) ? computer.getOperatingSystemArchitecture().getCod() : null;
 		this.onTheDomain = computer.isOnTheDomain();
+		this.totalRamMemory = computer.getTotalRamMemory();
+		this.totalStorageMemory = computer.getTotalStorageMemory();
 		this.cabinetModel = computer.getCabinetModel();;
 		this.totalRamMemory = computer.getTotalRamMemory();
 		this.totalStorageMemory = computer.getTotalStorageMemory();
@@ -205,19 +207,19 @@ public class ComputerDTO implements Serializable {
 		this.onTheDomain = onTheDomain;
 	}
 
-	public Integer getTotalRamMemory() {
+	public Double getTotalRamMemory() {
 		return totalRamMemory;
 	}
 
-	public void setTotalRamMemory(Integer totalRamMemory) {
+	public void setTotalRamMemory(Double totalRamMemory) {
 		this.totalRamMemory = totalRamMemory;
 	}
 	
-	public Integer getTotalStorageMemory() {
+	public Double getTotalStorageMemory() {
 		return totalStorageMemory;
 	}
 
-	public void setTotalStorageMemory(Integer totalStorageMemory) {
+	public void setTotalStorageMemory(Double totalStorageMemory) {
 		this.totalStorageMemory = totalStorageMemory;
 	}
 	

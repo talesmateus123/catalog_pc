@@ -31,6 +31,8 @@ public class Computer extends Equipment{
 	private Integer operatingSystem = 0;
 	private Integer operatingSystemArchitecture = 0;
 	private boolean onTheDomain = false;
+	private Double totalRamMemory = 0.0;
+	private Double totalStorageMemory = 0.0;
 
 	@OneToMany(mappedBy = "computer")
 	private List<RamMemory> ramMemories = new ArrayList<>();
@@ -55,10 +57,10 @@ public class Computer extends Equipment{
 	}
 
 	public Computer(Long id, String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
-			String model, String description, Sector sector, boolean itWorks, String ipAddress, 
+			String model, String description, Sector sector, boolean itWorks, String ipAddress,
 			String hostName, String motherBoardName, Processor processor, Boolean hasCdBurner, String cabinetModel, 
-			OperatingSystem operatingSystem, ArchitectureType operatingSystemArchitecture, boolean onTheDomain, 
-			Monitor monitor) {
+			OperatingSystem operatingSystem, ArchitectureType operatingSystemArchitecture, boolean onTheDomain, boolean isLaptop,
+			Double totalRamMemory, Double totalStorageMemory, Monitor monitor) {
 		super(id, patrimonyId, createdDate, modifiedDate, EquipmentType.COMPUTER, manufacturer, model, description, sector, itWorks);
 		this.ipAddress = ipAddress;
 		this.hostName = hostName;
@@ -69,7 +71,11 @@ public class Computer extends Equipment{
 		this.operatingSystem = (operatingSystem != null) ? operatingSystem.getCod() : null;
 		this.operatingSystemArchitecture = (operatingSystemArchitecture != null) ? operatingSystemArchitecture.getCod() : null;
 		this.onTheDomain = onTheDomain;
+		this.totalRamMemory = totalRamMemory;
+		this.totalStorageMemory = totalStorageMemory;
 		this.monitor = monitor;
+		this.generateTotalRamMemory();
+		this.generateTotalStorageMemory();
 	}
 
 	public String getIpAddress() {
@@ -144,12 +150,21 @@ public class Computer extends Equipment{
 		this.onTheDomain = onTheDomain;
 	}
 
+	public Double getTotalStorageMemory() {
+		return totalStorageMemory;
+	}
+	
+	public Double getTotalRamMemory() {
+		return totalRamMemory;
+	}
+
 	public List<RamMemory> getRamMemories() {
 		return ramMemories;
 	}
 
 	public void setRamMemories(List<RamMemory> ramMemories) {
 		this.ramMemories = ramMemories;
+		this.generateTotalRamMemory();
 	}
 	
 	/**
@@ -169,6 +184,7 @@ public class Computer extends Equipment{
 
 	public void setStorageDevices(List<StorageDevice> storageDevices) {
 		this.storageDevices = storageDevices;
+		this.generateTotalStorageMemory();
 	}
 	
 	/**
@@ -207,18 +223,20 @@ public class Computer extends Equipment{
 		this.monitor = monitor;
 	}
 	
-	public Integer getTotalStorageMemory() {
-		Integer totalStorageMemory = 0;
-		for (StorageDevice storageDevice : this.storageDevices)
-			totalStorageMemory = totalStorageMemory + storageDevice.getSizeInGB();
-		return totalStorageMemory;
+	private void generateTotalRamMemory() {
+		this.totalRamMemory = 0.0;
+		if (this.ramMemories != null || this.ramMemories.isEmpty()) {
+			for (RamMemory ramMemory : this.ramMemories)
+				this.totalRamMemory = this.totalRamMemory + ramMemory.getSizeInGB();
+		}
 	}
-	
-	public Integer getTotalRamMemory() {
-		Integer totalRamMemory = 0;
-		for (RamMemory ramMemory : this.ramMemories)
-			totalRamMemory = totalRamMemory + ramMemory.getSizeInGB();
-		return totalRamMemory;
+
+	private void generateTotalStorageMemory() {
+		this.totalStorageMemory = 0.0;
+		if (this.storageDevices != null || !this.storageDevices.isEmpty()) {
+			for (StorageDevice storageDevice : this.storageDevices)
+				this.totalStorageMemory = this.totalStorageMemory + storageDevice.getSizeInGB();
+		}
 	}
 	
 	public String generateHostName(){

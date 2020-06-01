@@ -27,6 +27,9 @@ public class ComputerNewDTO implements Serializable {
 	private Integer operatingSystemArchitecture;
 	@NotNull(message = "This field is mandatory")
 	private Boolean onTheDomain;
+	private boolean isLaptop;
+	private Double totalRamMemory;
+	private Double totalStorageMemory;
 	private Long monitorId;
 	private Long processorId;
 	@NotNull(message = "This field is mandatory")
@@ -156,7 +159,31 @@ public class ComputerNewDTO implements Serializable {
 
 	public void setOnTheDomain(boolean onTheDomain) {
 		this.onTheDomain = onTheDomain;
+	}
+
+	public boolean isLaptop() {
+		return isLaptop;
+	}
+
+	public void setIsLaptop(boolean isLaptop) {
+		this.isLaptop = isLaptop;
 	}	
+
+	public Double getTotalRamMemory() {
+		return totalRamMemory;
+	}
+
+	public void setTotalRamMemory(Double totalRamMemory) {
+		this.totalRamMemory = totalRamMemory;
+	}
+	
+	public Double getTotalStorageMemory() {
+		return totalStorageMemory;
+	}
+
+	public void setTotalStorageMemory(Double totalStorageMemory) {
+		this.totalStorageMemory = totalStorageMemory;
+	}
 
 	public Long getMonitorId() {
 		return monitorId;
