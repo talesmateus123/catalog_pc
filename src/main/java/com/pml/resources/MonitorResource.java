@@ -78,7 +78,6 @@ public class MonitorResource {
 	}
 
 	// @PreAuthorize("hasAnyRole('ADMIN')")
-	@CrossOrigin(origins = "http://localhost:8100")
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody MonitorNewDTO objectDTO) {
 		Monitor object = this.service.fromDTO(objectDTO);
@@ -89,7 +88,6 @@ public class MonitorResource {
 	}
 
 	// @PreAuthorize("hasAnyRole('ADMIN')")
-	@CrossOrigin(origins = "http://localhost:8100")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		this.service.delete(id);
@@ -97,7 +95,6 @@ public class MonitorResource {
 	}
 
 	// @PreAuthorize("hasAnyRole('ADMIN')")
-	@CrossOrigin(origins = "http://localhost:8100")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody MonitorNewDTO objectDTO, @PathVariable Long id) {
 		Monitor object = this.service.fromDTO(objectDTO);

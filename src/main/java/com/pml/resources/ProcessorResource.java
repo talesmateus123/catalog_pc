@@ -72,7 +72,6 @@ public class ProcessorResource {
 	}
 
 	// @PreAuthorize("hasAnyRole('ADMIN')")
-	@CrossOrigin(origins = "http://localhost:8100")
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody ProcessorNewDTO objectDTO) {
 		Processor object = this.service.fromDTO(objectDTO);
@@ -83,7 +82,6 @@ public class ProcessorResource {
 	}
 
 	// @PreAuthorize("hasAnyRole('ADMIN')")
-	@CrossOrigin(origins = "http://localhost:8100")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		this.service.delete(id);
@@ -91,7 +89,6 @@ public class ProcessorResource {
 	}
 
 	// @PreAuthorize("hasAnyRole('ADMIN')")
-	@CrossOrigin(origins = "http://localhost:8100")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody ProcessorNewDTO objectDTO, @PathVariable Long id) {
 		Processor object = this.service.fromDTO(objectDTO);

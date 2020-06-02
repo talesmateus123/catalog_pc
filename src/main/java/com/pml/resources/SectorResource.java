@@ -71,7 +71,6 @@ public class SectorResource {
 	}
 
 	// @PreAuthorize("hasAnyRole('ADMIN')")
-	@CrossOrigin(origins = "http://localhost:8100")
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody SectorNewDTO objectDTO) {
 		Sector object = this.service.fromDTO(objectDTO);
@@ -82,7 +81,6 @@ public class SectorResource {
 	}
 
 	// @PreAuthorize("hasAnyRole('ADMIN')")
-	@CrossOrigin(origins = "http://localhost:8100")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		this.service.delete(id);
@@ -90,7 +88,6 @@ public class SectorResource {
 	}
 
 	// @PreAuthorize("hasAnyRole('ADMIN')")
-	@CrossOrigin(origins = "http://localhost:8100")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody SectorNewDTO objectDTO, @PathVariable Integer id) {
 		Sector object = this.service.fromDTO(objectDTO);

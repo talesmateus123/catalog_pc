@@ -65,7 +65,6 @@ public class ComputerUserResource {
 	}
 	
 	// @PreAuthorize("hasAnyRole('ADMIN')")
-	@CrossOrigin(origins = "http://localhost:8100")
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody ComputerUserNewDTO objectDTO) {
 		ComputerUser object = this.service.fromDTO(objectDTO);
@@ -76,7 +75,6 @@ public class ComputerUserResource {
 	}
 
 	// @PreAuthorize("hasAnyRole('ADMIN')")
-	@CrossOrigin(origins = "http://localhost:8100")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		this.service.delete(id);
@@ -84,7 +82,6 @@ public class ComputerUserResource {
 	}
 
 	// @PreAuthorize("hasAnyRole('ADMIN')")
-	@CrossOrigin(origins = "http://localhost:8100")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody ComputerUserNewDTO objectDTO, @PathVariable Long id) {
 		ComputerUser object = this.service.fromDTO(objectDTO);
