@@ -15,7 +15,6 @@ import com.pml.services.SmtpEmailService;
 @Configuration
 @Profile("prod")
 public class ProdConfig {
-
 	@Bean
 	public EmailService emailService() {
 		return new SmtpEmailService();

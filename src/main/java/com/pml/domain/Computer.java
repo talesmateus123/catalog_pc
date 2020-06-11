@@ -74,8 +74,8 @@ public class Computer extends Equipment{
 		this.totalRamMemory = totalRamMemory;
 		this.totalStorageMemory = totalStorageMemory;
 		this.monitor = monitor;
-		this.generateTotalRamMemory();
-		this.generateTotalStorageMemory();
+		// this.generateTotalRamMemory();
+		// this.generateTotalStorageMemory();
 	}
 
 	public String getIpAddress() {
@@ -154,8 +154,16 @@ public class Computer extends Equipment{
 		return totalStorageMemory;
 	}
 	
+	public void setTotalStorageMemory(Double totalStorageMemory) {
+		this.totalStorageMemory = totalStorageMemory;
+	}
+	
 	public Double getTotalRamMemory() {
 		return totalRamMemory;
+	}
+	
+	public void setTotalRamMemory(Double totalRamMemory) {
+		this.totalRamMemory = totalRamMemory;
 	}
 
 	public List<RamMemory> getRamMemories() {
@@ -223,7 +231,7 @@ public class Computer extends Equipment{
 		this.monitor = monitor;
 	}
 	
-	private void generateTotalRamMemory() {
+	public void generateTotalRamMemory() {
 		this.totalRamMemory = 0.0;
 		if (this.ramMemories != null || this.ramMemories.isEmpty()) {
 			for (RamMemory ramMemory : this.ramMemories)
@@ -231,7 +239,7 @@ public class Computer extends Equipment{
 		}
 	}
 
-	private void generateTotalStorageMemory() {
+	public void generateTotalStorageMemory() {
 		this.totalStorageMemory = 0.0;
 		if (this.storageDevices != null || !this.storageDevices.isEmpty()) {
 			for (StorageDevice storageDevice : this.storageDevices)

@@ -37,7 +37,7 @@ public class ComputerNewDTO implements Serializable {
 	private List<Long> ramMemoriesId = new ArrayList<>();
 	private List<Long> storageDevicesId = new ArrayList<>();
 	private List<Long> computerUsersId = new ArrayList<>();
-	
+
 	public ComputerNewDTO() {
 	}
 

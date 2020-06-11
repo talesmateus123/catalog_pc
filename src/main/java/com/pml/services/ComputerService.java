@@ -141,7 +141,7 @@ public class ComputerService extends EquipmentService {
 	 * @param objectDTO ComputerDTO
 	 * @return Computer
 	 */
-	public Computer fromDTO(ComputerNewDTO objectNewDTO) {
+	public Computer fromDTO(ComputerNewDTO objectNewDTO) {		
 		Computer object = new Computer(
 				null, objectNewDTO.getPatrimonyId(), null, null,
 				objectNewDTO.getManufacturer(), objectNewDTO.getModel(), objectNewDTO.getDescription(), 
@@ -170,6 +170,7 @@ public class ComputerService extends EquipmentService {
 					ramMemory.setComputer(object);
 					object.addRamMemory(ramMemory);
 				}
+				object.generateTotalRamMemory();
 			}
 		}
 		if(objectNewDTO.getStorageDevicesId() != null) {
@@ -179,8 +180,10 @@ public class ComputerService extends EquipmentService {
 					storageDevice.setComputer(object);
 					object.addStorageDevice(storageDevice);
 				}
+				object.generateTotalStorageMemory();
 			}
 		}
+		
 		// Many to many relationships
 		if(objectNewDTO.getComputerUsersId() != null) {
 			if(!objectNewDTO.getComputerUsersId().isEmpty()) {
@@ -191,7 +194,7 @@ public class ComputerService extends EquipmentService {
 				}
 			}
 		}
-		System.out.println(object.toString());
+
 		return object;
 	}	
 	
