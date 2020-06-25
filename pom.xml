@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.pml</groupId>
-	<artifactId>pc_catalog</artifactId>
+	<artifactId>computer-catalogation-system-back-end</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pc_catalog</name>
-	<description>Demo project for Spring Boot</description>
+	<name>computer-catalogation-system-back-end</name>
+	<description>REST API project for Spring Boot</description>
 
 	<properties>
 		<java.version>14</java.version>
@@ -75,6 +75,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.9.0</version>
 		</dependency>
 	</dependencies>
 
