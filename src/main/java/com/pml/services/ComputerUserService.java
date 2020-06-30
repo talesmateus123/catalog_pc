@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.pml.domain.Computer;
@@ -39,7 +40,7 @@ public class ComputerUserService {
 	}
 	
 	public Page<ComputerUser> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage);
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
 		return this.repository.findAll(pageRequest);
 	}
 	
@@ -69,6 +70,11 @@ public class ComputerUserService {
 		Optional<ComputerUser> object = this.repository.findByEmail(email);
 		return object.orElseThrow(()-> new ObjectNotFoundException("This ipAddress: '" + email + "'has no computer user. Type: " + object.getClass().getName()));
 	}
+	
+	public Page<ComputerUser> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy, "name");
+        return repository.search(searchTerm.toLowerCase(), pageRequest);
+    }
 	
 	// Create, update and delete methods
 	@Transactional
