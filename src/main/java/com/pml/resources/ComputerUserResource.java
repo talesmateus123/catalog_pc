@@ -66,8 +66,8 @@ public class ComputerUserResource {
     public Page<ComputerUser> search(
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,
             @RequestParam(value = "linesPerPage", required = false, defaultValue = "10") int linesPerPage,
-            @RequestParam("direction") String direction, 
-            @RequestParam("orderBy") String orderBy,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction, 
+            @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
     		@RequestParam("searchTerm") String searchTerm) {
         return service.search(page, linesPerPage, direction, orderBy, searchTerm);
     }

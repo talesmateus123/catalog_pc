@@ -28,7 +28,8 @@ public interface ComputerUserRepository extends JpaRepository<ComputerUser, Long
 	List<ComputerUser> findByOrderByName();
 	@Query("FROM ComputerUser user " +
 	           "WHERE LOWER(user.name) like %:searchTerm% " +
-	           "OR LOWER(user.lastName) like %:searchTerm%")
+	           "OR LOWER(user.lastName) like %:searchTerm% " +
+	           "OR LOWER(user.sector.name) like %:searchTerm%")
     Page<ComputerUser> search(@Param("searchTerm") String searchTerm, Pageable pageable);
 	
 	

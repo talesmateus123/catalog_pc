@@ -76,6 +76,16 @@ public class ComputerResource {
 		return ResponseEntity.ok().body(object);
 	}
 	
+	@GetMapping("/search")
+    public Page<Computer> search(
+            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(value = "linesPerPage", required = false, defaultValue = "10") int linesPerPage,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction, 
+            @RequestParam(value = "orderBy", defaultValue = "patrimonyId") String orderBy,
+    		@RequestParam("searchTerm") String searchTerm) {
+        return service.search(page, linesPerPage, direction, orderBy, searchTerm);
+    }
+	
 	// @PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody ComputerNewDTO objectDTO) {

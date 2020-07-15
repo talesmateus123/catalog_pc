@@ -72,7 +72,7 @@ public class ComputerUserService {
 	}
 	
 	public Page<ComputerUser> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {
-        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy, "name");
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
         return repository.search(searchTerm.toLowerCase(), pageRequest);
     }
 	
