@@ -5,6 +5,7 @@
  */
 package com.pml.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ import com.pml.domain.Printer;
 @Repository
 public interface PrinterRepository extends JpaRepository<Printer, Long>{
 	Optional<Printer> findByPatrimonyId(String patrimonyId);
+	List<Printer> findByOrderByPatrimonyId();	
 	@Query("FROM Printer printer " +
 	           "WHERE LOWER(printer.patrimonyId) like %:searchTerm% " +
 	           "OR LOWER(printer.manufacturer) like %:searchTerm% " +

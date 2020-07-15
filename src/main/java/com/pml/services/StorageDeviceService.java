@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.pml.domain.Computer;
@@ -54,6 +55,11 @@ public class StorageDeviceService {
 	public List<StorageDevice> findByComputer(Computer computer) {
 		return this.repository.findByComputer(computer);
 	}
+	
+	public Page<StorageDevice> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
+        return repository.search(searchTerm.toLowerCase(), pageRequest);
+    }
 
 	// Create, update and delete methods
 	@Transactional

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.pml.domain.Sector;
@@ -47,6 +48,11 @@ public class SectorService {
 		Optional<Sector> object = this.repository.findByName(name);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Sector not found: name: '" + name + "'. Type: " + object.getClass().getName()));
 	}
+	
+	public Page<Sector> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
+        return repository.search(searchTerm.toLowerCase(), pageRequest);
+    }
 
 	// Create, update and delete methods
 	@Transactional

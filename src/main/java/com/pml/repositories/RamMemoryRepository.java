@@ -7,17 +7,23 @@ package com.pml.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.pml.domain.Computer;
-import com.pml.domain.Monitor;
 import com.pml.domain.RamMemory;
 @Repository
 public interface RamMemoryRepository extends JpaRepository<RamMemory, Long>{
 	List<RamMemory> findByComputer(Computer computer);
 	List<RamMemory> findAllByComputerNull();
-	//List<Monitor> findByOrderByPatrimonyId();
+	@Query("FROM RamMemory ramMemory " +
+	           "WHERE LOWER(ramMemory.manufacturer) like %:searchTerm% " +
+	           "OR LOWER(ramMemory.model) like %:searchTerm%")
+	Page<RamMemory> search(@Param("searchTerm") String searchTerm, Pageable pageable);
 	
 	
 	

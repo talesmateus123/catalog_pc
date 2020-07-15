@@ -14,8 +14,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -69,6 +67,16 @@ public class PrinterResource {
 		Printer object = this.service.findByPatrimonyId(patrimonyId);
 		return ResponseEntity.ok().body(object);
 	}
+	
+	@GetMapping("/search")
+    public Page<Printer> search(
+            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(value = "linesPerPage", required = false, defaultValue = "10") int linesPerPage,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction, 
+            @RequestParam(value = "orderBy", defaultValue = "patrimonyId") String orderBy,
+    		@RequestParam("searchTerm") String searchTerm) {
+        return service.search(page, linesPerPage, direction, orderBy, searchTerm);
+    }
 
 	// @PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping

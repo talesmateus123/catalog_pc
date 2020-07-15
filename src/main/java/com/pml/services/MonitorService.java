@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.pml.domain.Computer;
@@ -65,6 +66,11 @@ public class MonitorService extends EquipmentService {
 		Optional<Monitor> object = this.repository.findByComputer(computer);
 		return object.orElseThrow(()-> new ObjectNotFoundException("This computer: patrimonyId: '" + computer.getPatrimonyId() + "'has no monitor. Type: " + object.getClass().getName()));
 	}
+	
+	public Page<Monitor> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
+        return repository.search(searchTerm.toLowerCase(), pageRequest);
+    }
 
 	// Create, update and delete methods
 	@Transactional
