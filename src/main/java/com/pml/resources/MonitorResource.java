@@ -5,6 +5,7 @@
  */
 package com.pml.resources;
 
+import java.io.ByteArrayInputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +13,10 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -29,6 +34,7 @@ import com.pml.domain.Monitor;
 import com.pml.dto.MonitorDTO;
 import com.pml.dto.MonitorNewDTO;
 import com.pml.services.MonitorService;
+import com.pml.util.GeneratePdfReportFromMonitors;
 
 @RestController
 @RequestMapping(value = "/api/monitors")
@@ -112,6 +118,24 @@ public class MonitorResource {
 		this.service.update(object);
 		return ResponseEntity.noContent().build();		
 	}
+	
+	@RequestMapping(value = "/pdfreport", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<InputStreamResource> citiesReport() {
+
+        var monitors = (List<Monitor>) service.findAll();
+
+        ByteArrayInputStream bis = GeneratePdfReportFromMonitors.monitorsReport(monitors);
+
+        var headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=monitors_report.pdf");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(bis));
+    }
 	
 	
 	
