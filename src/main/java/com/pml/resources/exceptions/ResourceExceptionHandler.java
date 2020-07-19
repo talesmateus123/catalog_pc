@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.pml.services.exceptions.AuthorizationException;
 import com.pml.services.exceptions.ConflictOfObjectsException;
 import com.pml.services.exceptions.DataIntegrityException;
+import com.pml.services.exceptions.IllegalArgException;
 import com.pml.services.exceptions.ObjectNotFoundException;
+import com.pml.services.exceptions.InvalidQueryException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -27,7 +29,7 @@ public class ResourceExceptionHandler {
 		// The Http status
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		// The standard error
-		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Not found", e.getMessage(), request.getRequestURI());
+		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Not Found", e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	
@@ -36,7 +38,7 @@ public class ResourceExceptionHandler {
 		// The Http status
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		// The standard error
-		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Data integrity", e.getMessage(), request.getRequestURI());
+		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Data Integrity", e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	
@@ -45,7 +47,7 @@ public class ResourceExceptionHandler {
 		// The Http status
 		HttpStatus status = HttpStatus.CONFLICT;
 		// The standard error
-		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Conflict of objects", e.getMessage(), request.getRequestURI());
+		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Conflict of Objects", e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	
@@ -54,7 +56,7 @@ public class ResourceExceptionHandler {
 		// The Http status
 		HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
 		// The validation error
-		ValidationError err = new ValidationError(System.currentTimeMillis(), status.value(), "Validation error", e.getMessage(), request.getRequestURI());	
+		ValidationError err = new ValidationError(System.currentTimeMillis(), status.value(), "Validation Error", e.getMessage(), request.getRequestURI());	
 		for(FieldError fieldError : e.getBindingResult().getFieldErrors())
 			err.addError(fieldError.getField(), fieldError.getDefaultMessage());
 		
@@ -67,6 +69,26 @@ public class ResourceExceptionHandler {
 		HttpStatus status = HttpStatus.FORBIDDEN;
 		// The standard error
 		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Access Denied", e.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(status).body(err);
+	}
+	
+	@ExceptionHandler(InvalidQueryException.class)
+	public ResponseEntity<StandardError> invalidQueryException(InvalidQueryException e, HttpServletRequest request){
+		// The Http status
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		// The standard error
+		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Bad Request", e.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(status).body(err);
+	}
+	
+	@ExceptionHandler(IllegalArgException.class)
+	public ResponseEntity<StandardError> illegalArgumentException(IllegalArgException e, HttpServletRequest request){
+		// The Http status
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		// The standard error
+		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Bad Request", e.getMessage(), request.getRequestURI());
 		
 		return ResponseEntity.status(status).body(err);
 	}

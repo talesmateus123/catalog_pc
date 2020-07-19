@@ -23,7 +23,10 @@ import com.pml.domain.RamMemory;
 import com.pml.dto.RamMemoryNewDTO;
 import com.pml.repositories.RamMemoryRepository;
 import com.pml.services.exceptions.DataIntegrityException;
+import com.pml.services.exceptions.IllegalArgException;
+import com.pml.services.exceptions.InvalidQueryException;
 import com.pml.services.exceptions.ObjectNotFoundException;
+import com.pml.util.ServiceUtil;
 
 @Service
 public class RamMemoryService {
@@ -57,8 +60,17 @@ public class RamMemoryService {
 	}
 	
 	public Page<RamMemory> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {
-        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
-        return repository.search(searchTerm.toLowerCase(), pageRequest);
+		try {
+    		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
+    		        	
+        	if(!ServiceUtil.parameterExistsInTheClass(orderBy, RamMemory.class)) 
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + RamMemory.class.getName() + "' class.");
+        	return repository.search(searchTerm.toLowerCase(), pageRequest);
+            
+    	}
+    	catch (IllegalArgumentException e) {
+    		throw new IllegalArgException("The value of direction parameter: '" + direction + "' is invalid, this value must be 'ASC' or 'DESC'.");
+		}
     }
 
 	// Create, update and delete methods

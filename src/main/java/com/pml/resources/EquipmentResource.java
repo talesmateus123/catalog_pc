@@ -20,7 +20,7 @@ import com.pml.services.exceptions.ObjectNotFoundException;
 
 @RestController
 @RequestMapping(value = "/api/equipments")
-public class EquipmentResource {	
+public class EquipmentResource {
 	@Autowired
 	private EquipmentRepository repository;
 	

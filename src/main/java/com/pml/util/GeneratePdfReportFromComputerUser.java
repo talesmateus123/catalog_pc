@@ -1,3 +1,8 @@
+/** 
+ * This is the "GeneratePdfReportFromComputerUser" class. Which will be responsible for generate the computer users report; 
+ * 
+ * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
+ */
 package com.pml.util;
 
 import java.io.ByteArrayInputStream;

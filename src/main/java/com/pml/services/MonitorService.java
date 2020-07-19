@@ -24,7 +24,10 @@ import com.pml.dto.MonitorNewDTO;
 import com.pml.repositories.MonitorRepository;
 import com.pml.services.exceptions.ConflictOfObjectsException;
 import com.pml.services.exceptions.DataIntegrityException;
+import com.pml.services.exceptions.IllegalArgException;
+import com.pml.services.exceptions.InvalidQueryException;
 import com.pml.services.exceptions.ObjectNotFoundException;
+import com.pml.util.ServiceUtil;
 
 @Service
 public class MonitorService extends EquipmentService {
@@ -67,9 +70,18 @@ public class MonitorService extends EquipmentService {
 		return object.orElseThrow(()-> new ObjectNotFoundException("This computer: patrimonyId: '" + computer.getPatrimonyId() + "'has no monitor. Type: " + object.getClass().getName()));
 	}
 	
-	public Page<Monitor> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {
-        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
-        return repository.search(searchTerm.toLowerCase(), pageRequest);
+	public Page<Monitor> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {	
+    	try {
+    		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
+    		        	
+        	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Monitor.class)) 
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Monitor.class.getName() + "' class.");
+        	return repository.search(searchTerm.toLowerCase(), pageRequest);
+            
+    	}
+    	catch (IllegalArgumentException e) {
+    		throw new IllegalArgException("The value of direction parameter: '" + direction + "' is invalid, this value must be 'ASC' or 'DESC'.");
+		}
     }
 
 	// Create, update and delete methods

@@ -1,3 +1,8 @@
+/** 
+ * This is the "GeneratePdfReportFromSector" class. Which will be responsible for generate the sectors report; 
+ * 
+ * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
+ */
 package com.pml.util;
 
 import java.io.ByteArrayInputStream;
