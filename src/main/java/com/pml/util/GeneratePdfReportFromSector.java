@@ -31,22 +31,31 @@ public class GeneratePdfReportFromSector {
 
         try {
 
-            PdfPTable table = new PdfPTable(1);
+            PdfPTable table = new PdfPTable(2);
             table.setWidthPercentage(100);
-            table.setWidths(new int[]{2});
+            table.setWidths(new int[]{2, 2});
 
             Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 
             PdfPCell hcell;
             hcell = new PdfPCell(new Phrase("Nome", headFont));
             hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(hcell);            
+            table.addCell(hcell);         
+
+            hcell = new PdfPCell(new Phrase("Telefone", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);    
 
             for (Sector sector : sectors) {
 
                 PdfPCell cell;
 
                 cell = new PdfPCell(new Phrase(sector.getName()));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Phrase(sector.getPhone()));
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
