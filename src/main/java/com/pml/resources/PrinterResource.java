@@ -34,7 +34,7 @@ import com.pml.domain.Printer;
 import com.pml.dto.PrinterDTO;
 import com.pml.dto.PrinterNewDTO;
 import com.pml.services.PrinterService;
-import com.pml.util.GeneratePdfReportFromPrinters;
+import com.pml.util.GeneratePdfReportFromPrinter;
 
 @RestController
 @RequestMapping(value = "/api/printers")
@@ -117,7 +117,7 @@ public class PrinterResource {
 
         var printers = (List<Printer>) service.findAll();
 
-        ByteArrayInputStream bis = GeneratePdfReportFromPrinters.printersReport(printers);
+        ByteArrayInputStream bis = GeneratePdfReportFromPrinter.printersReport(printers);
 
         var headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=printers_report.pdf");

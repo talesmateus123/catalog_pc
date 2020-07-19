@@ -23,6 +23,7 @@ public class Sector implements Serializable {
 	@NotEmpty
 	@Column(unique = true)
 	private String name;
+	private String phone;
 	@OneToMany(mappedBy = "sector")
 	@JsonIgnore
 	private List<Equipment> equipments = new ArrayList<>();
@@ -33,10 +34,11 @@ public class Sector implements Serializable {
 	public Sector() {
 	}
 	
-	public Sector(Integer id, String name) {
+	public Sector(Integer id, String name, String phone) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.phone = phone;
 	}
 
 	public Integer getId() {
@@ -53,6 +55,14 @@ public class Sector implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}	
 
 	public List<Equipment> getEquipments() {

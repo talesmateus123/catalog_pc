@@ -34,7 +34,7 @@ import com.pml.domain.Monitor;
 import com.pml.dto.MonitorDTO;
 import com.pml.dto.MonitorNewDTO;
 import com.pml.services.MonitorService;
-import com.pml.util.GeneratePdfReportFromMonitors;
+import com.pml.util.GeneratePdfReportFromMonitor;
 
 @RestController
 @RequestMapping(value = "/api/monitors")
@@ -125,7 +125,7 @@ public class MonitorResource {
 
         var monitors = (List<Monitor>) service.findAll();
 
-        ByteArrayInputStream bis = GeneratePdfReportFromMonitors.monitorsReport(monitors);
+        ByteArrayInputStream bis = GeneratePdfReportFromMonitor.monitorsReport(monitors);
 
         var headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=monitors_report.pdf");

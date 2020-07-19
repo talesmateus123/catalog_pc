@@ -34,7 +34,7 @@ import com.pml.domain.Sector;
 import com.pml.dto.SectorDTO;
 import com.pml.dto.SectorNewDTO;
 import com.pml.services.SectorService;
-import com.pml.util.GeneratePdfReportFromSectors;
+import com.pml.util.GeneratePdfReportFromSector;
 
 @RestController
 @RequestMapping(value = "/api/sectors")
@@ -117,7 +117,7 @@ public class SectorResource {
 
         var sectors = (List<Sector>) service.findAll();
 
-        ByteArrayInputStream bis = GeneratePdfReportFromSectors.sectorsReport(sectors);
+        ByteArrayInputStream bis = GeneratePdfReportFromSector.sectorsReport(sectors);
 
         var headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=sectors_report.pdf");

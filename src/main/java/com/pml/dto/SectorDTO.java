@@ -8,6 +8,7 @@ public class SectorDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;
+	private String phone;
 	
 	public SectorDTO() {
 	}
@@ -15,6 +16,7 @@ public class SectorDTO implements Serializable {
 	public SectorDTO(Sector sector) {
 		this.id = sector.getId();
 		this.name = sector.getName();
+		this.phone = sector.getPhone();
 	}
 	
 	public Integer getId() {
@@ -32,6 +34,14 @@ public class SectorDTO implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}	
 
 	
 

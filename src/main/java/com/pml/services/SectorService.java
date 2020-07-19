@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.pml.domain.Sector;
 import com.pml.dto.SectorNewDTO;
 import com.pml.repositories.SectorRepository;
+import com.pml.services.exceptions.ConflictOfObjectsException;
 import com.pml.services.exceptions.DataIntegrityException;
 import com.pml.services.exceptions.ObjectNotFoundException;
 
@@ -57,6 +58,9 @@ public class SectorService {
 	// Create, update and delete methods
 	@Transactional
 	public Sector insert(Sector object) {
+		if(this.alreadyExists(object.getName())){
+			throw new ConflictOfObjectsException("This sector already exists: patrimonyId: '" + object.getName() + "'.");
+		}
 		object.setId(null);
 		return this.repository.save(object);
 	}
@@ -78,12 +82,28 @@ public class SectorService {
 
 	// Auxiliary methods	
 	/**
+	 * Verify if already exists the sector name requested.
+	 * @param name String
+	 * @return boolean
+	 */
+	private boolean alreadyExists(String name) {	
+		if(name == null)
+			return false;
+		
+		Optional<Sector> objectByPatrimonyId = this.repository.findByName(name);
+		
+		if(objectByPatrimonyId.isEmpty())
+			return false;
+		return true;
+	}
+	
+	/**
 	 * Convert the SectorNewDTO object to a Sector object. 
 	 * @param objectNewDTO SectorNewDTO
 	 * @return Sector
 	 */
 	public Sector fromDTO(SectorNewDTO objectNewDTO) {
-		Sector object = new Sector(null, objectNewDTO.getName());
+		Sector object = new Sector(null, objectNewDTO.getName(), objectNewDTO.getPhone());
 		
 		return object;
 	}

@@ -34,7 +34,7 @@ import com.pml.domain.ComputerUser;
 import com.pml.dto.ComputerUserDTO;
 import com.pml.dto.ComputerUserNewDTO;
 import com.pml.services.ComputerUserService;
-import com.pml.util.GeneratePdfReportFromComputerUsers;
+import com.pml.util.GeneratePdfReportFromComputerUser;
 
 @RestController
 @RequestMapping(value = "/api/computer_users")
@@ -111,7 +111,7 @@ public class ComputerUserResource {
 
         var computer_users = (List<ComputerUser>) service.findAll();
 
-        ByteArrayInputStream bis = GeneratePdfReportFromComputerUsers.computerUsersReport(computer_users);
+        ByteArrayInputStream bis = GeneratePdfReportFromComputerUser.computerUsersReport(computer_users);
 
         var headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=computer_users_report.pdf");

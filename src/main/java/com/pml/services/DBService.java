@@ -66,14 +66,13 @@ public class DBService {
 		user1.addProfile(UserProfile.ADMIN);
 		Client user2 = new Client(null, "renato123@gmail.com", "Renato Campos", bCryptPasswordEncoder.encode("1234"));
 		
-		
 		// Sectors creation
-		Sector sector1 = new Sector(null, "Administração");
-		Sector sector2 = new Sector(null, "Recursos humanos");
-		Sector sector3 = new Sector(null, "Contabilidade");
-		Sector sector4 = new Sector(null, "Licitação");
-		Sector sector5 = new Sector(null, "Gabinete do prefeito");
-		Sector sector6 = new Sector(null, "CRAS");
+		Sector sector1 = new Sector(null, "Administração", "(67)32328000");
+		Sector sector2 = new Sector(null, "Recursos humanos", "(67)32328000");
+		Sector sector3 = new Sector(null, "Contabilidade", "(67)32328000");
+		Sector sector4 = new Sector(null, "Licitação", "(67)32328000");
+		Sector sector5 = new Sector(null, "Gabinete do prefeito", "(67)32328000");
+		Sector sector6 = new Sector(null, "CRAS", "(67)32328000");
 		
 		// Computer users creation
 		ComputerUser computerUser1 = new ComputerUser(null, "José Rodrigues", "Gonzales", sector2, "jose.rodriges@ladario.gov.br");
@@ -129,6 +128,10 @@ public class DBService {
 				"description", sector1, true, "ipAddress", "hostName");
 		
 		// Setting data on database
+		userRepository.saveAll(Arrays.asList(
+				user1, user2
+				));
+		
 		sectorRepository.saveAll(Arrays.asList(
 				sector1, sector2, sector3, sector4, sector5, sector6
 				));

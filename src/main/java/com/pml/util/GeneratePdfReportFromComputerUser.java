@@ -1,30 +1,28 @@
 package com.pml.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.pml.domain.Computer;
 import com.pml.domain.ComputerUser;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+public class GeneratePdfReportFromComputerUser {
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.util.List;
-
-public class GeneratePdfReportFromComputerUsers {
-
-	private static final Logger logger = LoggerFactory.getLogger(GeneratePdfReportFromComputerUsers.class);
+	private static final Logger logger = LoggerFactory.getLogger(GeneratePdfReportFromComputerUser.class);
 	
 	public static ByteArrayInputStream computerUsersReport(List<ComputerUser> computerUsers) {
 
