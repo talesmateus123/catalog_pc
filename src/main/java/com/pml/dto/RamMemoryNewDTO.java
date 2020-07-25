@@ -15,7 +15,7 @@ public class RamMemoryNewDTO implements Serializable {
 	private String description;
 	private boolean itWorks = true;
 	@NotNull(message = "This field is mandatory")
-	private Double sizeInGB;
+	private Integer sizeInGB;
 	@NotNull(message = "This field is mandatory")
 	private Integer architecture;
 	private Long computerId;
@@ -55,11 +55,11 @@ public class RamMemoryNewDTO implements Serializable {
 		this.itWorks = itWorks;
 	}
 	
-	public Double getSizeInGB() {
+	public Integer getSizeInGB() {
 		return sizeInGB;
 	}
 
-	public void setSizeInGB(Double sizeInGB) {
+	public void setSizeInGB(Integer sizeInGB) {
 		this.sizeInGB = sizeInGB;
 	}
 	

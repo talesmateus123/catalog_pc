@@ -32,15 +32,14 @@ public abstract class Electronic implements Serializable{
 	protected String manufacturer = "Undefined";
 	protected String model = "Undefined";
 	protected String description = "Undefined";
-	protected boolean itWorks = true;
-	protected boolean itComposed;
-
+	protected Boolean itWorks = true;
+	protected Boolean itComposed;
 	
 	public Electronic() {
 	}
 	
 	public Electronic(Long id, Date createdDate, Date lastModifiedDate, EquipmentType equipmentType, 
-			String manufacturer, String model, String description, boolean itWorks, boolean itComposed) {
+			String manufacturer, String model, String description, Boolean itWorks, Boolean itComposed) {
 		this.id = id;
 		this.createdDate = createdDate;
 		this.lastModifiedDate = lastModifiedDate;
@@ -108,19 +107,19 @@ public abstract class Electronic implements Serializable{
 		this.description = description;
 	}
 	
-	public boolean isItWorks() {
+	public Boolean isItWorks() {
 		return itWorks;
 	}
 
-	public void setItWorks(boolean itWorks) {
+	public void setItWorks(Boolean itWorks) {
 		this.itWorks = itWorks;
 	}
 
-	public boolean isItComposed() {
+	public Boolean isItComposed() {
 		return itComposed;
 	}
 
-	public void setItComposed(boolean isItComposed) {
+	public void setItComposed(Boolean isItComposed) {
 		this.itComposed = isItComposed;
 	}
 	

@@ -74,6 +74,12 @@ public class RamMemoryService {
     }
 
 	// Create, update and delete methods
+	public RamMemory save(RamMemory object) {
+		if(object.getId() == null)
+			return this.insert(object);
+		return this.update(object);
+	}
+	
 	@Transactional
 	public RamMemory insert(RamMemory object) {
 		object.setId(null);

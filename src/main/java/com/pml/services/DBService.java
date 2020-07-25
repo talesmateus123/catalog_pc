@@ -86,9 +86,9 @@ public class DBService {
 		
 		// Computers creation		
 		Computer computer1 = new Computer(null, "06770", new Date(), new Date(), "Micron Technology", null, null, sector2, 
-				true, null, null, null, null, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.I386, false, false, 0.0, 0.0, monitor1);
+				true, null, null, null, null, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.I386, false, 0.0, 0.0, monitor1);
 		Computer computer2 = new Computer(null, "07178", new Date(), new Date(), "Micron Technology", null, null, sector2, 
-				true, null, null, null, null, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, false, 0.0, 0.0, monitor2);
+				true, null, null, null, null, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, 0.0, 0.0, monitor2);
 		computer1.addComputerUser(computerUser1);
 		computer1.addComputerUser(computerUser2);
 		computer2.addComputerUser(computerUser3);

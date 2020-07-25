@@ -15,7 +15,7 @@ import com.pml.domain.enums.RamMemoryArchitecture;
 public class RamMemory extends Electronic {
 	private static final long serialVersionUID = 1L;
 	@NotNull
-	private Double sizeInGB;
+	private Integer sizeInGB;
 	@NotNull
 	private Integer architecture;
 	@ManyToOne
@@ -30,7 +30,7 @@ public class RamMemory extends Electronic {
 	}
 	
 	public RamMemory(Long id, Date createdDate, Date lastModifiedDate, String manufacturer,
-			String model, String description, boolean itWorks, Double sizeInGB, RamMemoryArchitecture architecture, 
+			String model, String description, Boolean itWorks, Integer sizeInGB, RamMemoryArchitecture architecture, 
 			Computer computer) {
 		super(id, createdDate, lastModifiedDate, EquipmentType.RAM_MEMORY, manufacturer, model, description, itWorks, false);
 		this.sizeInGB = sizeInGB;
@@ -39,11 +39,11 @@ public class RamMemory extends Electronic {
 		this.setItComposed(false);
 	}
 	
-	public Double getSizeInGB() {
+	public Integer getSizeInGB() {
 		return sizeInGB;
 	}
 	
-	public void setSizeInGB(Double sizeInGB) {
+	public void setSizeInGB(Integer sizeInGB) {
 		this.sizeInGB = sizeInGB;
 	}
 	

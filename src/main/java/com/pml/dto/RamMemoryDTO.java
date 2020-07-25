@@ -21,7 +21,7 @@ public class RamMemoryDTO implements Serializable {
 	private String description;
 	private boolean itWorks; 
 	private boolean itComposed;
-	private Double sizeInGB;
+	private Integer sizeInGB;
 	private Integer architecture;
 	
 	
@@ -114,11 +114,11 @@ public class RamMemoryDTO implements Serializable {
 		this.itComposed = isItComposed;
 	}
 
-	public Double getSizeInGB() {
+	public Integer getSizeInGB() {
 		return sizeInGB;
 	}
 
-	public void setSizeInGB(Double sizeInGB) {
+	public void setSizeInGB(Integer sizeInGB) {
 		this.sizeInGB = sizeInGB;
 	}
 	

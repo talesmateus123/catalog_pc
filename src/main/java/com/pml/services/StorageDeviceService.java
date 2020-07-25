@@ -74,6 +74,12 @@ public class StorageDeviceService {
     }
 
 	// Create, update and delete methods
+	public StorageDevice save(StorageDevice object) {
+		if(object.getId() == null)
+			return this.insert(object);
+		return this.update(object);
+	}
+	
 	@Transactional
 	public StorageDevice insert(StorageDevice object) {
 		object.setId(null);

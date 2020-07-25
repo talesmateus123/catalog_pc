@@ -75,6 +75,11 @@ public class ProcessorService {
     }
 
 	// Create, update and delete methods
+	public Processor save(Processor object) {
+		if(object.getId() == null)
+			return this.insert(object);
+		return this.update(object);
+	}
 	@Transactional
 	public Processor insert(Processor object) {
 		object.setId(null);

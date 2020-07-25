@@ -31,7 +31,7 @@ public abstract class Equipment extends Electronic {
 	}
 
 	public Equipment(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, EquipmentType equipmentType, 
-			String manufacturer, String model, String description, Sector sector, boolean itWorks) {
+			String manufacturer, String model, String description, Sector sector, Boolean itWorks) {
 		super(id, createdDate, lastModifiedDate, equipmentType, manufacturer, model, description, itWorks, true);
 		this.patrimonyId = patrimonyId;
 		this.sector = sector;
