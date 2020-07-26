@@ -87,8 +87,7 @@ public class ClientService {
 	 * @return User
 	 */
 	public Client fromDTO(ClientDTO objectDTO) {
-		return new Client(
-				objectDTO.getId(), objectDTO.getEmail(), objectDTO.getName(), objectDTO.getPassword());
+		return new Client(objectDTO.getId(), objectDTO.getEmail(), objectDTO.getName(), objectDTO.getPassword());
 	}
 	
 	/**

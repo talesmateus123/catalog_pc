@@ -41,13 +41,7 @@ public class PrinterService extends EquipmentService {
 		return this.repository.findAll(pageRequest);
 	}
 
-	// Simple search methods
-	@Override
-	public Printer findByPatrimonyId(String patrimonyId) {
-		Optional<Printer> object = this.repository.findByPatrimonyId(patrimonyId);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Printer not found: patrimonyId: '" + patrimonyId + "'. Type: " + object.getClass().getName()));
-	}
-	
+	// Simple search methods	
 	@Override
 	public Printer findById(Long id) {
 		Optional<Printer> object = this.repository.findById(id);
@@ -75,6 +69,7 @@ public class PrinterService extends EquipmentService {
 		}
 		object.setId(null);
 		object.setCreatedDate(new Date());
+		object.setLastModifiedDate(new Date());
 		return this.repository.save(object);
 	}
 
@@ -84,8 +79,8 @@ public class PrinterService extends EquipmentService {
 	}
 
 	public Printer update(Printer object) {
-		this.recoverData(object);
-		if(this.patrimonyIdIsChanged(object)){
+		this.retrievesAndUpdatesDateData(object);
+		if(this.isPatrimonyIdChanged(object)){
 			if(this.alreadyExists(object.getPatrimonyId()))
 				throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}

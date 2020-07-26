@@ -52,22 +52,11 @@ public class MonitorService extends EquipmentService {
 		return this.repository.findAll(pageRequest);
 	}
 
-	// Simple search methods
-	@Override
-	public Monitor findByPatrimonyId(String patrimonyId) {
-		Optional<Monitor> object = this.repository.findByPatrimonyId(patrimonyId);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Monitor not found: patrimonyId: '" + patrimonyId + "'. Type: " + object.getClass().getName()));
-	}
-	
+	// Simple search methods	
 	@Override
 	public Monitor findById(Long id) {
 		Optional<Monitor> object = this.repository.findById(id);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Monitor not found: id: '" + id + "'. Type: " + object.getClass().getName()));
-	}
-	
-	public Monitor findByComputer(Computer computer) {
-		Optional<Monitor> object = this.repository.findByComputer(computer);
-		return object.orElseThrow(()-> new ObjectNotFoundException("This computer: patrimonyId: '" + computer.getPatrimonyId() + "'has no monitor. Type: " + object.getClass().getName()));
 	}
 	
 	public Page<Monitor> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {	
@@ -85,6 +74,12 @@ public class MonitorService extends EquipmentService {
     }
 
 	// Create, update and delete methods
+	protected Monitor save(Monitor object) {
+		if(object.getId() == null)
+			return this.insert(object);
+		return this.update(object);
+	}
+	
 	@Transactional
 	public Monitor insert(Monitor object) {
 		if(this.alreadyExists(object.getPatrimonyId())){
@@ -92,6 +87,7 @@ public class MonitorService extends EquipmentService {
 		}
 		object.setId(null);
 		object.setCreatedDate(new Date());
+		object.setLastModifiedDate(new Date());
 		return this.repository.save(object);
 	}
 
@@ -106,8 +102,8 @@ public class MonitorService extends EquipmentService {
 	}
 
 	public Monitor update(Monitor object) {
-		this.recoverData(object);	
-		if(this.patrimonyIdIsChanged(object)){
+		this.retrievesAndUpdatesDateData(object);	
+		if(this.isPatrimonyIdChanged(object)){
 			if(this.alreadyExists(object.getPatrimonyId()))
 				throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}	

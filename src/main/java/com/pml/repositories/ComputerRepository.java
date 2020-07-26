@@ -16,13 +16,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.pml.domain.Computer;
-import com.pml.domain.Monitor;
 @Repository
-public interface ComputerRepository extends JpaRepository<Computer, Long>{
-	Optional<Computer> findByIpAddress(String ipAddress);
-	Optional<Computer> findByMonitor(Monitor monitor);
-	Optional<Computer> findByPatrimonyId(String patrimonyId);
-	List<Computer> findByManufacturer(String manufacturer);	
+public interface ComputerRepository extends JpaRepository<Computer, Long>{	
 	List<Computer> findByOrderByPatrimonyId();	
 	List<Computer> findAllByMonitorNull();
 	@Query("FROM Computer computer " +

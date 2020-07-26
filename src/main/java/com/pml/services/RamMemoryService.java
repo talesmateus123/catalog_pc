@@ -74,7 +74,7 @@ public class RamMemoryService {
     }
 
 	// Create, update and delete methods
-	public RamMemory save(RamMemory object) {
+	protected RamMemory save(RamMemory object) {
 		if(object.getId() == null)
 			return this.insert(object);
 		return this.update(object);
@@ -84,6 +84,7 @@ public class RamMemoryService {
 	public RamMemory insert(RamMemory object) {
 		object.setId(null);
 		object.setCreatedDate(new Date());
+		object.setLastModifiedDate(new Date());
 		return this.repository.save(object);
 	}
 
@@ -98,7 +99,7 @@ public class RamMemoryService {
 	}
 
 	public RamMemory update(RamMemory object) {
-		recoverData(object);
+		this.recoverData(object);
 		return this.repository.saveAndFlush(object);		
 	}
 

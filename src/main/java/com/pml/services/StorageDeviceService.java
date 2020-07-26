@@ -74,7 +74,7 @@ public class StorageDeviceService {
     }
 
 	// Create, update and delete methods
-	public StorageDevice save(StorageDevice object) {
+	protected StorageDevice save(StorageDevice object) {
 		if(object.getId() == null)
 			return this.insert(object);
 		return this.update(object);
@@ -84,6 +84,7 @@ public class StorageDeviceService {
 	public StorageDevice insert(StorageDevice object) {
 		object.setId(null);
 		object.setCreatedDate(new Date());
+		object.setLastModifiedDate(new Date());
 		return this.repository.save(object);
 	}
 
@@ -98,7 +99,7 @@ public class StorageDeviceService {
 	}
 
 	public StorageDevice update(StorageDevice object) {
-		recoverData(object);
+		this.recoverData(object);
 		return this.repository.saveAndFlush(object);		
 	}
 

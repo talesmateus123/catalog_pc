@@ -68,12 +68,6 @@ public class PrinterResource {
 		return ResponseEntity.ok().body(object);
 	}
 	
-	@GetMapping("/patrimonyId/{patrimonyId}")
-	public ResponseEntity<Printer> findByPatrimonyId(@PathVariable String patrimonyId) {
-		Printer object = this.service.findByPatrimonyId(patrimonyId);
-		return ResponseEntity.ok().body(object);
-	}
-	
 	@GetMapping("/search")
     public Page<Printer> search(
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,

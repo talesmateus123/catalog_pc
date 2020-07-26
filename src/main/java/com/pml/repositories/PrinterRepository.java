@@ -18,7 +18,6 @@ import org.springframework.stereotype.Repository;
 import com.pml.domain.Printer;
 @Repository
 public interface PrinterRepository extends JpaRepository<Printer, Long>{
-	Optional<Printer> findByPatrimonyId(String patrimonyId);
 	List<Printer> findByOrderByPatrimonyId();	
 	@Query("FROM Printer printer " +
 	           "WHERE LOWER(printer.patrimonyId) like %:searchTerm% " +

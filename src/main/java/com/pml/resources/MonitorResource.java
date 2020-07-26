@@ -76,12 +76,6 @@ public class MonitorResource {
 		return ResponseEntity.ok().body(object);
 	}
 	
-	@GetMapping("/patrimonyId/{patrimonyId}")
-	public ResponseEntity<Monitor> findByPatrimonyId(@PathVariable String patrimonyId) {
-		Monitor object = this.service.findByPatrimonyId(patrimonyId);
-		return ResponseEntity.ok().body(object);
-	}
-	
 	@GetMapping("/search")
     public Page<Monitor> search(
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,

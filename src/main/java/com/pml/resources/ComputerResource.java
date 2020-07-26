@@ -76,12 +76,6 @@ public class ComputerResource {
 		return ResponseEntity.ok().body(object);
 	}
 	
-	@GetMapping("/patrimonyId/{patrimonyId}")
-	public ResponseEntity<Computer> findByPatrimonyId(@PathVariable String patrimonyId) {
-		Computer object = this.service.findByPatrimonyId(patrimonyId);
-		return ResponseEntity.ok().body(object);
-	}
-	
 	@GetMapping("/search")
     public Page<Computer> search(
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,

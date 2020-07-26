@@ -31,11 +31,11 @@ public abstract class EquipmentService {
 
 	// Auxiliary methods
 	/**
-	 * Recover data of created date and updates the last modified date.
+	 * Retrieves created date data and updates the last modified date.
 	 * @param object Equipment
 	 * @return void
 	 */
-	protected void recoverData(Equipment object) {
+	protected void retrievesAndUpdatesDateData(Equipment object) {
 		Equipment oldObject = this.findById(object.getId());
 		object.setCreatedDate(oldObject.getCreatedDate());
 		object.setLastModifiedDate(new Date());
@@ -62,7 +62,7 @@ public abstract class EquipmentService {
 	 * @param object Equipment
 	 * @return boolean
 	 */
-	protected boolean patrimonyIdIsChanged(Equipment object) {	
+	protected boolean isPatrimonyIdChanged(Equipment object) {	
 		Optional<Equipment> objectByPatrimonyId = this.repository.findByPatrimonyId(object.getPatrimonyId());	
 		// Generates an exception if object doesn't exists 
 		Equipment objectById = this.findById(object.getId());
