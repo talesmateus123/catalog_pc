@@ -48,11 +48,6 @@ public class SectorService {
 		return object.orElseThrow(()-> new ObjectNotFoundException("Sector not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
 	
-	public Sector findByName(String name) {
-		Optional<Sector> object = this.repository.findByName(name);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Sector not found: name: '" + name + "'. Type: " + object.getClass().getName()));
-	}
-	
 	public Page<Sector> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {
 		try {
     		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
@@ -70,9 +65,10 @@ public class SectorService {
 	// Create, update and delete methods
 	@Transactional
 	public Sector insert(Sector object) {
-		if(this.alreadyExists(object.getName())){
+		if(this.alreadyExistsWithName(object.getName()))
 			throw new ConflictOfObjectsException("This sector already exists: patrimonyId: '" + object.getName() + "'.");
-		}
+		if(this.alreadyExistsWithPhoneNumber(object.getPhone()))
+			throw new ConflictOfObjectsException("Another sector uses this same phone number: '" + object.getPhone() + "'.");
 		object.setId(null);
 		return this.repository.save(object);
 	}
@@ -89,22 +85,39 @@ public class SectorService {
 	}
 
 	public Sector update(Sector object) {
+		if(this.alreadyExistsWithName(object.getName()))
+			throw new ConflictOfObjectsException("This sector already exists: patrimonyId: '" + object.getName() + "'.");
+		if(this.alreadyExistsWithPhoneNumber(object.getPhone()))
+			throw new ConflictOfObjectsException("Another sector uses this same phone number: '" + object.getPhone() + "'.");
 		return this.repository.saveAndFlush(object);
 	}
 
 	// Auxiliary methods	
 	/**
-	 * Verify if already exists the sector name requested.
+	 * Checks if another sector already exists with the requested name.
 	 * @param name String
 	 * @return boolean
 	 */
-	private boolean alreadyExists(String name) {	
+	private boolean alreadyExistsWithName(String name) {	
 		if(name == null)
 			return false;
 		
-		Optional<Sector> objectByPatrimonyId = this.repository.findByName(name);
+		if(this.repository.findByName(name).isEmpty())
+			return false;
+		return true;
+	}
+	
+	// Auxiliary methods	
+	/**
+	 * Checks if another sector already exists with the requested phone number.
+	 * @param name String
+	 * @return boolean
+	 */
+	private boolean alreadyExistsWithPhoneNumber(String phone) {	
+		if(phone == null)
+			return false;
 		
-		if(objectByPatrimonyId.isEmpty())
+		if(this.repository.findByPhone(phone).isEmpty())
 			return false;
 		return true;
 	}

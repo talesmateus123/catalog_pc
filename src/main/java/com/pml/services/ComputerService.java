@@ -71,6 +71,20 @@ public class ComputerService extends EquipmentService {
 		Optional<Computer> object = this.repository.findById(id);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Computer not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
+	
+	private Computer findByMonitor(Monitor monitor) {
+		Optional<Computer> object = this.repository.findByMonitor(monitor);
+		if(!object.isEmpty())
+			return object.get();
+		return null;
+	}
+	
+	private Computer findByProcessor(Processor processor) {
+		Optional<Computer> object = this.repository.findByProcessor(processor);
+		if(!object.isEmpty())
+			return object.get();
+		return null;
+	}
 		
 	public Page<Computer> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {		
     	try {
@@ -95,34 +109,15 @@ public class ComputerService extends EquipmentService {
 	
 	@Transactional
 	public Computer insert(Computer object) {
-		if(this.alreadyExists(object.getPatrimonyId())){
+		if(this.alreadyExistsWithPatrimonyId(object.getPatrimonyId())){
 			throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
 		object.setId(null);
 		object.setCreatedDate(new Date());
 		object.setLastModifiedDate(new Date());
 			
-		unlinkOldReferences(object);
+		return this.manageReferences(object);
 		
-		Processor processor = object.getProcessor();
-		List<RamMemory> ramMemories = object.getRamMemories();
-		List<StorageDevice> storageDevices = object.getStorageDevices();		
-		
-		this.saveNewOneToOneReferences(object);
-		
-		object.setRamMemories(new ArrayList<>());
-		object.setStorageDevices(new ArrayList<>());
-		
-		Computer savedObject = this.repository.saveAndFlush(object);
-		object.setId(savedObject.getId());
-		
-		object.setProcessor(processor);
-		object.setRamMemories(ramMemories);
-		object.setStorageDevices(storageDevices);
-		
-		this.saveNewManyToOneReferences(object);
-		
-		return this.repository.save(object);
 	}
 
 	public void delete(Long id) {
@@ -139,10 +134,17 @@ public class ComputerService extends EquipmentService {
 	public Computer update(Computer object) {
 		this.retrievesAndUpdatesDateData(object);
 		if(this.isPatrimonyIdChanged(object)){
-			if(this.alreadyExists(object.getPatrimonyId()))
+			if(this.alreadyExistsWithPatrimonyId(object.getPatrimonyId()))
 				throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
 		
+		this.manageReferences(object);
+		
+		return object;
+	}
+
+	// Auxiliary methods
+	private Computer manageReferences(Computer object) {
 		this.unlinkOldReferences(object);
 		
 		Processor processor = object.getProcessor();
@@ -154,7 +156,16 @@ public class ComputerService extends EquipmentService {
 		object.setRamMemories(new ArrayList<>());
 		object.setStorageDevices(new ArrayList<>());
 		
-		Computer savedObject = this.repository.saveAndFlush(object);
+		object.generateTotalRamMemory();
+		object.generateTotalStorageMemory();
+		
+		Computer savedObject;
+		
+		if(object.getId() != null)
+			savedObject = this.repository.saveAndFlush(object);
+		else
+			savedObject = this.repository.save(object);
+		
 		object.setId(savedObject.getId());
 		
 		object.setProcessor(processor);
@@ -162,11 +173,8 @@ public class ComputerService extends EquipmentService {
 		object.setStorageDevices(storageDevices);
 		
 		this.saveNewManyToOneReferences(object);
-		
 		return object;
 	}
-
-	// Auxiliary methods
 	/**
 	 * Unlink all ram memories and storage devices previously referring to the computer.  
 	 * @param object Computer
@@ -177,25 +185,7 @@ public class ComputerService extends EquipmentService {
 		Computer oldObject = (object.getId() != null) ? this.findById(object.getId()) : null;
 		
 		// Unlinking parameters from the old object 
-		if(oldObject != null) {
-			// One to one relationships
-			// Se algum houver outro computador referenciando ao processador ou monitor, remova o relacionamento 
-		
-			if(oldObject.getProcessor() != null && oldObject.getProcessor().getId() != null) {
-				if(oldObject.getProcessor().equals(object.getProcessor())) {
-					Processor processor = oldObject.getProcessor();
-					processor.setComputer(null);
-					this.processorService.save(processor);
-				}
-			}
-			if(oldObject.getMonitor() != null && oldObject.getMonitor().getId() != null) {
-				if(oldObject.getMonitor().equals(object.getMonitor())) {
-					Monitor monitor = oldObject.getMonitor();
-					monitor.setComputer(null);
-					this.monitorService.save(monitor);
-				}
-			}
-			
+		if(oldObject != null) {			
 			// Many to one relationships
 			for(RamMemory ramMemory : oldObject.getRamMemories()) {
 				if(!object.getRamMemories().contains(ramMemory)) {
@@ -257,16 +247,34 @@ public class ComputerService extends EquipmentService {
 				 objectNewDTO.isOnTheDomain(), objectNewDTO.getTotalRamMemory(), objectNewDTO.getTotalStorageMemory(), null);
 		
 		// One to one relationships
-		if(objectNewDTO.getMonitorId() != null)
-			object.setMonitor(this.monitorService.findById(objectNewDTO.getMonitorId()));
+		if(objectNewDTO.getMonitorId() != null) {
+			Monitor monitor = this.monitorService.findById(objectNewDTO.getMonitorId());
+			Computer computer = this.findByMonitor(monitor);
+			if(computer != null) {
+				computer.setMonitor(null);
+				this.save(computer);
+			}
+			object.setMonitor(monitor);
+		}
 		
 		if(objectNewDTO.getSectorId() != null)
 			object.setSector(this.sectorService.findById(objectNewDTO.getSectorId()));
 		
-		if(objectNewDTO.getProcessor_id() != null || objectNewDTO.getProcessor_manufacturer() != null || objectNewDTO.getProcessor_model() != null ||
-		objectNewDTO.getProcessor_description() != null || objectNewDTO.isProcessor_itWorks() != null || objectNewDTO.getProcessor_processorName() != null || objectNewDTO.getProcessor_architecture() != null)
-			object.setProcessor(new Processor(objectNewDTO.getProcessor_id(), null, null, objectNewDTO.getProcessor_manufacturer(),  objectNewDTO.getProcessor_model(),  objectNewDTO.getDescription(),  objectNewDTO.isProcessor_itWorks() != null,  objectNewDTO.getProcessor_processorName(),  objectNewDTO.getProcessor_architecture(), null));
-		
+		if(objectNewDTO.getProcessor_id() != null || objectNewDTO.getProcessor_manufacturer() != null || objectNewDTO.getProcessor_model() != null || objectNewDTO.getProcessor_description() != null || objectNewDTO.isProcessor_itWorks() != null || objectNewDTO.getProcessor_processorName() != null || objectNewDTO.getProcessor_architecture() != null) {
+			if(objectNewDTO.getProcessor_id() != null) {				
+				Processor processor = this.processorService.findById(objectNewDTO.getProcessor_id());
+				Computer computer = this.findByProcessor(processor);
+				if(computer != null) {
+					computer.setProcessor(null);
+					this.save(computer);
+				}
+				object.setProcessor(processor);
+			}
+			else {
+				object.setProcessor(new Processor(objectNewDTO.getProcessor_id(), null, null, objectNewDTO.getProcessor_manufacturer(),  objectNewDTO.getProcessor_model(),  objectNewDTO.getDescription(),  objectNewDTO.isProcessor_itWorks() != null,  objectNewDTO.getProcessor_processorName(),  objectNewDTO.getProcessor_architecture(), null));
+			}
+		}
+
 		// One to many relationships
 		if(objectNewDTO.getRamMemory1_id() != null || objectNewDTO.getRamMemory1_manufacturer() != null || objectNewDTO.getRamMemory1_model() != null || objectNewDTO.getRamMemory1_description() != null || objectNewDTO.getRamMemory1_itWorks() != null || objectNewDTO.getRamMemory1_sizeInGB() != null || objectNewDTO.getRamMemory1_architecture() != null)
 			object.addRamMemory(new RamMemory(objectNewDTO.getRamMemory1_id(), null, null, objectNewDTO.getRamMemory1_manufacturer(), objectNewDTO.getRamMemory1_model(), objectNewDTO.getRamMemory1_description(), objectNewDTO.getRamMemory1_itWorks(), objectNewDTO.getRamMemory1_sizeInGB(), objectNewDTO.getRamMemory1_architecture(), null));

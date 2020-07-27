@@ -58,7 +58,7 @@ public class MonitorService extends EquipmentService {
 		Optional<Monitor> object = this.repository.findById(id);
 		return object.orElseThrow(()-> new ObjectNotFoundException("Monitor not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
-	
+		
 	public Page<Monitor> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {	
     	try {
     		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
@@ -82,7 +82,7 @@ public class MonitorService extends EquipmentService {
 	
 	@Transactional
 	public Monitor insert(Monitor object) {
-		if(this.alreadyExists(object.getPatrimonyId())){
+		if(this.alreadyExistsWithPatrimonyId(object.getPatrimonyId())){
 			throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
 		object.setId(null);
@@ -104,7 +104,7 @@ public class MonitorService extends EquipmentService {
 	public Monitor update(Monitor object) {
 		this.retrievesAndUpdatesDateData(object);	
 		if(this.isPatrimonyIdChanged(object)){
-			if(this.alreadyExists(object.getPatrimonyId()))
+			if(this.alreadyExistsWithPatrimonyId(object.getPatrimonyId()))
 				throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}	
 		updateReferences(object);
@@ -112,6 +112,11 @@ public class MonitorService extends EquipmentService {
 	}
 	
 	// Auxiliary methods
+	protected Monitor findMonitorById(Long id) {
+		Optional<Monitor> object = this.repository.findById(id);
+		return object.get();
+	}
+	
 	/**
 	 * Performs a series of checks to make changes to the computer object.
 	 * @param monitor

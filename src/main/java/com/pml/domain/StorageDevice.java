@@ -15,11 +15,11 @@ import com.pml.domain.enums.StorageDeviceType;
 @Entity
 public class StorageDevice extends Electronic {
 	private static final long serialVersionUID = 1L;
-	@NotNull
+	@NotNull(message = "This field is mandatory")
 	private Double sizeInGB;
-	@NotNull
+	@NotNull(message = "This field is mandatory")
 	private Integer architecture;
-	@NotNull
+	@NotNull(message = "This field is mandatory")
 	private Integer type;
 	@ManyToOne
 	@JoinColumn(name = "computer_id")

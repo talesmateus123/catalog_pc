@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pml.domain.enums.EquipmentType;
@@ -30,8 +31,9 @@ public abstract class Electronic implements Serializable{
 	protected Date lastModifiedDate;
 	protected Integer equipmentType;
 	protected String manufacturer = "Undefined";
-	protected String model = "Undefined";
-	protected String description = "Undefined";
+	protected String model = "";
+	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
+	protected String description = "";
 	protected Boolean itWorks = true;
 	protected Boolean itComposed;
 	

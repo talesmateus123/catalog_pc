@@ -42,11 +42,11 @@ public abstract class EquipmentService {
 	}
 	
 	/**
-	 * Verify if already exists the patrimony id requested.
+	 * Checks if another Equipment already exists with the requested patrimonyId.
 	 * @param patrimonyId String
 	 * @return boolean
 	 */
-	protected boolean alreadyExists(String patrimonyId) {	
+	protected boolean alreadyExistsWithPatrimonyId(String patrimonyId) {	
 		if(patrimonyId == null)
 			return false;
 		

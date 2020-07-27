@@ -105,6 +105,12 @@ public class ProcessorService {
 	}
 
 	// Auxiliary methods
+	public boolean processorExists(Long id) {
+		Optional<Processor> object = this.repository.findById(id);		
+		if(object.get() != null)
+			return true;
+		return false;
+	}
 	/**
 	 * Recover data of created date and updates the last modified date.
 	 * @param object Processor

@@ -181,7 +181,7 @@ public class Computer extends Equipment{
 		if(this.ramMemories.contains(ramMemory) && ramMemory.getId() != null)
 			return;
 		this.ramMemories.add(ramMemory);
-		this.generateTotalRamMemory();
+		//this.generateTotalRamMemory();
 	}
 
 	public List<StorageDevice> getStorageDevices() {
@@ -201,7 +201,7 @@ public class Computer extends Equipment{
 		if(this.storageDevices.contains(storageDevice) && storageDevice.getId() != null)
 			return;
 		this.storageDevices.add(storageDevice);
-		this.generateTotalStorageMemory();
+		//this.generateTotalStorageMemory();
 	}
 
 	public List<ComputerUser> getComputerUsers() {

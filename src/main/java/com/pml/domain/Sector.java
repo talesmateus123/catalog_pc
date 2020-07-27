@@ -23,6 +23,7 @@ public class Sector implements Serializable {
 	@NotEmpty
 	@Column(unique = true)
 	private String name;
+	@Column(unique = true)
 	private String phone;
 	@OneToMany(mappedBy = "sector")
 	@JsonIgnore

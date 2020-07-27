@@ -18,7 +18,8 @@ import org.springframework.stereotype.Repository;
 import com.pml.domain.Sector;
 @Repository
 public interface SectorRepository extends JpaRepository<Sector, Integer>{
-	Optional<Sector> findByName(String patrimonyId);
+	Optional<Sector> findByName(String name);
+	Optional<Sector> findByPhone(String phone);
 	List<Sector> findByOrderByName();
 	@Query("FROM Sector sector " +
 	           "WHERE LOWER(sector.name) like %:searchTerm% ")

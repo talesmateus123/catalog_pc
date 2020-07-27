@@ -68,12 +68,6 @@ public class SectorResource {
 		return ResponseEntity.ok().body(object);
 	}
 	
-	@GetMapping("/name")
-	public ResponseEntity<Sector> findByName(@RequestParam(value = "value") String name) {
-		Sector object = this.service.findByName(name);
-		return ResponseEntity.ok().body(object);
-	}
-	
 	@GetMapping("/search")
     public Page<Sector> search(
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,

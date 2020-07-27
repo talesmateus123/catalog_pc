@@ -64,7 +64,7 @@ public class PrinterService extends EquipmentService {
 
 	// Create, update and delete methods
 	public Printer insert(Printer object) {
-		if(this.alreadyExists(object.getPatrimonyId())){
+		if(this.alreadyExistsWithPatrimonyId(object.getPatrimonyId())){
 			throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
 		object.setId(null);
@@ -81,7 +81,7 @@ public class PrinterService extends EquipmentService {
 	public Printer update(Printer object) {
 		this.retrievesAndUpdatesDateData(object);
 		if(this.isPatrimonyIdChanged(object)){
-			if(this.alreadyExists(object.getPatrimonyId()))
+			if(this.alreadyExistsWithPatrimonyId(object.getPatrimonyId()))
 				throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
 		}
 		return this.repository.saveAndFlush(object);		

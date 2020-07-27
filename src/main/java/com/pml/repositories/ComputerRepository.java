@@ -16,9 +16,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.pml.domain.Computer;
+import com.pml.domain.Monitor;
+import com.pml.domain.Processor;
 @Repository
 public interface ComputerRepository extends JpaRepository<Computer, Long>{	
-	List<Computer> findByOrderByPatrimonyId();	
+	List<Computer> findByOrderByPatrimonyId();
+	Optional<Computer> findByMonitor(Monitor monitor);
+	Optional<Computer> findByProcessor(Processor processor);
 	List<Computer> findAllByMonitorNull();
 	@Query("FROM Computer computer " +
 	           "WHERE LOWER(computer.patrimonyId) like %:searchTerm% " +

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -74,7 +75,7 @@ public class StorageDeviceService {
     }
 
 	// Create, update and delete methods
-	protected StorageDevice save(StorageDevice object) {
+	protected StorageDevice save( @Valid StorageDevice object) {
 		if(object.getId() == null)
 			return this.insert(object);
 		return this.update(object);

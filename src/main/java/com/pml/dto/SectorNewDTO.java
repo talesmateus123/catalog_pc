@@ -3,6 +3,7 @@ package com.pml.dto;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class SectorNewDTO implements Serializable {
@@ -11,6 +12,7 @@ public class SectorNewDTO implements Serializable {
 	@NotEmpty(message = "This field is mandatory")
 	@Size(min = 3, max = 30, message = "The text of this field must contain between 3 and 30 characters")
 	private String name;
+	@Pattern(regexp = "(\\(\\d{2}\\)\\s)(\\d{4,5}\\-\\d{4})")
 	private String phone;
 	
 	public SectorNewDTO() {
