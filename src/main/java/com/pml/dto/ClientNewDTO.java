@@ -13,11 +13,11 @@ import com.pml.domain.Client;
 
 public class ClientNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@NotEmpty(message = "This field cannot be empty")
+	@NotEmpty(message = "{not.empty}")
 	private String email;
-	@NotEmpty(message = "This field cannot be empty")
+	@NotEmpty(message = "{not.empty}")
 	private String name;
-	@NotEmpty(message = "This field cannot be empty")
+	@NotEmpty(message = "{not.empty}")
 	private String password;
 	
 	public ClientNewDTO() {		

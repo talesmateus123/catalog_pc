@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -16,10 +15,10 @@ import com.pml.domain.enums.EquipmentType;
 @Entity
 public class Processor extends Electronic {
 	private static final long serialVersionUID = 1L;
-	@NotEmpty(message = "This field is mandatory")
-	@Size(min = 4, max = 30, message = "The text of this field must contain between 4 and 10 characters")
+	@NotNull(message = "{not.null}")
+	@Size(min = 4, max = 30, message = "{processorName.size}")
 	private String processorName;
-	@NotNull(message = "This field is mandatory")
+	@NotNull(message = "{not.null}")
 	private Integer architecture;
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "processor")
 	@JsonIgnore

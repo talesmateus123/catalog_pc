@@ -12,13 +12,13 @@ public class ProcessorNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String manufacturer;
 	private String model;
-	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
+	@Size(max = 100, message = "{description.size}")
 	private String description;
 	private boolean itWorks = true;
-	@NotEmpty(message = "This field is mandatory")
-	@Size(min = 4, max = 30, message = "The text of this field must contain between 4 and 10 characters")
+	@NotEmpty(message = "{not.empty}")
+	@Size(min = 4, max = 30, message = "{processorName.size}")
 	private String processorName;
-	@NotNull(message = "This field is mandatory")
+	@NotNull(message = "{not.null}")
 	private Integer architecture;
 	private Long computerId;
 	

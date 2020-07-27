@@ -16,15 +16,15 @@ import javax.validation.constraints.Size;
 
 public class ComputerUserNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@NotEmpty(message = "This field is mandatory")
-	@Size(min = 4, max = 20, message = "The text of this field must contain between 4 and 20 characters")
+	@NotEmpty(message = "{not.empty}")
+	@Size(min = 4, max = 20, message = "{name.size}")
 	private String name;
-	@NotEmpty(message = "This field is mandatory")
-	@Size(min = 4, max = 20, message = "The text of this field must contain between 4 and 20 characters")
+	@NotEmpty(message = "{not.empty}")
+	@Size(min = 4, max = 20, message = "{lastName.size}")
 	private String lastName;
-	@Email(message = "Invalid e-mail")
+	@Email(message = "{email.pattern}")
 	private String email;
-	@NotNull(message = "This field is mandatory")
+	@NotNull(message = "{not.null}")
 	private Integer sectorId;
 	private List<Long> useTheComputersId = new ArrayList<>();
 	

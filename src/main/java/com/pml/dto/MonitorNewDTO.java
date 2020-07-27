@@ -11,11 +11,11 @@ public class MonitorNewDTO implements Serializable {
 	private String patrimonyId;
 	private String manufacturer;
 	private String model;
-	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
+	@Size(max = 100, message = "{description.size}")
 	private String description;
-	@NotNull(message = "This field is mandatory")
+	@NotNull(message = "{not.null}")
 	private Boolean itWorks;
-	@NotNull(message = "This field is mandatory")
+	@NotNull(message = "{not.null}")
 	private Integer sectorId;
 	private Long computerId;
 	

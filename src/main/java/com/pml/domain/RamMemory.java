@@ -14,9 +14,9 @@ import com.pml.domain.enums.RamMemoryArchitecture;
 @Entity
 public class RamMemory extends Electronic {
 	private static final long serialVersionUID = 1L;
-	@NotNull(message = "This field is mandatory")
+	@NotNull(message = "{not.null}")
 	private Double sizeInGB;
-	@NotNull(message = "This field is mandatory")
+	@NotNull(message = "{not.null}")
 	private Integer architecture;
 	@ManyToOne
 	@JoinColumn(name = "computer_id")

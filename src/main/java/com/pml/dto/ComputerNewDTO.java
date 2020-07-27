@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.OperatingSystem;
@@ -18,8 +19,9 @@ public class ComputerNewDTO implements Serializable {
 	private String patrimonyId;
 	private String manufacturer;
 	private String model;
+	@Size(max = 100, message = "{description.size}")
 	private String description;
-	@NotNull(message = "This field is mandatory")
+	@NotNull(message = "{not.null}")
 	private Boolean itWorks;
 	private String ipAddress;
 	private String hostName;
@@ -28,12 +30,12 @@ public class ComputerNewDTO implements Serializable {
 	private String cabinetModel;
 	private Integer operatingSystem;
 	private Integer operatingSystemArchitecture;
-	@NotNull(message = "This field is mandatory")
+	@NotNull(message = "{not.null}")
 	private Boolean onTheDomain;
 	private Double totalRamMemory;
 	private Double totalStorageMemory;
 	private Long monitorId;
-	@NotNull(message = "This field is mandatory")
+	@NotNull(message = "{not.null}")
 	private Integer sectorId;
 	private List<Long> computerUsersId = new ArrayList<>();
 

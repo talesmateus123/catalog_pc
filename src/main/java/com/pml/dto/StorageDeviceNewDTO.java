@@ -12,14 +12,14 @@ public class StorageDeviceNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String manufacturer;
 	private String model;
-	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
+	@Size(max = 100, message = "{description.size}")
 	private String description;
 	private boolean itWorks = true;
-	@NotNull(message = "This field is mandatory")
+	@NotNull(message = "{not.null}")
 	private Double sizeInGB;
-	@NotNull(message = "This field is mandatory")
+	@NotNull(message = "{not.null}")
 	private Integer architecture;
-	@NotNull(message = "This field is mandatory")
+	@NotNull(message = "{not.null}")
 	private Integer type;
 	private Long computerId;
 	

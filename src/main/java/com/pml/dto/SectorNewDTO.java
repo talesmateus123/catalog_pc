@@ -9,10 +9,10 @@ import javax.validation.constraints.Size;
 public class SectorNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
-	@NotEmpty(message = "This field is mandatory")
-	@Size(min = 3, max = 30, message = "The text of this field must contain between 3 and 30 characters")
+	@NotEmpty(message = "{not.empty}")
+	@Size(min = 3, max = 30, message = "{name.size}")
 	private String name;
-	@Pattern(regexp = "(\\(\\d{2}\\)\\s)(\\d{4,5}\\-\\d{4})")
+	@Pattern(regexp = "(\\(\\d{2}\\)\\s)(\\d{4,5}\\-\\d{4})", message = "{phone.pattern}")
 	private String phone;
 	
 	public SectorNewDTO() {
