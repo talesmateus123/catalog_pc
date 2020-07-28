@@ -50,11 +50,15 @@ public abstract class EquipmentService {
 		if(patrimonyId == null)
 			return false;
 		
-		Optional<Equipment> objectByPatrimonyId = this.repository.findByPatrimonyId(patrimonyId);
+		Optional<Equipment> object = this.repository.findByPatrimonyId(patrimonyId);
 		
-		if(objectByPatrimonyId.isEmpty())
-			return false;
-		return true;
+		if(!object.isEmpty()) {
+			if(patrimonyId.equals(object.get().getPatrimonyId()))
+				return false;
+			else
+				return true;
+		}
+		return false;
 	}
 	
 	/**

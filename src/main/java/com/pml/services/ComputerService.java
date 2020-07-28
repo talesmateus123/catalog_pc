@@ -116,8 +116,9 @@ public class ComputerService extends EquipmentService {
 		object.setCreatedDate(new Date());
 		object.setLastModifiedDate(new Date());
 			
-		return this.manageReferences(object);
+		this.manageReferences(object);
 		
+		return object;		
 	}
 
 	public void delete(Long id) {
@@ -144,7 +145,12 @@ public class ComputerService extends EquipmentService {
 	}
 
 	// Auxiliary methods
-	private Computer manageReferences(Computer object) {
+	/**
+	 * Manages the Processor, RamMemories and StorageDevices references for the computer object in question.	
+	 * @param object Computer
+	 * @return void
+	 */
+	private void manageReferences(Computer object) {
 		this.unlinkOldReferences(object);
 		
 		Processor processor = object.getProcessor();
@@ -173,8 +179,8 @@ public class ComputerService extends EquipmentService {
 		object.setStorageDevices(storageDevices);
 		
 		this.saveNewManyToOneReferences(object);
-		return object;
 	}
+	
 	/**
 	 * Unlink all ram memories and storage devices previously referring to the computer.  
 	 * @param object Computer
@@ -333,8 +339,7 @@ public class ComputerService extends EquipmentService {
 					object.addComputerUser(computerUser);
 				}
 			}
-		}
-		
+		}		
 
 		return object;
 	}	

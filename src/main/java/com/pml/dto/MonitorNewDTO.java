@@ -7,7 +7,6 @@ import javax.validation.constraints.Size;
 
 public class MonitorNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Long id;
 	private String patrimonyId;
 	private String manufacturer;
 	private String model;
@@ -21,15 +20,7 @@ public class MonitorNewDTO implements Serializable {
 	
 	public MonitorNewDTO() {
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	
 	public String getPatrimonyId() {
 		return patrimonyId;
 	}

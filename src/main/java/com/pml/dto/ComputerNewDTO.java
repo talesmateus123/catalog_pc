@@ -15,7 +15,6 @@ import com.pml.domain.enums.StorageDeviceType;
 
 public class ComputerNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Long id;
 	private String patrimonyId;
 	private String manufacturer;
 	private String model;
@@ -187,15 +186,7 @@ public class ComputerNewDTO implements Serializable {
 		
 	public ComputerNewDTO() {
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	
 	public String getPatrimonyId() {
 		return patrimonyId;
 	}

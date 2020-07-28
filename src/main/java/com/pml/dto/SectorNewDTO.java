@@ -8,7 +8,6 @@ import javax.validation.constraints.Size;
 
 public class SectorNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Integer id;
 	@NotEmpty(message = "{not.empty}")
 	@Size(min = 3, max = 30, message = "{name.size}")
 	private String name;
@@ -16,14 +15,6 @@ public class SectorNewDTO implements Serializable {
 	private String phone;
 	
 	public SectorNewDTO() {
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getName() {

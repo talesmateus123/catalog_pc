@@ -22,7 +22,8 @@ public interface SectorRepository extends JpaRepository<Sector, Integer>{
 	Optional<Sector> findByPhone(String phone);
 	List<Sector> findByOrderByName();
 	@Query("FROM Sector sector " +
-	           "WHERE LOWER(sector.name) like %:searchTerm% ")
+	           "WHERE LOWER(sector.name) like %:searchTerm% " +
+	           "OR LOWER(sector.phone) like %:searchTerm%")
 	Page<Sector> search(@Param("searchTerm") String searchTerm, Pageable pageable);
 	
 	

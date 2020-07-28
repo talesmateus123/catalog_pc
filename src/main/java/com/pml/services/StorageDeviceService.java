@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import com.pml.domain.Computer;
 import com.pml.domain.StorageDevice;
@@ -74,7 +76,8 @@ public class StorageDeviceService {
     }
 
 	// Create, update and delete methods
-	protected StorageDevice save(StorageDevice object) {
+	@Validated
+	protected StorageDevice save(@Valid StorageDevice object) {		
 		if(object.getId() == null)
 			return this.insert(object);
 		return this.update(object);
