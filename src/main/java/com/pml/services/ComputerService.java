@@ -109,8 +109,13 @@ public class ComputerService extends EquipmentService {
 	
 	@Transactional
 	public Computer insert(Computer object) {
-		if(this.alreadyExistsWithPatrimonyId(object.getPatrimonyId())){
-			throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+		if(object.getPatrimonyId() != null) {
+			if(object.getPatrimonyId().equals(""))
+				object.setPatrimonyId(null);
+			else {
+				if(this.alreadyExistsWithPatrimonyId(object))
+					throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+			}
 		}
 		object.setId(null);
 		object.setCreatedDate(new Date());
@@ -134,9 +139,16 @@ public class ComputerService extends EquipmentService {
 	@Transactional
 	public Computer update(Computer object) {
 		this.retrievesAndUpdatesDateData(object);
-		if(this.isPatrimonyIdChanged(object)){
-			if(this.alreadyExistsWithPatrimonyId(object.getPatrimonyId()))
-				throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+		
+		if(object.getPatrimonyId() != null) {
+			if(object.getPatrimonyId().equals(""))
+				object.setPatrimonyId(null);
+			else {
+				if(this.isPatrimonyIdChanged(object)){
+					if(this.alreadyExistsWithPatrimonyId(object))
+						throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+				}
+			}
 		}
 		
 		this.manageReferences(object);
@@ -155,15 +167,17 @@ public class ComputerService extends EquipmentService {
 		
 		Processor processor = object.getProcessor();
 		List<RamMemory> ramMemories = object.getRamMemories();
-		List<StorageDevice> storageDevices = object.getStorageDevices();		
+		List<StorageDevice> storageDevices = object.getStorageDevices();
+
+		if(!ramMemories.isEmpty())
+			object.generateTotalRamMemory();
+		if(!storageDevices.isEmpty())
+			object.generateTotalStorageMemory();
 		
 		this.saveNewOneToOneReferences(object);
 		
 		object.setRamMemories(new ArrayList<>());
 		object.setStorageDevices(new ArrayList<>());
-		
-		object.generateTotalRamMemory();
-		object.generateTotalStorageMemory();
 		
 		Computer savedObject;
 		
@@ -247,7 +261,7 @@ public class ComputerService extends EquipmentService {
 		Computer object = new Computer(
 				null, objectNewDTO.getPatrimonyId(), null, null,
 				objectNewDTO.getManufacturer(), objectNewDTO.getModel(), objectNewDTO.getDescription(), 
-				null, objectNewDTO.isItWorks(), objectNewDTO.getIpAddress(), 
+				null, objectNewDTO.isItWorks(), objectNewDTO.getIpAddress(), objectNewDTO.getMacAddress(),
 				objectNewDTO.getHostName(), objectNewDTO.getMotherBoardName(), null, objectNewDTO.getHasCdBurner(),
 				 objectNewDTO.getCabinetModel(), objectNewDTO.getOperatingSystem(), objectNewDTO.getOperatingSystemArchitecture(), 
 				 objectNewDTO.isOnTheDomain(), objectNewDTO.getTotalRamMemory(), objectNewDTO.getTotalStorageMemory(), null);
@@ -339,7 +353,7 @@ public class ComputerService extends EquipmentService {
 					object.addComputerUser(computerUser);
 				}
 			}
-		}		
+		}
 
 		return object;
 	}	

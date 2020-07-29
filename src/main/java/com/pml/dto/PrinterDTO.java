@@ -22,6 +22,7 @@ public class PrinterDTO implements Serializable {
 	private boolean itComposed;
 	private String patrimonyId;
 	private String ipAddress;
+	private String macAddress;
 	private String hostName;
 	
 	public PrinterDTO() {
@@ -39,6 +40,7 @@ public class PrinterDTO implements Serializable {
 		this.itComposed = printer.isItComposed();
 		this.patrimonyId = printer.getPatrimonyId();
 		this.ipAddress = printer.getIpAddress();
+		this.macAddress = printer.getMacAddress();
 		this.hostName = printer.getHostName();
 		this.itComposed = printer.isItComposed();
 	}
@@ -128,6 +130,14 @@ public class PrinterDTO implements Serializable {
 	}
 
 	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
+	
+	public String getMacAddress() {
+		return macAddress;
+	}
+
+	public void setMacAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
 	}
 

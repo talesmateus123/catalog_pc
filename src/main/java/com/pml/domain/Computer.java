@@ -24,6 +24,7 @@ import com.pml.domain.enums.OperatingSystem;
 public class Computer extends Equipment{
 	private static final long serialVersionUID = 1L;
 	private String ipAddress;
+	private String macAddress;
 	private String hostName;
 	private String motherBoardName;
 	private boolean hasCdBurner = true;
@@ -57,13 +58,20 @@ public class Computer extends Equipment{
 	}
 
 	public Computer(Long id, String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
-			String model, String description, Sector sector, boolean itWorks, String ipAddress,
+			String model, String description, Sector sector, boolean itWorks, String ipAddress, String macAddress,
 			String hostName, String motherBoardName, Processor processor, Boolean hasCdBurner, String cabinetModel, 
 			OperatingSystem operatingSystem, ArchitectureType operatingSystemArchitecture, boolean onTheDomain,
 			Double totalRamMemory, Double totalStorageMemory, Monitor monitor) {
 		super(id, patrimonyId, createdDate, modifiedDate, EquipmentType.COMPUTER, manufacturer, model, description, sector, itWorks);
-		this.ipAddress = ipAddress;
-		this.hostName = hostName;
+		if(ipAddress != null)
+			this.ipAddress = (!ipAddress.isEmpty()) ? ipAddress : "0.0.0.0";
+		else
+			this.ipAddress = "0.0.0.0";
+		this.macAddress = macAddress;
+		if(hostName != null)
+			this.hostName = (!hostName.isEmpty()) ? hostName : generateHostName();
+		else
+			this.hostName = generateHostName();
 		this.motherBoardName = motherBoardName;
 		this.processor = processor;
 		this.hasCdBurner = hasCdBurner;
@@ -75,13 +83,21 @@ public class Computer extends Equipment{
 		this.totalStorageMemory = totalStorageMemory;
 		this.monitor = monitor;
 	}
-
+	
 	public String getIpAddress() {
 		return ipAddress;
 	}
 
-	public void setIpAddress(String ipAddress) {
-		this.ipAddress = ipAddress;
+	public void setIpAddress(String macAddress) {
+		this.macAddress = macAddress;
+	}
+	
+	public String getMacAddress() {
+		return macAddress;
+	}
+
+	public void setMacAddress(String macAddress) {
+		this.macAddress = macAddress;
 	}
 
 	public String getHostName() {
@@ -246,9 +262,7 @@ public class Computer extends Equipment{
 	}
 	
 	public String generateHostName(){
-		if(patrimonyId != null)
-			return "PML" + patrimonyId;
-		return "N/A";		
+		return this.patrimonyId;
 	}
 
 	@Override

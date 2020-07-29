@@ -24,6 +24,7 @@ public class ComputerDTO implements Serializable {
 	private boolean itComposed;
 	private String patrimonyId;
 	private String ipAddress;
+	private String macAddress;
 	private String hostName;
 	private String motherBoardName;
 	private Boolean hasCdBurner;
@@ -49,6 +50,7 @@ public class ComputerDTO implements Serializable {
 		this.itComposed = computer.isItComposed();
 		this.patrimonyId = computer.getPatrimonyId();
 		this.ipAddress = computer.getIpAddress();
+		this.macAddress = computer.getMacAddress();
 		this.hostName = computer.getHostName();
 		this.motherBoardName = computer.getMotherBoardName(); 
 		this.hasCdBurner = computer.getHasCdBurner();
@@ -148,6 +150,14 @@ public class ComputerDTO implements Serializable {
 	}
 
 	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
+	
+	public String getMacAddress() {
+		return macAddress;
+	}
+
+	public void setMacAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
 	}
 

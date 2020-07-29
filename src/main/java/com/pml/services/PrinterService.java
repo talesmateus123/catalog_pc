@@ -64,8 +64,13 @@ public class PrinterService extends EquipmentService {
 
 	// Create, update and delete methods
 	public Printer insert(Printer object) {
-		if(this.alreadyExistsWithPatrimonyId(object.getPatrimonyId())){
-			throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+		if(object.getPatrimonyId() != null) {
+			if(object.getPatrimonyId().equals(""))
+				object.setPatrimonyId(null);
+			else {
+				if(this.alreadyExistsWithPatrimonyId(object))
+					throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+			}
 		}
 		object.setId(null);
 		object.setCreatedDate(new Date());
@@ -80,10 +85,18 @@ public class PrinterService extends EquipmentService {
 
 	public Printer update(Printer object) {
 		this.retrievesAndUpdatesDateData(object);
-		if(this.isPatrimonyIdChanged(object)){
-			if(this.alreadyExistsWithPatrimonyId(object.getPatrimonyId()))
-				throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+		
+		if(object.getPatrimonyId() != null) {
+			if(object.getPatrimonyId().equals(""))
+				object.setPatrimonyId(null);
+			else {
+				if(this.isPatrimonyIdChanged(object)){
+					if(this.alreadyExistsWithPatrimonyId(object))
+						throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+				}
+			}
 		}
+		
 		return this.repository.saveAndFlush(object);		
 	}
 	
@@ -97,10 +110,18 @@ public class PrinterService extends EquipmentService {
 		Printer object = new Printer(
 				null, objectNewDTO.getPatrimonyId(), null, null,
 				objectNewDTO.getManufacturer(), objectNewDTO.getModel(), objectNewDTO.getDescription(), 
-				null, objectNewDTO.isItWorks(), objectNewDTO.getIpAddress(), 
-				objectNewDTO.getHostName());	
-		if(objectNewDTO.getSectorId() != null)
-			object.setSector(this.sectorService.findById(objectNewDTO.getSectorId()));	
+				null, objectNewDTO.isItWorks(), objectNewDTO.getIpAddress(), objectNewDTO.getMacAddress(),
+				objectNewDTO.getHostName());
+		
+		object.setSector(this.sectorService.findById(objectNewDTO.getSectorId()));
+		
+		if(object.getHostName() == null) 
+			object.setHostName(object.generateHostName());
+		else {
+			if(objectNewDTO.getHostName().isEmpty()) 
+				object.setHostName(object.generateHostName());
+		}
+			
 		
 		return object;
 	}

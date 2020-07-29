@@ -19,7 +19,7 @@ import com.pml.domain.enums.EquipmentType;
 public abstract class Equipment extends Electronic {
 	private static final long serialVersionUID = 1L;
 	@Column(unique = true)
-	protected String patrimonyId;
+	protected String patrimonyId = null;
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "sector_id")
@@ -33,7 +33,10 @@ public abstract class Equipment extends Electronic {
 	public Equipment(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, EquipmentType equipmentType, 
 			String manufacturer, String model, String description, Sector sector, Boolean itWorks) {
 		super(id, createdDate, lastModifiedDate, equipmentType, manufacturer, model, description, itWorks, true);
-		this.patrimonyId = patrimonyId;
+		if(patrimonyId != null)
+			this.patrimonyId = patrimonyId.replaceAll("\\s+", "").toUpperCase();
+		else
+			this.patrimonyId = patrimonyId;
 		this.sector = sector;
 	}
 

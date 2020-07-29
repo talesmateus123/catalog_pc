@@ -15,6 +15,7 @@ import com.pml.domain.enums.EquipmentType;
 public class Printer extends Equipment{
 	private static final long serialVersionUID = 1L;
 	private String ipAddress;
+	private String macAddress;
 	private String hostName;
 	
 	public Printer() {
@@ -23,11 +24,15 @@ public class Printer extends Equipment{
 	}
 
 	public Printer(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, String manufacturer, 
-			String model, String description, Sector sector, Boolean itWorks, String ipAddress, 
+			String model, String description, Sector sector, Boolean itWorks, String ipAddress, String macAddress,
 			String hostName) {
 		super(id, patrimonyId, createdDate, lastModifiedDate, EquipmentType.PRINTER, manufacturer, model, description, sector, itWorks);
-		this.ipAddress = (ipAddress != null) ? ipAddress : "0.0.0.0";
-		this.hostName = (hostName != null) ? hostName : generateHostName();
+		if(ipAddress != null)
+			this.ipAddress = (!ipAddress.isEmpty()) ? ipAddress : "0.0.0.0";
+		else
+			this.ipAddress = "0.0.0.0";
+		this.macAddress = macAddress;
+		this.hostName = hostName;
 	}
 	
 	public String getIpAddress() {
@@ -36,6 +41,14 @@ public class Printer extends Equipment{
 
 	public void setIpAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
+	}
+	
+	public String getMacAddress() {
+		return macAddress;
+	}
+
+	public void setMacAddress(String macAddress) {
+		this.macAddress = macAddress;
 	}
 
 	public String getHostName() {
@@ -47,9 +60,7 @@ public class Printer extends Equipment{
 	}
 	
 	public String generateHostName(){
-		if(patrimonyId != null)
-			return "Brother " + getSector().getName();
-		return "N/A";		
+		return this.sector.getName().replaceAll("\\s+", "").toUpperCase();
 	}
 	
 	

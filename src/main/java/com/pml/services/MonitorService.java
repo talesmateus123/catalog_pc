@@ -82,8 +82,13 @@ public class MonitorService extends EquipmentService {
 	
 	@Transactional
 	public Monitor insert(Monitor object) {
-		if(this.alreadyExistsWithPatrimonyId(object.getPatrimonyId())){
-			throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+		if(object.getPatrimonyId() != null) {
+			if(object.getPatrimonyId().equals(""))
+				object.setPatrimonyId(null);
+			else {
+				if(this.alreadyExistsWithPatrimonyId(object))
+					throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+			}
 		}
 		object.setId(null);
 		object.setCreatedDate(new Date());
@@ -103,10 +108,18 @@ public class MonitorService extends EquipmentService {
 
 	public Monitor update(Monitor object) {
 		this.retrievesAndUpdatesDateData(object);	
-		if(this.isPatrimonyIdChanged(object)){
-			if(this.alreadyExistsWithPatrimonyId(object.getPatrimonyId()))
-				throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
-		}	
+		
+		if(object.getPatrimonyId() != null) {
+			if(object.getPatrimonyId().equals(""))
+				object.setPatrimonyId(null);
+			else {
+				if(this.isPatrimonyIdChanged(object)){
+					if(this.alreadyExistsWithPatrimonyId(object))
+						throw new ConflictOfObjectsException("This equipment already exists: patrimonyId: '" + object.getPatrimonyId() + "'.");
+				}
+			}
+		}
+
 		updateReferences(object);
 		return this.repository.saveAndFlush(object);
 	}

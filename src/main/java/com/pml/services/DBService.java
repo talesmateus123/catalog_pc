@@ -85,10 +85,14 @@ public class DBService {
 		Monitor monitor2 = new Monitor(null, "02013", new Date(), new Date(), null, null, null, sector6, true, null);
 		
 		// Computers creation		
-		Computer computer1 = new Computer(null, "06770", new Date(), new Date(), "Micron Technology", null, null, sector2, 
-				true, null, null, null, null, true, null, OperatingSystem.WINDOWS_7, ArchitectureType.I386, false, 0.0, 0.0, monitor1);
-		Computer computer2 = new Computer(null, "07178", new Date(), new Date(), "Micron Technology", null, null, sector2, 
-				true, null, null, null, null, true, null, OperatingSystem.WINDOWS_10, ArchitectureType.I386, false, 0.0, 0.0, monitor2);
+		Computer computer1 = new Computer(null, "02832", new Date(), new Date(), "Fabricante", "Modelo", "Descrição", sector2, 
+				true, "ip", "mac", "hostName", "motherBoardName", null, true, "cabinetModel", OperatingSystem.WINDOWS_7, 
+				ArchitectureType.AMD64, true, 0.0, 0.0, monitor1);
+		
+		Computer computer2 = new Computer(null, "138354", new Date(), new Date(), "Fabricante", "Modelo", "Descrição", sector2, 
+				true, "ip", "mac", "hostName", "motherBoardName", null, true, "cabinetModel", OperatingSystem.WINDOWS_7, 
+				ArchitectureType.AMD64, true, 0.0, 0.0, monitor1);
+		
 		computer1.addComputerUser(computerUser1);
 		computer1.addComputerUser(computerUser2);
 		computer2.addComputerUser(computerUser3);
@@ -125,7 +129,7 @@ public class DBService {
 		
 		// Printers creation
 		Printer printer1 = new Printer(null, "PML0000", new Date(), new Date(), "manufacturer", "model", 
-				"description", sector1, true, "ipAddress", "hostName");
+				"description", sector1, true, "ipAddress", "macAddres", "hostName");
 		
 		// Setting data on database
 		userRepository.saveAll(Arrays.asList(

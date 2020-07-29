@@ -46,19 +46,19 @@ public abstract class EquipmentService {
 	 * @param patrimonyId String
 	 * @return boolean
 	 */
-	protected boolean alreadyExistsWithPatrimonyId(String patrimonyId) {	
-		if(patrimonyId == null)
-			return false;
+	protected boolean alreadyExistsWithPatrimonyId(Equipment object) {			
+		Optional<Equipment> objectByPatrimony = this.repository.findByPatrimonyId(object.getPatrimonyId());
 		
-		Optional<Equipment> object = this.repository.findByPatrimonyId(patrimonyId);
-		
-		if(!object.isEmpty()) {
-			if(patrimonyId.equals(object.get().getPatrimonyId()))
-				return false;
+		if(!objectByPatrimony.isEmpty()) {
+			if(object.getId() != null) {
+				if(object.getId().equals(objectByPatrimony.get().getId()) && object.getPatrimonyId().equals(objectByPatrimony.get().getPatrimonyId()))
+					return false;
+			}
 			else
 				return true;
 		}
 		return false;
+		
 	}
 	
 	/**
@@ -67,12 +67,13 @@ public abstract class EquipmentService {
 	 * @return boolean
 	 */
 	protected boolean isPatrimonyIdChanged(Equipment object) {	
-		Optional<Equipment> objectByPatrimonyId = this.repository.findByPatrimonyId(object.getPatrimonyId());	
+		Optional<Equipment> objectByPatrimonyId = this.repository.findByPatrimonyId(object.getPatrimonyId());
 		// Generates an exception if object doesn't exists 
 		Equipment objectById = this.findById(object.getId());
 		
 		if(objectByPatrimonyId.isEmpty())
-			return true;
+			return true;		
+		
 		
 		if(objectById.getPatrimonyId().equals(objectByPatrimonyId.get().getPatrimonyId()))
 			return false;		

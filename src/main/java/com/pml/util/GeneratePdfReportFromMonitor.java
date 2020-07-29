@@ -74,7 +74,6 @@ public class GeneratePdfReportFromMonitor {
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cell.setPaddingRight(5);
-                table.addCell(cell);
             }
 
             PdfWriter.getInstance(document, out);
