@@ -25,6 +25,8 @@ import com.pml.domain.Monitor;
 import com.pml.domain.Processor;
 import com.pml.domain.RamMemory;
 import com.pml.domain.StorageDevice;
+import com.pml.domain.enums.ArchitectureType;
+import com.pml.domain.enums.OperatingSystem;
 import com.pml.dto.ComputerNewDTO;
 import com.pml.repositories.ComputerRepository;
 import com.pml.services.exceptions.ConflictOfObjectsException;
@@ -60,9 +62,46 @@ public class ComputerService extends EquipmentService {
 		return this.repository.findAllByMonitorNull();
 	}
 	
-	public Page<Computer> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage);
-		return this.repository.findAll(pageRequest);
+	public Page<Computer> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {		
+		try {
+			PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
+    		        	
+        	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Computer.class)) 
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Computer.class.getName() + "' class.");
+        	return this.repository.findPageByOrderByPatrimonyId(pageRequest);
+            
+    	}
+    	catch (IllegalArgumentException e) {
+    		throw new IllegalArgException("The value of direction parameter: '" + direction + "' is invalid, this value must be 'ASC' or 'DESC'.");
+		}
+	}
+	
+	public Page<Computer> findOnline(Integer page, Integer linesPerPage, String direction, String orderBy) {		
+		try {
+			PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
+    		        	
+        	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Computer.class)) 
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Computer.class.getName() + "' class.");
+        	return this.repository.findByOnlineTrue(pageRequest);
+            
+    	}
+    	catch (IllegalArgumentException e) {
+    		throw new IllegalArgException("The value of direction parameter: '" + direction + "' is invalid, this value must be 'ASC' or 'DESC'.");
+		}
+	}
+	
+	public Page<Computer> findItNotWorks(Integer page, Integer linesPerPage, String direction, String orderBy) {		
+		try {
+			PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
+    		        	
+        	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Computer.class)) 
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Computer.class.getName() + "' class.");
+        	return this.repository.findByItWorksFalse(pageRequest);
+            
+    	}
+    	catch (IllegalArgumentException e) {
+    		throw new IllegalArgException("The value of direction parameter: '" + direction + "' is invalid, this value must be 'ASC' or 'DESC'.");
+		}
 	}
 
 	// Simple search methods
@@ -92,8 +131,8 @@ public class ComputerService extends EquipmentService {
     		        	
         	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Computer.class)) 
         		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Computer.class.getName() + "' class.");
+        	        	
         	return repository.search(searchTerm.toLowerCase(), pageRequest);
-            
     	}
     	catch (IllegalArgumentException e) {
     		throw new IllegalArgException("The value of direction parameter: '" + direction + "' is invalid, this value must be 'ASC' or 'DESC'.");
@@ -264,9 +303,33 @@ public class ComputerService extends EquipmentService {
 				null, objectNewDTO.isItWorks(), objectNewDTO.getIpAddress(), objectNewDTO.getMacAddress(),
 				objectNewDTO.getHostName(), objectNewDTO.getMotherBoardName(), null, objectNewDTO.getHasCdBurner(),
 				 objectNewDTO.getCabinetModel(), objectNewDTO.getOperatingSystem(), objectNewDTO.getOperatingSystemArchitecture(), 
-				 objectNewDTO.isOnTheDomain(), objectNewDTO.getTotalRamMemory(), objectNewDTO.getTotalStorageMemory(), null);
+				 objectNewDTO.isOnTheDomain(), objectNewDTO.isPersonalComputer(), objectNewDTO.getTotalRamMemory(), objectNewDTO.getTotalStorageMemory(), null);
 		
 		// One to one relationships
+		if(objectNewDTO.getSectorId() != null)
+			object.setSector(this.sectorService.findById(objectNewDTO.getSectorId()));
+		
+		// Many to many relationships
+		if(objectNewDTO.getComputerUsersId() != null) {
+			if(!objectNewDTO.getComputerUsersId().isEmpty()) {
+				for(Long computerUserId : objectNewDTO.getComputerUsersId()) {
+					ComputerUser computerUser = this.computerUserService.findById(computerUserId);
+					computerUser.addUseTheComputer(object);
+					object.addComputerUser(computerUser);
+				}
+			}
+		}
+		
+		if(object.isPersonalComputer()) {
+			object.setPatrimonyId(null);
+			object.setManufacturer(null);
+			object.setCabinetModel(null);
+			object.setOperatingSystem(OperatingSystem.NONE);
+			object.setOperatingSystemArchitecture(ArchitectureType.NONE);
+			
+			return object;
+		}
+		
 		if(objectNewDTO.getMonitorId() != null) {
 			Monitor monitor = this.monitorService.findById(objectNewDTO.getMonitorId());
 			Computer computer = this.findByMonitor(monitor);
@@ -276,9 +339,6 @@ public class ComputerService extends EquipmentService {
 			}
 			object.setMonitor(monitor);
 		}
-		
-		if(objectNewDTO.getSectorId() != null)
-			object.setSector(this.sectorService.findById(objectNewDTO.getSectorId()));
 		
 		if(objectNewDTO.getProcessor_id() != null || objectNewDTO.getProcessor_manufacturer() != null || objectNewDTO.getProcessor_model() != null || objectNewDTO.getProcessor_description() != null || objectNewDTO.isProcessor_itWorks() != null || objectNewDTO.getProcessor_processorName() != null || objectNewDTO.getProcessor_architecture() != null) {
 			if(objectNewDTO.getProcessor_id() != null) {				
@@ -343,17 +403,6 @@ public class ComputerService extends EquipmentService {
 
 		if(objectNewDTO.getStorageDevice8_id() != null || objectNewDTO.getStorageDevice8_manufacturer() != null || objectNewDTO.getStorageDevice8_model() != null || objectNewDTO.getStorageDevice8_description() != null || objectNewDTO.getStorageDevice8_itWorks() != null || objectNewDTO.getStorageDevice8_sizeInGB() != null || objectNewDTO.getStorageDevice8_architecture() != null || objectNewDTO.getStorageDevice8_type() != null)
 			object.addStorageDevice(new StorageDevice(objectNewDTO.getStorageDevice8_id(), null, null, objectNewDTO.getStorageDevice8_manufacturer(), objectNewDTO.getStorageDevice8_model(), objectNewDTO.getStorageDevice8_description(), objectNewDTO.getStorageDevice8_itWorks(), objectNewDTO.getStorageDevice8_sizeInGB(), objectNewDTO.getStorageDevice8_architecture(), objectNewDTO.getStorageDevice8_type(), null));
-		
-		// Many to many relationships
-		if(objectNewDTO.getComputerUsersId() != null) {
-			if(!objectNewDTO.getComputerUsersId().isEmpty()) {
-				for(Long computerUserId : objectNewDTO.getComputerUsersId()) {
-					ComputerUser computerUser = this.computerUserService.findById(computerUserId);
-					computerUser.addUseTheComputer(object);
-					object.addComputerUser(computerUser);
-				}
-			}
-		}
 
 		return object;
 	}	

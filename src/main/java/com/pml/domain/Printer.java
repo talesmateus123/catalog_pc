@@ -17,6 +17,7 @@ public class Printer extends Equipment{
 	private String ipAddress;
 	private String macAddress;
 	private String hostName;
+	private boolean online;
 	
 	public Printer() {
 		super();
@@ -57,6 +58,14 @@ public class Printer extends Equipment{
 
 	public void setHostName(String hostName) {
 		this.hostName = hostName;
+	}
+	
+	public boolean isOnline() {
+		return online;
+	}
+
+	public void setOnline(boolean online) {
+		this.online = online;
 	}
 	
 	public String generateHostName(){

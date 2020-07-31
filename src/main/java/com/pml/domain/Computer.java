@@ -10,11 +10,15 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.pml.domain.enums.ArchitectureType;
 import com.pml.domain.enums.EquipmentType;
@@ -26,17 +30,19 @@ public class Computer extends Equipment{
 	private String ipAddress;
 	private String macAddress;
 	private String hostName;
+	private boolean online = false;
 	private String motherBoardName;
 	private boolean hasCdBurner = true;
 	private String cabinetModel;
 	private Integer operatingSystem = 0;
 	private Integer operatingSystemArchitecture = 0;
 	private boolean onTheDomain = false;
+	private boolean personalComputer = false;
 	private Double totalRamMemory = 0.0;
 	private Double totalStorageMemory = 0.0;
-
-	@OneToMany(mappedBy = "computer")
+	@OneToMany(mappedBy = "computer", fetch = FetchType.EAGER)
 	private List<RamMemory> ramMemories = new ArrayList<>();
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "computer")
 	private List<StorageDevice> storageDevices = new ArrayList<>();
 	@ManyToMany
@@ -60,7 +66,7 @@ public class Computer extends Equipment{
 	public Computer(Long id, String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
 			String model, String description, Sector sector, boolean itWorks, String ipAddress, String macAddress,
 			String hostName, String motherBoardName, Processor processor, Boolean hasCdBurner, String cabinetModel, 
-			OperatingSystem operatingSystem, ArchitectureType operatingSystemArchitecture, boolean onTheDomain,
+			OperatingSystem operatingSystem, ArchitectureType operatingSystemArchitecture, boolean onTheDomain, boolean personalComputer,
 			Double totalRamMemory, Double totalStorageMemory, Monitor monitor) {
 		super(id, patrimonyId, createdDate, modifiedDate, EquipmentType.COMPUTER, manufacturer, model, description, sector, itWorks);
 		if(ipAddress != null)
@@ -79,6 +85,7 @@ public class Computer extends Equipment{
 		this.operatingSystem = (operatingSystem != null) ? operatingSystem.getCod() : null;
 		this.operatingSystemArchitecture = (operatingSystemArchitecture != null) ? operatingSystemArchitecture.getCod() : null;
 		this.onTheDomain = onTheDomain;
+		this.personalComputer = personalComputer;
 		this.totalRamMemory = totalRamMemory;
 		this.totalStorageMemory = totalStorageMemory;
 		this.monitor = monitor;
@@ -106,6 +113,14 @@ public class Computer extends Equipment{
 
 	public void setHostName(String hostName) {
 		this.hostName = hostName;
+	}
+	
+	public boolean isOnline() {
+		return online;
+	}
+
+	public void setOnline(boolean online) {
+		this.online = online;
 	}
 
 	public String getMotherBoardName() {
@@ -162,6 +177,14 @@ public class Computer extends Equipment{
 
 	public void setIsOnTheDomain(boolean onTheDomain) {
 		this.onTheDomain = onTheDomain;
+	}
+	
+	public boolean isPersonalComputer() {
+		return personalComputer;
+	}
+
+	public void setIsPersonalComputer(boolean personalComputer) {
+		this.personalComputer = personalComputer;
 	}
 
 	public Double getTotalStorageMemory() {

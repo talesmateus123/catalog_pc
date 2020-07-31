@@ -24,6 +24,7 @@ public class PrinterDTO implements Serializable {
 	private String ipAddress;
 	private String macAddress;
 	private String hostName;
+	private boolean online;
 	
 	public PrinterDTO() {
 	}
@@ -42,6 +43,7 @@ public class PrinterDTO implements Serializable {
 		this.ipAddress = printer.getIpAddress();
 		this.macAddress = printer.getMacAddress();
 		this.hostName = printer.getHostName();
+		this.online = printer.isOnline();
 		this.itComposed = printer.isItComposed();
 	}
 	
@@ -147,6 +149,14 @@ public class PrinterDTO implements Serializable {
 
 	public void setHostName(String hostName) {
 		this.hostName = hostName;
+	}
+	
+	public boolean isOnline() {
+		return online;
+	}
+
+	public void setOnline(boolean online) {
+		this.online = online;
 	}
 	
 

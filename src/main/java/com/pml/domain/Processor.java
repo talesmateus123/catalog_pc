@@ -15,8 +15,7 @@ import com.pml.domain.enums.EquipmentType;
 @Entity
 public class Processor extends Electronic {
 	private static final long serialVersionUID = 1L;
-	@NotNull(message = "{not.null}")
-	@Size(min = 4, max = 30, message = "{processorName.size}")
+	@Size(max = 30, message = "{processorName.size}")
 	private String processorName;
 	@NotNull(message = "{not.null}")
 	private Integer architecture;

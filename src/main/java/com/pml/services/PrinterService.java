@@ -37,8 +37,17 @@ public class PrinterService extends EquipmentService {
 	}
 	
 	public Page<Printer> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage);
-		return this.repository.findAll(pageRequest);
+		try {
+			PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
+    		        	
+        	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Printer.class)) 
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Printer.class.getName() + "' class.");
+        	return this.repository.findPageByOrderByPatrimonyId(pageRequest);
+            
+    	}
+    	catch (IllegalArgumentException e) {
+    		throw new IllegalArgException("The value of direction parameter: '" + direction + "' is invalid, this value must be 'ASC' or 'DESC'.");
+		}
 	}
 
 	// Simple search methods	

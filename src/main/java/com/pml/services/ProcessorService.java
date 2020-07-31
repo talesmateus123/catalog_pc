@@ -132,8 +132,12 @@ public class ProcessorService {
 				null, null, null, objectNewDTO.getManufacturer(), objectNewDTO.getModel(),
 				objectNewDTO.getDescription(), objectNewDTO.isItWorks(), objectNewDTO.getProcessorName(), 
 				objectNewDTO.getArchitecture(), null);
-		if (objectNewDTO.getComputerId() != null)
+		if(objectNewDTO.getComputerId() != null)
 			object.setComputer(this.computerService.findById(objectNewDTO.getComputerId()));
+		
+		if(objectNewDTO.getProcessorName() == null) {
+			object.setProcessorName(null);
+		}
 		
 		return object;
 	}

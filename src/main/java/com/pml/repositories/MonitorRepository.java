@@ -6,7 +6,6 @@
 package com.pml.repositories;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +17,13 @@ import org.springframework.stereotype.Repository;
 import com.pml.domain.Monitor;
 @Repository
 public interface MonitorRepository extends JpaRepository<Monitor, Long>{
-	List<Monitor> findByOrderByPatrimonyId();	
+	@Query("FROM Monitor monitor " +
+	           "WHERE monitor.itWorks = true " +
+				"ORDER BY monitor.patrimonyId ASC")
+	List<Monitor> findByOrderByPatrimonyId();
+	@Query("FROM Monitor monitor " +
+	           "WHERE monitor.itWorks = true")
+	Page<Monitor> findPageByOrderByPatrimonyId(Pageable pageable);
 	List<Monitor> findAllByComputerNull();
 	@Query("FROM Monitor monitor " +
 	           "WHERE LOWER(monitor.patrimonyId) like %:searchTerm% " +

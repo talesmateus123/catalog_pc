@@ -30,9 +30,9 @@ public abstract class Electronic implements Serializable{
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	protected Date lastModifiedDate;
 	protected Integer equipmentType;
-	protected String manufacturer = "Undefined";
+	protected String manufacturer = "";
 	protected String model = "";
-	@Size(max = 100, message = "The text must contain a maximum of 100 characters")
+	@Size(max = 100, message = "{description.size}")
 	protected String description = "";
 	protected Boolean itWorks = true;
 	protected Boolean itComposed;

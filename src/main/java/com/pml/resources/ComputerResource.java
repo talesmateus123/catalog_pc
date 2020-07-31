@@ -61,9 +61,9 @@ public class ComputerResource {
 	@GetMapping("/page")
 	public ResponseEntity<Page<ComputerDTO>> findPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page, 
-			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+			@RequestParam(value = "linesPerPage", defaultValue = "10") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
-			@RequestParam(value = "orderBy", defaultValue = "motherBoardName") String orderBy) {
+			@RequestParam(value = "orderBy", defaultValue = "patrimonyId") String orderBy) {
 		
 		Page<Computer> objects = this.service.findPage(page, linesPerPage, direction, orderBy);
 		Page<ComputerDTO> objectsDTO = objects.map(obj -> new ComputerDTO(obj));

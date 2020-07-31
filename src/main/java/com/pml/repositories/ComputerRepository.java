@@ -20,7 +20,13 @@ import com.pml.domain.Monitor;
 import com.pml.domain.Processor;
 @Repository
 public interface ComputerRepository extends JpaRepository<Computer, Long>{	
+	@Query("FROM Computer computer " +
+	           "WHERE computer.itWorks = true " +
+				"ORDER BY computer.patrimonyId ASC")
 	List<Computer> findByOrderByPatrimonyId();
+	@Query("FROM Computer computer " +
+	           "WHERE computer.itWorks = true")
+	Page<Computer> findPageByOrderByPatrimonyId(Pageable pageable);
 	Optional<Computer> findByMonitor(Monitor monitor);
 	Optional<Computer> findByProcessor(Processor processor);
 	List<Computer> findAllByMonitorNull();
@@ -32,8 +38,14 @@ public interface ComputerRepository extends JpaRepository<Computer, Long>{
 	           "OR LOWER(computer.hostName) like %:searchTerm% " +
 	           "OR LOWER(computer.motherBoardName) like %:searchTerm% " +
 	           "OR LOWER(computer.cabinetModel) like %:searchTerm% " +
-	           "OR LOWER(computer.sector.name) like %:searchTerm%")
+	           "OR LOWER(computer.processor.manufacturer) like %:searchTerm% " +
+	           "OR LOWER(computer.processor.processorName) like %:searchTerm% " +
+	           "OR LOWER(computer.sector.name) like %:searchTerm% ")
 	Page<Computer> search(@Param("searchTerm") String searchTerm, Pageable pageable);
+	
+	Page<Computer> findByOnlineTrue(Pageable pageable);
+	
+	Page<Computer> findByItWorksFalse(Pageable pageable);
 	
 	
 	

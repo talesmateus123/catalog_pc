@@ -26,12 +26,14 @@ public class ComputerDTO implements Serializable {
 	private String ipAddress;
 	private String macAddress;
 	private String hostName;
+	private boolean online;
 	private String motherBoardName;
 	private Boolean hasCdBurner;
 	private String cabinetModel;
 	private Integer operatingSystem;
 	private Integer operatingSystemArchitecture;
 	private boolean onTheDomain;
+	private boolean personalComputer;
 	private Double totalRamMemory;
 	private Double totalStorageMemory;
 	
@@ -52,11 +54,13 @@ public class ComputerDTO implements Serializable {
 		this.ipAddress = computer.getIpAddress();
 		this.macAddress = computer.getMacAddress();
 		this.hostName = computer.getHostName();
+		this.online = computer.isOnline();
 		this.motherBoardName = computer.getMotherBoardName(); 
 		this.hasCdBurner = computer.getHasCdBurner();
 		this.operatingSystem = (computer.getOperatingSystem() != null) ? computer.getOperatingSystem().getCod() : null;
 		this.operatingSystemArchitecture = (computer.getOperatingSystemArchitecture() != null) ? computer.getOperatingSystemArchitecture().getCod() : null;
 		this.onTheDomain = computer.isOnTheDomain();
+		this.personalComputer = computer.isPersonalComputer();
 		this.totalRamMemory = computer.getTotalRamMemory();
 		this.totalStorageMemory = computer.getTotalStorageMemory();
 		this.cabinetModel = computer.getCabinetModel();;
@@ -164,6 +168,14 @@ public class ComputerDTO implements Serializable {
 	public String getHostName() {
 		return hostName;
 	}
+	
+	public boolean isOnline() {
+		return online;
+	}
+
+	public void setOnline(boolean online) {
+		this.online = online;
+	}
 
 	public void setHostName(String hostName) {
 		this.hostName = hostName;
@@ -215,6 +227,14 @@ public class ComputerDTO implements Serializable {
 
 	public void setOnTheDomain(boolean onTheDomain) {
 		this.onTheDomain = onTheDomain;
+	}
+	
+	public boolean isPersonalComputer() {
+		return personalComputer;
+	}
+
+	public void setIsPersonalComputer(boolean personalComputer) {
+		this.personalComputer = personalComputer;
 	}
 
 	public Double getTotalRamMemory() {

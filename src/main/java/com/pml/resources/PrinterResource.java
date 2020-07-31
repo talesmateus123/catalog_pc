@@ -53,9 +53,9 @@ public class PrinterResource {
 	@GetMapping("/page")
 	public ResponseEntity<Page<PrinterDTO>> findPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page, 
-			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+			@RequestParam(value = "linesPerPage", defaultValue = "10") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
-			@RequestParam(value = "orderBy", defaultValue = "motherBoardName") String orderBy) {
+			@RequestParam(value = "orderBy", defaultValue = "patrimonyId") String orderBy) {
 		
 		Page<Printer> objects = this.service.findPage(page, linesPerPage, direction, orderBy);
 		Page<PrinterDTO> objectsDTO = objects.map(obj -> new PrinterDTO(obj));

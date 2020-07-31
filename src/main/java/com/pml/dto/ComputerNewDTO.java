@@ -35,6 +35,7 @@ public class ComputerNewDTO implements Serializable {
 	private Integer operatingSystemArchitecture;
 	@NotNull(message = "{not.null}")
 	private Boolean onTheDomain;
+	private boolean personalComputer;
 	private Double totalRamMemory;
 	private Double totalStorageMemory;
 	private Long monitorId;
@@ -313,6 +314,14 @@ public class ComputerNewDTO implements Serializable {
 
 	public Double getTotalRamMemory() {
 		return totalRamMemory;
+	}
+	
+	public boolean isPersonalComputer() {
+		return personalComputer;
+	}
+
+	public void setIsPersonalComputer(boolean personalComputer) {
+		this.personalComputer = personalComputer;
 	}
 
 	public void setTotalRamMemory(Double totalRamMemory) {

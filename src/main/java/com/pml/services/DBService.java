@@ -86,11 +86,11 @@ public class DBService {
 		
 		// Computers creation		
 		Computer computer1 = new Computer(null, "02832", new Date(), new Date(), "Fabricante", "Modelo", "Descrição", sector2, 
-				true, "ip", "mac", "hostName", "motherBoardName", null, true, "cabinetModel", OperatingSystem.WINDOWS_7, 
+				true, "ip", "mac", "hostName", "motherBoardName", null, true, false, "cabinetModel", OperatingSystem.WINDOWS_7, 
 				ArchitectureType.AMD64, true, 0.0, 0.0, monitor1);
 		
 		Computer computer2 = new Computer(null, "138354", new Date(), new Date(), "Fabricante", "Modelo", "Descrição", sector2, 
-				true, "ip", "mac", "hostName", "motherBoardName", null, true, "cabinetModel", OperatingSystem.WINDOWS_7, 
+				true, "ip", "mac", "hostName", "motherBoardName", null, true, false, "cabinetModel", OperatingSystem.WINDOWS_7, 
 				ArchitectureType.AMD64, true, 0.0, 0.0, monitor1);
 		
 		computer1.addComputerUser(computerUser1);

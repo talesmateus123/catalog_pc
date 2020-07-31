@@ -6,7 +6,6 @@
 package com.pml.repositories;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +17,13 @@ import org.springframework.stereotype.Repository;
 import com.pml.domain.Printer;
 @Repository
 public interface PrinterRepository extends JpaRepository<Printer, Long>{
+	@Query("FROM Printer printer " +
+	           "WHERE printer.itWorks = true " +
+				"ORDER BY printer.patrimonyId ASC")
 	List<Printer> findByOrderByPatrimonyId();	
+	@Query("FROM Printer printer " +
+	           "WHERE printer.itWorks = true")
+	Page<Printer> findPageByOrderByPatrimonyId(Pageable pageable);
 	@Query("FROM Printer printer " +
 	           "WHERE LOWER(printer.patrimonyId) like %:searchTerm% " +
 	           "OR LOWER(printer.manufacturer) like %:searchTerm% " +
