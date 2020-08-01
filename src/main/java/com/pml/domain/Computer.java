@@ -21,6 +21,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.pml.domain.enums.ArchitectureType;
+import com.pml.domain.enums.ComputerType;
 import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.OperatingSystem;
 
@@ -36,6 +37,7 @@ public class Computer extends Equipment{
 	private String cabinetModel;
 	private Integer operatingSystem = 0;
 	private Integer operatingSystemArchitecture = 0;
+	private Integer computerType = 0;
 	private boolean onTheDomain = false;
 	private boolean personalComputer = false;
 	private Double totalRamMemory = 0.0;
@@ -66,8 +68,8 @@ public class Computer extends Equipment{
 	public Computer(Long id, String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
 			String model, String description, Sector sector, boolean itWorks, String ipAddress, String macAddress,
 			String hostName, String motherBoardName, Processor processor, Boolean hasCdBurner, String cabinetModel, 
-			OperatingSystem operatingSystem, ArchitectureType operatingSystemArchitecture, boolean onTheDomain, boolean personalComputer,
-			Double totalRamMemory, Double totalStorageMemory, Monitor monitor) {
+			OperatingSystem operatingSystem, ArchitectureType operatingSystemArchitecture, ComputerType computerType, 
+			boolean onTheDomain, boolean personalComputer, Double totalRamMemory, Double totalStorageMemory, Monitor monitor) {
 		super(id, patrimonyId, createdDate, modifiedDate, EquipmentType.COMPUTER, manufacturer, model, description, sector, itWorks);
 		if(ipAddress != null)
 			this.ipAddress = (!ipAddress.isEmpty()) ? ipAddress : "0.0.0.0";
@@ -78,17 +80,25 @@ public class Computer extends Equipment{
 			this.hostName = (!hostName.isEmpty()) ? hostName : generateHostName();
 		else
 			this.hostName = generateHostName();
-		this.motherBoardName = motherBoardName;
-		this.processor = processor;
-		this.hasCdBurner = hasCdBurner;
-		this.cabinetModel = cabinetModel;
-		this.operatingSystem = (operatingSystem != null) ? operatingSystem.getCod() : null;
-		this.operatingSystemArchitecture = (operatingSystemArchitecture != null) ? operatingSystemArchitecture.getCod() : null;
-		this.onTheDomain = onTheDomain;
-		this.personalComputer = personalComputer;
-		this.totalRamMemory = totalRamMemory;
-		this.totalStorageMemory = totalStorageMemory;
-		this.monitor = monitor;
+		this.computerType = (computerType != null) ? computerType.getCod() : null;;
+		if (!this.personalComputer) {
+			this.motherBoardName = motherBoardName;
+			this.processor = processor;
+			this.hasCdBurner = hasCdBurner;
+			this.cabinetModel = cabinetModel;
+			this.operatingSystem = (operatingSystem != null) ? operatingSystem.getCod() : null;
+			this.operatingSystemArchitecture = (operatingSystemArchitecture != null) ? operatingSystemArchitecture.getCod() : null;
+			this.onTheDomain = onTheDomain;
+			this.totalRamMemory = totalRamMemory;
+			this.totalStorageMemory = totalStorageMemory;
+			this.monitor = monitor;
+		}
+		else {
+			this.patrimonyId = null;
+			this.manufacturer = null;
+			this.model = null;
+		}
+			
 	}
 	
 	public String getIpAddress() {
@@ -169,6 +179,14 @@ public class Computer extends Equipment{
 
 	public void setOperatingSystemArchitecture(ArchitectureType operatingSystemArchitecture) {
 		this.operatingSystemArchitecture = operatingSystemArchitecture.getCod();
+	}
+
+	public ComputerType getComputerType() {
+		return ComputerType.toEnum(this.computerType);
+	}
+
+	public void setComputerType(ComputerType computerType) {
+		this.computerType = computerType.getCod();
 	}
 
 	public boolean isOnTheDomain() {

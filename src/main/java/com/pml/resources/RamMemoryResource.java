@@ -97,6 +97,12 @@ public class RamMemoryResource {
 		return ResponseEntity.noContent().build();
 	}
 
+	/**
+	 * Updates the ram memory referred by id.
+	 * @param objectDTO
+	 * @param id
+	 * @return ResponseEntity<Void>
+	 */
 	// @PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody RamMemoryNewDTO objectDTO, @PathVariable Long id) {

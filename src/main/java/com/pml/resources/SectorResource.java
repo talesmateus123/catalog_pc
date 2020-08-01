@@ -95,6 +95,12 @@ public class SectorResource {
 		return ResponseEntity.noContent().build();
 	}
 
+	/**
+	 * Updates the sector referred by id.
+	 * @param objectDTO
+	 * @param id
+	 * @return ResponseEntity<Void>
+	 */
 	// @PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody SectorNewDTO objectDTO, @PathVariable Integer id) {
@@ -105,9 +111,13 @@ public class SectorResource {
 		return ResponseEntity.noContent().build();		
 	}
 	
+	/**
+	 * Generates the sectors report.
+	 * @return ResponseEntity<InputStreamResource>
+	 */
 	@RequestMapping(value = "/pdfreport", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<InputStreamResource> citiesReport() {
+    public ResponseEntity<InputStreamResource> sectorsReport() {
 
         var sectors = (List<Sector>) service.findAll();
 

@@ -97,6 +97,12 @@ public class ProcessorResource {
 		return ResponseEntity.noContent().build();
 	}
 
+	/**
+	 * Updates the processor referred by id.
+	 * @param objectDTO
+	 * @param id
+	 * @return ResponseEntity<Void>
+	 */
 	// @PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody ProcessorNewDTO objectDTO, @PathVariable Long id) {

@@ -42,6 +42,10 @@ public class PrinterResource {
 	@Autowired	
 	private PrinterService service;
 	
+	/**
+	 * Finds all printers.
+	 * @return ResponseEntity<List<PrinterDTO>>
+	 */
 	@GetMapping
 	public ResponseEntity<List<PrinterDTO>> findAll() {
 		List<Printer> objects = this.service.findAll();
@@ -50,6 +54,14 @@ public class PrinterResource {
 		return ResponseEntity.ok().body(objectsDTO);
 	}
 	
+	/**
+	 * Finds all printers per page.
+	 * @param page
+	 * @param linesPerPage
+	 * @param direction
+	 * @param orderBy
+	 * @return ResponseEntity<Page<PrinterDTO>>
+	 */
 	@GetMapping("/page")
 	public ResponseEntity<Page<PrinterDTO>> findPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page, 
@@ -62,22 +74,43 @@ public class PrinterResource {
 		return ResponseEntity.ok().body(objectsDTO);
 	}
 	
+	/**
+	 * Finds the printer with its ID.
+	 * @param id
+	 * @return ResponseEntity<Printer>
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<Printer> findById(@PathVariable Long id) {
 		Printer object = this.service.findById(id);
 		return ResponseEntity.ok().body(object);
 	}
 	
+	/**
+	 * Generalized search method.
+	 * @param page
+	 * @param linesPerPage
+	 * @param direction
+	 * @param orderBy
+	 * @param searchTerm
+	 * @return ResponseEntity<Page<PrinterDTO>>
+	 */
 	@GetMapping("/search")
-    public Page<Printer> search(
+    public ResponseEntity<Page<PrinterDTO>> search(
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,
             @RequestParam(value = "linesPerPage", required = false, defaultValue = "10") int linesPerPage,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction, 
             @RequestParam(value = "orderBy", defaultValue = "patrimonyId") String orderBy,
     		@RequestParam("searchTerm") String searchTerm) {
-        return service.search(page, linesPerPage, direction, orderBy, searchTerm);
+		Page<Printer> objects = this.service.search(page, linesPerPage, direction, orderBy, searchTerm);		
+		Page<PrinterDTO> objectsDTO = objects.map(obj -> new PrinterDTO(obj));		
+        return ResponseEntity.ok().body(objectsDTO);
     }
 
+	/**
+	 * Inserts a new printer.
+	 * @param objectDTO
+	 * @return ResponseEntity<Void>
+	 */
 	// @PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody PrinterNewDTO objectDTO) {
@@ -88,6 +121,11 @@ public class PrinterResource {
 		return ResponseEntity.created(uri).build();
 	}
 
+	/**
+	 * Deletes the printer referred by id.
+	 * @param id
+	 * @return ResponseEntity<Void>
+	 */
 	// @PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
@@ -95,6 +133,12 @@ public class PrinterResource {
 		return ResponseEntity.noContent().build();
 	}
 
+	/**
+	 * Updates the printer referred by id.
+	 * @param objectDTO
+	 * @param id
+	 * @return ResponseEntity<Void>
+	 */
 	// @PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody PrinterNewDTO objectDTO, @PathVariable Long id) {
@@ -105,9 +149,13 @@ public class PrinterResource {
 		return ResponseEntity.noContent().build();		
 	}
 	
+	/**
+	 * Generates the printers report.
+	 * @return ResponseEntity<InputStreamResource>
+	 */
 	@RequestMapping(value = "/pdfreport", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<InputStreamResource> citiesReport() {
+    public ResponseEntity<InputStreamResource> printersReport() {
 
         var printers = (List<Printer>) service.findAll();
 

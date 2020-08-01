@@ -61,6 +61,7 @@ public class DBService {
 	private PrinterRepository printerRepository;
 	
 	public void instantiateTestDatabase() {
+		/*
 		// Users creation
 		Client user1 = new Client(null, "talesmateus1999@hotmail.com", "Tales Mateus", bCryptPasswordEncoder.encode("1234"));
 		user1.addProfile(UserProfile.ADMIN);
@@ -154,6 +155,7 @@ public class DBService {
 		
 		
 		//userRepository.saveAll(Arrays.asList(user1, user2));
+		 */
 	}
 	
 	

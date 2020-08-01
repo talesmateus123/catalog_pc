@@ -37,17 +37,17 @@ public class PingRequestSenderComponent {
     
     // Custom constants
     private final int initialDelay = 5 * SECOND;
-    private final int fixedDelay = 1 * MINITE;
+    private final int fixedDelay = 10 * MINITE;
     private final int pingDelay = 2 * SECOND;
     
 	Logger logger = LoggerFactory.getLogger(PingRequestSenderComponent.class);
 	
 	/**
-	 * It gets the list of equipment and its respective IP address, then sends a ping request to those IP addresses and, if it gets a response, updates the online attribute with a true value, otherwise it fills in with a false value. After 60 seconds, repeat the operation.   
-	 * @return void
+	 * It gets the list of equipment and its respective IP address, then sends a ping request to those IP addresses and, if it gets a response, updates the online attribute with a true value, otherwise it fills in with a false value. After 60 seconds, repeat the operation.
 	 * @throws InterruptedException 
 	 * @throws IOException 
 	 * @throws UnknownHostException 
+	 * @return void
 	 */
     @Scheduled(initialDelay = initialDelay, fixedDelay = fixedDelay)
 	private void sendPingRequestsToEquipmentsAndUpdate() throws InterruptedException, UnknownHostException, IOException {
@@ -104,11 +104,11 @@ public class PingRequestSenderComponent {
 		InetAddress geek = InetAddress.getByName(ipAddress); 
 		logger.info("Sending ping request for " + ipAddress);
 		if (geek.isReachable(pingDelay)) {
-			logger.info("Result: successful, ping request to " + ipAddress + " was received");
+			//logger.info("Result: successful, ping request to " + ipAddress + " was received");
 			return true;
 		}
 		else {
-	        logger.info("Result: unsuccessful, ping request to " + ipAddress + " was lost");
+	        //logger.info("Result: unsuccessful, ping request to " + ipAddress + " was lost");
 			return false;
 		}
 	}

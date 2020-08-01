@@ -42,6 +42,10 @@ public class MonitorResource {
 	@Autowired	
 	private MonitorService service;
 	
+	/**
+	 * Finds all monitors.
+	 * @return ResponseEntity<List<MonitorDTO>>
+	 */
 	@GetMapping
 	public ResponseEntity<List<MonitorDTO>> findAll() {
 		List<Monitor> objects = this.service.findAll();
@@ -50,6 +54,10 @@ public class MonitorResource {
 		return ResponseEntity.ok().body(objectsDTO);
 	}
 	
+	/**
+	 * Finds all available monitors (without computer).
+	 * @return ResponseEntity<List<MonitorDTO>>
+	 */
 	@GetMapping("/available")
 	public ResponseEntity<List<MonitorDTO>> findAllWithoutComputer() {
 		List<Monitor> objects = this.service.findAllWithoutComputer();
@@ -58,6 +66,14 @@ public class MonitorResource {
 		return ResponseEntity.ok().body(objectsDTO);
 	}
 	
+	/**
+	 * Finds all monitors per page.
+	 * @param page
+	 * @param linesPerPage
+	 * @param direction
+	 * @param orderBy
+	 * @return ResponseEntity<Page<MonitorDTO>>
+	 */
 	@GetMapping("/page")
 	public ResponseEntity<Page<MonitorDTO>> findPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page, 
@@ -70,22 +86,43 @@ public class MonitorResource {
 		return ResponseEntity.ok().body(objectsDTO);
 	}
 	
+	/**
+	 * Finds the monitor with its ID.
+	 * @param id
+	 * @return ResponseEntity<Monitor>
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<Monitor> findById(@PathVariable Long id) {
 		Monitor object = this.service.findById(id);
 		return ResponseEntity.ok().body(object);
 	}
 	
+	/**
+	 * Generalized search method.
+	 * @param page
+	 * @param linesPerPage
+	 * @param direction
+	 * @param orderBy
+	 * @param searchTerm
+	 * @return ResponseEntity<Page<MonitorDTO>>
+	 */
 	@GetMapping("/search")
-    public Page<Monitor> search(
+    public ResponseEntity<Page<MonitorDTO>> search(
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,
             @RequestParam(value = "linesPerPage", required = false, defaultValue = "10") int linesPerPage,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction, 
             @RequestParam(value = "orderBy", defaultValue = "patrimonyId") String orderBy,
     		@RequestParam("searchTerm") String searchTerm) {
-        return service.search(page, linesPerPage, direction, orderBy, searchTerm);
+		Page<Monitor> objects = this.service.search(page, linesPerPage, direction, orderBy, searchTerm);		
+		Page<MonitorDTO> objectsDTO = objects.map(obj -> new MonitorDTO(obj));		
+        return ResponseEntity.ok().body(objectsDTO);
     }
 
+	/**
+	 * Inserts a new monitor.
+	 * @param objectDTO
+	 * @return ResponseEntity<Void>
+	 */
 	// @PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody MonitorNewDTO objectDTO) {
@@ -96,6 +133,11 @@ public class MonitorResource {
 		return ResponseEntity.created(uri).build();
 	}
 
+	/**
+	 * Deletes the monitor referred by id.
+	 * @param id
+	 * @return ResponseEntity<Void>
+	 */
 	// @PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
@@ -103,6 +145,12 @@ public class MonitorResource {
 		return ResponseEntity.noContent().build();
 	}
 
+	/**
+	 * Updates the monitor referred by id.
+	 * @param objectDTO
+	 * @param id
+	 * @return ResponseEntity<Void>
+	 */
 	// @PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody MonitorNewDTO objectDTO, @PathVariable Long id) {
@@ -113,9 +161,13 @@ public class MonitorResource {
 		return ResponseEntity.noContent().build();		
 	}
 	
+	/**
+	 * Generates the monitors report.
+	 * @return ResponseEntity<InputStreamResource>
+	 */
 	@RequestMapping(value = "/pdfreport", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<InputStreamResource> citiesReport() {
+    public ResponseEntity<InputStreamResource> monitorsReport() {
 
         var monitors = (List<Monitor>) service.findAll();
 

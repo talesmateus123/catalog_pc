@@ -23,30 +23,55 @@ public interface ComputerRepository extends JpaRepository<Computer, Long>{
 	@Query("FROM Computer computer " +
 	           "WHERE computer.itWorks = true " +
 				"ORDER BY computer.patrimonyId ASC")
+	
 	List<Computer> findByOrderByPatrimonyId();
 	@Query("FROM Computer computer " +
 	           "WHERE computer.itWorks = true")
 	Page<Computer> findPageByOrderByPatrimonyId(Pageable pageable);
+	
 	Optional<Computer> findByMonitor(Monitor monitor);
-	Optional<Computer> findByProcessor(Processor processor);
+	
 	List<Computer> findAllByMonitorNull();
-	@Query("FROM Computer computer " +
-	           "WHERE LOWER(computer.patrimonyId) like %:searchTerm% " +
+	
+	Optional<Computer> findByProcessor(Processor processor);
+	
+	// Generalized search
+	@Query("SELECT computer FROM Computer computer " +
+	           "WHERE computer.itWorks = true " +
+	           "AND (LOWER(computer.patrimonyId) like %:searchTerm% " +
 	           "OR LOWER(computer.manufacturer) like %:searchTerm% " +
 	           "OR LOWER(computer.model) like %:searchTerm% " +
 	           "OR LOWER(computer.ipAddress) like %:searchTerm% " +
 	           "OR LOWER(computer.hostName) like %:searchTerm% " +
 	           "OR LOWER(computer.motherBoardName) like %:searchTerm% " +
-	           "OR LOWER(computer.cabinetModel) like %:searchTerm% " +
-	           "OR LOWER(computer.processor.manufacturer) like %:searchTerm% " +
-	           "OR LOWER(computer.processor.processorName) like %:searchTerm% " +
-	           "OR LOWER(computer.sector.name) like %:searchTerm% ")
+	           "OR LOWER(computer.cabinetModel) like %:searchTerm% )" )
 	Page<Computer> search(@Param("searchTerm") String searchTerm, Pageable pageable);
 	
-	Page<Computer> findByOnlineTrue(Pageable pageable);
+	@Query("FROM Computer computer " +
+	           "WHERE computer.itWorks = true " +
+	           "AND (LOWER(computer.processor.manufacturer) like %:searchTerm% " +
+	           "OR LOWER(computer.processor.model) like %:searchTerm% " +
+	           "OR LOWER(computer.processor.processorName) like %:searchTerm% )" )
+	Page<Computer> searchByProcessorTerms(@Param("searchTerm") String searchTerm, Pageable pageable);
 	
-	Page<Computer> findByItWorksFalse(Pageable pageable);
+	@Query("FROM Computer computer JOIN computer.computerUsers computerUser " +
+				"WHERE computer.itWorks = true " +
+				"AND (LOWER(computerUser.name) like %:searchTerm% " +
+				"OR LOWER(computerUser.lastName) like %:searchTerm% )")
+	Page<Computer> searchByComputerUserTerms(@Param("searchTerm") String searchTerm, Pageable pageable);
 	
+	@Query("FROM Computer computer " +
+			"WHERE computer.itWorks = true AND computer.online = :searchTerm " )
+	Page<Computer> searchByOnline(boolean searchTerm, Pageable pageable);
+	
+	@Query("FROM Computer computer " +
+			"WHERE computer.itWorks = true AND computer.onTheDomain = :searchTerm " )
+	Page<Computer> searchByOnTheDomain(boolean searchTerm, Pageable pageable);
+	
+	@Query("FROM Computer computer " +
+			"WHERE computer.itWorks = true AND computer.personalComputer = :searchTerm " )
+	Page<Computer> searchByPersonalComputer(boolean searchTerm, Pageable pageable);
+
 	
 	
 }

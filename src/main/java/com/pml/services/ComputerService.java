@@ -76,34 +76,6 @@ public class ComputerService extends EquipmentService {
 		}
 	}
 	
-	public Page<Computer> findOnline(Integer page, Integer linesPerPage, String direction, String orderBy) {		
-		try {
-			PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
-    		        	
-        	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Computer.class)) 
-        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Computer.class.getName() + "' class.");
-        	return this.repository.findByOnlineTrue(pageRequest);
-            
-    	}
-    	catch (IllegalArgumentException e) {
-    		throw new IllegalArgException("The value of direction parameter: '" + direction + "' is invalid, this value must be 'ASC' or 'DESC'.");
-		}
-	}
-	
-	public Page<Computer> findItNotWorks(Integer page, Integer linesPerPage, String direction, String orderBy) {		
-		try {
-			PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
-    		        	
-        	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Computer.class)) 
-        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Computer.class.getName() + "' class.");
-        	return this.repository.findByItWorksFalse(pageRequest);
-            
-    	}
-    	catch (IllegalArgumentException e) {
-    		throw new IllegalArgException("The value of direction parameter: '" + direction + "' is invalid, this value must be 'ASC' or 'DESC'.");
-		}
-	}
-
 	// Simple search methods
 	@Override
 	public Computer findById(Long id) {
@@ -124,15 +96,87 @@ public class ComputerService extends EquipmentService {
 			return object.get();
 		return null;
 	}
-		
+	
+	// Generalized search
 	public Page<Computer> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {		
     	try {
     		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
     		        	
         	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Computer.class)) 
         		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Computer.class.getName() + "' class.");
-        	        	
+        	
         	return repository.search(searchTerm.toLowerCase(), pageRequest);
+    	}
+    	catch (IllegalArgumentException e) {
+    		throw new IllegalArgException("The value of direction parameter: '" + direction + "' is invalid, this value must be 'ASC' or 'DESC'.");
+		}
+    }
+	
+	// Custom searches
+	public Page<Computer> searchByProcessorTerms(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {		
+    	try {
+    		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
+    		        	
+        	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Computer.class)) 
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Computer.class.getName() + "' class.");
+        	
+    		return repository.searchByProcessorTerms(searchTerm.toLowerCase(), pageRequest);
+    	}
+    	catch (IllegalArgumentException e) {
+    		throw new IllegalArgException("The value of direction parameter: '" + direction + "' is invalid, this value must be 'ASC' or 'DESC'.");
+		}
+    }
+	
+	public Page<Computer> searchByComputerUserTerms(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {		
+    	try {
+    		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
+    		        	
+        	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Computer.class)) 
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Computer.class.getName() + "' class.");
+        	
+			return repository.searchByComputerUserTerms(searchTerm.toLowerCase(), pageRequest);
+    	}
+    	catch (IllegalArgumentException e) {
+    		throw new IllegalArgException("The value of direction parameter: '" + direction + "' is invalid, this value must be 'ASC' or 'DESC'.");
+		}
+    }
+	
+	public Page<Computer> searchByOnline(Integer page, Integer linesPerPage, String direction, String orderBy, Boolean searchTerm) {		
+    	try {
+    		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
+    		        	
+        	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Computer.class)) 
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Computer.class.getName() + "' class.");
+        	
+        	return repository.searchByOnline(searchTerm, pageRequest);
+    	}
+    	catch (IllegalArgumentException e) {
+    		throw new IllegalArgException("The value of direction parameter: '" + direction + "' is invalid, this value must be 'ASC' or 'DESC'.");
+		}
+    }
+	
+	public Page<Computer> searchByOnTheDomain(Integer page, Integer linesPerPage, String direction, String orderBy, Boolean searchTerm) {		
+    	try {
+    		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
+    		        	
+        	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Computer.class)) 
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Computer.class.getName() + "' class.");
+        	
+    		return repository.searchByOnTheDomain(searchTerm, pageRequest);
+    	}
+    	catch (IllegalArgumentException e) {
+    		throw new IllegalArgException("The value of direction parameter: '" + direction + "' is invalid, this value must be 'ASC' or 'DESC'.");
+		}
+    }
+	
+	public Page<Computer> searchByPersonalComputer(Integer page, Integer linesPerPage, String direction, String orderBy, Boolean searchTerm) {		
+    	try {
+    		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
+    		        	
+        	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Computer.class)) 
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Computer.class.getName() + "' class.");
+        	
+    		return repository.searchByPersonalComputer(searchTerm, pageRequest);
     	}
     	catch (IllegalArgumentException e) {
     		throw new IllegalArgException("The value of direction parameter: '" + direction + "' is invalid, this value must be 'ASC' or 'DESC'.");
@@ -302,8 +346,9 @@ public class ComputerService extends EquipmentService {
 				objectNewDTO.getManufacturer(), objectNewDTO.getModel(), objectNewDTO.getDescription(), 
 				null, objectNewDTO.isItWorks(), objectNewDTO.getIpAddress(), objectNewDTO.getMacAddress(),
 				objectNewDTO.getHostName(), objectNewDTO.getMotherBoardName(), null, objectNewDTO.getHasCdBurner(),
-				 objectNewDTO.getCabinetModel(), objectNewDTO.getOperatingSystem(), objectNewDTO.getOperatingSystemArchitecture(), 
-				 objectNewDTO.isOnTheDomain(), objectNewDTO.isPersonalComputer(), objectNewDTO.getTotalRamMemory(), objectNewDTO.getTotalStorageMemory(), null);
+				objectNewDTO.getCabinetModel(), objectNewDTO.getOperatingSystem(), objectNewDTO.getOperatingSystemArchitecture(),
+				objectNewDTO.getComputerType(), objectNewDTO.isOnTheDomain(), objectNewDTO.isPersonalComputer(), 
+				objectNewDTO.getTotalRamMemory(), objectNewDTO.getTotalStorageMemory(), null);
 		
 		// One to one relationships
 		if(objectNewDTO.getSectorId() != null)

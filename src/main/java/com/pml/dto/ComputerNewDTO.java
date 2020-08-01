@@ -9,6 +9,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.pml.domain.enums.ArchitectureType;
+import com.pml.domain.enums.ComputerType;
 import com.pml.domain.enums.OperatingSystem;
 import com.pml.domain.enums.RamMemoryArchitecture;
 import com.pml.domain.enums.StorageDeviceArchitecture;
@@ -33,6 +34,7 @@ public class ComputerNewDTO implements Serializable {
 	private String cabinetModel;
 	private Integer operatingSystem;
 	private Integer operatingSystemArchitecture;
+	private Integer computerType;
 	@NotNull(message = "{not.null}")
 	private Boolean onTheDomain;
 	private boolean personalComputer;
@@ -302,6 +304,14 @@ public class ComputerNewDTO implements Serializable {
 
 	public void setOperatingSystemArchitecture(ArchitectureType operatingSystemArchitecture) {
 		this.operatingSystemArchitecture = operatingSystemArchitecture.getCod();
+	}
+
+	public ComputerType getComputerType() {
+		return ComputerType.toEnum(this.computerType);
+	}
+
+	public void setComputerType(ComputerType computerType) {
+		this.computerType = computerType.getCod();
 	}
 
 	public Boolean isOnTheDomain() {

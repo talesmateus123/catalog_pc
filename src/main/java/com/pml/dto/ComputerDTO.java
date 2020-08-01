@@ -6,6 +6,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pml.domain.Computer;
 import com.pml.domain.enums.ArchitectureType;
+import com.pml.domain.enums.ComputerType;
 import com.pml.domain.enums.EquipmentType;
 import com.pml.domain.enums.OperatingSystem;
 
@@ -32,6 +33,7 @@ public class ComputerDTO implements Serializable {
 	private String cabinetModel;
 	private Integer operatingSystem;
 	private Integer operatingSystemArchitecture;
+	private Integer computerType;
 	private boolean onTheDomain;
 	private boolean personalComputer;
 	private Double totalRamMemory;
@@ -59,6 +61,7 @@ public class ComputerDTO implements Serializable {
 		this.hasCdBurner = computer.getHasCdBurner();
 		this.operatingSystem = (computer.getOperatingSystem() != null) ? computer.getOperatingSystem().getCod() : null;
 		this.operatingSystemArchitecture = (computer.getOperatingSystemArchitecture() != null) ? computer.getOperatingSystemArchitecture().getCod() : null;
+		this.computerType = (computer.getComputerType() != null) ? computer.getComputerType().getCod() : null;
 		this.onTheDomain = computer.isOnTheDomain();
 		this.personalComputer = computer.isPersonalComputer();
 		this.totalRamMemory = computer.getTotalRamMemory();
@@ -219,6 +222,14 @@ public class ComputerDTO implements Serializable {
 
 	public void setOperatingSystemArchitecture(ArchitectureType operatingSystemArchitecture) {
 		this.operatingSystemArchitecture = operatingSystemArchitecture.getCod();
+	}
+
+	public ComputerType getComputerType() {
+		return ComputerType.toEnum(this.computerType);
+	}
+
+	public void setComputerType(ComputerType computerType) {
+		this.computerType = computerType.getCod();
 	}
 
 	public boolean isOnTheDomain() {
