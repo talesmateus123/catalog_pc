@@ -15,6 +15,8 @@ public class ProcessorDTO implements Serializable {
 	private Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date lastModifiedDate;
+	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
+	private Date deletedDate;
 	private Integer equipmentType;
 	private String manufacturer;
 	private String model;
@@ -31,11 +33,11 @@ public class ProcessorDTO implements Serializable {
 		this.id = processor.getId();
 		this.createdDate = processor.getCreatedDate();
 		this.lastModifiedDate = processor.getLastModifiedDate();
+		this.deletedDate = processor.getDeletedDate();
 		this.equipmentType = processor.getEquipmentType().getCod();
 		this.manufacturer = processor.getManufacturer();
 		this.model = processor.getModel();
 		this.description = processor.getDescription();
-		this.itWorks = processor.isItWorks();
 		this.itComposed = processor.isItComposed();
 		this.processorName = processor.getProcessorName();
 		this.architecture = processor.getArchitecture().getCod();	
@@ -63,6 +65,14 @@ public class ProcessorDTO implements Serializable {
 
 	public void setLastModifiedDate(Date lastModifiedDate) {
 		this.lastModifiedDate = lastModifiedDate;
+	}
+	
+	public Date getDeletedDate() {
+		return deletedDate;
+	}
+
+	public void setDeletedDate(Date deletedDate) {
+		this.deletedDate = deletedDate;
 	}
 
 	public EquipmentType getEquipmentType() {

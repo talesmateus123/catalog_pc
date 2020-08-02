@@ -19,8 +19,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.pml.domain.Computer;
+import com.pml.domain.NetworkDevice;
 import com.pml.domain.Printer;
 import com.pml.services.ComputerService;
+import com.pml.services.NetworkDeviceService;
 import com.pml.services.PrinterService; 
 
 @Component @EnableScheduling
@@ -29,6 +31,8 @@ public class PingRequestSenderComponent {
     private ComputerService computerService;
 	@Autowired
     private PrinterService printerService;
+	@Autowired
+    private NetworkDeviceService networkDeviceService;
 
 	// Default constants.
 	private final int SECOND = 1000;
@@ -53,6 +57,7 @@ public class PingRequestSenderComponent {
 	private void sendPingRequestsToEquipmentsAndUpdate() throws InterruptedException, UnknownHostException, IOException {
     	List<Computer> computers = getComputersList();
     	List<Printer> printers = getPrintersList();
+    	List<NetworkDevice> networkDevices = getNetworkDevicesList();
 		logger.info("Looking for equipment online");
 		for(Computer computer: computers) {
 			boolean online = this.isPingRequestReceived(computer.getIpAddress());
@@ -63,6 +68,11 @@ public class PingRequestSenderComponent {
 			boolean online = this.isPingRequestReceived(printer.getIpAddress());
 			printer.setOnline(online);
 			printerService.update(printer);
+		}
+		for(NetworkDevice networkDevice: networkDevices) {
+			boolean online = this.isPingRequestReceived(networkDevice.getIpAddress());
+			networkDevice.setOnline(online);
+			networkDeviceService.update(networkDevice);
 		}
 		logger.info("Online equipment search completed");
 	}
@@ -83,7 +93,7 @@ public class PingRequestSenderComponent {
 	
 	/**
 	 * Updates the list of printers for the respective service.
-	 * @return printers List
+	 * @return List
 	 */
 	private List<Printer> getPrintersList() {
 		List<Printer> printers = new ArrayList<>();
@@ -93,6 +103,20 @@ public class PingRequestSenderComponent {
 				printers.add(printer);
 		}
 		return printers;
+	}
+	
+	/**
+	 * Updates the list of network devices for the respective service.
+	 * @return List
+	 */
+	private List<NetworkDevice> getNetworkDevicesList() {
+		List<NetworkDevice> networkDevices = new ArrayList<>();
+
+		for(NetworkDevice networkDevice: this.networkDeviceService.findAll()) {
+			if(!networkDevice.getIpAddress().equals("0.0.0.0"))
+				networkDevices.add(networkDevice);
+		}
+		return networkDevices;
 	}
 	
 	/**

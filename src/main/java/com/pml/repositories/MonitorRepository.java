@@ -18,11 +18,11 @@ import com.pml.domain.Monitor;
 @Repository
 public interface MonitorRepository extends JpaRepository<Monitor, Long>{
 	@Query("FROM Monitor monitor " +
-	           "WHERE monitor.itWorks = true " +
+	           "WHERE monitor.deletedDate = null " +
 				"ORDER BY monitor.patrimonyId ASC")
 	List<Monitor> findByOrderByPatrimonyId();
 	@Query("FROM Monitor monitor " +
-	           "WHERE monitor.itWorks = true")
+	           "WHERE monitor.deletedDate = null")
 	Page<Monitor> findPageByOrderByPatrimonyId(Pageable pageable);
 	List<Monitor> findAllByComputerNull();
 	@Query("FROM Monitor monitor " +

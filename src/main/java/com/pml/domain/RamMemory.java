@@ -29,10 +29,10 @@ public class RamMemory extends Electronic {
 		this.setItComposed(false);
 	}
 	
-	public RamMemory(Long id, Date createdDate, Date lastModifiedDate, String manufacturer,
-			String model, String description, Boolean itWorks, Double sizeInGB, RamMemoryArchitecture architecture, 
+	public RamMemory(Long id, Date createdDate, Date lastModifiedDate, Date deletedDate, String manufacturer,
+			String model, String description, Double sizeInGB, RamMemoryArchitecture architecture, 
 			Computer computer) {
-		super(id, createdDate, lastModifiedDate, EquipmentType.RAM_MEMORY, manufacturer, model, description, itWorks, false);
+		super(id, createdDate, lastModifiedDate, deletedDate, EquipmentType.RAM_MEMORY, manufacturer, model, description, false);
 		this.sizeInGB = sizeInGB;
 		this.architecture = architecture.getCod(); 
 		this.computer = computer;

@@ -14,13 +14,15 @@ public class PrinterDTO implements Serializable {
 	private Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date lastModifiedDate;
+	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
+	private Date deletedDate;
 	private Integer equipmentType;
 	private String manufacturer;
 	private String model;
 	private String description;
-	private boolean itWorks; 
 	private boolean itComposed;
 	private String patrimonyId;
+	private String sectorName;
 	private String ipAddress;
 	private String macAddress;
 	private String hostName;
@@ -33,13 +35,14 @@ public class PrinterDTO implements Serializable {
 		this.id = printer.getId();
 		this.createdDate = printer.getCreatedDate();
 		this.lastModifiedDate = printer.getLastModifiedDate();
+		this.deletedDate = printer.getDeletedDate();
 		this.equipmentType = printer.getEquipmentType().getCod();
 		this.manufacturer = printer.getManufacturer();
 		this.model = printer.getModel();
 		this.description = printer.getDescription();
-		this.itWorks = printer.isItWorks();
 		this.itComposed = printer.isItComposed();
 		this.patrimonyId = printer.getPatrimonyId();
+		this.sectorName = printer.getSector().getName();
 		this.ipAddress = printer.getIpAddress();
 		this.macAddress = printer.getMacAddress();
 		this.hostName = printer.getHostName();
@@ -62,6 +65,14 @@ public class PrinterDTO implements Serializable {
 	public void setPatrimonyId(String patrimonyId) {
 		this.patrimonyId = patrimonyId;
 	}
+
+	public String getSectorName() {
+		return sectorName;
+	}
+	
+	public void setSectorName(String sectorName) {
+		this.sectorName = sectorName;
+	}
 	
 	public Date getCreatedDate() {
 		return createdDate;
@@ -77,6 +88,14 @@ public class PrinterDTO implements Serializable {
 
 	public void setLastModifiedDate(Date lastModifiedDate) {
 		this.lastModifiedDate = lastModifiedDate;
+	}
+	
+	public Date getDeletedDate() {
+		return deletedDate;
+	}
+
+	public void setDeletedDate(Date deletedDate) {
+		this.deletedDate = deletedDate;
 	}
 
 	public EquipmentType getEquipmentType() {
@@ -109,14 +128,6 @@ public class PrinterDTO implements Serializable {
 	
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	
-	public boolean isItWorks() {
-		return itWorks;
-	}
-
-	public void setItWorks(boolean itWorks) {
-		this.itWorks = itWorks;
 	}
 
 	public boolean isItComposed() {

@@ -4,9 +4,10 @@ public enum EquipmentType {
 	COMPUTER(0, "Computador"),
 	PRINTER(1, "Printer"),
 	MONITOR(2, "Monitor"),
-	RAM_MEMORY(3, "RAM Memory"),
-	PROCESSOR(4, "Processor"),
-	STORAGE_DEVICE(5, "Storage device");
+	NETWORK_DEVICE(3, "Dispositivo de rede"),
+	RAM_MEMORY(4, "RAM Memory"),
+	PROCESSOR(5, "Processor"),
+	STORAGE_DEVICE(6, "Storage device");
 	
 	private Integer cod;
 	private String description;

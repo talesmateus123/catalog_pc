@@ -66,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/api/ram_memories/**",
 			"/api/storage_devices/**",
 			"/api/printers/**",
+			"/api/network_devices/**",
 			"/api/equipments/**",
 			"/api/electronics/**"
 	};
@@ -80,6 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/api/ram_memories/**",
 			"/api/storage_devices/**",
 			"/api/printers/**",
+			"/api/network_devices/**",
 			"/api/users/**",
 			"/auth/forgot_password"
 	};
@@ -93,6 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/api/ram_memories/**",
 			"/api/storage_devices/**",
 			"/api/printers/**",
+			"/api/network_devices/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_DELETE = {
@@ -104,6 +107,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/api/ram_memories/**",
 			"/api/storage_devices/**",
 			"/api/printers/**",
+			"/api/network_devices/**"
 	};
 	
 	@Override

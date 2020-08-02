@@ -21,12 +21,12 @@ import com.pml.domain.Processor;
 @Repository
 public interface ComputerRepository extends JpaRepository<Computer, Long>{	
 	@Query("FROM Computer computer " +
-	           "WHERE computer.itWorks = true " +
+	           "WHERE computer.deletedDate = null " +
 				"ORDER BY computer.patrimonyId ASC")
 	
 	List<Computer> findByOrderByPatrimonyId();
 	@Query("FROM Computer computer " +
-	           "WHERE computer.itWorks = true")
+	           "WHERE computer.deletedDate = null")
 	Page<Computer> findPageByOrderByPatrimonyId(Pageable pageable);
 	
 	Optional<Computer> findByMonitor(Monitor monitor);
@@ -37,7 +37,7 @@ public interface ComputerRepository extends JpaRepository<Computer, Long>{
 	
 	// Generalized search
 	@Query("SELECT computer FROM Computer computer " +
-	           "WHERE computer.itWorks = true " +
+	           "WHERE computer.deletedDate = null " +
 	           "AND (LOWER(computer.patrimonyId) like %:searchTerm% " +
 	           "OR LOWER(computer.manufacturer) like %:searchTerm% " +
 	           "OR LOWER(computer.model) like %:searchTerm% " +
@@ -48,28 +48,28 @@ public interface ComputerRepository extends JpaRepository<Computer, Long>{
 	Page<Computer> search(@Param("searchTerm") String searchTerm, Pageable pageable);
 	
 	@Query("FROM Computer computer " +
-	           "WHERE computer.itWorks = true " +
+	           "WHERE computer.deletedDate = null " +
 	           "AND (LOWER(computer.processor.manufacturer) like %:searchTerm% " +
 	           "OR LOWER(computer.processor.model) like %:searchTerm% " +
 	           "OR LOWER(computer.processor.processorName) like %:searchTerm% )" )
 	Page<Computer> searchByProcessorTerms(@Param("searchTerm") String searchTerm, Pageable pageable);
 	
 	@Query("FROM Computer computer JOIN computer.computerUsers computerUser " +
-				"WHERE computer.itWorks = true " +
+				"WHERE computer.deletedDate = null " +
 				"AND (LOWER(computerUser.name) like %:searchTerm% " +
 				"OR LOWER(computerUser.lastName) like %:searchTerm% )")
 	Page<Computer> searchByComputerUserTerms(@Param("searchTerm") String searchTerm, Pageable pageable);
 	
 	@Query("FROM Computer computer " +
-			"WHERE computer.itWorks = true AND computer.online = :searchTerm " )
+			"WHERE computer.deletedDate = null AND computer.online = :searchTerm " )
 	Page<Computer> searchByOnline(boolean searchTerm, Pageable pageable);
 	
 	@Query("FROM Computer computer " +
-			"WHERE computer.itWorks = true AND computer.onTheDomain = :searchTerm " )
+			"WHERE computer.deletedDate = null AND computer.onTheDomain = :searchTerm " )
 	Page<Computer> searchByOnTheDomain(boolean searchTerm, Pageable pageable);
 	
 	@Query("FROM Computer computer " +
-			"WHERE computer.itWorks = true AND computer.personalComputer = :searchTerm " )
+			"WHERE computer.deletedDate = null AND computer.personalComputer = :searchTerm " )
 	Page<Computer> searchByPersonalComputer(boolean searchTerm, Pageable pageable);
 
 	

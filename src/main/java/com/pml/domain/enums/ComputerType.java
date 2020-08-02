@@ -3,8 +3,7 @@ package com.pml.domain.enums;
 public enum ComputerType {
 	DESKTOP(0, "Desktop"),
 	LAPTOP(1, "Notebook"),
-	MOBILE(2, "Móvel"),
-	NETWORK_DEVICE(3, "Dispositivo de rede");
+	MOBILE(2, "Móvel");
 	
 	private Integer cod;
 	private String description;

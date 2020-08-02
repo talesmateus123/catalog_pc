@@ -14,7 +14,6 @@ public class ProcessorNewDTO implements Serializable {
 	private String model;
 	@Size(max = 100, message = "{description.size}")
 	private String description;
-	private boolean itWorks = true;
 	@NotEmpty(message = "{not.empty}")
 	@Size(min = 4, max = 30, message = "{processorName.size}")
 	private String processorName;
@@ -47,14 +46,6 @@ public class ProcessorNewDTO implements Serializable {
 	
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	
-	public boolean isItWorks() {
-		return itWorks;
-	}
-
-	public void setItWorks(boolean itWorks) {
-		this.itWorks = itWorks;
 	}
 	
 	public String getProcessorName() {

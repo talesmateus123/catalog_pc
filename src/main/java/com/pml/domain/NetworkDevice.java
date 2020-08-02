@@ -1,5 +1,5 @@
 /** 
- * This is the class "Printer", extended by the abstract class "Machine". Which will be to represent a computer.
+ * This is the class "NetworkDevice", extended by the abstract class "Machine". Which will be to represent a computer.
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */
@@ -12,22 +12,22 @@ import javax.persistence.Entity;
 import com.pml.domain.enums.EquipmentType;
 
 @Entity
-public class Printer extends Equipment{
+public class NetworkDevice extends Equipment{
 	private static final long serialVersionUID = 1L;
 	private String ipAddress;
 	private String macAddress;
 	private String hostName;
 	private boolean online;
 	
-	public Printer() {
+	public NetworkDevice() {
 		super();
-		this.setEquipmentType(EquipmentType.PRINTER);
+		this.setEquipmentType(EquipmentType.NETWORK_DEVICE);
 	}
 
-	public Printer(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, Date deletedDate, String manufacturer, 
+	public NetworkDevice(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, Date deletedDate, String manufacturer, 
 			String model, String description, Sector sector, String ipAddress, String macAddress,
 			String hostName) {
-		super(id, patrimonyId, createdDate, lastModifiedDate, deletedDate, EquipmentType.PRINTER, manufacturer, model, description, sector);
+		super(id, patrimonyId, createdDate, lastModifiedDate, deletedDate, EquipmentType.NETWORK_DEVICE, manufacturer, model, description, sector);
 		if(ipAddress != null)
 			this.ipAddress = (!ipAddress.isEmpty()) ? ipAddress : "0.0.0.0";
 		else

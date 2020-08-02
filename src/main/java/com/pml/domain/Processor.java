@@ -29,10 +29,10 @@ public class Processor extends Electronic {
 		this.setItComposed(false);
 	}
 	
-	public Processor(Long id, Date createdDate, Date lastModifiedDate, String manufacturer,
-			String model, String description, boolean itWorks, String processorNumber, 
+	public Processor(Long id, Date createdDate, Date lastModifiedDate, Date deletedDate, String manufacturer,
+			String model, String description, String processorNumber, 
 			ArchitectureType architecture, Computer computer) {
-		super(id, createdDate, lastModifiedDate, EquipmentType.PROCESSOR, manufacturer, model, description, itWorks, false);
+		super(id, createdDate, lastModifiedDate, deletedDate, EquipmentType.PROCESSOR, manufacturer, model, description, false);
 		this.processorName = processorNumber;
 		this.architecture = architecture.getCod();
 		this.setItComposed(false);

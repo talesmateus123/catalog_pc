@@ -4,13 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.pml.domain.Monitor;
+import com.pml.domain.NetworkDevice;
 import com.pml.domain.enums.EquipmentType;
 
-public class MonitorDTO implements Serializable {
+public class NetworkDeviceDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	private String patrimonyId;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
@@ -21,25 +20,34 @@ public class MonitorDTO implements Serializable {
 	private String manufacturer;
 	private String model;
 	private String description;
-	private boolean itWorks;
 	private boolean itComposed;
+	private String patrimonyId;
+	private String sectorName;
+	private String ipAddress;
+	private String macAddress;
+	private String hostName;
+	private boolean online;
 	
-	public MonitorDTO() {
+	public NetworkDeviceDTO() {
 	}
 	
-	public MonitorDTO(Monitor monitor) {
-		this.id = monitor.getId();
-		this.patrimonyId = monitor.getPatrimonyId();
-		this.createdDate = monitor.getCreatedDate();
-		this.lastModifiedDate = monitor.getLastModifiedDate();
-		this.deletedDate = monitor.getDeletedDate();
-		this.equipmentType = monitor.getEquipmentType().getCod();
-		this.manufacturer = monitor.getManufacturer();
-		this.model = monitor.getModel();
-		this.description = monitor.getDescription();
-		this.itComposed = monitor.isItComposed();
-		this.equipmentType = monitor.getEquipmentType().getCod();
-		this.itComposed = monitor.isItComposed();
+	public NetworkDeviceDTO(NetworkDevice networkDevice) {
+		this.id = networkDevice.getId();
+		this.createdDate = networkDevice.getCreatedDate();
+		this.lastModifiedDate = networkDevice.getLastModifiedDate();
+		this.deletedDate = networkDevice.getDeletedDate();
+		this.equipmentType = networkDevice.getEquipmentType().getCod();
+		this.manufacturer = networkDevice.getManufacturer();
+		this.model = networkDevice.getModel();
+		this.description = networkDevice.getDescription();
+		this.itComposed = networkDevice.isItComposed();
+		this.patrimonyId = networkDevice.getPatrimonyId();
+		this.sectorName = networkDevice.getSector().getName();
+		this.ipAddress = networkDevice.getIpAddress();
+		this.macAddress = networkDevice.getMacAddress();
+		this.hostName = networkDevice.getHostName();
+		this.online = networkDevice.isOnline();
+		this.itComposed = networkDevice.isItComposed();
 	}
 	
 	public Long getId() {
@@ -56,6 +64,14 @@ public class MonitorDTO implements Serializable {
 	
 	public void setPatrimonyId(String patrimonyId) {
 		this.patrimonyId = patrimonyId;
+	}
+
+	public String getSectorName() {
+		return sectorName;
+	}
+	
+	public void setSectorName(String sectorName) {
+		this.sectorName = sectorName;
 	}
 	
 	public Date getCreatedDate() {
@@ -113,14 +129,6 @@ public class MonitorDTO implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	public boolean isItWorks() {
-		return itWorks;
-	}
-
-	public void setItWorks(boolean isItWorks) {
-		this.itWorks = isItWorks;
-	}
 
 	public boolean isItComposed() {
 		return itComposed;
@@ -130,6 +138,38 @@ public class MonitorDTO implements Serializable {
 		this.itComposed = itComposed;
 	}
 	
+	public String getIpAddress() {
+		return ipAddress;
+	}
+
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
+	
+	public String getMacAddress() {
+		return macAddress;
+	}
+
+	public void setMacAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
+
+	public String getHostName() {
+		return hostName;
+	}
+
+	public void setHostName(String hostName) {
+		this.hostName = hostName;
+	}
+	
+	public boolean isOnline() {
+		return online;
+	}
+
+	public void setOnline(boolean online) {
+		this.online = online;
+	}
 	
 
+	
 }

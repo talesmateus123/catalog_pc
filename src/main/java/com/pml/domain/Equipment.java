@@ -30,9 +30,9 @@ public abstract class Equipment extends Electronic {
 		this.setItComposed(true);
 	}
 
-	public Equipment(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, EquipmentType equipmentType, 
-			String manufacturer, String model, String description, Sector sector, Boolean itWorks) {
-		super(id, createdDate, lastModifiedDate, equipmentType, manufacturer, model, description, itWorks, true);
+	public Equipment(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, Date deletedDate, EquipmentType equipmentType, 
+			String manufacturer, String model, String description, Sector sector) {
+		super(id, createdDate, lastModifiedDate, deletedDate, equipmentType, manufacturer, model, description, true);
 		if(patrimonyId != null)
 			this.patrimonyId = patrimonyId.replaceAll("\\s+", "").toUpperCase();
 		else

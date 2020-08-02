@@ -65,12 +65,12 @@ public class Computer extends Equipment{
 		this.setEquipmentType(EquipmentType.COMPUTER);
 	}
 
-	public Computer(Long id, String patrimonyId, Date createdDate, Date modifiedDate, String manufacturer, 
-			String model, String description, Sector sector, boolean itWorks, String ipAddress, String macAddress,
+	public Computer(Long id, String patrimonyId, Date createdDate, Date lastModifiedDate, Date deletedDate, String manufacturer, 
+			String model, String description, Sector sector, String ipAddress, String macAddress,
 			String hostName, String motherBoardName, Processor processor, Boolean hasCdBurner, String cabinetModel, 
 			OperatingSystem operatingSystem, ArchitectureType operatingSystemArchitecture, ComputerType computerType, 
 			boolean onTheDomain, boolean personalComputer, Double totalRamMemory, Double totalStorageMemory, Monitor monitor) {
-		super(id, patrimonyId, createdDate, modifiedDate, EquipmentType.COMPUTER, manufacturer, model, description, sector, itWorks);
+		super(id, patrimonyId, createdDate, lastModifiedDate, deletedDate, EquipmentType.COMPUTER, manufacturer, model, description, sector);
 		if(ipAddress != null)
 			this.ipAddress = (!ipAddress.isEmpty()) ? ipAddress : "0.0.0.0";
 		else
@@ -315,6 +315,8 @@ public class Computer extends Equipment{
 		builder.append(createdDate);
 		builder.append(", lastModifiedDate=");
 		builder.append(lastModifiedDate);
+		builder.append(", deletedDate=");
+		builder.append(deletedDate);
 		builder.append(", equipmentType=");
 		builder.append(getEquipmentType().getDescription());
 		builder.append(", manufacturer=");
@@ -323,11 +325,6 @@ public class Computer extends Equipment{
 		builder.append(model);
 		builder.append(", description=");
 		builder.append(description);
-		builder.append(", itWorks=");
-		if(super.isItWorks())
-			builder.append("Yes");
-		else
-			builder.append("No");
 		builder.append(", patrimonyId=");
 		builder.append(getPatrimonyId());
 		builder.append(", sector=");

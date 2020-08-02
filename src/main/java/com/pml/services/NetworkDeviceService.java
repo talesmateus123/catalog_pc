@@ -1,5 +1,5 @@
 /** 
- * This is the class "PrinterService". Which will be able to intermediate the repository class and the service class.
+ * This is the class "NetworkDeviceService". Which will be able to intermediate the repository class and the service class.
  * 
  * @author Tales Mateus de Oliveira Ferreira <talesmateus1999@hotmail.com>
  */
@@ -15,9 +15,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.pml.domain.Printer;
-import com.pml.dto.PrinterNewDTO;
-import com.pml.repositories.PrinterRepository;
+import com.pml.domain.NetworkDevice;
+import com.pml.dto.NetworkDeviceNewDTO;
+import com.pml.repositories.NetworkDeviceRepository;
 import com.pml.services.exceptions.ConflictOfObjectsException;
 import com.pml.services.exceptions.IllegalArgException;
 import com.pml.services.exceptions.InvalidQueryException;
@@ -25,23 +25,23 @@ import com.pml.services.exceptions.ObjectNotFoundException;
 import com.pml.util.ServiceUtil;
 
 @Service
-public class PrinterService extends EquipmentService {
+public class NetworkDeviceService extends EquipmentService {
 	@Autowired
-	private PrinterRepository repository;
+	private NetworkDeviceRepository repository;
 	@Autowired
 	private SectorService sectorService;
 
 	// List search methods
-	public List<Printer> findAll() {
+	public List<NetworkDevice> findAll() {
 		return this.repository.findByOrderByPatrimonyId();
 	}
 	
-	public Page<Printer> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
+	public Page<NetworkDevice> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
 		try {
 			PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
     		        	
-        	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Printer.class)) 
-        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Printer.class.getName() + "' class.");
+        	if(!ServiceUtil.parameterExistsInTheClass(orderBy, NetworkDevice.class)) 
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + NetworkDevice.class.getName() + "' class.");
         	return this.repository.findPageByOrderByPatrimonyId(pageRequest);
             
     	}
@@ -52,17 +52,17 @@ public class PrinterService extends EquipmentService {
 
 	// Simple search methods	
 	@Override
-	public Printer findById(Long id) {
-		Optional<Printer> object = this.repository.findById(id);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Printer not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+	public NetworkDevice findById(Long id) {
+		Optional<NetworkDevice> object = this.repository.findById(id);
+		return object.orElseThrow(()-> new ObjectNotFoundException("NetworkDevice not found: id: '" + id + "'. Type: " + object.getClass().getName()));
 	}
 	
-	public Page<Printer> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {
+	public Page<NetworkDevice> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {
 		try {
     		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
     		        	
-        	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Printer.class)) 
-        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Printer.class.getName() + "' class.");
+        	if(!ServiceUtil.parameterExistsInTheClass(orderBy, NetworkDevice.class)) 
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + NetworkDevice.class.getName() + "' class.");
         	return repository.search(searchTerm.toLowerCase(), pageRequest);
             
     	}
@@ -72,7 +72,7 @@ public class PrinterService extends EquipmentService {
     }
 
 	// Create, update and delete methods
-	public Printer insert(Printer object) {
+	public NetworkDevice insert(NetworkDevice object) {
 		if(object.getPatrimonyId() != null) {
 			if(object.getPatrimonyId().equals(""))
 				object.setPatrimonyId(null);
@@ -92,7 +92,7 @@ public class PrinterService extends EquipmentService {
 		this.repository.deleteById(id);
 	}
 
-	public Printer update(Printer object) {
+	public NetworkDevice update(NetworkDevice object) {
 		this.retrievesAndUpdatesDateData(object);
 		
 		if(object.getPatrimonyId() != null) {
@@ -111,12 +111,12 @@ public class PrinterService extends EquipmentService {
 	
 	// Auxiliary methods
 	/**
-	 * Convert the PrinterNewDTO object to a Printer object. 
-	 * @param objectNewDTO PrinterDTO
-	 * @return Printer
+	 * Convert the NetworkDeviceNewDTO object to a NetworkDevice object. 
+	 * @param objectNewDTO NetworkDeviceDTO
+	 * @return NetworkDevice
 	 */
-	public Printer fromDTO(PrinterNewDTO objectNewDTO) {		
-		Printer object = new Printer(
+	public NetworkDevice fromDTO(NetworkDeviceNewDTO objectNewDTO) {		
+		NetworkDevice object = new NetworkDevice(
 				null, objectNewDTO.getPatrimonyId(), null, null, null,
 				objectNewDTO.getManufacturer(), objectNewDTO.getModel(), objectNewDTO.getDescription(), 
 				null, objectNewDTO.getIpAddress(), objectNewDTO.getMacAddress(),

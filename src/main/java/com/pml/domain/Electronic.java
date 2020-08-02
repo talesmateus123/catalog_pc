@@ -29,27 +29,28 @@ public abstract class Electronic implements Serializable{
 	protected Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	protected Date lastModifiedDate;
+	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
+	protected Date deletedDate;
 	protected Integer equipmentType;
 	protected String manufacturer = "";
 	protected String model = "";
 	@Size(max = 100, message = "{description.size}")
 	protected String description = "";
-	protected Boolean itWorks = true;
 	protected Boolean itComposed;
 	
 	public Electronic() {
 	}
 	
-	public Electronic(Long id, Date createdDate, Date lastModifiedDate, EquipmentType equipmentType, 
-			String manufacturer, String model, String description, Boolean itWorks, Boolean itComposed) {
+	public Electronic(Long id, Date createdDate, Date lastModifiedDate, Date deletedDate, EquipmentType equipmentType, 
+			String manufacturer, String model, String description, Boolean itComposed) {
 		this.id = id;
 		this.createdDate = createdDate;
 		this.lastModifiedDate = lastModifiedDate;
+		this.deletedDate = deletedDate;
 		this.equipmentType = (equipmentType == null) ? null : equipmentType.getCod();		
 		this.manufacturer = manufacturer ;
 		this.model = model;
 		this.description = description;		
-		this.itWorks = itWorks;
 		this.itComposed = itComposed;
 	}
 	
@@ -75,6 +76,14 @@ public abstract class Electronic implements Serializable{
 
 	public void setLastModifiedDate(Date lastModifiedDate) {
 		this.lastModifiedDate = lastModifiedDate;
+	}
+
+	public Date getDeletedDate() {
+		return deletedDate;
+	}
+
+	public void setDeletedDate(Date deletedDate) {
+		this.deletedDate = deletedDate;
 	}
 
 	public EquipmentType getEquipmentType() {
@@ -107,14 +116,6 @@ public abstract class Electronic implements Serializable{
 	
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	
-	public Boolean isItWorks() {
-		return itWorks;
-	}
-
-	public void setItWorks(Boolean itWorks) {
-		this.itWorks = itWorks;
 	}
 
 	public Boolean isItComposed() {
@@ -158,6 +159,8 @@ public abstract class Electronic implements Serializable{
 		builder.append(createdDate);
 		builder.append(", lastModifiedDate=");
 		builder.append(lastModifiedDate);
+		builder.append(", deletedDate=");
+		builder.append(deletedDate);
 		builder.append(", equipmentType=");
 		builder.append(equipmentType);
 		builder.append(", manufacturer=");
@@ -166,8 +169,6 @@ public abstract class Electronic implements Serializable{
 		builder.append(model);
 		builder.append(", description=");
 		builder.append(description);
-		builder.append(", itWorks=");
-		builder.append(itWorks);
 		builder.append(", itComposed=");
 		builder.append(itComposed);
 		builder.append("]");

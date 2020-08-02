@@ -32,10 +32,10 @@ public class StorageDevice extends Electronic {
 		this.setItComposed(false);
 	}
 	
-	public StorageDevice(Long id, Date createdDate, Date lastModifiedDate, String manufacturer,
-			String model, String description, boolean itWorks, Double sizeInGB, 
+	public StorageDevice(Long id, Date createdDate, Date lastModifiedDate, Date deletedDate, String manufacturer,
+			String model, String description, Double sizeInGB, 
 			StorageDeviceArchitecture storageDeviceArchitecture, StorageDeviceType type, Computer computer) {
-		super(id, createdDate, lastModifiedDate, EquipmentType.STORAGE_DEVICE, manufacturer, model, description, itWorks, false);
+		super(id, createdDate, lastModifiedDate, deletedDate, EquipmentType.STORAGE_DEVICE, manufacturer, model, description, false);
 		this.sizeInGB = sizeInGB;
 		this.architecture = storageDeviceArchitecture.getCod();
 		this.type = type.getCod();

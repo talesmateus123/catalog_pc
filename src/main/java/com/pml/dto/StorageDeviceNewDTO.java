@@ -14,7 +14,6 @@ public class StorageDeviceNewDTO implements Serializable {
 	private String model;
 	@Size(max = 100, message = "{description.size}")
 	private String description;
-	private boolean itWorks = true;
 	@NotNull(message = "{not.null}")
 	private Double sizeInGB;
 	@NotNull(message = "{not.null}")
@@ -48,14 +47,6 @@ public class StorageDeviceNewDTO implements Serializable {
 	
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	
-	public boolean isItWorks() {
-		return itWorks;
-	}
-
-	public void setItWorks(boolean itWorks) {
-		this.itWorks = itWorks;
 	}
 	
 	public Double getSizeInGB() {

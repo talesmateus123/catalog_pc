@@ -17,13 +17,15 @@ public class ComputerDTO implements Serializable {
 	private Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date lastModifiedDate;
+	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
+	private Date deletedDate;
 	private Integer equipmentType;
 	private String manufacturer;
 	private String model;
 	private String description;
-	private boolean itWorks;
 	private boolean itComposed;
 	private String patrimonyId;
+	private String sectorName;
 	private String ipAddress;
 	private String macAddress;
 	private String hostName;
@@ -46,13 +48,14 @@ public class ComputerDTO implements Serializable {
 		this.id = computer.getId(); 
 		this.createdDate = computer.getCreatedDate();
 		this.lastModifiedDate = computer.getLastModifiedDate();
+		this.deletedDate = computer.getDeletedDate();
 		this.equipmentType = (computer.getEquipmentType() != null) ? computer.getEquipmentType().getCod() : null;
 		this.manufacturer = computer.getManufacturer();
 		this.model = computer.getModel();
 		this.description = computer.getDescription();
-		this.itWorks = computer.isItWorks();
 		this.itComposed = computer.isItComposed();
 		this.patrimonyId = computer.getPatrimonyId();
+		this.sectorName = computer.getSector().getName();
 		this.ipAddress = computer.getIpAddress();
 		this.macAddress = computer.getMacAddress();
 		this.hostName = computer.getHostName();
@@ -87,6 +90,14 @@ public class ComputerDTO implements Serializable {
 	public void setPatrimonyId(String patrimonyId) {
 		this.patrimonyId = patrimonyId;
 	}
+
+	public String getSectorName() {
+		return sectorName;
+	}
+	
+	public void setSectorName(String sectorName) {
+		this.sectorName = sectorName;
+	}
 	
 	public Date getCreatedDate() {
 		return createdDate;
@@ -102,6 +113,14 @@ public class ComputerDTO implements Serializable {
 
 	public void setLastModifiedDate(Date lastModifiedDate) {
 		this.lastModifiedDate = lastModifiedDate;
+	}
+	
+	public Date getDeletedDate() {
+		return deletedDate;
+	}
+
+	public void setDeletedDate(Date deletedDate) {
+		this.deletedDate = deletedDate;
 	}
 
 	public EquipmentType getEquipmentType() {
@@ -134,14 +153,6 @@ public class ComputerDTO implements Serializable {
 	
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	
-	public boolean isItWorks() {
-		return itWorks;
-	}
-
-	public void setItWorks(boolean itWorks) {
-		this.itWorks = itWorks;
 	}
 
 	public boolean isItComposed() {

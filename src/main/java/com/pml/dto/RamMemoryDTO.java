@@ -15,11 +15,12 @@ public class RamMemoryDTO implements Serializable {
 	private Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date lastModifiedDate;
+	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
+	private Date deletedDate;
 	private Integer equipmentType;
 	private String manufacturer;
 	private String model;
 	private String description;
-	private boolean itWorks; 
 	private boolean itComposed;
 	private Double sizeInGB;
 	private Integer architecture;
@@ -32,11 +33,11 @@ public class RamMemoryDTO implements Serializable {
 		this.id = ramMemory.getId();
 		this.createdDate = ramMemory.getCreatedDate();
 		this.lastModifiedDate = ramMemory.getLastModifiedDate();
+		this.deletedDate = ramMemory.getDeletedDate();
 		this.equipmentType = ramMemory.getEquipmentType().getCod();
 		this.manufacturer = ramMemory.getManufacturer();
 		this.model = ramMemory.getModel();
 		this.description = ramMemory.getDescription();
-		this.itWorks = ramMemory.isItWorks();
 		this.itComposed = ramMemory.isItComposed();
 		this.sizeInGB = ramMemory.getSizeInGB();
 		this.architecture = ramMemory.getArchitecture().getCod();		
@@ -64,6 +65,14 @@ public class RamMemoryDTO implements Serializable {
 
 	public void setLastModifiedDate(Date lastModifiedDate) {
 		this.lastModifiedDate = lastModifiedDate;
+	}
+	
+	public Date getDeletedDate() {
+		return deletedDate;
+	}
+
+	public void setDeletedDate(Date deletedDate) {
+		this.deletedDate = deletedDate;
 	}
 
 	public EquipmentType getEquipmentType() {
@@ -96,14 +105,6 @@ public class RamMemoryDTO implements Serializable {
 	
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	
-	public boolean isItWorks() {
-		return itWorks;
-	}
-
-	public void setItWorks(boolean itWorks) {
-		this.itWorks = itWorks;
 	}
 
 	public boolean isItComposed() {

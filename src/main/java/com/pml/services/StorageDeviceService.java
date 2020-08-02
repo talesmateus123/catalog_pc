@@ -125,8 +125,8 @@ public class StorageDeviceService {
 	 */
 	public StorageDevice fromDTO(StorageDeviceNewDTO objectNewDTO) {
 		StorageDevice object = new StorageDevice(
-				null, null, null, objectNewDTO.getManufacturer(), objectNewDTO.getModel(),
-				objectNewDTO.getDescription(), objectNewDTO.isItWorks(), objectNewDTO.getSizeInGB(), 
+				null, null, null, null, objectNewDTO.getManufacturer(), objectNewDTO.getModel(),
+				objectNewDTO.getDescription(), objectNewDTO.getSizeInGB(), 
 				objectNewDTO.getArchitecture(), objectNewDTO.getType(), null);
 		if (objectNewDTO.getComputerId() != null)
 			object.setComputer(this.computerService.findById(objectNewDTO.getComputerId()));

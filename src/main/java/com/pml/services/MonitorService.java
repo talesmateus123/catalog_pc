@@ -186,9 +186,9 @@ public class MonitorService extends EquipmentService {
 	 */
 	public Monitor fromDTO(MonitorNewDTO objectNewDTO) {
 		Monitor object = new Monitor(
-				null, objectNewDTO.getPatrimonyId(), null, null, objectNewDTO.getManufacturer(), 
-				objectNewDTO.getModel(), objectNewDTO.getDescription(), null, 
-				objectNewDTO.isItWorks(), null);
+				null, objectNewDTO.getPatrimonyId(), null, null, null, objectNewDTO.getManufacturer(), 
+				objectNewDTO.getModel(), objectNewDTO.getDescription(), null, null);
+		
 		if(objectNewDTO.getSectorId() != null)
 			object.setSector(this.sectorService.findById(objectNewDTO.getSectorId()));
 		if (objectNewDTO.getComputerId() != null)
