@@ -154,7 +154,7 @@ public class ComputerResource {
             @RequestParam(value = "direction", defaultValue = "ASC") String direction, 
             @RequestParam(value = "orderBy", defaultValue = "patrimonyId") String orderBy,
             @RequestParam(value = "searchTerm") String searchTerm) {
-		Page<Computer> objects = this.service.searchByComputerUserTerms(page, linesPerPage, direction, orderBy, searchTerm);		
+		Page<Computer> objects = this.service.searchByComputerUserTerms(page, linesPerPage, direction, orderBy, searchTerm);
 		Page<ComputerDTO> objectsDTO = objects.map(obj -> new ComputerDTO(obj));		
         return ResponseEntity.ok().body(objectsDTO);
     }
@@ -273,11 +273,11 @@ public class ComputerResource {
             produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> computersReport() {
 
-        var computers = (List<Computer>) service.findAll();
+		List<Computer> computers = (List<Computer>) service.findAll();
 
         ByteArrayInputStream bis = GeneratePdfReportFromComputer.computersReport(computers);
 
-        var headers = new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=computers_report.pdf");
 
         return ResponseEntity

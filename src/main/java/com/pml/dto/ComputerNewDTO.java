@@ -22,7 +22,6 @@ public class ComputerNewDTO implements Serializable {
 	private String model;
 	@Size(max = 100, message = "{description.size}")
 	private String description;
-	@NotNull(message = "{not.null}")
 	@Pattern(regexp = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", message = "{ipAddress.pattern}")
 	private String ipAddress;
 	@Pattern(regexp = "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$", message = "{macAddress.pattern}")
@@ -37,6 +36,7 @@ public class ComputerNewDTO implements Serializable {
 	private Integer computerType;
 	@NotNull(message = "{not.null}")
 	private Boolean onTheDomain;
+	@NotNull(message = "{not.null}")
 	private boolean personalComputer;
 	private Double totalRamMemory;
 	private Double totalStorageMemory;
@@ -49,7 +49,6 @@ public class ComputerNewDTO implements Serializable {
 	private String processor_manufacturer;
 	private String processor_model;
 	private String processor_description;
-	private Boolean processor_itWorks;
 	private String processor_processorName;
 	private Integer processor_architecture;
 
@@ -58,7 +57,6 @@ public class ComputerNewDTO implements Serializable {
 	private String ramMemory1_manufacturer;
 	private String ramMemory1_model;
 	private String ramMemory1_description;
-	private Boolean ramMemory1_itWorks;
 	private Double ramMemory1_sizeInGB;
 	private Integer ramMemory1_architecture;
 
@@ -66,7 +64,6 @@ public class ComputerNewDTO implements Serializable {
 	private String ramMemory2_manufacturer;
 	private String ramMemory2_model;
 	private String ramMemory2_description;
-	private Boolean ramMemory2_itWorks;
 	private Double ramMemory2_sizeInGB;
 	private Integer ramMemory2_architecture;
 
@@ -74,7 +71,6 @@ public class ComputerNewDTO implements Serializable {
 	private String ramMemory3_manufacturer;
 	private String ramMemory3_model;
 	private String ramMemory3_description;
-	private Boolean ramMemory3_itWorks;
 	private Double ramMemory3_sizeInGB;
 	private Integer ramMemory3_architecture;
 
@@ -82,7 +78,6 @@ public class ComputerNewDTO implements Serializable {
 	private String ramMemory4_manufacturer;
 	private String ramMemory4_model;
 	private String ramMemory4_description;
-	private Boolean ramMemory4_itWorks;
 	private Double ramMemory4_sizeInGB;
 	private Integer ramMemory4_architecture;
 
@@ -90,7 +85,6 @@ public class ComputerNewDTO implements Serializable {
 	private String ramMemory5_manufacturer;
 	private String ramMemory5_model;
 	private String ramMemory5_description;
-	private Boolean ramMemory5_itWorks;
 	private Double ramMemory5_sizeInGB;
 	private Integer ramMemory5_architecture;
 
@@ -106,7 +100,6 @@ public class ComputerNewDTO implements Serializable {
 	private String ramMemory7_manufacturer;
 	private String ramMemory7_model;
 	private String ramMemory7_description;
-	private Boolean ramMemory7_itWorks;
 	private Double ramMemory7_sizeInGB;
 	private Integer ramMemory7_architecture;
 
@@ -114,7 +107,6 @@ public class ComputerNewDTO implements Serializable {
 	private String ramMemory8_manufacturer;
 	private String ramMemory8_model;
 	private String ramMemory8_description;
-	private Boolean ramMemory8_itWorks;
 	private Double ramMemory8_sizeInGB;
 	private Integer ramMemory8_architecture;
 	
@@ -123,7 +115,6 @@ public class ComputerNewDTO implements Serializable {
 	private String storageDevice1_manufacturer;
 	private String storageDevice1_model;
 	private String storageDevice1_description;
-	private Boolean storageDevice1_itWorks;
 	private Double storageDevice1_sizeInGB;
 	private Integer storageDevice1_architecture;
 	private Integer storageDevice1_type;
@@ -132,7 +123,6 @@ public class ComputerNewDTO implements Serializable {
 	private String storageDevice2_manufacturer;
 	private String storageDevice2_model;
 	private String storageDevice2_description;
-	private Boolean storageDevice2_itWorks;
 	private Double storageDevice2_sizeInGB;
 	private Integer storageDevice2_architecture;
 	private Integer storageDevice2_type;
@@ -141,7 +131,6 @@ public class ComputerNewDTO implements Serializable {
 	private String storageDevice3_manufacturer;
 	private String storageDevice3_model;
 	private String storageDevice3_description;
-	private Boolean storageDevice3_itWorks;
 	private Double storageDevice3_sizeInGB;
 	private Integer storageDevice3_architecture;
 	private Integer storageDevice3_type;
@@ -150,7 +139,6 @@ public class ComputerNewDTO implements Serializable {
 	private String storageDevice4_manufacturer;
 	private String storageDevice4_model;
 	private String storageDevice4_description;
-	private Boolean storageDevice4_itWorks;
 	private Double storageDevice4_sizeInGB;
 	private Integer storageDevice4_architecture;
 	private Integer storageDevice4_type;	
@@ -159,7 +147,6 @@ public class ComputerNewDTO implements Serializable {
 	private String storageDevice5_manufacturer;
 	private String storageDevice5_model;
 	private String storageDevice5_description;
-	private Boolean storageDevice5_itWorks;
 	private Double storageDevice5_sizeInGB;
 	private Integer storageDevice5_architecture;
 	private Integer storageDevice5_type;
@@ -168,7 +155,6 @@ public class ComputerNewDTO implements Serializable {
 	private String storageDevice6_manufacturer;
 	private String storageDevice6_model;
 	private String storageDevice6_description;
-	private Boolean storageDevice6_itWorks;
 	private Double storageDevice6_sizeInGB;
 	private Integer storageDevice6_architecture;
 	private Integer storageDevice6_type;
@@ -177,7 +163,6 @@ public class ComputerNewDTO implements Serializable {
 	private String storageDevice7_manufacturer;
 	private String storageDevice7_model;
 	private String storageDevice7_description;
-	private Boolean storageDevice7_itWorks;
 	private Double storageDevice7_sizeInGB;
 	private Integer storageDevice7_architecture;
 	private Integer storageDevice7_type;
@@ -186,7 +171,6 @@ public class ComputerNewDTO implements Serializable {
 	private String storageDevice8_manufacturer;
 	private String storageDevice8_model;
 	private String storageDevice8_description;
-	private Boolean storageDevice8_itWorks;
 	private Double storageDevice8_sizeInGB;
 	private Integer storageDevice8_architecture;
 	private Integer storageDevice8_type;
@@ -386,14 +370,6 @@ public class ComputerNewDTO implements Serializable {
 		this.processor_description = processor_description;
 	}
 
-	public Boolean isProcessor_itWorks() {
-		return processor_itWorks;
-	}
-
-	public void setProcessor_itWorks(Boolean processor_itWorks) {
-		this.processor_itWorks = processor_itWorks;
-	}
-
 	public String getProcessor_processorName() {
 		return processor_processorName;
 	}
@@ -440,14 +416,6 @@ public class ComputerNewDTO implements Serializable {
 
 	public void setRamMemory1_description(String ramMemory1_description) {
 		this.ramMemory1_description = ramMemory1_description;
-	}
-
-	public Boolean getRamMemory1_itWorks() {
-		return ramMemory1_itWorks;
-	}
-
-	public void setRamMemory1_itWorks(Boolean ramMemory1_itWorks) {
-		this.ramMemory1_itWorks = ramMemory1_itWorks;
 	}
 
 	public Double getRamMemory1_sizeInGB() {
@@ -498,14 +466,6 @@ public class ComputerNewDTO implements Serializable {
 		this.ramMemory2_description = ramMemory2_description;
 	}
 
-	public Boolean getRamMemory2_itWorks() {
-		return ramMemory2_itWorks;
-	}
-
-	public void setRamMemory2_itWorks(Boolean ramMemory2_itWorks) {
-		this.ramMemory2_itWorks = ramMemory2_itWorks;
-	}
-
 	public Double getRamMemory2_sizeInGB() {
 		return ramMemory2_sizeInGB;
 	}
@@ -552,14 +512,6 @@ public class ComputerNewDTO implements Serializable {
 
 	public void setRamMemory3_description(String ramMemory3_description) {
 		this.ramMemory3_description = ramMemory3_description;
-	}
-
-	public Boolean getRamMemory3_itWorks() {
-		return ramMemory3_itWorks;
-	}
-
-	public void setRamMemory3_itWorks(Boolean ramMemory3_itWorks) {
-		this.ramMemory3_itWorks = ramMemory3_itWorks;
 	}
 
 	public Double getRamMemory3_sizeInGB() {
@@ -610,14 +562,6 @@ public class ComputerNewDTO implements Serializable {
 		this.ramMemory4_description = ramMemory4_description;
 	}
 
-	public Boolean getRamMemory4_itWorks() {
-		return ramMemory4_itWorks;
-	}
-
-	public void setRamMemory4_itWorks(Boolean ramMemory4_itWorks) {
-		this.ramMemory4_itWorks = ramMemory4_itWorks;
-	}
-
 	public Double getRamMemory4_sizeInGB() {
 		return ramMemory4_sizeInGB;
 	}
@@ -664,14 +608,6 @@ public class ComputerNewDTO implements Serializable {
 
 	public void setRamMemory5_description(String ramMemory5_description) {
 		this.ramMemory5_description = ramMemory5_description;
-	}
-
-	public Boolean getRamMemory5_itWorks() {
-		return ramMemory5_itWorks;
-	}
-
-	public void setRamMemory5_itWorks(Boolean ramMemory5_itWorks) {
-		this.ramMemory5_itWorks = ramMemory5_itWorks;
 	}
 
 	public Double getRamMemory5_sizeInGB() {
@@ -778,14 +714,6 @@ public class ComputerNewDTO implements Serializable {
 		this.ramMemory7_description = ramMemory7_description;
 	}
 
-	public Boolean getRamMemory7_itWorks() {
-		return ramMemory7_itWorks;
-	}
-
-	public void setRamMemory7_itWorks(Boolean ramMemory7_itWorks) {
-		this.ramMemory7_itWorks = ramMemory7_itWorks;
-	}
-
 	public Double getRamMemory7_sizeInGB() {
 		return ramMemory7_sizeInGB;
 	}
@@ -834,14 +762,6 @@ public class ComputerNewDTO implements Serializable {
 		this.ramMemory8_description = ramMemory8_description;
 	}
 
-	public Boolean getRamMemory8_itWorks() {
-		return ramMemory8_itWorks;
-	}
-
-	public void setRamMemory8_itWorks(Boolean ramMemory8_itWorks) {
-		this.ramMemory8_itWorks = ramMemory8_itWorks;
-	}
-
 	public Double getRamMemory8_sizeInGB() {
 		return ramMemory8_sizeInGB;
 	}
@@ -888,14 +808,6 @@ public class ComputerNewDTO implements Serializable {
 
 	public void setStorageDevice1_description(String storageDevice1_description) {
 		this.storageDevice1_description = storageDevice1_description;
-	}
-
-	public Boolean getStorageDevice1_itWorks() {
-		return storageDevice1_itWorks;
-	}
-
-	public void setStorageDevice1_itWorks(Boolean storageDevice1_itWorks) {
-		this.storageDevice1_itWorks = storageDevice1_itWorks;
 	}
 
 	public Double getStorageDevice1_sizeInGB() {
@@ -954,14 +866,6 @@ public class ComputerNewDTO implements Serializable {
 		this.storageDevice2_description = storageDevice2_description;
 	}
 
-	public Boolean getStorageDevice2_itWorks() {
-		return storageDevice2_itWorks;
-	}
-
-	public void setStorageDevice2_itWorks(Boolean storageDevice2_itWorks) {
-		this.storageDevice2_itWorks = storageDevice2_itWorks;
-	}
-
 	public Double getStorageDevice2_sizeInGB() {
 		return storageDevice2_sizeInGB;
 	}
@@ -1016,14 +920,6 @@ public class ComputerNewDTO implements Serializable {
 
 	public void setStorageDevice3_description(String storageDevice3_description) {
 		this.storageDevice3_description = storageDevice3_description;
-	}
-
-	public Boolean getStorageDevice3_itWorks() {
-		return storageDevice3_itWorks;
-	}
-
-	public void setStorageDevice3_itWorks(Boolean storageDevice3_itWorks) {
-		this.storageDevice3_itWorks = storageDevice3_itWorks;
 	}
 
 	public Double getStorageDevice3_sizeInGB() {
@@ -1082,14 +978,6 @@ public class ComputerNewDTO implements Serializable {
 		this.storageDevice4_description = storageDevice4_description;
 	}
 
-	public Boolean getStorageDevice4_itWorks() {
-		return storageDevice4_itWorks;
-	}
-
-	public void setStorageDevice4_itWorks(Boolean storageDevice4_itWorks) {
-		this.storageDevice4_itWorks = storageDevice4_itWorks;
-	}
-
 	public Double getStorageDevice4_sizeInGB() {
 		return storageDevice4_sizeInGB;
 	}
@@ -1144,14 +1032,6 @@ public class ComputerNewDTO implements Serializable {
 
 	public void setStorageDevice5_description(String storageDevice5_description) {
 		this.storageDevice5_description = storageDevice5_description;
-	}
-
-	public Boolean getStorageDevice5_itWorks() {
-		return storageDevice5_itWorks;
-	}
-
-	public void setStorageDevice5_itWorks(Boolean storageDevice5_itWorks) {
-		this.storageDevice5_itWorks = storageDevice5_itWorks;
 	}
 
 	public Double getStorageDevice5_sizeInGB() {
@@ -1210,14 +1090,6 @@ public class ComputerNewDTO implements Serializable {
 		this.storageDevice6_description = storageDevice6_description;
 	}
 
-	public Boolean getStorageDevice6_itWorks() {
-		return storageDevice6_itWorks;
-	}
-
-	public void setStorageDevice6_itWorks(Boolean storageDevice6_itWorks) {
-		this.storageDevice6_itWorks = storageDevice6_itWorks;
-	}
-
 	public Double getStorageDevice6_sizeInGB() {
 		return storageDevice6_sizeInGB;
 	}
@@ -1274,14 +1146,6 @@ public class ComputerNewDTO implements Serializable {
 		this.storageDevice7_description = storageDevice7_description;
 	}
 
-	public Boolean getStorageDevice7_itWorks() {
-		return storageDevice7_itWorks;
-	}
-
-	public void setStorageDevice7_itWorks(Boolean storageDevice7_itWorks) {
-		this.storageDevice7_itWorks = storageDevice7_itWorks;
-	}
-
 	public Double getStorageDevice7_sizeInGB() {
 		return storageDevice7_sizeInGB;
 	}
@@ -1336,14 +1200,6 @@ public class ComputerNewDTO implements Serializable {
 
 	public void setStorageDevice8_description(String storageDevice8_description) {
 		this.storageDevice8_description = storageDevice8_description;
-	}
-
-	public Boolean getStorageDevice8_itWorks() {
-		return storageDevice8_itWorks;
-	}
-
-	public void setStorageDevice8_itWorks(Boolean storageDevice8_itWorks) {
-		this.storageDevice8_itWorks = storageDevice8_itWorks;
 	}
 
 	public Double getStorageDevice8_sizeInGB() {

@@ -13,8 +13,6 @@ public class MonitorNewDTO implements Serializable {
 	@Size(max = 100, message = "{description.size}")
 	private String description;
 	@NotNull(message = "{not.null}")
-	private Boolean itWorks;
-	@NotNull(message = "{not.null}")
 	private Integer sectorId;
 	private Long computerId;
 	
@@ -61,14 +59,6 @@ public class MonitorNewDTO implements Serializable {
 		this.sectorId = sectorId;
 	}
 	
-	public boolean isItWorks() {
-		return itWorks;
-	}
-
-	public void setItWorks(boolean itWorks) {
-		this.itWorks = itWorks;
-	}
-
 	public Long getComputerId() {
 		return computerId;
 	}

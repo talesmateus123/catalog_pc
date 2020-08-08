@@ -157,11 +157,11 @@ public class PrinterResource {
             produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> printersReport() {
 
-        var printers = (List<Printer>) service.findAll();
+		List<Printer> printers = (List<Printer>) service.findAll();
 
         ByteArrayInputStream bis = GeneratePdfReportFromPrinter.printersReport(printers);
 
-        var headers = new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=printers_report.pdf");
 
         return ResponseEntity

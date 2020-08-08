@@ -169,11 +169,11 @@ public class MonitorResource {
             produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> monitorsReport() {
 
-        var monitors = (List<Monitor>) service.findAll();
+		List<Monitor> monitors = (List<Monitor>) service.findAll();
 
         ByteArrayInputStream bis = GeneratePdfReportFromMonitor.monitorsReport(monitors);
 
-        var headers = new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=monitors_report.pdf");
 
         return ResponseEntity

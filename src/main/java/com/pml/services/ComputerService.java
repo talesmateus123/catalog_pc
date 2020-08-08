@@ -85,14 +85,14 @@ public class ComputerService extends EquipmentService {
 	
 	private Computer findByMonitor(Monitor monitor) {
 		Optional<Computer> object = this.repository.findByMonitor(monitor);
-		if(!object.isEmpty())
+		if(!object.isPresent())
 			return object.get();
 		return null;
 	}
 	
 	private Computer findByProcessor(Processor processor) {
 		Optional<Computer> object = this.repository.findByProcessor(processor);
-		if(!object.isEmpty())
+		if(!object.isPresent())
 			return object.get();
 		return null;
 	}
@@ -368,10 +368,12 @@ public class ComputerService extends EquipmentService {
 		if(object.isPersonalComputer()) {
 			object.setPatrimonyId(null);
 			object.setManufacturer(null);
+			object.setModel(null);
 			object.setCabinetModel(null);
 			object.setOperatingSystem(OperatingSystem.NONE);
 			object.setOperatingSystemArchitecture(ArchitectureType.NONE);
-			
+			object.setMonitor(null);
+
 			return object;
 		}
 		
@@ -385,7 +387,7 @@ public class ComputerService extends EquipmentService {
 			object.setMonitor(monitor);
 		}
 		
-		if(objectNewDTO.getProcessor_id() != null || objectNewDTO.getProcessor_manufacturer() != null || objectNewDTO.getProcessor_model() != null || objectNewDTO.getProcessor_description() != null || objectNewDTO.isProcessor_itWorks() != null || objectNewDTO.getProcessor_processorName() != null || objectNewDTO.getProcessor_architecture() != null) {
+		if(objectNewDTO.getProcessor_id() != null || objectNewDTO.getProcessor_manufacturer() != null || objectNewDTO.getProcessor_model() != null || objectNewDTO.getProcessor_description() != null || objectNewDTO.getProcessor_processorName() != null || objectNewDTO.getProcessor_architecture() != null) {
 			if(objectNewDTO.getProcessor_id() != null) {				
 				Processor processor = this.processorService.findById(objectNewDTO.getProcessor_id());
 				Computer computer = this.findByProcessor(processor);

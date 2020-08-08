@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -37,7 +38,9 @@ public class Computer extends Equipment{
 	private String cabinetModel;
 	private Integer operatingSystem = 0;
 	private Integer operatingSystemArchitecture = 0;
+	@NotNull
 	private Integer computerType = 0;
+	@NotNull
 	private boolean onTheDomain = false;
 	private boolean personalComputer = false;
 	private Double totalRamMemory = 0.0;
@@ -81,6 +84,7 @@ public class Computer extends Equipment{
 		else
 			this.hostName = generateHostName();
 		this.computerType = (computerType != null) ? computerType.getCod() : null;;
+		this.personalComputer = personalComputer;
 		if (!this.personalComputer) {
 			this.motherBoardName = motherBoardName;
 			this.processor = processor;

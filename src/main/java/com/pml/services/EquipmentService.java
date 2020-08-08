@@ -49,7 +49,7 @@ public abstract class EquipmentService {
 	protected boolean alreadyExistsWithPatrimonyId(Equipment object) {			
 		Optional<Equipment> objectByPatrimony = this.repository.findByPatrimonyId(object.getPatrimonyId());
 		
-		if(!objectByPatrimony.isEmpty()) {
+		if(!objectByPatrimony.isPresent()) {
 			if(object.getId() != null) {
 				if(object.getId().equals(objectByPatrimony.get().getId()) && object.getPatrimonyId().equals(objectByPatrimony.get().getPatrimonyId()))
 					return false;
@@ -71,7 +71,7 @@ public abstract class EquipmentService {
 		// Generates an exception if object doesn't exists 
 		Equipment objectById = this.findById(object.getId());
 		
-		if(objectByPatrimonyId.isEmpty())
+		if(objectByPatrimonyId.isPresent())
 			return true;		
 		
 		

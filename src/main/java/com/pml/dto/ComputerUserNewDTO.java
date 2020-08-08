@@ -19,7 +19,6 @@ public class ComputerUserNewDTO implements Serializable {
 	@NotEmpty(message = "{not.empty}")
 	@Size(min = 4, max = 20, message = "{name.size}")
 	private String name;
-	@NotEmpty(message = "{not.empty}")
 	@Size(min = 4, max = 20, message = "{lastName.size}")
 	private String lastName;
 	@Email(message = "{email.pattern}")

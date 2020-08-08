@@ -53,7 +53,7 @@ public class PingRequestSenderComponent {
 	 * @throws UnknownHostException 
 	 * @return void
 	 */
-    @Scheduled(initialDelay = initialDelay, fixedDelay = fixedDelay)
+    //@Scheduled(initialDelay = initialDelay, fixedDelay = fixedDelay)
 	private void sendPingRequestsToEquipmentsAndUpdate() throws InterruptedException, UnknownHostException, IOException {
     	List<Computer> computers = getComputersList();
     	List<Printer> printers = getPrintersList();

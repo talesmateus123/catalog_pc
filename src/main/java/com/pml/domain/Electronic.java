@@ -34,7 +34,7 @@ public abstract class Electronic implements Serializable{
 	protected Integer equipmentType;
 	protected String manufacturer = "";
 	protected String model = "";
-	@Size(max = 100, message = "{description.size}")
+	@Size(max = 100)
 	protected String description = "";
 	protected Boolean itComposed;
 	

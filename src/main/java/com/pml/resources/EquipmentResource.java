@@ -28,7 +28,7 @@ public class EquipmentResource {
 	public ResponseEntity<Equipment> findById(@PathVariable Long id) {
 		Optional<Equipment> object = this.repository.findById(id);
 		
-		if(object.isEmpty())
+		if(object.isPresent())
 			throw new ObjectNotFoundException("Equipment not found: id: '" + id + "'. Type: " + object.getClass().getName());
 		else		
 			return ResponseEntity.ok().body(object.get());

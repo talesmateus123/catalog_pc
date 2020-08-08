@@ -32,7 +32,6 @@ public class ComputerUser implements Serializable {
 	@NotEmpty
 	@Size(min = 4, max = 20)
 	private String name;
-	@NotEmpty
 	@Size(min = 4, max = 20)
 	private String lastName;
 	@NotNull

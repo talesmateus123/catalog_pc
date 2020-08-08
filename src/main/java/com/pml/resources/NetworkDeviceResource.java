@@ -157,11 +157,11 @@ public class NetworkDeviceResource {
             produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> networkDevicesReport() {
 
-        var networkDevices = (List<NetworkDevice>) service.findAll();
+		List<NetworkDevice> networkDevices = (List<NetworkDevice>) service.findAll();
 
         ByteArrayInputStream bis = GeneratePdfReportFromNetworkDevice.networkDevicesReport(networkDevices);
 
-        var headers = new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=networkDevices_report.pdf");
 
         return ResponseEntity

@@ -57,7 +57,7 @@ public interface ComputerRepository extends JpaRepository<Computer, Long>{
 	@Query("FROM Computer computer JOIN computer.computerUsers computerUser " +
 				"WHERE computer.deletedDate = null " +
 				"AND (LOWER(computerUser.name) like %:searchTerm% " +
-				"OR LOWER(computerUser.lastName) like %:searchTerm% )")
+				"OR LOWER(computerUser.lastName) like %:searchTerm% )" )
 	Page<Computer> searchByComputerUserTerms(@Param("searchTerm") String searchTerm, Pageable pageable);
 	
 	@Query("FROM Computer computer " +

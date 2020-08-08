@@ -15,8 +15,6 @@ public class PrinterNewDTO implements Serializable {
 	private String description;
 	@NotNull(message = "{not.null}")
 	private Integer sectorId;
-	@NotNull(message = "{not.null}")
-	private Boolean itWorks;
 	@Pattern(regexp = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", message = "{ipAddress.pattern}")
 	private String ipAddress;
 	@Pattern(regexp = "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$", message = "{macAddress.pattern}")
@@ -64,14 +62,6 @@ public class PrinterNewDTO implements Serializable {
 	
 	public void setSectorId(Integer sectorId) {
 		this.sectorId = sectorId;
-	}
-	
-	public boolean isItWorks() {
-		return itWorks;
-	}
-
-	public void setItWorks(boolean itWorks) {
-		this.itWorks = itWorks;
 	}
 	
 	public String getIpAddress() {

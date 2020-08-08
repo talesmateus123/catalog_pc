@@ -119,11 +119,11 @@ public class SectorResource {
             produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> sectorsReport() {
 
-        var sectors = (List<Sector>) service.findAll();
+		List<Sector> sectors = (List<Sector>) service.findAll();
 
         ByteArrayInputStream bis = GeneratePdfReportFromSector.sectorsReport(sectors);
 
-        var headers = new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=sectors_report.pdf");
 
         return ResponseEntity

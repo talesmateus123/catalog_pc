@@ -105,7 +105,7 @@ public class SectorService {
 	private boolean alreadyExistsWithName(Sector object) {
 		Optional<Sector> objectByName = this.repository.findByName(object.getName()); 
 		
-		if(!objectByName.isEmpty()) {
+		if(!objectByName.isPresent()) {
 			if(object.getId() != null) {
 				if(object.getId().equals(objectByName.get().getId()) && object.getName().equals(objectByName.get().getName()))
 					return false;
@@ -129,7 +129,7 @@ public class SectorService {
 		
 		Optional<Sector> objectByPhone = this.repository.findByPhone(object.getPhone());  
 		
-		if(!objectByPhone.isEmpty()) {
+		if(!objectByPhone.isPresent()) {
 			if(object.getId().equals(objectByPhone.get().getId()) && object.getPhone().equals(objectByPhone.get().getPhone()))
 				return false;
 			else
@@ -148,7 +148,7 @@ public class SectorService {
 		// Generates an exception if object doesn't exists 
 		Sector objectById = this.findById(object.getId());
 		
-		if(objectByPhoneNumber.isEmpty())
+		if(objectByPhoneNumber.isPresent())
 			return true;
 		
 		if(objectById.getPhone() != null) {

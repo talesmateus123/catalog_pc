@@ -157,11 +157,11 @@ public class ComputerUserResource {
             produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> computerUsersReport() {
 
-        var computer_users = (List<ComputerUser>) service.findAll();
+		List<ComputerUser> computer_users = (List<ComputerUser>) service.findAll();
 
         ByteArrayInputStream bis = GeneratePdfReportFromComputerUser.computerUsersReport(computer_users);
 
-        var headers = new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=computer_users_report.pdf");
 
         return ResponseEntity
