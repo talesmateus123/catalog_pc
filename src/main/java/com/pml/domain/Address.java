@@ -6,13 +6,13 @@
 package com.pml.domain;
 
 import java.io.Serializable;
-import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -34,14 +34,14 @@ public class Address implements Serializable {
 	@NotEmpty
 	private String city;
 	private String telephone;
-	@OneToMany(mappedBy = "address")
+	@OneToOne(cascade = CascadeType.REMOVE, mappedBy = "address")
 	@JsonIgnore
-	private List<Sector> sectors;
+	private Sector sector;
 	
 	public Address() {
 	}
 	
-	public Address(Integer id, String name, String street, String number, String neighborhood, String complement, String city, String telephone, List<Sector> sectors) {
+	public Address(Integer id, String name, String street, String number, String neighborhood, String complement, String city, String telephone, Sector sector) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -51,7 +51,7 @@ public class Address implements Serializable {
 		this.complement = complement;
 		this.city = city;
 		this.telephone = telephone;
-		this.sectors = sectors;
+		this.sector = sector;
 	}
 
 	public Integer getId() {
@@ -118,16 +118,12 @@ public class Address implements Serializable {
 		this.telephone = telephone;
 	}
 	
-	public List<Sector> getSector() {
-		return sectors;
+	public Sector getSector() {
+		return sector;
 	}
 
-	public void setSector(List<Sector> sector) {
-		this.sectors = sector;
-	}
-
-	public void addSector(Sector sector) {
-		this.sectors.add(sector);
+	public void setSector(Sector sector) {
+		this.sector = sector;
 	}
 
 	@Override

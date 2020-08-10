@@ -38,6 +38,8 @@ public class ComputerNewDTO implements Serializable {
 	private Boolean onTheDomain;
 	@NotNull(message = "{not.null}")
 	private boolean personalComputer;
+	private String teamViewerId;
+	private String teamViewerPass;
 	private Double totalRamMemory;
 	private Double totalStorageMemory;
 	private Long monitorId;
@@ -308,6 +310,22 @@ public class ComputerNewDTO implements Serializable {
 
 	public void setIsPersonalComputer(boolean personalComputer) {
 		this.personalComputer = personalComputer;
+	}
+
+	public String getTeamViewerId() {
+		return teamViewerId;
+	}
+
+	public void setTeamViewerId(String teamViewerId) {
+		this.teamViewerId = teamViewerId;
+	}
+
+	public String getTeamViewerPass() {
+		return teamViewerPass;
+	}
+
+	public void setTeamViewerPass(String teamViewerPass) {
+		this.teamViewerPass = teamViewerPass;
 	}
 
 	public void setTotalRamMemory(Double totalRamMemory) {

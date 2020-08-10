@@ -38,6 +38,8 @@ public class ComputerDTO implements Serializable {
 	private Integer computerType;
 	private boolean onTheDomain;
 	private boolean personalComputer;
+	private String teamViewerId;
+	private String teamViewerPass;
 	private Double totalRamMemory;
 	private Double totalStorageMemory;
 	
@@ -67,6 +69,8 @@ public class ComputerDTO implements Serializable {
 		this.computerType = (computer.getComputerType() != null) ? computer.getComputerType().getCod() : null;
 		this.onTheDomain = computer.isOnTheDomain();
 		this.personalComputer = computer.isPersonalComputer();
+		this.teamViewerId = computer.getTeamViewerId();
+		this.teamViewerPass = computer.getTeamViewerPass();
 		this.totalRamMemory = computer.getTotalRamMemory();
 		this.totalStorageMemory = computer.getTotalStorageMemory();
 		this.cabinetModel = computer.getCabinetModel();;
@@ -257,6 +261,22 @@ public class ComputerDTO implements Serializable {
 
 	public void setIsPersonalComputer(boolean personalComputer) {
 		this.personalComputer = personalComputer;
+	}
+
+	public String getTeamViewerId() {
+		return teamViewerId;
+	}
+
+	public void setTeamViewerId(String teamViewerId) {
+		this.teamViewerId = teamViewerId;
+	}
+
+	public String getTeamViewerPass() {
+		return teamViewerPass;
+	}
+
+	public void setTeamViewerPass(String teamViewerPass) {
+		this.teamViewerPass = teamViewerPass;
 	}
 
 	public Double getTotalRamMemory() {

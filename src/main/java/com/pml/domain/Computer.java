@@ -43,6 +43,8 @@ public class Computer extends Equipment{
 	@NotNull
 	private boolean onTheDomain = false;
 	private boolean personalComputer = false;
+	private String teamViewerId;
+	private String teamViewerPass;
 	private Double totalRamMemory = 0.0;
 	private Double totalStorageMemory = 0.0;
 	@OneToMany(mappedBy = "computer", fetch = FetchType.EAGER)
@@ -72,7 +74,7 @@ public class Computer extends Equipment{
 			String model, String description, Sector sector, String ipAddress, String macAddress,
 			String hostName, String motherBoardName, Processor processor, Boolean hasCdBurner, String cabinetModel, 
 			OperatingSystem operatingSystem, ArchitectureType operatingSystemArchitecture, ComputerType computerType, 
-			boolean onTheDomain, boolean personalComputer, Double totalRamMemory, Double totalStorageMemory, Monitor monitor) {
+			boolean onTheDomain, boolean personalComputer, String teamViewerId, String teamViewerPass, Double totalRamMemory, Double totalStorageMemory, Monitor monitor) {
 		super(id, patrimonyId, createdDate, lastModifiedDate, deletedDate, EquipmentType.COMPUTER, manufacturer, model, description, sector);
 		if(ipAddress != null)
 			this.ipAddress = (!ipAddress.isEmpty()) ? ipAddress : "0.0.0.0";
@@ -84,6 +86,8 @@ public class Computer extends Equipment{
 		else
 			this.hostName = generateHostName();
 		this.computerType = (computerType != null) ? computerType.getCod() : null;;
+		this.teamViewerId = teamViewerId;
+		this.teamViewerPass = teamViewerPass;
 		this.personalComputer = personalComputer;
 		if (!this.personalComputer) {
 			this.motherBoardName = motherBoardName;
@@ -207,6 +211,22 @@ public class Computer extends Equipment{
 
 	public void setIsPersonalComputer(boolean personalComputer) {
 		this.personalComputer = personalComputer;
+	}
+
+	public String getTeamViewerId() {
+		return teamViewerId;
+	}
+
+	public void setTeamViewerId(String teamViewerId) {
+		this.teamViewerId = teamViewerId;
+	}
+
+	public String getTeamViewerPass() {
+		return teamViewerPass;
+	}
+
+	public void setTeamViewerPass(String teamViewerPass) {
+		this.teamViewerPass = teamViewerPass;
 	}
 
 	public Double getTotalStorageMemory() {

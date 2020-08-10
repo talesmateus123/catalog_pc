@@ -348,7 +348,8 @@ public class ComputerService extends EquipmentService {
 				objectNewDTO.getHostName(), objectNewDTO.getMotherBoardName(), null, objectNewDTO.getHasCdBurner(),
 				objectNewDTO.getCabinetModel(), objectNewDTO.getOperatingSystem(), objectNewDTO.getOperatingSystemArchitecture(),
 				objectNewDTO.getComputerType(), objectNewDTO.isOnTheDomain(), objectNewDTO.isPersonalComputer(), 
-				objectNewDTO.getTotalRamMemory(), objectNewDTO.getTotalStorageMemory(), null);
+				objectNewDTO.getTeamViewerId(), objectNewDTO.getTeamViewerPass(), objectNewDTO.getTotalRamMemory(), 
+				objectNewDTO.getTotalStorageMemory(), null);
 		
 		// One to one relationships
 		if(objectNewDTO.getSectorId() != null)
