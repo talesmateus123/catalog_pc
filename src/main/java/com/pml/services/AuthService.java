@@ -28,7 +28,7 @@ public class AuthService {
 	
 	public void sendNewPassword(String email) {
 		Optional<Client> object = this.clientRepository.findByEmail(email);
-		if(object.isEmpty())
+		if(!object.isPresent())
 			throw new ObjectNotFoundException("Email not found");
 		String newPassword = newPassword();
 		Client client = object.get();
