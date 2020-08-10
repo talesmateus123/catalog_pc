@@ -61,12 +61,13 @@ public class DBService {
 	private PrinterRepository printerRepository;
 	
 	public void instantiateTestDatabase() {
-		/*
+		
 		// Users creation
 		Client user1 = new Client(null, "talesmateus1999@hotmail.com", "Tales Mateus", bCryptPasswordEncoder.encode("1234"));
 		user1.addProfile(UserProfile.ADMIN);
 		Client user2 = new Client(null, "renato123@gmail.com", "Renato Campos", bCryptPasswordEncoder.encode("1234"));
-		
+		userRepository.saveAll(Arrays.asList(user1, user2));
+		/*
 		// Sectors creation
 		Sector sector1 = new Sector(null, "Administração", "(67)32328000");
 		Sector sector2 = new Sector(null, "Recursos humanos", "(67)32328000");

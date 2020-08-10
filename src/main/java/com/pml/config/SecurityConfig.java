@@ -15,9 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.pml.security.JWTAuthenticationFilter;
 import com.pml.security.JWTAuthorizationFilter;
@@ -65,14 +62,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/api/processors/**",
 			"/api/ram_memories/**",
 			"/api/storage_devices/**",
-			"/api/printers/**",
-			"/api/network_devices/**",
-			"/api/equipments/**",
-			"/api/electronics/**"
+			"/api/printers/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_POST = {
-			"/login",
 			"/api/sectors/**",
 			"/api/computers/**",
 			"/api/computer_users/**",
@@ -81,34 +74,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/api/ram_memories/**",
 			"/api/storage_devices/**",
 			"/api/printers/**",
-			"/api/network_devices/**",
 			"/api/users/**",
 			"/auth/forgot_password"
-	};
-	
-	private static final String[] PUBLIC_MATCHERS_PUT = {
-			"/api/sectors/**",
-			"/api/computers/**",
-			"/api/computer_users/**",
-			"/api/monitors/**",
-			"/api/processors/**",
-			"/api/ram_memories/**",
-			"/api/storage_devices/**",
-			"/api/printers/**",
-			"/api/network_devices/**"
-	};
-	
-	private static final String[] PUBLIC_MATCHERS_DELETE = {
-			"/api/sectors/**",
-			"/api/computers/**",
-			"/api/computer_users/**",
-			"/api/monitors/**",
-			"/api/processors/**",
-			"/api/ram_memories/**",
-			"/api/storage_devices/**",
-			"/api/printers/**",
-			"/api/network_devices/**"
-	};
+	};	
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -120,10 +88,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 		// Just permits POST method to users
 		.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
-		// Just permits POST method to users
-		.antMatchers(HttpMethod.PUT, PUBLIC_MATCHERS_PUT).permitAll()
-		// Just permits POST method to users
-		.antMatchers(HttpMethod.DELETE, PUBLIC_MATCHERS_DELETE).permitAll()
 		// Just permits GET method publicly
 		.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
 		.antMatchers(PUBLIC_MATCHERS).permitAll()

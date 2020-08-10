@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
@@ -28,6 +30,9 @@ public class Sector implements Serializable {
 	@OneToMany(mappedBy = "sector")
 	@JsonIgnore
 	private List<Equipment> equipments = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name = "address_id")
+	private Address address;
 	@OneToMany(mappedBy = "sector")
 	@JsonIgnore
 	private List<ComputerUser> computerUsers = new ArrayList<>();
@@ -78,6 +83,14 @@ public class Sector implements Serializable {
 		this.equipments.add(equipment);
 	}
 	
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	public List<ComputerUser> getComputerUsers() {
 		return computerUsers;
 	}
