@@ -85,14 +85,14 @@ public class ComputerService extends EquipmentService {
 	
 	private Computer findByMonitor(Monitor monitor) {
 		Optional<Computer> object = this.repository.findByMonitor(monitor);
-		if(!object.isPresent())
+		if(object.isPresent())
 			return object.get();
 		return null;
 	}
 	
 	private Computer findByProcessor(Processor processor) {
 		Optional<Computer> object = this.repository.findByProcessor(processor);
-		if(!object.isPresent())
+		if(object.isPresent())
 			return object.get();
 		return null;
 	}

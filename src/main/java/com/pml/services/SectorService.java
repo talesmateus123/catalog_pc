@@ -66,7 +66,7 @@ public class SectorService {
 	@Transactional
 	public Sector insert(Sector object) {
 		if(this.alreadyExistsWithName(object))
-			throw new ConflictOfObjectsException("This sector already exists: patrimonyId: '" + object.getName() + "'.");
+			throw new ConflictOfObjectsException("This sector already exists: name: '" + object.getName() + "'.");
 		if(this.alreadyExistsWithPhoneNumber(object))
 			throw new ConflictOfObjectsException("Another sector uses this same phone number: '" + object.getPhone() + "'.");
 		object.setId(null);
@@ -105,7 +105,7 @@ public class SectorService {
 	private boolean alreadyExistsWithName(Sector object) {
 		Optional<Sector> objectByName = this.repository.findByName(object.getName()); 
 		
-		if(!objectByName.isPresent()) {
+		if(objectByName.isPresent()) {
 			if(object.getId() != null) {
 				if(object.getId().equals(objectByName.get().getId()) && object.getName().equals(objectByName.get().getName()))
 					return false;
@@ -129,7 +129,7 @@ public class SectorService {
 		
 		Optional<Sector> objectByPhone = this.repository.findByPhone(object.getPhone());  
 		
-		if(!objectByPhone.isPresent()) {
+		if(objectByPhone.isPresent()) {
 			if(object.getId().equals(objectByPhone.get().getId()) && object.getPhone().equals(objectByPhone.get().getPhone()))
 				return false;
 			else
@@ -148,7 +148,7 @@ public class SectorService {
 		// Generates an exception if object doesn't exists 
 		Sector objectById = this.findById(object.getId());
 		
-		if(objectByPhoneNumber.isPresent())
+		if(!objectByPhoneNumber.isPresent())
 			return true;
 		
 		if(objectById.getPhone() != null) {

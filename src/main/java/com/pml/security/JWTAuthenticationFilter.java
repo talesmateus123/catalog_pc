@@ -25,7 +25,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pml.dto.CredentialsDTO;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-	// These objects will be injected in this class by the constructor method
 	private AuthenticationManager authenticationManager;
     private JWTUtil jwtUtil;
     
@@ -77,8 +76,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String token = jwtUtil.generateToken(username);
         // Adding the generated token to the response header.
         res.addHeader("Authorization", "Bearer " + token);
-        // Allows to expose the "Authorization" header
-        res.addHeader("access-control-expose-headers", "Authorization");        
+        // Adding expiration date for the generated token to the response header.
+        res.addHeader("token-expiration", jwtUtil.getExpiration().toString());
+        // Allows to expose the "Authorization and token-expiration" header
+        res.addHeader("access-control-expose-headers", "Authorization, token-expiration");
 	}
 	
     /**

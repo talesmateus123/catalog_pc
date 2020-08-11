@@ -36,8 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/h2-console/**"
 	};
 	
-	/*
 	private static final String[] PUBLIC_MATCHERS_GET = {
+			"/api/equipments/**",
 			"/api/sectors/**",
 			"/api/computers/**",
 			"/api/computer_users/**",
@@ -49,31 +49,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_POST = {
-			"/api/users/**",
-			"/auth/forgot_password"
-	};
-	*/
-	
-	private static final String[] PUBLIC_MATCHERS_GET = {
-			"/api/sectors/**",
-			"/api/computers/**",
-			"/api/computer_users/**",
-			"/api/monitors/**",
-			"/api/processors/**",
-			"/api/ram_memories/**",
-			"/api/storage_devices/**",
-			"/api/printers/**"
-	};
-	
-	private static final String[] PUBLIC_MATCHERS_POST = {
-			"/api/sectors/**",
-			"/api/computers/**",
-			"/api/computer_users/**",
-			"/api/monitors/**",
-			"/api/processors/**",
-			"/api/ram_memories/**",
-			"/api/storage_devices/**",
-			"/api/printers/**",
 			"/api/users/**",
 			"/auth/forgot_password"
 	};	
@@ -89,7 +64,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// Just permits POST method to users
 		.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
 		// Just permits GET method publicly
-		.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
 		.antMatchers(PUBLIC_MATCHERS).permitAll()
 		.anyRequest().authenticated();
 		// Adding an Authentication Filter

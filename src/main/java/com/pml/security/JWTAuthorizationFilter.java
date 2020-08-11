@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
-	// These objects will be injected in this class by the constructor method
 	private JWTUtil jwtUtil;
 	private UserDetailsService userDetailsService;
 	

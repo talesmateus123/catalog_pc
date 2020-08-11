@@ -26,7 +26,7 @@ public class JWTUtil {
 	 * @param username String
 	 * @return String
 	 */
-	public String generateToken(String username) {
+	public String generateToken(String username) {	
 		return Jwts.builder()
 				.setSubject(username)
 				.setExpiration(getExpiration())
@@ -84,10 +84,8 @@ public class JWTUtil {
 	 * @return Date
 	 */
 	public Date getExpiration() {
-		long now = new Date().getTime();
-		this.expiration = this.expiration + now;
-   
-        return new Date(expiration);
+		long now = new Date().getTime();	
+        return new Date(this.expiration + now);
 	}
 
 	
