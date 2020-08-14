@@ -61,6 +61,18 @@ public class DBService {
 	@Autowired
 	private PrinterRepository printerRepository;
 	
+	public void instantiateDefaultClients() {
+		// Users creation
+		Client user1 = new Client(null, "talesmateus1999@hotmail.com", "Tales Mateus", bCryptPasswordEncoder.encode("1234"));
+		user1.addProfile(UserProfile.ADMIN);
+		Client user2 = new Client(null, "suporte@ladario.ms.gov.br", "Renato Campos", bCryptPasswordEncoder.encode("1234"));
+
+		// Setting data on database
+		userRepository.saveAll(Arrays.asList(
+				user1, user2
+				));
+	}
+	
 	public void instantiateTestDatabase() {
 		
 		// Users creation
@@ -155,8 +167,7 @@ public class DBService {
 		processorRepository.saveAll(Arrays.asList(processor1, processor2));
 		ramMemoryRepository.saveAll(Arrays.asList(ramMemory1, ramMemory2, ramMemory3, ramMemory4));
 		storageDeviceRepository.saveAll(Arrays.asList(storageDevice1, storageDevice2, storageDevice3, storageDevice4));
-		printerRepository.saveAll(Arrays.asList(printer1));
-		
+		printerRepository.saveAll(Arrays.asList(printer1));	
 	}
 	
 	
