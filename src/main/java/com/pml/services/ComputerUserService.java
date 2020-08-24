@@ -6,7 +6,6 @@
 package com.pml.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -65,13 +64,11 @@ public class ComputerUserService {
 
 	// Simple search methods
 	public ComputerUser findById(Long id) {
-		Optional<ComputerUser> object = this.repository.findById(id);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Computer user not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+		return this.repository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Computer user not found: id: '" + id + "'. Type: " + ComputerUser.class.getSimpleName()));
 	}
 	
 	public ComputerUser findByEmail(String email) {
-		Optional<ComputerUser> object = this.repository.findByEmail(email);
-		return object.orElseThrow(()-> new ObjectNotFoundException("This ipAddress: '" + email + "'has no computer user. Type: " + object.getClass().getName()));
+		return this.repository.findByEmail(email).orElseThrow(()-> new ObjectNotFoundException("This ipAddress: '" + email + "'has no computer user. Type: " + ComputerUser.class.getSimpleName()));
 	}
 	
 	public Page<ComputerUser> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {
@@ -79,7 +76,7 @@ public class ComputerUserService {
     		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
     		        	
         	if(!ServiceUtil.parameterExistsInTheClass(orderBy, ComputerUser.class)) 
-        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + ComputerUser.class.getName() + "' class.");
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + ComputerUser.class.getSimpleName() + "' class.");
         	return repository.search(searchTerm.toLowerCase(), pageRequest);
             
     	}

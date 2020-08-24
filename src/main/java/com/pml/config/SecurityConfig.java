@@ -32,26 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JWTUtil jwtUtil;
 	
-	private static final String[] PUBLIC_MATCHERS = {
-			"/h2-console/**"
-	};
-	
-	private static final String[] PUBLIC_MATCHERS_GET = {
-			"/api/equipments/**",
-			"/api/sectors/**",
-			"/api/computers/**",
-			"/api/computer_users/**",
-			"/api/monitors/**",
-			"/api/processors/**",
-			"/api/ram_memories/**",
-			"/api/storage_devices/**",
-			"/api/printers/**"
-	};
-	
 	private static final String[] PUBLIC_MATCHERS_POST = {
-			"/api/users/**",
 			"/auth/forgot_password"
-	};	
+	};
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -64,7 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// Just permits POST method to users
 		.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
 		// Just permits GET method publicly
-		.antMatchers(PUBLIC_MATCHERS).permitAll()
 		.anyRequest().authenticated();
 		// Adding an Authentication Filter
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));

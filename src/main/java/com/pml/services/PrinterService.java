@@ -7,7 +7,6 @@ package com.pml.services;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,7 +40,7 @@ public class PrinterService extends EquipmentService {
 			PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
     		        	
         	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Printer.class)) 
-        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Printer.class.getName() + "' class.");
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Printer.class.getSimpleName() + "' class.");
         	return this.repository.findPageByOrderByPatrimonyId(pageRequest);
             
     	}
@@ -53,8 +52,7 @@ public class PrinterService extends EquipmentService {
 	// Simple search methods	
 	@Override
 	public Printer findById(Long id) {
-		Optional<Printer> object = this.repository.findById(id);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Printer not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+		return this.repository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Printer not found: id: '" + id + "'. Type: " + Printer.class.getSimpleName()));
 	}
 	
 	public Page<Printer> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {
@@ -62,7 +60,7 @@ public class PrinterService extends EquipmentService {
     		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
     		        	
         	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Printer.class)) 
-        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Printer.class.getName() + "' class.");
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Printer.class.getSimpleName() + "' class.");
         	return repository.search(searchTerm.toLowerCase(), pageRequest);
             
     	}

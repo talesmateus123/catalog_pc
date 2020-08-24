@@ -5,8 +5,6 @@
  */
 package com.pml.services;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +18,7 @@ public class ElectronicService {
 	private ElectronicRepository repository;
 		
 	public Electronic findById(Long id) {
-		Optional<Electronic> object = this.repository.findById(id);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Electronic not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+		return this.repository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Electronic not found: id: '" + id + "'. Type: " + Electronic.class.getSimpleName()));
 	}
 	
 	

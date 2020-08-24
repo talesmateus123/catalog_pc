@@ -7,8 +7,8 @@ import javax.validation.constraints.NotEmpty;
 
 public class EmailDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@NotEmpty(message = "This field is mandatory")
-	@Email(message = "Invalid e-mail")
+	@NotEmpty(message = "{not.empty}")
+	@Email(message = "{email.pattern}")
 	private String email;
 
 	public EmailDTO() {

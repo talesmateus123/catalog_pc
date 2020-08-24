@@ -7,17 +7,12 @@ package com.pml.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pml.domain.Client;
 
 public class ClientDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	@NotEmpty(message = "This field is mandatory")
-	@Email(message = "Invalid e-mail")
 	private String email;
 	private String name;
 	@JsonIgnore

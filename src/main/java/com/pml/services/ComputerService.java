@@ -8,7 +8,6 @@ package com.pml.services;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -25,8 +24,6 @@ import com.pml.domain.Monitor;
 import com.pml.domain.Processor;
 import com.pml.domain.RamMemory;
 import com.pml.domain.StorageDevice;
-import com.pml.domain.enums.ArchitectureType;
-import com.pml.domain.enums.OperatingSystem;
 import com.pml.dto.ComputerNewDTO;
 import com.pml.repositories.ComputerRepository;
 import com.pml.services.exceptions.ConflictOfObjectsException;
@@ -79,22 +76,15 @@ public class ComputerService extends EquipmentService {
 	// Simple search methods
 	@Override
 	public Computer findById(Long id) {
-		Optional<Computer> object = this.repository.findById(id);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Computer not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+		return this.repository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Computer not found: id: '" + id + "'. Type: " + Computer.class.getName()));
 	}
 	
 	private Computer findByMonitor(Monitor monitor) {
-		Optional<Computer> object = this.repository.findByMonitor(monitor);
-		if(object.isPresent())
-			return object.get();
-		return null;
+		return this.repository.findByMonitor(monitor).orElse(null);
 	}
 	
 	private Computer findByProcessor(Processor processor) {
-		Optional<Computer> object = this.repository.findByProcessor(processor);
-		if(object.isPresent())
-			return object.get();
-		return null;
+		return this.repository.findByProcessor(processor).orElse(null);
 	}
 	
 	// Generalized search
@@ -288,20 +278,19 @@ public class ComputerService extends EquipmentService {
 		Computer oldObject = (object.getId() != null) ? this.findById(object.getId()) : null;
 		
 		// Unlinking parameters from the old object 
-		if(oldObject != null) {			
+		if(oldObject != null) {
+			Processor processor = oldObject.getProcessor();
+			if (processor != null) {
+				if(object.getProcessor() == null) {
+					processor.setComputer(null);
+					this.processorService.delete(processor.getId());
+				}
+			};
 			// Many to one relationships
-			for(RamMemory ramMemory : oldObject.getRamMemories()) {
-				if(!object.getRamMemories().contains(ramMemory)) {
-					ramMemory.setComputer(null);
-					this.ramMemoryService.save(ramMemory);
-				}
-			}
-			for(StorageDevice storageDevice : oldObject.getStorageDevices()) {
-				if(!object.getStorageDevices().contains(storageDevice)) {
-					storageDevice.setComputer(null);
-					this.storageDeviceService.save(storageDevice);
-				}
-			}
+			for(RamMemory ramMemory : oldObject.getRamMemories())
+				if(!object.getRamMemories().contains(ramMemory)) this.ramMemoryService.delete(ramMemory.getId());
+			for(StorageDevice storageDevice : oldObject.getStorageDevices())
+				if(!object.getStorageDevices().contains(storageDevice)) this.storageDeviceService.delete(storageDevice.getId());
 		}
 	}
 	
@@ -365,19 +354,7 @@ public class ComputerService extends EquipmentService {
 				}
 			}
 		}
-		
-		if(object.isPersonalComputer()) {
-			object.setPatrimonyId(null);
-			object.setManufacturer(null);
-			object.setModel(null);
-			object.setCabinetModel(null);
-			object.setOperatingSystem(OperatingSystem.NONE);
-			object.setOperatingSystemArchitecture(ArchitectureType.NONE);
-			object.setMonitor(null);
-
-			return object;
-		}
-		
+	
 		if(objectNewDTO.getMonitorId() != null) {
 			Monitor monitor = this.monitorService.findById(objectNewDTO.getMonitorId());
 			Computer computer = this.findByMonitor(monitor);

@@ -8,6 +8,7 @@ package com.pml.dto;
 import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.pml.domain.Client;
 
@@ -16,8 +17,10 @@ public class ClientNewDTO implements Serializable {
 	@NotEmpty(message = "{not.empty}")
 	private String email;
 	@NotEmpty(message = "{not.empty}")
+	@Size(min = 4, max = 20, message = "{name.size}")
 	private String name;
 	@NotEmpty(message = "{not.empty}")
+	@Size(min = 4, max = 20, message = "{pass.size}")
 	private String password;
 	
 	public ClientNewDTO() {		

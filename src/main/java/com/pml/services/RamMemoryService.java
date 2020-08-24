@@ -7,7 +7,6 @@ package com.pml.services;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -51,8 +50,7 @@ public class RamMemoryService {
 
 	// Simple search methods
 	public RamMemory findById(Long id) {
-		Optional<RamMemory> object = this.repository.findById(id);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Ram memory not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+		return this.repository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Ram memory not found: id: '" + id + "'. Type: " + RamMemory.class.getSimpleName()));
 	}
 	
 	public List<RamMemory> findByComputer(Computer computer) {
@@ -64,7 +62,7 @@ public class RamMemoryService {
     		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
     		        	
         	if(!ServiceUtil.parameterExistsInTheClass(orderBy, RamMemory.class)) 
-        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + RamMemory.class.getName() + "' class.");
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + RamMemory.class.getSimpleName() + "' class.");
         	return repository.search(searchTerm.toLowerCase(), pageRequest);
             
     	}

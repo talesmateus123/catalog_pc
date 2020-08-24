@@ -52,7 +52,7 @@ public class MonitorService extends EquipmentService {
 			PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
     		        	
         	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Monitor.class)) 
-        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Monitor.class.getName() + "' class.");
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Monitor.class.getSimpleName() + "' class.");
         	return this.repository.findPageByOrderByPatrimonyId(pageRequest);
             
     	}
@@ -64,8 +64,7 @@ public class MonitorService extends EquipmentService {
 	// Simple search methods	
 	@Override
 	public Monitor findById(Long id) {
-		Optional<Monitor> object = this.repository.findById(id);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Monitor not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+		return this.repository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Monitor not found: id: '" + id + "'. Type: " + Monitor.class.getSimpleName()));
 	}
 		
 	public Page<Monitor> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {	
@@ -73,7 +72,7 @@ public class MonitorService extends EquipmentService {
     		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
     		        	
         	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Monitor.class)) 
-        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Monitor.class.getName() + "' class.");
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Monitor.class.getSimpleName() + "' class.");
         	return repository.search(searchTerm.toLowerCase(), pageRequest);
             
     	}

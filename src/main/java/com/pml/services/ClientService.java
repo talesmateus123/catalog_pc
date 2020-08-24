@@ -6,7 +6,6 @@
 package com.pml.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -47,16 +46,14 @@ public class ClientService {
 		UserSS user = UserService.authenticated();
 		if (user == null || user.hasHole(UserProfile.ADMIN) && !id.equals(user.getId()))
 			throw new AuthorizationException("Access denied");
-		Optional<Client> object = this.repository.findById(id);
-		return object.orElseThrow(()-> new ObjectNotFoundException("User not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+		return this.repository.findById(id).orElseThrow(()-> new ObjectNotFoundException("User not found: id: '" + id + "'. Type: " + Client.class.getSimpleName()));
 	}
 	
 	public Client findByEmail(String email) {
 		UserSS user = UserService.authenticated();
 		if(user == null || !user.hasHole(UserProfile.ADMIN) && !email.equals(user.getUsername()))
 			throw new AuthorizationException("Access denied");
-		Optional<Client> object = this.repository.findByEmail(email);
-		return object.orElseThrow(()-> new ObjectNotFoundException("User not found: email: '" + email + "'. Type: " + object.getClass().getName()));
+		return this.repository.findByEmail(email).orElseThrow(()-> new ObjectNotFoundException("User not found: email: '" + email + "'. Type: " + Client.class.getSimpleName()));
 	}
 
 	// Create, update and delete methods
@@ -87,8 +84,7 @@ public class ClientService {
 	 * @return User
 	 */
 	public Client fromDTO(ClientDTO objectDTO) {
-		return new Client(
-				objectDTO.getId(), objectDTO.getEmail(), objectDTO.getName(), objectDTO.getPassword());
+		return new Client(objectDTO.getId(), objectDTO.getEmail(), objectDTO.getName(), objectDTO.getPassword());
 	}
 	
 	/**

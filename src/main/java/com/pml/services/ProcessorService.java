@@ -51,13 +51,11 @@ public class ProcessorService {
 
 	// Simple search methods
 	public Processor findById(Long id) {
-		Optional<Processor> object = this.repository.findById(id);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Processor not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+		return this.repository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Processor not found: id: '" + id + "'. Type: " + Processor.class.getSimpleName()));
 	}
 	
 	public Processor findByComputer(Computer computer) {
-		Optional<Processor> object = this.repository.findByComputer(computer);
-		return object.orElseThrow(()-> new ObjectNotFoundException("This computer: patrimonyId: '" + computer.getPatrimonyId() + "'has no processor. Type: " + object.getClass().getName()));
+		return this.repository.findByComputer(computer).orElseThrow(()-> new ObjectNotFoundException("This computer: patrimonyId: '" + computer.getPatrimonyId() + "'has no processor. Type: " + Processor.class.getSimpleName()));
 	}
 	
 	public Page<Processor> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {
@@ -65,7 +63,7 @@ public class ProcessorService {
     		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
     		        	
         	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Processor.class)) 
-        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Processor.class.getName() + "' class.");
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Processor.class.getSimpleName() + "' class.");
         	return repository.search(searchTerm.toLowerCase(), pageRequest);
             
     	}

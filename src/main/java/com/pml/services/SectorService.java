@@ -44,8 +44,7 @@ public class SectorService {
 
 	// Simple search methods
 	public Sector findById(Integer id) {
-		Optional<Sector> object = this.repository.findById(id);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Sector not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+		return this.repository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Sector not found: id: '" + id + "'. Type: " + Sector.class.getSimpleName()));
 	}
 	
 	public Page<Sector> search(Integer page, Integer linesPerPage, String direction, String orderBy, String searchTerm) {
@@ -53,7 +52,7 @@ public class SectorService {
     		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
     		        	
         	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Sector.class)) 
-        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Sector.class.getName() + "' class.");
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Sector.class.getSimpleName() + "' class.");
         	return repository.search(searchTerm.toLowerCase(), pageRequest);
             
     	}
@@ -148,7 +147,7 @@ public class SectorService {
 		// Generates an exception if object doesn't exists 
 		Sector objectById = this.findById(object.getId());
 		
-		if(!objectByPhoneNumber.isPresent())
+		if(objectByPhoneNumber.isPresent())
 			return true;
 		
 		if(objectById.getPhone() != null) {

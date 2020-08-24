@@ -7,7 +7,6 @@ package com.pml.services;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -53,8 +52,7 @@ public class StorageDeviceService {
 	}
 	
 	public StorageDevice findById(Long id) {
-		Optional<StorageDevice> object = this.repository.findById(id);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Storage device not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+		return this.repository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Storage device not found: id: '" + id + "'. Type: " + StorageDevice.class.getSimpleName()));
 	}
 	
 	public List<StorageDevice> findByComputer(Computer computer) {
@@ -66,7 +64,7 @@ public class StorageDeviceService {
     		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
     		        	
         	if(!ServiceUtil.parameterExistsInTheClass(orderBy, StorageDevice.class)) 
-        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + StorageDevice.class.getName() + "' class.");
+        		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + StorageDevice.class.getSimpleName() + "' class.");
         	return repository.search(searchTerm.toLowerCase(), pageRequest);
             
     	}

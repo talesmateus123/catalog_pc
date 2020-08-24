@@ -20,13 +20,11 @@ public abstract class EquipmentService {
 		
 	// Simple search methods
 	public Equipment findById(Long id) {
-		Optional<Equipment> object = this.repository.findById(id);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Equipment not found: id: '" + id + "'. Type: " + object.getClass().getName()));
+		return this.repository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Equipment not found: id: '" + id + "'. Type: " + Equipment.class.getSimpleName()));
 	}
 	
 	public Equipment findByPatrimonyId(String patrimonyId) {
-		Optional<Equipment> object = this.repository.findByPatrimonyId(patrimonyId);
-		return object.orElseThrow(()-> new ObjectNotFoundException("Equipment not found: patrimonyId: '" + patrimonyId + "'. Type: " + object.getClass().getName()));
+		return this.repository.findByPatrimonyId(patrimonyId).orElseThrow(()-> new ObjectNotFoundException("Equipment not found: patrimonyId: '" + patrimonyId + "'. Type: " + Equipment.class.getSimpleName()));
 	}
 
 	// Auxiliary methods

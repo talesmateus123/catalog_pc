@@ -72,14 +72,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
 	
-		String username = ((UserSS) auth.getPrincipal()).getUsername();
-        String token = jwtUtil.generateToken(username);
+		UserSS user = ((UserSS) auth.getPrincipal());
+        String token = jwtUtil.generateToken(user.getUsername());
         // Adding the generated token to the response header.
         res.addHeader("Authorization", "Bearer " + token);
         // Adding expiration date for the generated token to the response header.
-        res.addHeader("token-expiration", jwtUtil.getExpiration().toString());
+        res.addHeader("user-id", user.getId().toString());
         // Allows to expose the "Authorization and token-expiration" header
-        res.addHeader("access-control-expose-headers", "Authorization, token-expiration");
+        res.addHeader("access-control-expose-headers", "Authorization, user-id");
 	}
 	
     /**

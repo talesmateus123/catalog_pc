@@ -32,7 +32,6 @@ public class Client implements Serializable{
 	@NotEmpty
 	private String name;
 	@NotEmpty
-	@JsonIgnore
 	private String password;
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "PROFILES")
