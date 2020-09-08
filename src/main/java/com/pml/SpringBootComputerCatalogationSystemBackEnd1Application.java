@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootComputerCatalogationsSystemBackendRefactoredApplication {
+public class SpringBootComputerCatalogationSystemBackEnd1Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootComputerCatalogationsSystemBackendRefactoredApplication.class, args);
+		SpringApplication.run(SpringBootComputerCatalogationSystemBackEnd1Application.class, args);
 	}
 
 }

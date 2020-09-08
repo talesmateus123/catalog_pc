@@ -65,11 +65,14 @@ public class DBService {
 		// Users creation
 		Client user1 = new Client(null, "talesmateus1999@hotmail.com", "Tales Mateus", bCryptPasswordEncoder.encode("1234"));
 		user1.addProfile(UserProfile.ADMIN);
-		Client user2 = new Client(null, "suporte@ladario.ms.gov.br", "Renato Campos", bCryptPasswordEncoder.encode("1234"));
+		Client user2 = new Client(null, "admin@test", "Conta de testes", bCryptPasswordEncoder.encode("1234"));
+		user2.addProfile(UserProfile.ADMIN);
+		Client user3 = new Client(null, "client@test", "Conta de testes", bCryptPasswordEncoder.encode("1234"));
+		Client user4 = new Client(null, "suporte@ladario.ms.gov.br", "Renato Campos", bCryptPasswordEncoder.encode("1234"));
 
 		// Setting data on database
 		userRepository.saveAll(Arrays.asList(
-				user1, user2
+				user2, user3
 				));
 	}
 	
