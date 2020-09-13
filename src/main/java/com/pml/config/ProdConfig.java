@@ -25,7 +25,7 @@ public class ProdConfig {
 		return new SmtpEmailService();
 	}
 	
-	// @Bean
+	//@Bean
 	public boolean instantiateDatabase() {
 		dBService.instantiateDefaultClients();
 		return true;
