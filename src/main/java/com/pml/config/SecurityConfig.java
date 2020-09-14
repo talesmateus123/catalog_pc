@@ -33,6 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JWTUtil jwtUtil;
 	
+	private static final String[] PUBLIC_MATCHERS_GET = {
+			"/"
+	};
+	
 	private static final String[] PUBLIC_MATCHERS_POST = {
 			"/auth/forgot_password"
 	};
@@ -51,9 +55,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// Call the cors configuration below 
 		http.cors().and().csrf().disable();
 		http.authorizeRequests()
+		// Just permits GET method publicly
+		.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
 		// Just permits POST method to users
 		.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
-		// Just permits GET method publicly
 		.anyRequest().authenticated();
 		// Adding an Authentication Filter
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));

@@ -23,7 +23,7 @@ public class SwaggerConfig {
 
 	private final ResponseMessage m200 = simpleMessage(200, "Ok");
 	private final ResponseMessage m201 = simpleMessage(201, "Created");
-	private final ResponseMessage m204put = simpleMessage(204, "Atualização ok");
+	private final ResponseMessage m204put = simpleMessage(204, "No content");
 	private final ResponseMessage m204del = simpleMessage(204, "Ok");
 	private final ResponseMessage m401 = simpleMessage(401, "Unauthorized");
 	private final ResponseMessage m403 = simpleMessage(403, "Forbidden");
@@ -49,12 +49,11 @@ public class SwaggerConfig {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfo(
-				"API do curso Spring Boot",
-				"Esta API é utilizada no curso de Spring Boot do prof. Nelio Alves", "Versão 1.0",
-				"https://www.udemy.com/terms",
-				new Contact("Nelio Alves", "udemy.com/user/nelio-alves", "nelio.cursos@gmail.com"),
-				"Permitido uso para estudantes", "https://www.udemy.com/terms", Collections.emptyList() // Vendor
-																										// Extensions
+				"Restfull API for computer catalogation",
+				"This API is used for the management of technology equipments from \"Prefeitura Municipal de Ladário\"", "Version 1.0",
+				"",
+				new Contact("Tales Mateus", "", "talesmateus1999@hotmail.com"),
+				"", "", Collections.emptyList()
 		);
 	}
 	
