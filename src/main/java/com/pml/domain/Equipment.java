@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import com.pml.domain.enums.EquipmentType;
 
 @Entity
-public abstract class Equipment extends Electronic {
+public class Equipment extends Electronic {
 	private static final long serialVersionUID = 1L;
 	@Column(unique = true)
 	protected String patrimonyId = null;
