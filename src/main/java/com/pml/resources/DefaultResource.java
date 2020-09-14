@@ -15,6 +15,11 @@ public class DefaultResource {
 	 */
 	@GetMapping
 	public ModelAndView redirectToSwaggerAPIDocumentation() {
-        return new ModelAndView("redirect:/swagger-ui.html");
+		ModelAndView modelAndView = new ModelAndView("main/index");
+		modelAndView.addObject("title", "Restful API for computer cataloging");
+		return modelAndView;
 	}
+	
+	
+	
 }

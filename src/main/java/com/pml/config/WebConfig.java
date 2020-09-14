@@ -6,6 +6,8 @@ import java.util.Collections;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -19,8 +21,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerConfig {
-
+public class WebConfig implements WebMvcConfigurer {
+	
+	// Swagger config
 	private final ResponseMessage m200 = simpleMessage(200, "Ok");
 	private final ResponseMessage m201 = simpleMessage(201, "Created");
 	private final ResponseMessage m204put = simpleMessage(204, "No content");
@@ -49,7 +52,7 @@ public class SwaggerConfig {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfo(
-				"Restfull API for computer catalogation",
+				"Restful API for computer cataloging",
 				"This API is used for the management of technology equipments from \"Prefeitura Municipal de Ladário\"", "Version 1.0",
 				"",
 				new Contact("Tales Mateus", "", "talesmateus1999@hotmail.com"),
@@ -61,6 +64,23 @@ public class SwaggerConfig {
 		return new ResponseMessageBuilder().code(code).message(msg).build();
 	}
 	
+	// Resource handlers config
+	@Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+        	.addResourceHandler(
+                "/webjars/**",
+                "/assets/**",
+                "/css/**",
+                "/js/**")
+            .addResourceLocations(
+                "classpath:/META-INF/resources/webjars/",
+                "classpath:/static/assets/",
+                "classpath:/static/css/",
+                "classpath:/static/js/");
 
+    }
+	
 
+    
 }
