@@ -15,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pml.domain.Client;
-import com.pml.domain.enums.UserProfile;
 import com.pml.dto.ClientDTO;
 import com.pml.dto.ClientNewDTO;
 import com.pml.repositories.ClientRepository;
@@ -44,14 +43,14 @@ public class ClientService {
 	// Simple search methods
 	public Client findById(Long id) {
 		UserSS user = UserService.authenticated();
-		if (user == null || user.hasHole(UserProfile.ADMIN) && !id.equals(user.getId()))
+		if (user == null || !id.equals(user.getId()))
 			throw new AuthorizationException("Access denied");
 		return this.repository.findById(id).orElseThrow(()-> new ObjectNotFoundException("User not found: id: '" + id + "'. Type: " + Client.class.getSimpleName()));
 	}
 	
 	public Client findByEmail(String email) {
 		UserSS user = UserService.authenticated();
-		if(user == null || !user.hasHole(UserProfile.ADMIN) && !email.equals(user.getUsername()))
+		if(user == null || !email.equals(user.getUsername()))
 			throw new AuthorizationException("Access denied");
 		return this.repository.findByEmail(email).orElseThrow(()-> new ObjectNotFoundException("User not found: email: '" + email + "'. Type: " + Client.class.getSimpleName()));
 	}

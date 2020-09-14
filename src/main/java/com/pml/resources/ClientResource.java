@@ -48,7 +48,6 @@ public class ClientResource {
 		return ResponseEntity.ok().body(objectsDTO);
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping("/{id}")
 	public ResponseEntity<Client> findById(@PathVariable Long id) {
 		Client object = this.service.findById(id);
