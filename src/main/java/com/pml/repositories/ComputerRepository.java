@@ -21,13 +21,33 @@ import com.pml.domain.Processor;
 @Repository
 public interface ComputerRepository extends JpaRepository<Computer, Long>{	
 	@Query("FROM Computer computer " +
-	           "WHERE computer.deletedDate = null " +
-				"ORDER BY computer.patrimonyId ASC")
-	
+	           "WHERE computer.deletedDate IS NULL " +
+				"ORDER BY computer.patrimonyId ASC")	
 	List<Computer> findByOrderByPatrimonyId();
+	
 	@Query("FROM Computer computer " +
-	           "WHERE computer.deletedDate = null")
+	           "WHERE computer.deletedDate IS NULL " +
+	           "AND computer.teamViewerId IS NOT NULL " +
+				"ORDER BY computer.patrimonyId ASC")	
+	List<Computer> findByOrderByPatrimonyIdAndTeamViewerIdNotNull();
+	
+	@Query("FROM Computer computer " +
+	           "WHERE computer.deletedDate IS NULL " +
+				"ORDER BY computer.patrimonyId ASC")	
 	Page<Computer> findPageByOrderByPatrimonyId(Pageable pageable);
+	
+	@Query("FROM Computer computer " +
+	           "WHERE computer.deletedDate IS NULL " +
+	           "AND computer.teamViewerId IS NOT NULL " +
+				"ORDER BY computer.patrimonyId ASC")	
+	Page<Computer> findPageByOrderByPatrimonyIdAndTeamViewerIdNotNull(Pageable pageable);
+
+	@Query("FROM Computer computer " +
+	           "WHERE computer.deletedDate IS NULL " +
+	           "AND computer.teamViewerId IS NOT NULL " +
+	           "AND computer.id = :id " +
+				"ORDER BY computer.patrimonyId ASC")	
+	Optional<Computer> findByIdAndTeamViewerIdNotNull(@Param("id") Long  id);
 	
 	Optional<Computer> findByMonitor(Monitor monitor);
 	
@@ -37,8 +57,9 @@ public interface ComputerRepository extends JpaRepository<Computer, Long>{
 	
 	// Generalized search
 	@Query("SELECT computer FROM Computer computer " +
-	           "WHERE computer.deletedDate = null " +
+	           "WHERE computer.deletedDate IS NULL " +
 	           "AND (LOWER(computer.patrimonyId) like %:searchTerm% " +
+	           "OR LOWER(computer.sector.name) like %:searchTerm% " +
 	           "OR LOWER(computer.manufacturer) like %:searchTerm% " +
 	           "OR LOWER(computer.model) like %:searchTerm% " +
 	           "OR LOWER(computer.ipAddress) like %:searchTerm% " +
@@ -46,30 +67,43 @@ public interface ComputerRepository extends JpaRepository<Computer, Long>{
 	           "OR LOWER(computer.motherBoardName) like %:searchTerm% " +
 	           "OR LOWER(computer.cabinetModel) like %:searchTerm% )" )
 	Page<Computer> search(@Param("searchTerm") String searchTerm, Pageable pageable);
+
+	@Query("SELECT computer FROM Computer computer " +
+	           "WHERE computer.deletedDate IS NULL " +
+	           "AND computer.teamViewerId IS NOT NULL " +
+	           "AND (LOWER(computer.patrimonyId) like %:searchTerm% " +
+	           "OR LOWER(computer.sector.name) like %:searchTerm% " +
+	           "OR LOWER(computer.manufacturer) like %:searchTerm% " +
+	           "OR LOWER(computer.model) like %:searchTerm% " +
+	           "OR LOWER(computer.ipAddress) like %:searchTerm% " +
+	           "OR LOWER(computer.hostName) like %:searchTerm% " +
+	           "OR LOWER(computer.motherBoardName) like %:searchTerm% " +
+	           "OR LOWER(computer.cabinetModel) like %:searchTerm% )" )
+	Page<Computer> searchAndTeamViewerIdNotNull(@Param("searchTerm") String searchTerm, Pageable pageable);
 	
 	@Query("FROM Computer computer " +
-	           "WHERE computer.deletedDate = null " +
+	           "WHERE computer.deletedDate IS NULL " +
 	           "AND (LOWER(computer.processor.manufacturer) like %:searchTerm% " +
 	           "OR LOWER(computer.processor.model) like %:searchTerm% " +
 	           "OR LOWER(computer.processor.processorName) like %:searchTerm% )" )
 	Page<Computer> searchByProcessorTerms(@Param("searchTerm") String searchTerm, Pageable pageable);
 	
 	@Query("FROM Computer computer JOIN computer.computerUsers computerUser " +
-				"WHERE computer.deletedDate = null " +
+				"WHERE computer.deletedDate IS NULL " +
 				"AND (LOWER(computerUser.name) like %:searchTerm% " +
 				"OR LOWER(computerUser.lastName) like %:searchTerm% )" )
 	Page<Computer> searchByComputerUserTerms(@Param("searchTerm") String searchTerm, Pageable pageable);
 	
 	@Query("FROM Computer computer " +
-			"WHERE computer.deletedDate = null AND computer.online = :searchTerm " )
+			"WHERE computer.deletedDate IS NULL AND computer.online = :searchTerm " )
 	Page<Computer> searchByOnline(boolean searchTerm, Pageable pageable);
 	
 	@Query("FROM Computer computer " +
-			"WHERE computer.deletedDate = null AND computer.onTheDomain = :searchTerm " )
+			"WHERE computer.deletedDate IS NULL AND computer.onTheDomain = :searchTerm " )
 	Page<Computer> searchByOnTheDomain(boolean searchTerm, Pageable pageable);
 	
 	@Query("FROM Computer computer " +
-			"WHERE computer.deletedDate = null AND computer.personalComputer = :searchTerm " )
+			"WHERE computer.deletedDate IS NULL AND computer.personalComputer = :searchTerm " )
 	Page<Computer> searchByPersonalComputer(boolean searchTerm, Pageable pageable);
 
 	

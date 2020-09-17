@@ -77,7 +77,6 @@ public class ClientResource {
 	 * @param id
 	 * @return ResponseEntity<Void>
 	 */
-	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody ClientNewDTO objectDTO, @PathVariable Long id) {
 		Client object = this.service.fromDTO(objectDTO);

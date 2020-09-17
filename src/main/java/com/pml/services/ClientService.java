@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pml.domain.Client;
+import com.pml.domain.enums.UserProfile;
 import com.pml.dto.ClientDTO;
 import com.pml.dto.ClientNewDTO;
 import com.pml.repositories.ClientRepository;
@@ -47,13 +48,6 @@ public class ClientService {
 			throw new AuthorizationException("Access denied");
 		return this.repository.findById(id).orElseThrow(()-> new ObjectNotFoundException("User not found: id: '" + id + "'. Type: " + Client.class.getSimpleName()));
 	}
-	
-	public Client findByEmail(String email) {
-		UserSS user = UserService.authenticated();
-		if(user == null || !email.equals(user.getUsername()))
-			throw new AuthorizationException("Access denied");
-		return this.repository.findByEmail(email).orElseThrow(()-> new ObjectNotFoundException("User not found: email: '" + email + "'. Type: " + Client.class.getSimpleName()));
-	}
 
 	// Create, update and delete methods
 	public Client insert(Client object) {
@@ -72,8 +66,10 @@ public class ClientService {
 	}
 
 	public Client update(Client object) {
-		this.findById(object.getId());
-		return this.repository.saveAndFlush(object);		
+		Client client = this.findById(object.getId());
+		if(client.getProfiles().contains(UserProfile.ADMIN))
+			client.getProfiles().forEach(profile -> object.addProfile(profile));
+		return this.repository.saveAndFlush(object);
 	}
 
 	// Auxiliary methods
