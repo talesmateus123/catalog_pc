@@ -17,8 +17,6 @@ public class ComputerDTO implements Serializable {
 	private Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date lastModifiedDate;
-	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Date deletedDate;
 	private Integer equipmentType;
 	private String manufacturer;
 	private String model;
@@ -50,7 +48,6 @@ public class ComputerDTO implements Serializable {
 		this.id = computer.getId(); 
 		this.createdDate = computer.getCreatedDate();
 		this.lastModifiedDate = computer.getLastModifiedDate();
-		this.deletedDate = computer.getDeletedDate();
 		this.equipmentType = (computer.getEquipmentType() != null) ? computer.getEquipmentType().getCod() : null;
 		this.manufacturer = computer.getManufacturer();
 		this.model = computer.getModel();
@@ -117,14 +114,6 @@ public class ComputerDTO implements Serializable {
 
 	public void setLastModifiedDate(Date lastModifiedDate) {
 		this.lastModifiedDate = lastModifiedDate;
-	}
-	
-	public Date getDeletedDate() {
-		return deletedDate;
-	}
-
-	public void setDeletedDate(Date deletedDate) {
-		this.deletedDate = deletedDate;
 	}
 
 	public EquipmentType getEquipmentType() {

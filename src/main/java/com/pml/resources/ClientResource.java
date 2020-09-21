@@ -48,9 +48,9 @@ public class ClientResource {
 		return ResponseEntity.ok().body(objectsDTO);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<Client> findById(@PathVariable Long id) {
-		Client object = this.service.findById(id);
+	@GetMapping("/{email}")
+	public ResponseEntity<Client> findByEmail(@PathVariable String email) {
+		Client object = this.service.findByEmail(email);
 		return ResponseEntity.ok().body(object);
 	}
 

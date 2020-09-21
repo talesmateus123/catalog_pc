@@ -57,7 +57,7 @@ public class SupportService {
         	if(!ServiceUtil.parameterExistsInTheClass(orderBy, Computer.class)) 
         		throw new InvalidQueryException("The value of orderBy parameter: '" + orderBy + "' doesn't exists in the '" + Computer.class.getName() + "' class.");
         	
-        	return repository.searchAndTeamViewerIdNotNull(searchTerm.toLowerCase(), pageRequest);
+        	return repository.searchByTeamViewerIdNotNull(searchTerm.toLowerCase(), pageRequest);
     	}
     	catch (IllegalArgumentException e) {
     		throw new IllegalArgException("The value of direction parameter: '" + direction + "' is invalid, this value must be 'ASC' or 'DESC'.");

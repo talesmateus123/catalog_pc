@@ -15,6 +15,7 @@ public class ComputerUserDTO implements Serializable {
 	private String name;
 	private String lastName;
 	private String email;
+	private String sectorName;
 	
 	public ComputerUserDTO() {		
 	}
@@ -24,6 +25,7 @@ public class ComputerUserDTO implements Serializable {
 		this.name = computerUser.getName();
 		this.lastName = computerUser.getLastName();
 		this.email = computerUser.getEmail();
+		this.sectorName = computerUser.getSector().getName();
 	}
 	
 	public Long getId() {
@@ -56,6 +58,14 @@ public class ComputerUserDTO implements Serializable {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getSectorName() {
+		return sectorName;
+	}
+	
+	public void setSectorName(String sectorName) {
+		this.sectorName = sectorName;
 	}
 	
 	

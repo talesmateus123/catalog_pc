@@ -6,6 +6,7 @@
 package com.pml.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -48,6 +49,17 @@ public class ClientService {
 			throw new AuthorizationException("Access denied");
 		return this.repository.findById(id).orElseThrow(()-> new ObjectNotFoundException("User not found: id: '" + id + "'. Type: " + Client.class.getSimpleName()));
 	}
+	
+	public Client findByEmail(String email) {
+		Optional<Client> optionalClient = this.repository.findByEmail(email);
+		UserSS user = UserService.authenticated();
+		optionalClient.ifPresent(client -> {
+			if (user == null || !client.getId().equals(user.getId()))
+				throw new AuthorizationException("Access denied");
+		});
+		return optionalClient.orElseThrow(()-> new ObjectNotFoundException("User not found: e-mail: '" + email + "'. Type: " + Client.class.getSimpleName()));
+	}
+
 
 	// Create, update and delete methods
 	public Client insert(Client object) {

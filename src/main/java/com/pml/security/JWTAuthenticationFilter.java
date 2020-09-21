@@ -76,10 +76,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String token = jwtUtil.generateToken(user.getUsername());
         // Adding the generated token to the response header.
         res.addHeader("Authorization", "Bearer " + token);
-        // Adding expiration date for the generated token to the response header.
-        res.addHeader("user-id", user.getId().toString());
-        // Allows to expose the "Authorization and token-expiration" header
-        res.addHeader("access-control-expose-headers", "Authorization, user-id");
+        // Allows to expose the "Authorization header
+        res.addHeader("access-control-expose-headers", "Authorization");
 	}
 	
     /**

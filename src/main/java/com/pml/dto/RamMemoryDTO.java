@@ -15,8 +15,6 @@ public class RamMemoryDTO implements Serializable {
 	private Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date lastModifiedDate;
-	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Date deletedDate;
 	private Integer equipmentType;
 	private String manufacturer;
 	private String model;
@@ -33,7 +31,6 @@ public class RamMemoryDTO implements Serializable {
 		this.id = ramMemory.getId();
 		this.createdDate = ramMemory.getCreatedDate();
 		this.lastModifiedDate = ramMemory.getLastModifiedDate();
-		this.deletedDate = ramMemory.getDeletedDate();
 		this.equipmentType = ramMemory.getEquipmentType().getCod();
 		this.manufacturer = ramMemory.getManufacturer();
 		this.model = ramMemory.getModel();
@@ -65,14 +62,6 @@ public class RamMemoryDTO implements Serializable {
 
 	public void setLastModifiedDate(Date lastModifiedDate) {
 		this.lastModifiedDate = lastModifiedDate;
-	}
-	
-	public Date getDeletedDate() {
-		return deletedDate;
-	}
-
-	public void setDeletedDate(Date deletedDate) {
-		this.deletedDate = deletedDate;
 	}
 
 	public EquipmentType getEquipmentType() {

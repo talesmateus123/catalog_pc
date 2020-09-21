@@ -18,12 +18,12 @@ import com.pml.domain.NetworkDevice;
 @Repository
 public interface NetworkDeviceRepository extends JpaRepository<NetworkDevice, Long>{
 	@Query("FROM NetworkDevice networkDevice " +
-	           "WHERE networkDevice.deletedDate = null " +
 				"ORDER BY networkDevice.patrimonyId ASC")
-	List<NetworkDevice> findByOrderByPatrimonyId();	
-	@Query("FROM NetworkDevice networkDevice " +
-	           "WHERE networkDevice.deletedDate = null")
+	List<NetworkDevice> findByOrderByPatrimonyId();
+	
+	@Query("FROM NetworkDevice networkDevice ")
 	Page<NetworkDevice> findPageByOrderByPatrimonyId(Pageable pageable);
+	
 	@Query("FROM NetworkDevice networkDevice " +
 	           "WHERE LOWER(networkDevice.patrimonyId) like %:searchTerm% " +
 	           "OR LOWER(networkDevice.manufacturer) like %:searchTerm% " +

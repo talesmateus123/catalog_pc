@@ -18,12 +18,12 @@ import com.pml.domain.Printer;
 @Repository
 public interface PrinterRepository extends JpaRepository<Printer, Long>{
 	@Query("FROM Printer printer " +
-	           "WHERE printer.deletedDate = null " +
 				"ORDER BY printer.patrimonyId ASC")
-	List<Printer> findByOrderByPatrimonyId();	
-	@Query("FROM Printer printer " +
-	           "WHERE printer.deletedDate = null")
+	List<Printer> findByOrderByPatrimonyId();
+	
+	@Query("FROM Printer printer ")
 	Page<Printer> findPageByOrderByPatrimonyId(Pageable pageable);
+	
 	@Query("FROM Printer printer " +
 	           "WHERE LOWER(printer.patrimonyId) like %:searchTerm% " +
 	           "OR LOWER(printer.manufacturer) like %:searchTerm% " +

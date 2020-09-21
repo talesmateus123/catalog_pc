@@ -15,14 +15,13 @@ public class MonitorDTO implements Serializable {
 	private Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private Date lastModifiedDate;
-	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	private Date deletedDate;
 	private Integer equipmentType;
 	private String manufacturer;
 	private String model;
 	private String description;
 	private boolean itWorks;
 	private boolean itComposed;
+	private String sectorName;
 	
 	public MonitorDTO() {
 	}
@@ -32,7 +31,6 @@ public class MonitorDTO implements Serializable {
 		this.patrimonyId = monitor.getPatrimonyId();
 		this.createdDate = monitor.getCreatedDate();
 		this.lastModifiedDate = monitor.getLastModifiedDate();
-		this.deletedDate = monitor.getDeletedDate();
 		this.equipmentType = monitor.getEquipmentType().getCod();
 		this.manufacturer = monitor.getManufacturer();
 		this.model = monitor.getModel();
@@ -40,6 +38,7 @@ public class MonitorDTO implements Serializable {
 		this.itComposed = monitor.isItComposed();
 		this.equipmentType = monitor.getEquipmentType().getCod();
 		this.itComposed = monitor.isItComposed();
+		this.sectorName = monitor.getSector().getName();
 	}
 	
 	public Long getId() {
@@ -72,14 +71,6 @@ public class MonitorDTO implements Serializable {
 
 	public void setLastModifiedDate(Date lastModifiedDate) {
 		this.lastModifiedDate = lastModifiedDate;
-	}
-	
-	public Date getDeletedDate() {
-		return deletedDate;
-	}
-
-	public void setDeletedDate(Date deletedDate) {
-		this.deletedDate = deletedDate;
 	}
 
 	public EquipmentType getEquipmentType() {
@@ -128,6 +119,14 @@ public class MonitorDTO implements Serializable {
 
 	public void setItComposed(boolean itComposed) {
 		this.itComposed = itComposed;
+	}
+	
+	public String getSectorName() {
+		return sectorName;
+	}
+	
+	public void setSectorName(String sectorName) {
+		this.sectorName = sectorName;
 	}
 	
 	

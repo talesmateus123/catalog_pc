@@ -8,6 +8,7 @@ package com.pml.services;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -44,7 +45,7 @@ public class MonitorService extends EquipmentService {
 	}
 	
 	public List<Monitor> findAllWithoutComputer() {
-		return this.repository.findAllByComputerNull();
+		return this.repository.findAll().stream().filter(monitor -> monitor.getComputer() == null).collect(Collectors.toList());
 	}
 	
 	public Page<Monitor> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {

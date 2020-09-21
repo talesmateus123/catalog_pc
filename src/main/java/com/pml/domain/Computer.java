@@ -339,8 +339,6 @@ public class Computer extends Equipment{
 		builder.append(createdDate);
 		builder.append(", lastModifiedDate=");
 		builder.append(lastModifiedDate);
-		builder.append(", deletedDate=");
-		builder.append(deletedDate);
 		builder.append(", equipmentType=");
 		builder.append(getEquipmentType().getDescription());
 		builder.append(", manufacturer=");

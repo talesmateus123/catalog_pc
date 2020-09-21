@@ -29,8 +29,6 @@ public abstract class Electronic implements Serializable{
 	protected Date createdDate;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	protected Date lastModifiedDate;
-	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-	protected Date deletedDate;
 	protected Integer equipmentType;
 	protected String manufacturer = "";
 	protected String model = "";
@@ -46,7 +44,6 @@ public abstract class Electronic implements Serializable{
 		this.id = id;
 		this.createdDate = createdDate;
 		this.lastModifiedDate = lastModifiedDate;
-		this.deletedDate = deletedDate;
 		this.equipmentType = (equipmentType == null) ? null : equipmentType.getCod();		
 		this.manufacturer = manufacturer ;
 		this.model = model;
@@ -76,14 +73,6 @@ public abstract class Electronic implements Serializable{
 
 	public void setLastModifiedDate(Date lastModifiedDate) {
 		this.lastModifiedDate = lastModifiedDate;
-	}
-
-	public Date getDeletedDate() {
-		return deletedDate;
-	}
-
-	public void setDeletedDate(Date deletedDate) {
-		this.deletedDate = deletedDate;
 	}
 
 	public EquipmentType getEquipmentType() {
@@ -159,8 +148,6 @@ public abstract class Electronic implements Serializable{
 		builder.append(createdDate);
 		builder.append(", lastModifiedDate=");
 		builder.append(lastModifiedDate);
-		builder.append(", deletedDate=");
-		builder.append(deletedDate);
 		builder.append(", equipmentType=");
 		builder.append(equipmentType);
 		builder.append(", manufacturer=");
