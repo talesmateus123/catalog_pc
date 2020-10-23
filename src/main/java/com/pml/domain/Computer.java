@@ -64,6 +64,9 @@ public class Computer extends Equipment{
 	@OneToOne
 	@JoinColumn(name = "processor_id")
 	private Processor processor;
+	@OneToOne
+	@JoinColumn(name = "support_info_id")
+	private SupportInfo supportInfo;
 	
 	public Computer() {
 		super();
@@ -156,6 +159,14 @@ public class Computer extends Equipment{
 	public void setProcessor(Processor processor) {
 		this.processor = processor;
 	}	
+
+	public SupportInfo getSupportInfo() {
+		return supportInfo;
+	}
+
+	public void setSupportInfo(SupportInfo supportInfo) {
+		this.supportInfo = supportInfo;
+	}
 
 	public Boolean getHasCdBurner() {
 		return hasCdBurner;
