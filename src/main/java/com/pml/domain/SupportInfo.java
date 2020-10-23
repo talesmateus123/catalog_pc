@@ -1,61 +1,65 @@
 package com.pml.domain;
 
-import java.util.Date;
+import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import com.pml.domain.enums.ArchitectureType;
-import com.pml.domain.enums.EquipmentType;
 
 @Entity
-public class SupportInfo extends Electronic {
+public class SupportInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@Size(max = 30, message = "{processorName.size}")
-	private String processorName;
-	@NotNull(message = "{not.null}")
-	private Integer architecture;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String teamViewerId;
+	private String teamViewerPass;
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "supportInfo")
 	private Computer computer;
 	
+	
+	
 	public SupportInfo() {
-		super();
-		this.setEquipmentType(EquipmentType.PROCESSOR);	
-		this.setItComposed(false);
 	}
-	
-	public SupportInfo(Long id, Date createdDate, Date lastModifiedDate, Date deletedDate, String manufacturer,
-			String model, String description, String processorNumber, 
-			ArchitectureType architecture, Computer computer) {
-		super(id, createdDate, lastModifiedDate, deletedDate, EquipmentType.PROCESSOR, manufacturer, model, description, false);
-		this.processorName = processorNumber;
-		this.architecture = architecture.getCod();
-		this.setItComposed(false);
+
+	public SupportInfo(Long id, String teamViewerId, String teamViewerPass, Computer computer) {
+		this.id = id;
+		this.teamViewerId = teamViewerId;
+		this.teamViewerPass = teamViewerPass;
+		this.computer = computer;
 	}
-	
-	public String getProcessorName() {
-		return processorName;
+
+	public Long getId() {
+		return id;
 	}
-	
-	public void setProcessorName(String processorName) {
-		this.processorName = processorName;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
-	
-	public ArchitectureType getArchitecture() {
-		return ArchitectureType.toEnum(architecture);
+
+	public String getTeamViewerId() {
+		return teamViewerId;
 	}
-	
-	public void setArchitecture(ArchitectureType architecture) {
-		this.architecture = architecture.getCod();
+
+	public void setTeamViewerId(String teamViewerId) {
+		this.teamViewerId = teamViewerId;
 	}
-	
+
+	public String getTeamViewerPass() {
+		return teamViewerPass;
+	}
+
+	public void setTeamViewerPass(String teamViewerPass) {
+		this.teamViewerPass = teamViewerPass;
+	}
+
 	public Computer getComputer() {
 		return computer;
 	}
-	
+
 	public void setComputer(Computer computer) {
 		this.computer = computer;
 	}
